@@ -1,0 +1,1757 @@
+\def\VCDate{2025/07/13}\def\VCVersion{(Current)}
+\documentclass[a4paper,11pt,titlepage]{article}
+\usepackage{A4}
+\usepackage{ProofPower}
+\usepackage{fleqn}
+
+\ftlinepenalty=9999
+\def\Hide#1{}
+\def\Bool{``$\it{:}bool\,$''}
+\makeindex
+\title{{\bf HOL Formalised: \\ Deductive System}}  %% Mandatory field
+\author{R.D. Arthan \\ Lemma 1 Ltd. \\ rda@lemma-one.com}
+\date{25 October 1993 \\ Revised \FormatDate{\VCDate}}
+\usepackage{makeidx}
+\newcommand{\ignore}[1]{}
+\usepackage{graphicx}
+\usepackage[unicode]{hyperref}
+\pagestyle{plain}
+\usepackage[paperwidth=5.25in,paperheight=8in,hmargin={0.75in,0.5in},vmargin={0.5in,0.5in},includehead,includefoot]{geometry}
+\hypersetup{pdfauthor={Roger Bishop Jones}}
+\hypersetup{pdftitle={Focal Engineering}}
+\hypersetup{colorlinks=true, urlcolor=red, citecolor=blue, filecolor=blue, linkcolor=blue}
+%\usepackage{html}
+\usepackage{paralist}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{longtable}
+\usepackage{url}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc} % Enables Unicode input
+\newcommand{\hreg}[2]{\href{#1}{#2}\footnote{\url{#1}}}
+\makeindex
+
+\title{\LARGE\bf }
+\author{Roger~Bishop~Jones}
+\date{\small 2025:07:13}
+
+\begin{document}
+\begin{titlepage}
+\maketitle
+\begin{abstract}
+This is a derivative of spc003, part of a suite of documents giving
+a formal specification of the HOL logic.
+That document defines the primitive inference rules, including conservative extension mechanisms in a manner which is not as constructive as might have been desired, for reasons which we need not go into.
+
+This document is derived from it for reasons which demand a that ``contruactive'' approach despite any awkwardness in that approach, by which I mean that, where in the original a constructor is defined as a relation rather than as a function (possibly because native support for partial functions in HOL is lacking), in this version it will be defined as a total function which yields a conventional default for values outside its intended domain.
+
+\end{abstract}
+\vfill           
+\begin{titlepage}
+\maketitle
+
+%\vfill
+
+%\begin{centering}
+
+%{\footnotesize
+%copyright\ Roger~Bishop~Jones;
+%}%footnotesize
+
+%\end{centering}
+
+\end{titlepage}
+
+\ \
+
+\ignore{
+\begin{centering}
+{}
+\end{centering}
+}%ignore
+
+\setcounter{tocdepth}{2}
+{\parskip-0pt\tableofcontents}
+
+\           
+
+\section{INTRODUCTION}
+
+Derived from \cite{DS/FMU/IED/SPC003} and at present depending on the theory spc001 from \cite{DS/FMU/IED/SPC001}.
+
+On the mechanical side there is systematic replacement of relational by functional specification of those parts of the specification which might ultimately be compiled into a logical kernel.
+More substantively, the intention is to prioritise simplicity of the rules disregarding any intention to make the logical kernel powerful for the sake of efficiency in an LCF-like system in which all proofs go through that bottleneck.
+In the intended system the more powerful inference rules would be proven sound and then could be used directly without reduction to the priimitive rules given here.
+
+The intention is nevertheless, that the set of theorems provable is unchanged, however radical the changes to the presentation of the deductive system.
+So the notion of derivability is intended to be extensionally identical to that in spc003, and derived rules of inference are required to be proven to yield only derivable theorems before they can be accepted.
+One extra rule will be added \emp{after} the definition of derivability is finalised, which allows as theorems anything computed by an algorith which has been proven to deliver only derivable theorems.
+
+HOL has five rules
+of inference: $ABS$, $DISCH$, $INST\_TYPE$, $MP$, $SUBST$
+(defined in section \ref{RULESOFINFERENCE} below)
+and three axiom schemata (which are also treated as rules): $ASSUME$, $BETA\_CONV$ and $REFL$
+(defined in section \ref{AXIOMSCHEMATA}).
+
+With the rules of inference
+in hand, we define derivability in section
+\ref{DERIVABILITY}.
+We then define the type of theorems of HOL as those pairs
+$(s, T)$ where $T$ is a theory and $s$ is a sequent in the
+language of $T$ derivable from the axioms of $T$.
+
+Section \ref{CONSISTENCY},
+defines the type of all theorems and
+specifies the notions of consistency and conservative
+extension.
+
+Mechanisms for extending theories by
+making definitions are of great practical
+importance, particularly those which preserve consistency.
+Section \ref{DEFINITIONS} discusses
+the means by which theories may be extended in the HOL
+system. Of particular importance are certain mechanisms
+for introducing new constants and types.
+
+In section \ref{INIT} we define the individual axioms
+of the HOL logic.
+The resulting theory is of special
+interest, as are what we call its definitional extensions,
+which we define in section \ref{DEFINITIONALEXTENSIONS}:
+they are all consistent and have
+a common standard set-theoretic model;
+their theorems comprise what are normally taken to
+be the theorems of HOL by those who shun axiomatic
+extensions.
+
+\section{PREAMBLE}
+
+We introduce the new theory.
+Its parent is the theory $spc003$ since some of the definitions in that theory are used here as well, and the functional definitions are given distinct names from their relational predecessors.
+
+\begin{GFT}{SML}
+\+open\_theory"spc003";\\
+\+new\_theory\PrNL{}"spc003n"\PrNN{};\\
+\end{GFT}
+\section{THE RULES OF INFERENCE} \label{RULESOFINFERENCE}
+
+In this section we treat the syntax manipulating
+functions required to define the various rules of
+inference. We consider each inference rule in turn.
+In the HOL system the inference rules are functions
+which take theorems (and other things) as arguments
+and return theorems. Since we cannot define
+the type of theorems until we have defined the inference
+rules we define the rules as functions taking
+sequents (and other things) as arguments and returning
+sequents.
+
+[It is possible that the notion of sequent will be eliminated in due course, since it is semantically a definable truth function, though the benefit in terms of simplicity would be small (or negative?)] 
+
+\subsection{Object Language Constructs}
+
+To define the rules of inference we need to form
+certain object language types and terms.
+We have already defined the function space type
+constructor.
+The other definitions needed are given in this
+section.
+
+The following is our analogue of the derived
+constructor function for equations in the HOL system.
+
+To do it we first define the functional version of term applications and abstraction.
+Ultimately this will come from the definition of the type of terms, but for now we can conveniently obtain it using the choice function on $has\_mk\_comb$ and $has\_mk\_abs$:
+
+\begin{HOLConst}
+\+	\PrNL{}mk\_comb\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall}f a\MMM{\bullet}	mk\_comb (f, a) = \MMM{\epsilon}t\MMM{\bullet} has\_mk\_comb((f,a),t)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}mk\_abs\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall}v b\MMM{\bullet}	mk\_abs (v, b) = \MMM{\epsilon}t\MMM{\bullet} has\_mk\_abs((v,b),t)\\
+\end{HOLConst}
+
+\begin{HOLConst}
+\+	\PrNL{}mk\_eq\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} lhs rhs\MMM{\bullet} mk\_eq(lhs, rhs) \MMM{\Leftrightarrow}\\
+\+	mk\_comb(mk\_comb (equality\_ty(type\_of lhs), lhs),rhs)\\
+\end{HOLConst}
+
+
+\begin{HOLConst}
+\+	\PrNL{}mk\_imp\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} lhs rhs \MMM{\bullet} mk\_imp(lhs, rhs) = mk\_comb(mk\_comb(Implication, lhs), rhs)\\
+\end{HOLConst}
+
+\begin{GFT}{SML}
+\+stop;\\
+\end{GFT}
+
+\subsection{Substitution of Equals}
+
+In this section we define the inference rule {\it SUBST}.
+
+In essence, {\it SUBST} says that given a
+theorem whose conclusion is an equation, ${\cal A} = {\cal B}$, where
+$\cal A$ and $\cal B$ are arbitrary terms of the same
+type, and given any other theorem with conclusion
+$\cal C$, we may obtain a new theorem by substituting
+$\cal B$ for
+any subterm of $\cal C$ which is identical with $\cal A$. This is subject to the proviso that no variable
+capture problems arise, i.e. no
+free variables of $\cal B$ should become bound in the
+conclusion of the new theorem. (The assumption set of the
+consequent theorem is the union of the assumption sets of
+the antecedent theorems.)
+
+The inference rule is, in fact, slightly more
+general. It allows one to use a whole set of theorems
+whose conclusions are equations to perform (simultaneous)
+substitutions for many subterms of $\cal C$. Moreover,
+it is implemented as a functional relation, effectively by
+renaming any bound variables of $\cal C$ which would
+give rise to the capture problem.
+
+The inference rule is parametrised by a template term
+and a set of some of its free variables, one for each equation.
+The actual statement of the rule is, essentially, that,
+if the result of substituting the left hand sides
+of the equations for the corresponding variables
+in the template term
+is equal to $\cal C$ ({\it modulo} renaming bound
+variables), then we may infer the result of substituting
+the right hand sides of the equations for the
+corresponding template variables in the template term
+(providing we rename bound variables to avoid the capture
+problem).
+
+
+The notions we must formalise are therefore:
+(i) substituting terms for
+free variables in a term according to a given mapping
+of variables to terms renaming bound variables
+as necessary to avoid variable capture;
+(ii) testing equivalence of
+terms {\it modulo} renaming of bound variables (aka.
+$\alpha$-conversion).
+
+\subsubsection{Substitution}
+
+We will need to choose new names for variables.
+More precisely,
+given a variable and a set of same we will
+wish to rename the variable, when necessary,
+to ensure that the result
+does not lie in the set.
+In practice in an implementation we would insist that the new name
+be derived from the old one in a specified way.
+
+\begin{HOLConst}
+\+	\PrNL{}variant\PrNN{} : ((STRING \MMM{\times} TYPE) SET) \MMM{\rightarrow} (STRING \MMM{\times} TYPE) \MMM{\rightarrow} STRING\\
+\PrPH{}
+\+	\MMM{\forall} vs v ty \MMM{\bullet}\\
+\+		if \MMM{\lnot}(v, ty) \MMM{\in} vs\\
+\+		then variant vs (v, ty) = v\\
+\+		else \MMM{\lnot}(variant vs (v, ty), ty) \MMM{\in} vs\\
+\end{HOLConst}
+
+
+Now we can define $subst$. Given a function $R$
+associating free variables with terms,
+$subst\,R\,t1$ is the
+term resulting from replacing every free variable
+$mk\_var(s, t)$
+in {\it t1} by $\it R(mk\_var(s, t))$ with bound
+variables renamed as necessary to avoid capture.
+Variables which are not to be changed correspond
+to pairs $(s, t)$ with $R (s, t) =  mk\_var (s, t)$.
+
+Note $R$ here is intended to respect types, in the
+sense that
+$\MMM{\forall}s ty\MMM{\bullet}type\_of\_term(R(s,ty)) = ty$, but this is not
+checked here (since it is convenient for $subst$ to be
+a total function). This property should be checked whenever
+$subst$ is used.
+
+The only difficult case in $subst$ is when the
+second argument is an abstraction. In this case we
+calculate the variables which must not get captured (this
+is the value $new\_frees$ below) and use $variant$ to
+give an alternative name for the bound variable if necessary.
+We then perform the substitution on the body using
+a function, $RR$, which is $R$ modified to send the
+old bound variable to the new one.
+
+\begin{HOLConst}
+\+	\PrNL{}subst\PrNN{} : ((STRING \MMM{\times} TYPE) \MMM{\rightarrow} TERM) \MMM{\rightarrow} TERM \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} R :(STRING \MMM{\times} TYPE) \MMM{\rightarrow} TERM; tm : TERM;\\
+\+	s : STRING; ty : TYPE; vty : TERM;\\
+\+	f : TERM; a : TERM; b : TERM\\
+\+	\MMM{\bullet}\\
+\+	subst R (mk\_var(s, ty)) = R(s,ty)\\
+\+	\MMM{\land}\\
+\+	subst R (mk\_const(s, ty)) = mk\_const(s, ty)\\
+\+	\MMM{\land}\\
+\+	(has\_mk\_comb(f, a) tm \MMM{\Rightarrow}\\
+\+	(subst R tm = \MMM{\epsilon}t\MMM{\bullet}has\_mk\_comb(subst R f, subst R a)t))\\
+\+	\MMM{\land}\\
+\+	((has\_mk\_abs(vty, b) tm \MMM{\land} mk\_var(s, ty) = vty) \MMM{\Rightarrow}\\
+\+	(subst R tm =\\
+\+		let new\_frees = \MMM{\bigcup}(Graph (freevars\_set o R) Image\\
+\+					(freevars\_set b \Backslash{} \{(s, ty)\}))\\
+\+		in  let s' = variant new\_frees (s, ty)\\
+\+		in let RR x = if x = (s, ty) then mk\_var (s', ty) else R x\\
+\+		in\\
+\+			\MMM{\epsilon}t\MMM{\bullet}\\
+\+			has\_mk\_abs\\
+\+			(mk\_var(s', ty), subst RR b)t\\
+\+	))\\
+\end{HOLConst}
+
+The special case of substitution
+where we simply wish to rename a variable
+is needed in the definition of our $\alpha$-conversion
+test and elsewhere.
+The following function $rename$ is used for this purpose.
+$rename (v, ty) w\, e$ is the result of changing
+the name in every free occurrence of the
+variable with name $v$, and type $ty$, in the
+term $e$, to $w$, renaming any bound variables
+as necessary.
+
+\begin{HOLConst}
+\+	\PrNL{}rename\PrNN{} : (STRING \MMM{\times} TYPE) \MMM{\rightarrow} STRING \MMM{\rightarrow} TERM \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} v : STRING; ty : TYPE; w: STRING\\
+\+	\MMM{\bullet}\\
+\+	rename (v, ty) w =\\
+\+	subst (\MMM{\lambda}x\MMM{\bullet}if x = (v, ty) then mk\_var(w, ty) else mk\_var x)\\
+\end{HOLConst}
+
+
+\subsubsection{$\alpha$-conversion}
+Our $\alpha$-conversion test is as follows:
+\begin{HOLConst}
+\+	\PrNL{}aconv\PrNN{} : TERM \MMM{\rightarrow} TERM \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall}t1 t2 : TERM\MMM{\bullet}\\
+\+	aconv t1 t2 \MMM{\Leftrightarrow}\\
+\+		(t1 = t2)\\
+\+	\MMM{\lor}	(\MMM{\exists}t1f t1a t2f t2a\MMM{\bullet}\\
+\+			has\_mk\_comb(t1f, t1a)t1\\
+\+		\MMM{\land}	has\_mk\_comb(t2f, t2a)t2\\
+\+		\MMM{\land}	aconv t1f t2f \MMM{\land} aconv t1a t2a)\\
+\+	\MMM{\lor}	(\MMM{\exists}v1 v2 ty v1ty v2ty b1 b2\MMM{\bullet}\\
+\+			has\_mk\_abs(v1ty, b1)t1	\MMM{\land}	has\_mk\_abs(v2ty, b2)t2\\
+\+		\MMM{\land}	mk\_var(v1, ty) = v1ty	\MMM{\land}	mk\_var(v2, ty) = v2ty\\
+\+		\MMM{\land}	aconv b1 (rename (v2, ty) v1 b2)\\
+\+		\MMM{\land}	((v1 = v2) \MMM{\lor} (\MMM{\lnot}(v1, ty) \MMM{\in} freevars\_set b2)))\\
+\end{HOLConst}
+
+\subsubsection{The Inference Rule $SUBST$}
+We can now define the inference rule.
+Its first argument gives the correspondence between the
+template variables and equation theorems.
+We could take this argument to
+behave as {\it REFL\_axiom o mk\_var} on variables which
+are not template variables .
+Note that, to allow implementation as a partial function,
+we test up to $\alpha$-convertibility on the first
+sequent argument only.
+Note also that the way that the first argument to $subst$
+is constructed by dismantling equations ensures that
+it respects types.
+\begin{HOLConst}
+\+	\PrNL{}SUBST\_rule\PrNN{} : ((STRING \MMM{\times} TYPE) \MMM{\rightarrow} SEQ) \MMM{\rightarrow}\\
+\+			TERM \MMM{\rightarrow} SEQ \MMM{\rightarrow} SEQ \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} eqs tm old\_asms old\_conc new\_asms  new\_conc\MMM{\bullet}\\
+\+	SUBST\_rule eqs tm (old\_asms, old\_conc) (new\_asms, new\_conc) \MMM{\Leftrightarrow}\\
+\+	(\MMM{\forall}v ty \MMM{\bullet}\\
+\+		\MMM{\exists}lhs rhs\MMM{\bullet}\\
+\+		has\_mk\_eq(lhs, rhs)(concl(eqs(v, ty))) \MMM{\land}\\
+\+		(type\_of\_term lhs = ty))\\
+\+	\MMM{\land}\\
+\+	(aconv old\_conc (subst(\MMM{\lambda}(v,ty)\MMM{\bullet}\MMM{\epsilon}lhs\MMM{\bullet}\MMM{\exists}rhs\MMM{\bullet}has\_mk\_eq(lhs, rhs)(concl(eqs(v,ty))))tm))\\
+\+	\MMM{\land}\\
+\+	(new\_conc = subst (\MMM{\lambda}(v,ty)\MMM{\bullet}\MMM{\epsilon}rhs\MMM{\bullet}\MMM{\exists}lhs\MMM{\bullet}has\_mk\_eq(lhs, rhs)(concl(eqs(v,ty))))tm)\\
+\+	\MMM{\land}\\
+\+	(new\_asms = old\_asms \MMM{\cup} \MMM{\bigcup} \{asms | \MMM{\exists}vty\MMM{\bullet}asms = (hyp (eqs vty))\})\\
+\end{HOLConst}
+
+\subsection{Abstraction: ABS}
+
+Again {\it ABS} is a partial function which we
+specify as a relation:
+
+\begin{HOLConst}
+\+	\PrNL{}ABS\_rule\PrNN{} : (STRING \MMM{\times} TYPE) \MMM{\rightarrow} SEQ \MMM{\rightarrow} SEQ \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} vty old\_asms old\_conc new\_asms new\_conc \MMM{\bullet}\\
+\+	ABS\_rule vty (old\_asms, old\_conc) (new\_asms, new\_conc) \MMM{\Leftrightarrow}\\
+\+	(\MMM{\exists} old\_lhs old\_rhs new\_lhs new\_rhs v\MMM{\bullet}\\
+\+		has\_mk\_eq(old\_lhs, old\_rhs)old\_conc \MMM{\land}\\
+\+		has\_mk\_eq(new\_lhs, new\_rhs)new\_conc \MMM{\land}\\
+\+		mk\_var vty = v \MMM{\land}\\
+\+		has\_mk\_abs(v, old\_lhs) new\_lhs \MMM{\land}\\
+\+		has\_mk\_abs(v, old\_rhs) new\_rhs)\\
+\+	\MMM{\land}\\
+\+	(\MMM{\lnot}vty \MMM{\in} \MMM{\bigcup}(Graph freevars\_set Image old\_asms))\\
+\+	\MMM{\land}\\
+\+	(new\_asms = old\_asms)\\
+\end{HOLConst}
+
+
+
+\subsection{Type Instantiation}
+
+The ability to prove and use general (polymorphic)
+theorems  is one of the great strengths of the HOL
+system. The feature in the inference system which
+gives this strength is the inference rule {\it INST\_TYPE}
+which allows us to instantiate the type variables
+in the conclusion of a polymorphic theorem.
+
+In essence, the inference rule says that, given a theorem
+with conclusion, $\cal A$, say, we may infer the theorem
+which has the same assumption set and whose conclusion
+results from instantiating every type in $\cal A$
+according to a given mapping of type variables to types.
+This is subject to two provisos: (i) no type variable may
+be changed which appears in the assumption set for the
+theorem; (ii) no two variables in the assumptions or
+conclusion of the antecedent theorem, which are
+different, by virtue of their type,  should become
+identified in the consequent theorem as a result of
+the transformation.
+
+The first proviso is, we believe, only enforced to preserve
+a convention of natural deduction systems,
+whereby inference rules
+involve only simple set operations on the assumption
+sets. It would seem to be quite in order for the first
+proviso to be dropped provided we insisted that the
+type instantiation be applied to every term in the sequent
+(we have, of course, not done this).
+
+The second proviso cannot be avoided. Consider for
+example: $\MMM{\lambda}(x:**)\MMM{\bullet}\MMM{\lambda}(x:*)\MMM{\bullet}(x:**)$. If the types in this were
+instantiated according to $\{:** \MMM{\mapsto} :*, :* \MMM{\mapsto} :*\}$,
+then from:
+$$\MMM{\Zthm} \MMM{\forall}(y:**)(z:*)\MMM{\bullet}(\MMM{\lambda}(x:**)\MMM{\bullet}\MMM{\lambda}(x:*)\MMM{\bullet}(x:**))y z = y$$
+we could infer that:
+$$\MMM{\Zthm} \MMM{\forall}(y:*)(z:*)\MMM{\bullet}(\MMM{\lambda}(x:*)\MMM{\bullet}\MMM{\lambda}(x:*)\MMM{\bullet}(x:*))y z = y$$
+whence, by $\beta$-conversions:
+$$\MMM{\Zthm} \MMM{\forall}(y:*)(z:*)\MMM{\bullet}z = y.$$
+This leads to a contradiction whenever $:*$ is instantiated
+to a type with more than one inhabitant.
+
+To permit an implementation which is convenient to use,
+the inference rule is actually formulated without the
+second proviso. Instead, variables (both free and bound,
+in general) in the conclusion of the consequent theorem,
+which would violate the rule are renamed to
+avoid the problem. It is valid to rename free variables
+in these circumstances, given the first proviso, since
+the variables in question cannot occur free in the
+assumption set. Note that it would be invalid to
+rename free variables in $\cal A$
+which are not changed by the type instantiation
+(since these may appear free in the assumption set).
+
+Formalising these notions is a little tricky. We present
+here a highly unconstructive specification, reminiscent
+of $\alpha$-conversion.
+The notion to be formalised is the predicate on
+pairs of terms which says whether one is a type instance
+of another according to a given mapping of type
+variables to types and with respect to a set of
+variables with which clashes must not occur (this
+will be the set of free variables of the assumptions
+in practice).
+
+It is entertaining and instructive to consider
+algorithms meeting these specifications.
+
+\subsubsection{Instantiation of Terms}
+
+Instantiation of terms is a little tricky.
+The following two functions should be viewed as
+local to the function {\it inst}.
+{\it inst\_loc1} is very similar to an
+$\alpha$-convertibility test. Indeed {\it aconv} could
+have been defined as $\it inst\_loc1\,I$.
+The first {\it TERM} argument of {\it inst\_loc1}
+and {\it inst\_loc2}
+gives the terms whose types are being instantiated (i.e.
+it is the ``more polymorphic'' term).
+
+$inst\_loc1$ checks that one term, $tm2$, is a type
+instance of $tm1$, according to a mapping from
+type variable names to types given by $tysubs$,
+under the assumption that the free variable names
+agree, i.e. that the first occurrence of each variable which
+may need renaming will be its binding occurrence in
+a $\MMM{\lambda}-abstraction$.
+\begin{HOLConst}
+\+	\PrNL{}inst\_loc1\PrNN{} : (STRING \MMM{\rightarrow} TYPE) \MMM{\rightarrow} TERM \MMM{\rightarrow} TERM \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall}\\
+\+	tysubs : STRING \MMM{\rightarrow} TYPE;\\
+\+	tm1 tm2 : TERM\MMM{\bullet}\\
+\+	inst\_loc1 tysubs tm1 tm2 \MMM{\Leftrightarrow}\\
+\+		(\MMM{\exists}s ty1 ty2 mk\_X\MMM{\bullet}\\
+\+			((mk\_X = mk\_var) \MMM{\lor} (mk\_X = mk\_const))\\
+\+		\MMM{\land}	mk\_X(s, ty1) = tm1 \MMM{\land} mk\_X(s, ty2) = tm2\\
+\+		\MMM{\land}	(ty2 = inst\_type tysubs ty1))\\
+\+	\MMM{\lor}	(\MMM{\exists}tm1f tm1a tm2f tm2a\MMM{\bullet}\\
+\+			has\_mk\_comb(tm1f, tm1a)tm1 \MMM{\land} has\_mk\_comb(tm2f, tm2a)tm2\\
+\+		\MMM{\land}	inst\_loc1 tysubs tm1f tm2f \MMM{\land} inst\_loc1 tysubs tm1a tm2a)\\
+\+	\MMM{\lor}	(\MMM{\exists}v1 v2 ty1 ty2 b1 b2 v1ty1 v2ty2 \MMM{\bullet}\\
+\+			mk\_var(v1, ty1) = v1ty1 \MMM{\land} has\_mk\_abs(v1ty1, b1)tm1\\
+\+		\MMM{\land}	mk\_var(v2, ty2) = v2ty2 \MMM{\land} has\_mk\_abs(v2ty2, b2)tm2\\
+\+		\MMM{\land}	inst\_loc1 tysubs (rename (v1, ty1) v2 b1) b2\\
+\+		\MMM{\land}	(ty2 = inst\_type tysubs ty1)\\
+\+		\MMM{\land}	\MMM{\lnot}(\MMM{\exists} ty3 v2ty3 \MMM{\bullet}\\
+\+				mk\_var(v2, ty3) = v2ty3\\
+\+			\MMM{\land}	((v2, ty3) \MMM{\in} freevars\_set b1)\\
+\+			\MMM{\land}	(ty2 = inst\_type tysubs ty3)\\
+\+			\MMM{\land}	(\MMM{\lnot}v2ty3 = v1ty1) ))\\
+\end{HOLConst}
+
+$inst\_loc2$ uses $inst\_loc1$ to check that a term $tm2$
+is a type instance of the result of renaming free
+variables of a term $tm2$ according to a mapping
+given by a list of pairs. It also checks that
+the type of the second variable in each pair in the list
+is a type instance of the type of the first variable
+in the pair,
+and that the second variable in each pair
+is not in the set, $avoid$, unless both names and types
+agree for that pair.
+In the application of $inst\_loc2$ in $inst$ the list
+of pairs is obtained by combining the free variable lists
+of the two terms side by side.
+The set $avoid$ is a set of variables (coming from
+the assumptions of a sequent) whose free occurrences
+must not change as a result of the type instantiation.
+\begin{HOLConst}
+\+	\PrNL{}inst\_loc2\PrNN{} : ((STRING \MMM{\times} TYPE) SET) \MMM{\rightarrow}\\
+\+		(STRING \MMM{\rightarrow} TYPE) \MMM{\rightarrow}\\
+\+		(((STRING \MMM{\times} TYPE) \MMM{\times} (STRING \MMM{\times} TYPE)) LIST) \MMM{\rightarrow}\\
+\+		TERM \MMM{\rightarrow} TERM \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall}avoid : (STRING \MMM{\times} TYPE) SET;\\
+\+	tysubs :STRING \MMM{\rightarrow} TYPE;\\
+\+	v1 : STRING; ty1 : TYPE;\\
+\+	v2 : STRING; ty2 : TYPE;\\
+\+	rest : ((STRING \MMM{\times} TYPE) \MMM{\times} (STRING \MMM{\times} TYPE)) LIST;\\
+\+	tm1 tm2 : TERM\MMM{\bullet}\\
+\+	(inst\_loc2 avoid tysubs [] tm1 tm2 \MMM{\Leftrightarrow}\\
+\+		inst\_loc1 tysubs tm1 tm2)\\
+\+	\MMM{\land}\\
+\+	(inst\_loc2 avoid tysubs (Cons ((v1, ty1),(v2, ty2)) rest) tm1 tm2 \MMM{\Leftrightarrow}\\
+\+		(((v2, ty2) \MMM{\in} avoid) \MMM{\Rightarrow} ((v1, ty1) = (v2, ty2)))\\
+\+	\MMM{\land}	(ty2 = inst\_type tysubs ty1)\\
+\+	\MMM{\land}	inst\_loc2 avoid tysubs rest\\
+\+		(rename (v1, ty1) v2 tm1) tm2)\\
+\end{HOLConst}
+
+
+With the above preliminaries we can now define {\it inst}.
+Note that the condition that the free variable lists of
+the two terms have the same length is required to ensure
+that $inst\_loc2$ examines each free variable of each
+term.
+
+\begin{HOLConst}
+\+	\PrNL{}inst\PrNN{} : ((STRING \MMM{\times} TYPE) SET) \MMM{\rightarrow}\\
+\+		(STRING \MMM{\rightarrow} TYPE) \MMM{\rightarrow} TERM \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall}avoid : (STRING \MMM{\times} TYPE) SET;\\
+\+	tysubs :STRING \MMM{\rightarrow} TYPE; tm1 : TERM\MMM{\bullet}\\
+\+	let tm2 = inst avoid tysubs tm1\\
+\+	in let fl1 = freevars\_list tm1\\
+\+	in let fl2 = freevars\_list tm2\\
+\+	in\\
+\+		((Length fl1 = Length fl2)\\
+\+	\MMM{\land}	inst\_loc2 avoid tysubs (Combine fl1 fl2) tm1 tm2)\\
+\end{HOLConst}
+
+\subsubsection{The Inference Rule $INST\_TYPE$}
+
+Given $inst$, we need a few simple auxiliaries before
+we can define the inference rule $INST\_TYPE$.
+
+We need to detect the type variables in a term.
+We use some auxiliary functions to
+do this: $type\_tyvars$ detects the type variables in
+a type.
+
+\begin{HOLConst}
+\+	\PrNL{}type\_tyvars\PrNN{} :  TYPE \MMM{\rightarrow} (STRING SET)\\
+\PrPH{}
+\+		(\MMM{\forall}s\MMM{\bullet}  type\_tyvars (mk\_var\_type s) = \{s\})\\
+\+	\MMM{\land}	(\MMM{\forall}s tl\MMM{\bullet} type\_tyvars (mk\_type(s, tl)) =\\
+\+			\MMM{\bigcup} (Elems (Map type\_tyvars tl)))\\
+\end{HOLConst}
+$term\_types$ detects the types in a term.
+\begin{HOLConst}
+\+	\PrNL{}term\_types\PrNN{} :  TERM \MMM{\rightarrow} (TYPE SET)\\
+\PrPH{}
+\+	\MMM{\forall} tm : TERM; s: STRING; ty : TYPE;\\
+\+	f : TERM; a : TERM; v: TERM; b: TERM\MMM{\bullet}\\
+\+	term\_types (mk\_var(s, ty)) = \{ty\}\\
+\+	\MMM{\land}\\
+\+	term\_types (mk\_const(s, ty)) = \{ty\}\\
+\+	\MMM{\land}\\
+\+	(has\_mk\_comb(f, a) tm \MMM{\Rightarrow} (term\_types tm = term\_types f \MMM{\cup} term\_types a))\\
+\+	\MMM{\land}\\
+\+	(has\_mk\_abs(v, b) tm \MMM{\Rightarrow} (term\_types tm = term\_types v \MMM{\cup} term\_types b))\\
+\end{HOLConst}
+$term\_tyvars$ detects all the type variables
+in a term using the previous two functions.
+\begin{HOLConst}
+\+	\PrNL{}term\_tyvars\PrNN{} :  TERM \MMM{\rightarrow} (STRING SET)\\
+\PrPH{}
+\+	\MMM{\forall}tm \MMM{\bullet} term\_tyvars tm = \MMM{\bigcup}(Graph type\_tyvars Image (term\_types tm))\\
+\end{HOLConst}
+$INST\_TYPE\_rule$ is now readily defined:
+\begin{HOLConst}
+\+	\PrNL{}INST\_TYPE\_rule\PrNN{} : (STRING \MMM{\rightarrow} TYPE) \MMM{\rightarrow} SEQ \MMM{\rightarrow} SEQ \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} tysubs old\_asms old\_conc new\_seq\MMM{\bullet}\\
+\+	INST\_TYPE\_rule tysubs (old\_asms, old\_conc) new\_seq \MMM{\Leftrightarrow}\\
+\+	(\MMM{\forall} tyv \MMM{\bullet}\\
+\+		(tyv \MMM{\in} \MMM{\bigcup} (Graph term\_tyvars Image old\_asms)) \MMM{\Rightarrow}\\
+\+		(tysubs tyv = mk\_var\_type tyv))\\
+\+	\MMM{\land}\\
+\+	let asms\_frees = \MMM{\bigcup} (Graph freevars\_set Image old\_asms)\\
+\+	in\\
+\+		new\_seq = (old\_asms, inst asms\_frees tysubs old\_conc)\\
+\end{HOLConst}
+
+
+\subsection{Discharging an Assumption: DISCH}
+
+{\it DISCH} is, in essence,
+the usual rule of natural deduction
+which allows one to infer from a proof of $\cal B$
+on the assumption $\cal A$, that
+${\cal A} \MMM{\Rightarrow} \cal B$ on no assumption.
+The actual rule is suitably generalised to cover
+sequents and their assumption sets. It is not
+required that $\cal A$ be in the assumption set,
+and the logic would probably not be complete
+otherwise.
+
+\begin{HOLConst}
+\+	\PrNL{}DISCH\_rule\PrNN{} : TERM \MMM{\rightarrow} SEQ \MMM{\rightarrow} SEQ \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} tm old\_asms old\_conc new\_seq \MMM{\bullet}\\
+\+	DISCH\_rule tm (old\_asms, old\_conc) new\_seq \MMM{\Leftrightarrow}\\
+\+	(type\_of\_term tm = Bool) \MMM{\land}\\
+\+	(new\_seq = ((old\_asms \Backslash{} \{tm\}), \MMM{\epsilon}t\MMM{\bullet}has\_mk\_imp(tm, old\_conc)t))\\
+\end{HOLConst}
+
+\subsection{Modus Ponens: MP}
+
+This is the usual rule: from ${\cal A} \MMM{\Rightarrow} {\cal B}$
+and ${\cal A}$, infer ${\cal B}$.
+This generalises to sequents by taking the union
+of the assumption sets.
+
+\begin{HOLConst}
+\+	\PrNL{}MP\_rule\PrNN{} : SEQ \MMM{\rightarrow} SEQ \MMM{\rightarrow} SEQ \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} imp\_asms imp\_conc ant\_asms ant\_conc new\_asms new\_conc \MMM{\bullet}\\
+\+	MP\_rule (imp\_asms, imp\_conc) (ant\_asms, ant\_conc) (new\_asms, new\_conc) \MMM{\Leftrightarrow}\\
+\+	(has\_mk\_imp(ant\_conc, new\_conc)imp\_conc) \MMM{\land}\\
+\+	(new\_asms = imp\_asms \MMM{\cup} ant\_asms)\\
+\end{HOLConst}
+
+
+\section{THE AXIOM SCHEMATA} \label{AXIOMSCHEMATA}
+
+
+\subsection{The Axiom Schema ASSUME}
+
+{\it ASSUME} allows us to infer
+for any boolean term $\cal A$, that $\cal A$
+holds on the assumptions $\{{\cal A}\}$.
+This is straightforward to formalise. We must check
+that the term being assumed is of the right type.
+\begin{HOLConst}
+\+	\PrNL{}ASSUME\_axiom\PrNN{} : TERM \MMM{\rightarrow} SEQ \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} tm seq \MMM{\bullet} ASSUME\_axiom tm seq \MMM{\Leftrightarrow}\\
+\+	(type\_of\_term tm = Bool) \MMM{\land}\\
+\+	(seq = (\{tm\}, tm))\\
+\end{HOLConst}
+
+\subsection{The Axiom Schema REFL}
+{\it REFL} says that for any term $\cal A$,
+we may infer that ${\cal A} = {\cal A}$ without
+assumptions.
+
+\begin{HOLConst}
+\+	\PrNL{}REFL\_axiom\PrNN{} : TERM \MMM{\rightarrow} SEQ\\
+\PrPH{}
+\+	\MMM{\forall} tm \MMM{\bullet} REFL\_axiom tm = (\{\}, \MMM{\epsilon}t\MMM{\bullet}has\_mk\_eq(tm, tm)t)\\
+\end{HOLConst}
+
+\subsection{The Axiom Schema BETA\_CONV}
+
+{\it BETA\_CONV} says that, without any assumptions,
+any $\beta$-redex is
+equal to its $\beta$-reduction.
+This is straightforward
+to define, given the apparatus we used to define
+{\it SUBST}.
+Note that the way we construct the first argument to
+$subst$ by dismantling a combination ensures that it
+respects types.
+\begin{HOLConst}
+\+	\PrNL{}BETA\_CONV\_axiom\PrNN{} : TERM \MMM{\rightarrow} SEQ \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} tm new\_seq\MMM{\bullet}\\
+\+	BETA\_CONV\_axiom tm new\_seq \MMM{\Leftrightarrow}\\
+\+	\MMM{\exists} v ty vty b abs a \MMM{\bullet}\\
+\+	mk\_var(v, ty) = vty \MMM{\land}\\
+\+	has\_mk\_abs(vty, b)abs \MMM{\land}\\
+\+	has\_mk\_comb(abs, a)tm \MMM{\land}\\
+\+	(new\_seq =\\
+\+	let subs: ((STRING \MMM{\times} TYPE) \MMM{\rightarrow} TERM) =\\
+\+		(\MMM{\lambda}(vx, tyx)\MMM{\bullet}if vx = v \MMM{\land} tyx = ty then a else mk\_var(vx, tyx))\\
+\+	in\\
+\+		(\{\}, (\MMM{\epsilon}t\MMM{\bullet}has\_mk\_eq(tm, subst subs b)t)))\\
+\end{HOLConst}
+
+
+\section{DERIVABILITY} \label{DERIVABILITY}
+
+
+In this section we will define derivability.
+This is a relation between sets of sequents
+and sequents. As usual, we first define direct
+derivability.
+We include instances of the axiom schemata as valid
+direct derivations from no premisses. This is merely
+for convenience, we could equally well include all
+instances of the axiom schemata as axioms in every theory
+when theories are defined.
+
+\begin{HOLConst}
+\+	\PrNL{}directly\_derivable\_from\PrNN{} : SEQ \MMM{\rightarrow} (SEQ SET) \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} seq seqs \MMM{\bullet}\\
+\+	directly\_derivable\_from seq seqs \MMM{\Leftrightarrow}\\
+\+	(\MMM{\exists} eqs tm old\_seq \MMM{\bullet}\\
+\+	Ran (Graph eqs) \MMM{\subseteq} seqs \MMM{\land} old\_seq \MMM{\in} seqs \MMM{\land} SUBST\_rule eqs tm old\_seq seq)\\
+\+	\MMM{\lor}\\
+\+	(\MMM{\exists} vty old\_seq \MMM{\bullet} old\_seq \MMM{\in} seqs \MMM{\land} ABS\_rule vty old\_seq seq)\\
+\+	\MMM{\lor}\\
+\+	(\MMM{\exists} tysubs old\_seq \MMM{\bullet} old\_seq \MMM{\in} seqs \MMM{\land} INST\_TYPE\_rule tysubs old\_seq seq)\\
+\+	\MMM{\lor}\\
+\+	(\MMM{\exists} tm old\_seq \MMM{\bullet} old\_seq \MMM{\in} seqs \MMM{\land} DISCH\_rule tm old\_seq seq)\\
+\+	\MMM{\lor}\\
+\+	(\MMM{\exists} imp\_seq ant\_seq \MMM{\bullet}\\
+\+	imp\_seq \MMM{\in} seqs \MMM{\land} ant\_seq \MMM{\in} seqs \MMM{\land} MP\_rule imp\_seq ant\_seq seq)\\
+\+	\MMM{\lor}\\
+\+	(\MMM{\exists} tm \MMM{\bullet} ASSUME\_axiom tm seq)\\
+\+	\MMM{\lor}\\
+\+	(\MMM{\exists} tm \MMM{\bullet} seq = REFL\_axiom tm)\\
+\+	\MMM{\lor}\\
+\+	(\MMM{\exists} tm \MMM{\bullet} BETA\_CONV\_axiom tm seq)\\
+\end{HOLConst}
+
+Proofs will just be lists of sequents. Any non-empty
+list is a valid proof (of the sequent at its
+head) on the premisses given by those elements
+of the list which are not directly derivable
+from elements later in the list.
+There is little point in making the relevant type
+definition for a syntactic class of proofs in this sense,
+since they contain so little information.
+We simply define the function which extracts the set
+of premisses.
+
+\begin{HOLConst}
+\+	\PrNL{}premisses\PrNN{} :  (SEQ LIST) \MMM{\rightarrow} (SEQ SET)\\
+\PrPH{}
+\+	\MMM{\forall} seq rest \MMM{\bullet}\\
+\+	premisses [] = \{\}\\
+\+	\MMM{\land}\\
+\+	premisses (Cons seq rest) =\\
+\+	if directly\_derivable\_from seq (Elems rest)\\
+\+	then premisses rest\\
+\+	else \{seq\} \MMM{\cup} premisses rest\\
+\end{HOLConst}
+
+
+\begin{HOLConst}
+\+	\PrNL{}derivable\_from\PrNN{} : SEQ \MMM{\rightarrow} (SEQ SET) \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} seq seqs \MMM{\bullet}\\
+\+	derivable\_from seq seqs =\\
+\+	\MMM{\exists} seql \MMM{\bullet} premisses (Cons seq seql) \MMM{\subseteq} seqs\\
+\end{HOLConst}
+
+\section{NORMAL THEORIES} \label{THEORIES}
+In \cite{DS/FMU/IED/SPC001} a type $THEORY$ is defined
+to represent the idea of a theory comprising signatures
+governing the formation of types and terms and a set
+of axioms. However the type $THEORY$ is too general
+for our present purposes, since
+we have formulated rules of inference on the assumption
+that the nullary type ``${:}bool$'' and the
+constants ``$=$'' and ``$\MMM{\Rightarrow}$'' are available.
+In this section we define a predicate $normal\_theory$
+which selects the theories in which the inference
+rules are intended to be valid.
+(The normal theories correspond to those whose type
+structures and signatures are standard in the terminology
+of \cite{SRI89a}. Unfortunately the term {\it standard
+theory} is used for a stronger notion in \cite{SRI89a}.)
+
+\subsection{Object Language Constructs}
+To define the type of all well-formed HOL theories
+we need two further object language constructs: the
+choice function ``$\MMM{\epsilon}$'' and the type of individuals``$:ind$''.
+These are required since we
+will follow \cite{SRI89a} in insisting
+on the presence of the equality, implication and
+choice functions in each theory.
+It is noteworthy however that neither the rules of inference
+nor the standard
+conservative extension mechanisms require
+choice or the individuals; they are only used in the
+axioms given in section \ref{INIT}.
+
+\begin{HOLConst}
+\+	\PrNL{}Star\PrNN{} : TYPE\\
+\PrPH{}
+\+	Star = mk\_var\_type "*"\\
+\end{HOLConst}
+
+\begin{HOLConst}
+\+	\PrNL{}Choice\PrNN{} : TERM\\
+\PrPH{}
+\+	Choice = mk\_const(("\MMM{\epsilon}", Fun (Fun Star Bool) Star))\\
+\end{HOLConst}
+
+\begin{HOLConst}
+\+	\PrNL{}Ind\PrNN{} : TYPE\\
+\PrPH{}
+\+	Ind = mk\_type("ind", [])\\
+\end{HOLConst}
+
+\subsection{Normal Thoeries}
+We now wish to define the predicate $normal\_theory$. It is natural
+to say that the normal theories are those which extend the minimal
+normal theory which contains only ``${:}bool$'', ``$=$'' etc.
+Thus we must define this minimal normal theory and also the notion
+of extension of theories.
+
+$MIN$ is the minimal normal theory. It is represented
+by the triple $MIN\_REP$:
+\begin{HOLConst}
+\+	\PrNL{}MIN\_REP\PrNN{} : TY\_ENV \MMM{\times} CON\_ENV \MMM{\times} SEQS\\
+\PrPH{}
+\+	MIN\_REP = (\\
+\+		\{("bool", 0); ("\MMM{\rightarrow}",  2 ); ("ind", 0 )\},\\
+\+	 	\{("=", Fun Star (Fun Star Bool));\\
+\+		 ("\MMM{\Rightarrow}", Fun Bool (Fun Bool Bool));\\
+\+		 ("\MMM{\epsilon}", Fun (Fun Star Bool) Star)\},\\
+\+	 	\{\}\\
+\+	)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}MIN\PrNN{} : THEORY\\
+\PrPH{}
+\+	MIN = abs\_theory MIN\_REP\\
+\end{HOLConst}
+
+Extension for objects of type {\it THEORY} is
+the following binary relation:
+
+\begin{GFT}{SML}
+\+declare\_infix(200, "extends");\\
+\end{GFT}
+\begin{HOLConst}
+\+	\$\PrNL{}extends\PrNN{} : THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} thy1 thy2\MMM{\bullet}\\
+\+	thy1 extends thy2 \MMM{\Leftrightarrow}\\
+\+	(types thy2 \MMM{\subseteq} types thy1) \MMM{\land}\\
+\+	(constants thy2 \MMM{\subseteq} constants thy1) \MMM{\land}\\
+\+	(axioms thy2 \MMM{\subseteq} axioms thy1)\\
+\end{HOLConst}
+The normal theories are those which extend the
+minimal theory {\it MIN}. Note that we do not
+exclude inconsistent theories here. (This corresponds
+to the possibility of introducing inconsistent axioms
+in the HOL system).
+
+\begin{HOLConst}
+\+	\PrNL{}is\_normal\_theory\PrNN{} : THEORY SET\\
+\PrPH{}
+\+	\MMM{\forall}thy\MMM{\bullet}thy \MMM{\in} is\_normal\_theory = thy extends MIN\\
+\end{HOLConst}
+
+
+
+
+\section{THEOREMS}
+\label{THEOREMS}
+
+We can, at last, define the type of all HOL theorems.
+A theorem will consist of a sequent and a theory.
+The type is the subtype of the type of all such  pairs
+in which the sequent is well-formed with respect to the
+type and constant environments of the theory and in which
+the sequent may be derived from the axioms of the theory.
+
+\begin{HOLConst}
+\+	\PrNL{}is\_thm\PrNN{}	: (SEQ \MMM{\times} THEORY) SET\\
+\PrPH{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}\PrPM{}
+\+	\MMM{\forall}seq thy\MMM{\bullet}\\
+\+	(seq, thy) \MMM{\in} is\_thm \MMM{\Leftrightarrow}\\
+\+	thy \MMM{\in} is\_normal\_theory\\
+\+	\MMM{\land}\\
+\+	seq \MMM{\in} sequents thy\\
+\+	\MMM{\land}\\
+\+	derivable\_from seq (axioms thy)\\
+\end{HOLConst}
+
+Note that if $(seq, thy)$ is a theorem in this sense,
+the derivation of $seq$ from the axioms of $thy$ may
+involve sequents which are not well-formed with respect
+to $thy$ (i.e. which contain type operators or constants
+which are not in $thy$). This is allowed since it simplifies
+the definition of derivability and makes no difference
+to the set of theorems in a given theory (this is essentially
+the fact that the extension mechanisms $new\_type$ and
+$new\_constant$ are conservative).
+
+Proving that $\MMM{\exists}thm\MMM{\bullet}thm \MMM{\in} is\_thm$ involves rather more
+work than has been involved in previous type definitions.
+(A witness is easy to supply, e.g. $(REFL\_axiom\,(mk\_var(`x, Star)), MIN)$ would do. However, to show that it is a witness
+we need to compute $sequents\,MIN$ and to do this we
+must show that $MIN\_REP$ is indeed the representative
+of a theory and checking the conditions on the two
+environments is rather long-winded).
+For the time being we therefore defer this proof task
+and use $type\_spec$ to define the type, $THM$,
+of theorems.
+
+\begin{GFT}{SML}
+\+type\_spec \{rep\_fun="rep\_thm", def\_tm = \PrKM{}\\
+\+	\PrNL{}THM\PrNN{} \MMM{\simeq} \PrNL{}mk\_thm\PrNN{} Of is\_thm\\
+\+\PrKO{}\\
+\+\};\\
+\end{GFT}
+The components of a theorem are extracted using
+the following functions:
+\begin{HOLConst}
+\+	\PrNL{}thm\_seq\PrNN{} : THM \MMM{\rightarrow} SEQ\\
+\PrPH{}
+\+	\MMM{\forall} thm \MMM{\bullet}\\
+\+	thm\_seq thm = Fst(rep\_thm thm)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}thm\_thy\PrNN{} : THM \MMM{\rightarrow} THEORY\\
+\PrPH{}
+\+	\MMM{\forall} thm \MMM{\bullet}\\
+\+	thm\_thy thm = Snd(rep\_thm thm)\\
+\end{HOLConst}
+\section{CONSISTENCY AND CONSERVATIVE EXTENSION}
+\label{CONSISTENCY}
+A theory is consistent if not every sequent which
+is well-formed in it can be derived from the axioms:
+
+\begin{HOLConst}
+\+	\PrNL{}consistent\_theory\PrNN{} : THEORY SET\\
+\PrPH{}
+\+	\MMM{\forall} thy \MMM{\bullet}\\
+\+	thy \MMM{\in} consistent\_theory  \MMM{\Leftrightarrow}\\
+\+	\MMM{\exists} seq \MMM{\bullet}\\
+\+	(seq \MMM{\in} sequents thy)\\
+\+	\MMM{\land}\\
+\+	\MMM{\lnot}(derivable\_from seq (axioms thy))\\
+\end{HOLConst}
+
+An extension of a theory is conservative if no sequent
+of the smaller theory is provable in the larger but not
+in the smaller.
+\begin{GFT}{SML}
+\+declare\_infix(200, "conservatively\_extends");\\
+\end{GFT}
+\begin{HOLConst}
+\+	\$\PrNL{}conservatively\_extends\PrNN{} : THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} thy1 thy2\MMM{\bullet}\\
+\+	thy1 conservatively\_extends thy2 \MMM{\Leftrightarrow}\\
+\+	(thy1 extends thy2) \MMM{\land}\\
+\+	(\MMM{\forall} seq \MMM{\bullet}\\
+\+	(seq \MMM{\in} sequents thy2) \MMM{\Rightarrow}\\
+\+	(derivable\_from seq (axioms thy1)) \MMM{\Rightarrow}\\
+\+	(derivable\_from seq (axioms thy2)))\\
+\end{HOLConst}
+
+
+\section{DEFINITIONAL EXTENSIONS} \label{DEFINITIONS}
+
+\subsection{Object Language Constructs}
+
+A theory {\it LOG}
+in which more of the standard logical apparatus is
+available will be needed to define some of the definitional
+extension mechanisms.
+For example, {\it new\_type\_definition}
+works with a theorem whose conclusion must be an
+existentially quantified term of a particular form.
+To define {\it LOG} we need some more object language
+types and terms and these are defined in this section.
+(It is convenient to leave the definition of {\it LOG}
+itself until we have defined {\it new\_definition}.)
+
+The formulation of the various logical connectives
+follows the HOL manual, \cite{SRI89a}.
+
+It is helpful now to
+have the following term constructor functions.
+Note that we are now using total functions to
+approximate partial ones; we must, therefore, be
+careful only to apply them to appropriate arguments.
+
+\begin{HOLConst}
+\+	\PrNL{}mk\_comb\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	mk\_comb = \$\MMM{\epsilon} o has\_mk\_comb\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}mk\_abs\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	mk\_abs = \$\MMM{\epsilon} o has\_mk\_abs\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}mk\_eq\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	mk\_eq = \$\MMM{\epsilon} o has\_mk\_eq\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}mk\_imp\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	mk\_imp = \$\MMM{\epsilon} o has\_mk\_imp\\
+\end{HOLConst}
+
+We can now define the object language constructs needed.
+(These could be defined via our explicit representations
+of types and terms using strings. This has not been done
+since the explicit concrete
+syntax used is very  hard to read.)
+\subsubsection{Truth}
+The constant $T : bool$ is defined by the following equation:
+$$T = ((\MMM{\lambda}(x:bool) \MMM{\bullet} x) = (\MMM{\lambda}(x:bool) \MMM{\bullet} x))$$
+
+\begin{HOLConst}
+\+	\PrNL{}Truth\PrNN{} : TERM\\
+\PrPH{}
+\+	Truth = mk\_const("T", Bool)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}Truth\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	Truth\_def =\\
+\+	let x = mk\_var("x", Bool)\\
+\+	in\\
+\+	mk\_eq(mk\_abs(x, x), mk\_abs(x, x))\\
+\end{HOLConst}
+\subsubsection{Universal Quantification}
+The constant $\MMM{\forall} : (* \MMM{\rightarrow} bool) \MMM{\rightarrow} bool$ is defined by
+the following equation:
+$$\$\MMM{\forall} = (\MMM{\lambda}(P : * \MMM{\rightarrow} bool) \MMM{\bullet} P = (\MMM{\lambda}(x:*) \MMM{\bullet} T)$$
+
+\begin{HOLConst}
+\+	\PrNL{}Forall\PrNN{} : TYPE \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} ty\MMM{\bullet}Forall ty = mk\_const("\MMM{\forall}", Fun (Fun ty Bool) Bool)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}Forall\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	Forall\_def =\\
+\+	let P = mk\_var("P", Fun Star Bool)\\
+\+	in let x = mk\_var("x", Star)\\
+\+	in\\
+\+	mk\_abs(P, mk\_eq(P, mk\_abs(x,  Truth)))\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}mk\_forall\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} tm1 tm2\MMM{\bullet}mk\_forall(tm1, tm2) =\\
+\+			mk\_comb(Forall (type\_of\_term tm1), mk\_abs(tm1, tm2))\\
+\end{HOLConst}
+\subsubsection{Existential Quantification}
+The constant $\MMM{\exists} : (* \MMM{\rightarrow} bool) \MMM{\rightarrow} bool$ is defined
+by the following equation, which defines $\MMM{\exists}$ in terms
+of the choice function $\MMM{\epsilon}: (* \MMM{\rightarrow} bool) \MMM{\rightarrow}*$:
+$$\$\MMM{\exists} = \MMM{\lambda}(P : * \MMM{\rightarrow} bool) \MMM{\bullet} P(\MMM{\epsilon}P)$$
+(This may be a little perplexing at first sight.
+In the intended interpretations, given a predicate
+$P : * \MMM{\rightarrow} bool$, if there is some $x : *$ for which $P$
+is true (i.e. for which $P x = T$), then $\MMM{\epsilon} P$ is such
+an $x$. I.e. taking as known the intuitive notion of
+``whether or not something with a given property exists'',
+$\MMM{\epsilon}$ chooses
+something with a given property if such a thing exists.
+The above definition can be viewed as taking as known
+the informal notion of ``choosing something with a given
+property'' and defining $\MMM{\exists}$ to determine
+whether or not something with a given property exists
+by attempting to choose something with the given property and checking whether the attempt succeeded.)
+\begin{HOLConst}
+\+	\PrNL{}Exists\PrNN{} : TYPE \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} ty \MMM{\bullet} Exists ty = mk\_const("\MMM{\exists}", Fun (Fun ty Bool) Bool)\\
+\end{HOLConst}
+
+\begin{HOLConst}
+\+	\PrNL{}Exists\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	Exists\_def =\\
+\+	let P = mk\_var("P", Fun Star Bool)\\
+\+	in let PchoiceP = mk\_comb(P,mk\_comb(Choice, P))\\
+\+	in\\
+\+	mk\_abs(P, PchoiceP)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}has\_mk\_exists\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} tm1 tm2 tm3 \MMM{\bullet}\\
+\+	has\_mk\_exists(tm1, tm2) tm3 =\\
+\+	has\_mk\_comb(Exists (type\_of\_term tm1), mk\_abs(tm1, tm2))tm3\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}mk\_exists\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} tm1 tm2\MMM{\bullet}mk\_exists(tm1, tm2) =\\
+\+			mk\_comb(Exists (type\_of\_term tm1), mk\_abs(tm1, tm2))\\
+\end{HOLConst}
+\subsubsection{Falsity}
+The constant $F:bool$ is defined by the following equation:
+$$F = \MMM{\forall}(x:bool) \MMM{\bullet} x$$
+(Again this may seem perplexing. The type $bool$
+is intended to contain the truth values. The above definition
+says that false is the truth value of the proposition that
+every truth value is true!)
+\begin{HOLConst}
+\+	\PrNL{}Falsity\PrNN{} : TERM\\
+\PrPH{}
+\+	Falsity = mk\_const("F", Bool)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}Falsity\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	Falsity\_def =\\
+\+	let x = mk\_var("x", Bool)\\
+\+	in\\
+\+	mk\_forall(x, x)\\
+\end{HOLConst}
+\subsubsection{Negation}
+The constant $\MMM{\lnot}:bool \MMM{\rightarrow} bool$ is defined by the following
+equation:
+$$\$\MMM{\lnot} = \MMM{\lambda}(b:bool)\MMM{\bullet}b \MMM{\Rightarrow} F$$
+\begin{HOLConst}
+\+	\PrNL{}Negation\PrNN{} : TERM\\
+\PrPH{}
+\+	Negation = mk\_const("\MMM{\lnot}", Fun Bool Bool)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}Negation\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	Negation\_def =\\
+\+	let b = mk\_var("b", Bool)\\
+\+	in\\
+\+	mk\_abs(b, mk\_imp(b, Falsity))\\
+\end{HOLConst}
+\subsubsection{Conjunction}
+The constant $\MMM{\land}: bool \MMM{\rightarrow} bool \MMM{\rightarrow} bool$
+is defined by the following equation:
+$$\$\MMM{\land} = \MMM{\lambda}b1\MMM{\bullet}\MMM{\lambda}b2\MMM{\bullet}\MMM{\forall}b\MMM{\bullet}(b1 \MMM{\Rightarrow} (b2 \MMM{\Rightarrow} b)) \MMM{\Rightarrow} b$$
+(I assume, but do not know, that the above formulation
+has some practical advantage in the present
+context over the more obvious definition
+in terms of $\MMM{\lnot}$ and $\MMM{\Rightarrow}$.)
+
+The name of the constant is a slash, $/$, followed by a
+backslash, $\backslash$. The backslash character
+must be escaped by another backslash character within
+an HOL string.
+\begin{HOLConst}
+\+	\PrNL{}Conjunction\PrNN{} : TERM\\
+\PrPH{}
+\+	Conjunction = mk\_const("/\Backslash{}\Backslash{}", Fun Bool (Fun Bool Bool))\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}Conjunction\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	Conjunction\_def =\\
+\+	let b = mk\_var("b", Bool)\\
+\+	in let b1 = mk\_var("b1", Bool)\\
+\+	in let b2 = mk\_var("b2", Bool)\\
+\+	in\\
+\+	mk\_abs(b1, mk\_abs(b2, mk\_forall(b, mk\_imp(mk\_imp(b1, mk\_imp(b2, b)), b))))\\
+\end{HOLConst}
+A derived constructor function for conjunctions is
+useful.
+\begin{HOLConst}
+\+	\PrNL{}mk\_conj\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} tm1 tm2\MMM{\bullet}\\
+\+	mk\_conj(tm1, tm2) = mk\_comb(mk\_comb(Conjunction, tm1),tm2)\\
+\end{HOLConst}
+
+\subsubsection{Disjunction}
+The constant $\MMM{\lor}: bool \MMM{\rightarrow} bool \MMM{\rightarrow} bool$
+is defined by the following equation:
+$$\$\MMM{\lor} = \MMM{\lambda}b1\MMM{\bullet}\MMM{\lambda}b2\MMM{\bullet}\MMM{\forall}b\MMM{\bullet}((b1 \MMM{\Rightarrow} b) \MMM{\Rightarrow} (b2 \MMM{\Rightarrow} b)) \MMM{\Rightarrow} b$$
+(As for conjunction I assume this has some advantage
+over a definition from the propositional calculus.)
+
+The name of the constant is a
+backslash, $\backslash$, followed by a slash, $/$.
+The backslash character
+must be escaped by another backslash character within
+an HOL string.
+
+\begin{HOLConst}
+\+	\PrNL{}Disjunction\PrNN{} : TERM\\
+\PrPH{}
+\+	Disjunction = mk\_const("\Backslash{}\Backslash{}/", Fun Bool (Fun Bool Bool))\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}Disjunction\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	Disjunction\_def =\\
+\+	let b = mk\_var("b", Bool)\\
+\+	in let b1 = mk\_var("b1", Bool)\\
+\+	in let b2 = mk\_var("b2", Bool)\\
+\+	in\\
+\+	mk\_abs(b1, mk\_abs(b2, mk\_forall(b, mk\_imp(mk\_imp(b1, b),\\
+\+				mk\_imp(mk\_imp(b2, b), b)))))\\
+\end{HOLConst}
+A derived constructor function for disjunctions is
+useful later.
+\begin{HOLConst}
+\+	\PrNL{}mk\_disj\PrNN{} : (TERM \MMM{\times} TERM) \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} tm1 tm2\MMM{\bullet}\\
+\+	mk\_disj(tm1, tm2) = mk\_comb(mk\_comb(Disjunction, tm1),tm2)\\
+\end{HOLConst}
+
+\subsubsection{ONE\_ONE}
+The definition of $Type\_Definition$ below requires the notion of
+a one-to-one function. The constant $ONE\_ONE$
+is defined by the following equation:
+$$ONE\_ONE = \MMM{\lambda}(f:* \MMM{\rightarrow} **)\MMM{\bullet}\MMM{\forall}(x1:*)\MMM{\bullet}\MMM{\forall}(x2:*)\MMM{\bullet}(f\,x1 = f\,x2) \MMM{\Rightarrow} (x1 = x2)$$
+\begin{HOLConst}
+\+	\PrNL{}StarStar\PrNN{} : TYPE\\
+\PrPH{}
+\+	StarStar = mk\_var\_type "**"\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}One\_One\PrNN{} : TERM\\
+\PrPH{}
+\+	One\_One = mk\_const("ONE\_ONE", Fun(Fun Star StarStar)Bool)\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}One\_One\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	One\_One\_def =\\
+\+	let f = mk\_var("f",Fun Star StarStar)\\
+\+	in let x1 = mk\_var("x1",Star)\\
+\+	in let x2 = mk\_var("x2",Star) in\\
+\+	mk\_abs(f, mk\_forall(x1, mk\_forall(x2,\\
+\+		mk\_imp(mk\_eq(mk\_comb(f, x1), mk\_comb(f, x2)),\\
+\+			mk\_eq(x1, x2)))))\\
+\end{HOLConst}
+\subsubsection{ONTO}
+The axiom of infinity requires the notion of
+an onto function. The constant $ONTO$
+is defined by the following equation:
+$$ONTO = \MMM{\lambda}(f:* \MMM{\rightarrow} **)\MMM{\bullet}\MMM{\forall}(y:**)\MMM{\bullet}\MMM{\exists}(x:*)\MMM{\bullet}y = f\,x$$
+\begin{HOLConst}
+\+	\PrNL{}ONTO\PrNN{} : TERM\\
+\PrPH{}
+\+	ONTO = mk\_const("ONTO", Fun(Fun Star StarStar)Bool)\\
+\end{HOLConst}
+The name is all upper case to avoid conflict with the actual constant
+$Onto$ used in the metalanguage system.
+\begin{HOLConst}
+\+	\PrNL{}ONTO\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	ONTO\_def =\\
+\+	let f = mk\_var("f",Fun Star StarStar)\\
+\+	in let x = mk\_var("x",Star)\\
+\+	in let y = mk\_var("y",StarStar) in\\
+\+	mk\_abs(f, mk\_forall(y, mk\_exists(x, mk\_eq(y, mk\_comb(f, x)))))\\
+\end{HOLConst}
+\subsubsection{Type\_Definition}
+
+{\it Type\_Definition} may be new to some readers.
+It is a term asserting that a function  represents
+one type as a subtype of another. It is used
+in defining {\it new\_type\_definition}.
+It has type $(**\MMM{\rightarrow}bool)\MMM{\rightarrow}(*\MMM{\rightarrow}**)\MMM{\rightarrow}bool$ and
+is defined by the following equation:
+\begin{GFT}{}
+\+Type\_Definition = \MMM{\lambda}(P:**\MMM{\rightarrow}bool)\MMM{\bullet}(rep:*\MMM{\rightarrow}**)\MMM{\bullet}ONE\_ONE rep\\
+\+	\MMM{\land} \MMM{\forall}(x:**)\MMM{\bullet}P x = \MMM{\exists}(y:*)\MMM{\bullet}x = rep y\\
+\end{GFT}
+It is useful later to have a version of {\it Type\_Definition}
+parameterised over the types involved.
+\begin{HOLConst}
+\+	\PrNL{}Type\_Definition\PrNN{} : TYPE \MMM{\rightarrow} TYPE \MMM{\rightarrow} TERM\\
+\PrPH{}
+\+	\MMM{\forall} ty1 ty2 \MMM{\bullet}\\
+\+	Type\_Definition ty1 ty2 =\\
+\+		mk\_const("Type\_Definition", (Fun (Fun ty2 Bool) (Fun(Fun ty1 ty2)Bool)))\\
+\end{HOLConst}
+\begin{HOLConst}
+\+	\PrNL{}Type\_Definition\_def\PrNN{} : TERM\\
+\PrPH{}
+\+	Type\_Definition\_def =\\
+\+	let P = mk\_var("P",Fun StarStar Bool)\\
+\+	in let rep = mk\_var("rep",Fun Star StarStar)\\
+\+	in let x = mk\_var("x",StarStar)\\
+\+	in let y = mk\_var("y",Star) in\\
+\+	mk\_abs(P, mk\_abs(rep,\\
+\+		mk\_conj(mk\_comb(One\_One, rep),\\
+\+			mk\_forall(x, mk\_eq(mk\_comb(P, x), mk\_exists(y,\\
+\+				mk\_eq(x, mk\_comb(rep, y))))))))\\
+\end{HOLConst}
+
+\subsection{{\it new\_type} and {\it new\_constant}}
+
+The first two definitional extension mechanisms,
+{\it new\_type} and {\it new\_constant} are
+conservative, but not very powerful.
+
+{\it new\_type}  is used to declare a name to be used
+as a type constructor. No axioms about the type are
+introduced so that only instances of polymorphic
+functions may be applied to it.
+The only constraint is that the name should not
+be a type constructor in the theory to be extended.
+
+To see, syntactically, that $new\_type$ is conservative
+observe that, given a proof in which the new type does
+not appear in the conclusion, distinct applications of
+the new type operator could be replaced by distinct
+type variables not used elsewhere in the proof. The result
+would be a proof in the unextended theory with the same
+conclusion as the original proof.
+
+\begin{HOLConst}
+\+	\PrNL{}new\_type\PrNN{} : \PrOO{} \MMM{\rightarrow} STRING \MMM{\rightarrow} THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} arity name thy1 thy2 \MMM{\bullet}\\
+\+	new\_type arity name thy1 thy2 \MMM{\Leftrightarrow}\\
+\+	\MMM{\lnot} name \MMM{\in} Dom(types thy1) \MMM{\land}\\
+\+	types thy2  = types thy1 \MMM{\cup} \{(name, arity)\} \MMM{\land}\\
+\+	constants thy2 = constants thy1 \MMM{\land}\\
+\+	axioms thy2 = axioms thy1\\
+\end{HOLConst}
+{\it new\_constant}  is used to declare a name to be used
+as a constant of a given type.
+No axioms about the constant are
+introduced so that it behaves as a value
+which we cannot determine.
+The only constraint is that the name should not
+be a constant in the theory to be extended and that the type of the constant
+should be well-formed.
+
+\begin{HOLConst}
+\+	\PrNL{}new\_constant\PrNN{} : STRING \MMM{\rightarrow} TYPE \MMM{\rightarrow} THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} name type thy1 thy2 \MMM{\bullet}\\
+\+	new\_constant name type thy1 thy2 \MMM{\Leftrightarrow}\\
+\+	\MMM{\lnot} name \MMM{\in} Dom(constants thy1) \MMM{\land}\\
+\+	type \MMM{\in} wf\_type (types thy1) \MMM{\land}\\
+\+	constants thy2  = constants thy1 \MMM{\cup} \{(name, type)\} \MMM{\land}\\
+\+	types thy2 = types thy1 \MMM{\land}\\
+\+	axioms thy2 = axioms thy1\\
+\end{HOLConst}
+
+Again it is easy to see syntactically that this is conservative.
+Simply replace distinct instances of the new constant
+in a proof by distinct variables not used elsewhere
+in the proof to obtain a proof in the unextended theory.
+
+\subsection{{\it new\_axiom}}
+
+{\it new\_axiom} is both powerful and dangerous!
+It allows a sequent with no hypotheses and a
+given conclusion to be taken as an axiom.
+The only constraint is that the sequent be well-formed
+with respect to the environments of the theory being
+extended.
+
+It is convenient, for technical reasons, in \cite{DS/FMU/IED/SPC004} to
+have the more general operation of adding a set of
+new axioms. We therefore define $new\_axiom$ in terms
+of the more general $new\_axioms$.
+
+\begin{HOLConst}
+\+	\PrNL{}new\_axioms\PrNN{} : (TERM SET) \MMM{\rightarrow} THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} tms thy1 thy2 \MMM{\bullet}\\
+\+	new\_axioms tms thy1 thy2 =\\
+\+	let seqs = \{(x, tm) | x = \{\} \MMM{\land} tm \MMM{\in} tms\}\\
+\+	in\\
+\+	seqs \MMM{\subseteq} sequents thy1\MMM{\land}\\
+\+	types thy2 = types thy1 \MMM{\land}\\
+\+	constants thy2 = constants thy1 \MMM{\land}\\
+\+	axioms thy2 = axioms thy1 \MMM{\cup} seqs\\
+\end{HOLConst}
+
+\begin{HOLConst}
+\+	\PrNL{}new\_axiom\PrNN{} : TERM \MMM{\rightarrow} THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} tm thy1 thy2 \MMM{\bullet}\\
+\+	new\_axiom tm thy1 thy2 = new\_axioms \{tm\} thy1 thy2\\
+\end{HOLConst}
+\subsection{{\it new\_definition}}
+{\it new\_definition} is useful and conservative.
+It allows the simultaneous introduction of a new constant
+and an axiom asserting that the new constant is equal
+to a given term.
+The constraints imposed are {\it (a)} the name must satisfy the
+check made in {\it new\_constant}, {\it (b)} the term
+must be closed and {\it (c)} the term must contain
+no bound variables whose types contain type variables
+which do not appear in the type of the new constant.
+Condition {\it (c)} ensures that different type instances
+of the term result in different instances of the
+constant; this avoids a possible inconsistency (see \cite{DS/FMU/IED/SPC004} for an example which arises in the course
+of this specification).
+\begin{HOLConst}
+\+	\PrNL{}new\_definition\PrNN{} : STRING \MMM{\rightarrow} TERM \MMM{\rightarrow} THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} name tm thy1 thy2 \MMM{\bullet}\\
+\+	new\_definition name tm thy1 thy2 \MMM{\Leftrightarrow}\\
+\+	let ty = type\_of\_term tm\\
+\+	in\\
+\+	\MMM{\exists} thy1a \MMM{\bullet}\\
+\+	new\_constant name ty thy1 thy1a \MMM{\land}\\
+\+	freevars\_set tm = \{\} \MMM{\land}\\
+\+	term\_tyvars tm \MMM{\subseteq} type\_tyvars ty \MMM{\land}\\
+\+	new\_axiom (mk\_eq(mk\_const(name, ty), tm)) thy1a thy2\\
+\end{HOLConst}
+
+
+\subsection{{\it new\_specification}}
+
+{\it new\_specification} allows the simultaneous
+introduction of a set of new constants satisfying a
+given predicate provided that a theorem asserting
+the existence of some set of values satisfying the
+constants is given. An axiom asserting the predicate
+for the new constants is introduced.
+Like {\it new\_definition}, {\it new\_specification}
+is useful and conservative.
+
+The constraints imposed are analogous to those imposed
+in {\it new\_definition}: {\it (a)} the constant
+names must be pairwise distinct and different from
+any constant name in the theory being extended,
+{\it (b)} the predicate must have
+no free variables apart from those corresponding
+to the new constants, {\it (c)} any type variable
+contained in a bound variable of the predicate must
+appear as a type variable of each of the new constants.
+Also, of course, the theorem must have the right form.
+
+Since we now need to work with existential quantifiers
+it is necessary to introduce the theory {\it LOG}.
+We impose the restriction that {\it new\_specification}
+may only be used  to extend theories which extend {\it LOG}.
+\begin{HOLConst}
+\+	\PrNL{}LOG\PrNN{} : THEORY\\
+\PrPH{}
+\+	\MMM{\exists} thy1 thy2 thy3 thy4 thy5 thy6 thy7 thy8 thy9\MMM{\bullet}\\
+\+	let Name = \MMM{\lambda}con\MMM{\bullet}\MMM{\epsilon}s\MMM{\bullet}\MMM{\exists}ty\MMM{\bullet}mk\_const(s, ty) = con\\
+\+	in\\
+\+	(new\_definition (Name Truth) Truth\_def MIN thy1\\
+\+\MMM{\land}	new\_definition (Name (Forall Star)) Forall\_def thy1 thy2\\
+\+\MMM{\land}	new\_definition (Name (Exists Star)) Exists\_def thy2 thy3\\
+\+\MMM{\land}	new\_definition (Name Falsity) Falsity\_def thy3 thy4\\
+\+\MMM{\land}	new\_definition (Name Negation) Negation\_def thy4 thy5\\
+\+\MMM{\land}	new\_definition (Name Conjunction) Conjunction\_def thy5 thy6\\
+\+\MMM{\land}	new\_definition (Name Disjunction) Disjunction\_def thy6 thy7\\
+\+\MMM{\land}	new\_definition (Name One\_One) One\_One\_def thy7 thy8\\
+\+\MMM{\land}	new\_definition (Name ONTO) ONTO\_def thy8 thy9\\
+\+\MMM{\land}	new\_definition (Name (Type\_Definition Star StarStar)) Type\_Definition\_def thy9 LOG)\\
+\end{HOLConst}
+
+To define {\it new\_specification} we need  the relation
+{\it has\_list\_mk\_exists}, and the relation {\it new\_constants}
+which is like {\it new\_constant} but handles a
+set of new constants.
+
+\begin{HOLConst}
+\+	\PrNL{}has\_list\_mk\_exists\PrNN{} : (TERM LIST) \MMM{\rightarrow} TERM \MMM{\rightarrow} TERM \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	(\MMM{\forall}tm1 tm2\MMM{\bullet} has\_list\_mk\_exists [] tm1 tm2 \MMM{\Leftrightarrow} tm1 = tm2)\\
+\+	\MMM{\land}\\
+\+	(\MMM{\forall} v rest tm1 tm2 \MMM{\bullet}\\
+\+	has\_list\_mk\_exists (Cons v rest) tm1 tm2 \MMM{\Leftrightarrow}\\
+\+	\MMM{\exists} rem \MMM{\bullet} has\_mk\_exists(v, rem) tm2 \MMM{\land}\\
+\+		has\_list\_mk\_exists rest rem tm1)\\
+\+	\\
+\end{HOLConst}
+
+\begin{HOLConst}
+\+	\PrNL{}new\_constants\PrNN{} : ((STRING \MMM{\times} TYPE) SET) \MMM{\rightarrow} THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} cons thy1 thy2 \MMM{\bullet}\\
+\+	new\_constants cons thy1 thy2 \MMM{\Leftrightarrow}\\
+\+	Dom cons \MMM{\cap} Dom (constants thy1) = \{\} \MMM{\land}\\
+\+	Ran cons \MMM{\subseteq} wf\_type(types thy1) \MMM{\land}\\
+\+	constants thy2 = constants thy1 \MMM{\cup} cons \MMM{\land}\\
+\+	types thy2 = types thy1 \MMM{\land}\\
+\+	axioms thy2 = axioms thy1\\
+\end{HOLConst}
+
+We can now define {\it new\_specification}.
+\begin{HOLConst}
+\+	\PrNL{}new\_specification\PrNN{} : ((STRING \MMM{\times} (STRING \MMM{\times} TYPE)) LIST) \MMM{\rightarrow}\\
+\+	TERM \MMM{\rightarrow} THM \MMM{\rightarrow} THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} pairs tm thm thy1 thy2 \MMM{\bullet}\\
+\+	new\_specification pairs tm thm thy1 thy2 =\\
+\+	let conl = Fst(Split pairs)\\
+\+	in let varl = Map mk\_var (Snd(Split pairs))\\
+\+	in let tyl = Map Snd (Snd(Split pairs))\\
+\+	in let subs = \MMM{\lambda}(s, ty) \MMM{\bullet}\\
+\+		if	\MMM{\exists} c \MMM{\bullet} (c, (s, ty)) \MMM{\in} Elems pairs\\
+\+		then	mk\_const((\MMM{\epsilon}c\MMM{\bullet}(c, (s, ty)) \MMM{\in} Elems pairs), ty)\\
+\+		else 	mk\_var(s, ty)\\
+\+	in let axiom = subst subs tm\\
+\+	in (\MMM{\exists} conc\MMM{\bullet}\\
+\+	has\_list\_mk\_exists varl tm conc\\
+\+	\MMM{\land} thy1 extends LOG\\
+\+	\MMM{\land} (freevars\_set conc = \{\})\\
+\+	\MMM{\land} conl \MMM{\in} Distinct\\
+\+	\MMM{\land} varl \MMM{\in} Distinct\\
+\+	\MMM{\land} thm\_seq thm = (\{\}, conc)\\
+\+	\MMM{\land} thy1 extends thm\_thy thm\\
+\+	\MMM{\land} (\MMM{\forall} ty\MMM{\bullet} ty \MMM{\in} Elems tyl \MMM{\Rightarrow} term\_tyvars conc \MMM{\subseteq} type\_tyvars ty)\\
+\+	\MMM{\land} (\MMM{\exists} thy1a \MMM{\bullet}\\
+\+		new\_constants (Elems (Combine conl tyl)) thy1 thy1a \MMM{\land}\\
+\+		new\_axiom axiom thy1a thy2) )\\
+\end{HOLConst}
+
+\subsection{{\it new\_type\_definition}}
+{\it new\_type\_definition} allows the introduction
+of a new type in one-to-one correspondence with
+the subset of an existing type satisfying a given
+predicate, given a theorem asserting that the subset
+is not empty. A new axiom asserting the existence
+of a representation function for the new type is introduced.
+Like {\it new\_definition}, {\it new\_type\_definition}
+is useful and conservative.
+
+For simplicity, we have made the list of type variable
+names to be used as the parameters of the type being
+defined, a parameter to {\it new\_type}.
+The constraints imposed are {\it (a)} that the list
+of type parameter names contain
+no repeats, {\it (b)} the theorem must have the right form
+and {\it (c)} all type variables contained in the
+predicate must be contained in the list of type parameters
+names.
+Condition {\it (c)} ensures that different type instances
+of the new axiom involve different type instances of
+the new type.
+
+\begin{HOLConst}
+\+	\PrNL{}new\_type\_definition\PrNN{} :\\
+\+	STRING \MMM{\rightarrow} (STRING LIST) \MMM{\rightarrow} THM \MMM{\rightarrow} THEORY \MMM{\rightarrow} THEORY \MMM{\rightarrow} BOOL\\
+\PrPH{}
+\+	\MMM{\forall} name typars thm thy1 thy2 \MMM{\bullet}\\
+\+	new\_type\_definition name typars thm thy1 thy2 \MMM{\Leftrightarrow}\\
+\+	\MMM{\exists} p xty x ty px thy1a axiom \MMM{\bullet}\\
+\+	let newty = mk\_type(name, Map mk\_var\_type typars)\\
+\+	in let f = mk\_var("f", Fun newty ty)\\
+\+	in 	thy1 extends LOG\\
+\+	\MMM{\land}	hyp (thm\_seq thm) = \{\}\\
+\+	\MMM{\land}	has\_mk\_exists (xty, px) (concl (thm\_seq thm))\\
+\+	\MMM{\land}	mk\_var (x, ty) = xty\\
+\+	\MMM{\land}	has\_mk\_comb (p, xty) px\\
+\+	\MMM{\land}	freevars\_set p = \{\}\\
+\+	\MMM{\land}	term\_tyvars p \MMM{\subseteq} Elems typars\\
+\+	\MMM{\land}	typars \MMM{\in} Distinct\\
+\+	\MMM{\land}	has\_mk\_exists(f, mk\_comb(mk\_comb(Type\_Definition newty ty, p), f)) axiom\\
+\+	\MMM{\land}	new\_type (\# typars) name thy1 thy1a\\
+\+	\MMM{\land}	new\_axiom axiom thy1a thy2\\
+\end{HOLConst}
+\section{THE THEORY INIT}
+\label{INIT}
+By extending the theory $LOG$ with five axioms
+we will arrive at the theory $INIT$. In a typical
+HOL proof development system all theories will be
+extensions of this theory.
+
+
+\subsection{The Axioms}
+\subsubsection{BOOL\_CASES\_AX}
+This is the law of the excluded middle:
+\begin{GFT}{}
+\+BOOL\_CASES\Backslash{}\_AX \MMM{\Zthm} \MMM{\forall}(b:bool)\MMM{\bullet}(b = T) \MMM{\lor} (b = F)\\
+\end{GFT}
+\begin{HOLConst}
+\+	\PrNL{}BOOL\_CASES\_AX\PrNN{} : TERM\\
+\PrPH{}
+\+	BOOL\_CASES\_AX =\\
+\+	let b = mk\_var("b", Bool)\\
+\+	in mk\_forall(b, mk\_disj(mk\_eq(b, Truth), mk\_eq(b, Falsity)))\\
+\end{HOLConst}
+
+\subsubsection{IMP\_ANTISYM\_AX}
+
+This says that implication is an antisymmetric
+relation:
+\begin{GFT}{}
+\+IMP\_ANTISYM\_AX \MMM{\Zthm} \MMM{\forall}(b1:bool)\MMM{\bullet}\MMM{\forall}(b2:bool)\MMM{\bullet}(b1 \MMM{\Rightarrow} b2) \MMM{\Rightarrow} (b2 \MMM{\Rightarrow} b1) \MMM{\Rightarrow} (b1=b2)\\
+\end{GFT}
+\begin{HOLConst}
+\+	\PrNL{}IMP\_ANTISYM\_AX\PrNN{} : TERM\\
+\PrPH{}
+\+	IMP\_ANTISYM\_AX =\\
+\+	let b1 = mk\_var("b1", Bool)\\
+\+	in let b2 = mk\_var("b2", Bool)\\
+\+	in mk\_forall(b1, mk\_forall(b2,\\
+\+		mk\_imp(mk\_imp(mk\_imp(b1, b2), mk\_imp(b2, b1)), mk\_eq(b1, b2))))\\
+\end{HOLConst}
+
+\subsubsection{ETA\_AX}
+This says that an $\eta$-redex is equal to
+its $\eta$-reduction.
+\begin{GFT}{}
+\+ETA\_AX \MMM{\Zthm} \MMM{\forall}(f:* \MMM{\rightarrow} **)\MMM{\bullet}(\MMM{\lambda}(x:*)\MMM{\bullet}f x) = f\\
+\end{GFT}
+\begin{HOLConst}
+\+	\PrNL{}ETA\_AX\PrNN{} : TERM\\
+\PrPH{}
+\+	ETA\_AX =\\
+\+	let f = mk\_var("f1", Fun Star StarStar)\\
+\+	in let x = mk\_var("x", Star)\\
+\+	in mk\_forall(f, mk\_eq(mk\_abs(x, mk\_comb(f, x)), f))\\
+\end{HOLConst}
+\subsubsection{SELECT\_AX}
+This is the defining property of the choice function $\MMM{\epsilon}$.
+\begin{GFT}{}
+\+SELECT\_AX \MMM{\Zthm} \MMM{\forall}(P:*\MMM{\rightarrow}bool)\MMM{\bullet}\MMM{\forall}(x:*)\MMM{\bullet}P x  \MMM{\Rightarrow}  P(\MMM{\epsilon} P)\\
+\end{GFT}
+\begin{HOLConst}
+\+	\PrNL{}SELECT\_AX\PrNN{} : TERM\\
+\PrPH{}
+\+	SELECT\_AX =\\
+\+	let P = mk\_var("P", Fun Star Bool)\\
+\+	in let x = mk\_var("x", Star)\\
+\+	in mk\_forall(P,mk\_forall(x,\\
+\+			mk\_imp(mk\_comb(P, x), mk\_comb(P, mk\_comb(Choice, P)))))\\
+\end{HOLConst}
+\subsubsection{INFINITY\_AX}
+This is the axiom of infinity. It asserts that the
+type $ind$ is in one-to-one correspondence with
+a proper subset of itself:
+\begin{GFT}{}
+\+INFINITY\_AX \MMM{\Zthm} \MMM{\exists}(f:ind\MMM{\rightarrow}ind)\MMM{\bullet}ONE\_ONE f  \MMM{\land}  \MMM{\lnot}ONTO f\\
+\end{GFT}
+\begin{HOLConst}
+\+	\PrNL{}INFINITY\_AX\PrNN{} : TERM\\
+\PrPH{}
+\+	INFINITY\_AX =\\
+\+	let f = mk\_var("f", Fun Ind Ind)\\
+\+	in mk\_conj(mk\_comb(One\_One, f), mk\_comb(Negation, mk\_comb(ONTO, f)))\\
+\end{HOLConst}
+
+\subsection{The Theory}
+\begin{HOLConst}
+\+	\PrNL{}INIT\PrNN{} : THEORY\\
+\PrPH{}
+\+	\MMM{\exists} thy1 thy2 thy3 thy4 thy5 thy6 \MMM{\bullet}\\
+\+	new\_axiom BOOL\_CASES\_AX LOG thy1\\
+\+\MMM{\land}	new\_axiom IMP\_ANTISYM\_AX thy1 thy2\\
+\+\MMM{\land}	new\_axiom ETA\_AX thy2 thy3\\
+\+\MMM{\land}	new\_axiom SELECT\_AX thy4 thy5\\
+\+\MMM{\land}	new\_type 0 (Fst(dest\_type Ind)) thy5 thy6\\
+\+\MMM{\land}	new\_axiom INFINITY\_AX thy6 INIT\\
+\end{HOLConst}
+
+
+
+\subsection{DEFINITIONAL EXTENSIONS}\label{DEFINITIONALEXTENSIONS}
+
+We will say that a theory $thy1$ is a $definitional$ extension
+of a theory $thy2$ if one may go from $thy2$ to $thy1$ by
+some sequence of
+extensions by the functions
+$new\_type$, $new\_constant$, $new\_definition$,
+$new\_specification$ and $new\_type\_definition$.
+It is stressed that definitional extensions in this sense
+comprise significantly more than just extension by adjoining a defining
+equation for a new constant.
+
+\begin{HOLConst}
+\+	\PrNL{}definitional\_extension\PrNN{} : THEORY \MMM{\rightarrow} THEORY SET\\
+\PrPH{}
+\+	\MMM{\forall}thy\MMM{\bullet}definitional\_extension thy = \MMM{\bigcap}\{thyset |\\
+\+		thy \MMM{\in} thyset\\
+\+	\MMM{\land} (	\MMM{\forall}thy1 thy2 arity name\MMM{\bullet}\\
+\+		thy1 \MMM{\in} thyset \MMM{\land}\\
+\+		new\_type arity name thy1 thy2 \MMM{\Rightarrow} thy2 \MMM{\in} thyset\\
+\+	) \MMM{\land} (\\
+\+	\MMM{\forall}thy1 thy2 name type\MMM{\bullet}\\
+\+		thy1 \MMM{\in} thyset \MMM{\land}\\
+\+		new\_constant name type thy1 thy2 \MMM{\Rightarrow} thy2 \MMM{\in} thyset\\
+\+	) \MMM{\land} (\\
+\+	\MMM{\forall}thy1 thy2 name tm\MMM{\bullet}\\
+\+		thy1 \MMM{\in} thyset \MMM{\land}\\
+\+		new\_definition name tm thy1 thy2 \MMM{\Rightarrow} thy2 \MMM{\in} thyset\\
+\+	) \MMM{\land} (\\
+\+	\MMM{\forall}thy1 thy2 pairs tm thm\MMM{\bullet}\\
+\+		thy1 \MMM{\in} thyset \MMM{\land}\\
+\+		new\_specification pairs tm thm thy1 thy2 \MMM{\Rightarrow} thy2 \MMM{\in} thyset\\
+\+	) \MMM{\land} (\\
+\+	\MMM{\forall}thy1 thy2 name typars thm\MMM{\bullet}\\
+\+		thy1 \MMM{\in} thyset \MMM{\land}\\
+\+		new\_type\_definition name typars thm thy1 thy2 \MMM{\Rightarrow} thy2 \MMM{\in} thyset\\
+\+	)\}\\
+\end{HOLConst}
+
+Of particular importance are theories which
+may be obtained from $INIT$ by definitional
+extension.
+These theories are of interest since, we
+assert, they form a sound formalism
+in which much of the practical machine-checked
+proof work one might wish to do can be carried out.
+
+\twocolumn
+{\twocolumn[\section{INDEX OF DEFINED TERMS}]
+\printindex}
+\end{document}
+
+

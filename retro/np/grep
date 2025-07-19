@@ -1,0 +1,144 @@
+nt001.pp:\documentclass[10pt,titlepage]{article}
+nt001.pp:\hypersetup{pdftitle={Focal Engineering}}
+nt001.pp:\title{\LARGE\bf Focal Knowledge Engineering}
+nt001.pp:\begin{titlepage}
+nt001.pp:\maketitle
+nt001.pp:\end{titlepage}
+nt002.pp:\title{More Miscellanea}
+nt002.pp:\begin{titlepage}
+nt002.pp:\maketitle
+nt002.pp:\end{titlepage}
+t000.pp:\title{Introduction to Work in Progress}
+t000.pp:\begin{titlepage}
+t000.pp:\maketitle
+t000.pp:\end{titlepage}
+t000.pp:My present `focus' is on work intended eventually to form a book whose current title is ``Analyses of Analysis'' \cite{rbjb001, rbjb003, rbjb002}.
+t002.pp:\title{The Formalisation of Physics}
+t002.pp:\begin{titlepage}
+t002.pp:\maketitle
+t002.pp:\end{titlepage}
+t003.pp:\title{Differential Geometry}
+t003.pp:\maketitle
+t004.pp:\title{Membership Structures}
+t004.pp:\maketitle
+t005.pp:\title{Well Founded Relations and Recursion}
+t005.pp:\begin{titlepage}
+t005.pp:\maketitle
+t005.pp:\end{titlepage}
+t006.pp:\title{Miscellanea}
+t006.pp:\maketitle
+t007.pp:\title{Inductive and Co-inductive Definitions in ProofPower}
+t007.pp:\maketitle
+t008.pp:\title{Illustrations of (Co-)Inductive Definitions}
+t008.pp:\maketitle
+t009.pp:\title{Well-orderings and Well-foundedness}
+t009.pp:\maketitle
+t010.pp:\title{Miscellaneous Tactics}
+t010.pp:\maketitle
+t011.pp:\title{Unifying and Antiunifying Type and Term Nets}
+t011.pp:\maketitle
+t012.pp:\title{Backward Chaining}
+t012.pp:\maketitle
+t013.pp:\title{Z in HOL - the story of ProofPower}
+t013.pp:\maketitle
+t014.pp:\title{The Story of ProofPower}
+t014.pp:\maketitle
+t015.pp:\title{An Introduction to ProofPower}
+t015.pp:\maketitle
+t016.pp:\title{X-Logic Models}
+t016.pp:\maketitle
+t017.pp:\title{Category Theory}
+t017.pp:\maketitle
+t018.pp:\title{The Category of Categories}
+t018.pp:\begin{titlepage}
+t018.pp:\maketitle
+t018.pp:\end{titlepage}
+t019.pp:\title{NFU and NF in ProofPower-HOL}
+t019.pp:\begin{titlepage}
+t019.pp:\maketitle
+t019.pp:\end{titlepage}
+t020.pp:\title{PolySet Theory}
+t020.pp:\begin{titlepage}
+t020.pp:\maketitle
+t020.pp:\end{titlepage}
+t021.pp:\title{Set Theory as Consistent Infinitary Comprehension}
+t021.pp:\begin{titlepage}
+t021.pp:\maketitle
+t021.pp:\end{titlepage}
+t022.pp:\title{Surreal Geometric Analysis}
+t022.pp:\begin{titlepage}
+t022.pp:\maketitle
+t022.pp:\end{titlepage}
+t023.pp:\title{A Higher Order Theory of Well-Founded Sets}
+t023.pp:\begin{titlepage}
+t023.pp:\maketitle
+t023.pp:\end{titlepage}
+t024.pp:\title{Infinitarily Definable Non-Well-Founded Sets}
+t024.pp:\begin{titlepage}
+t024.pp:\maketitle
+t024.pp:\end{titlepage}
+t025.pp:\title{More Miscellanea (misc1, misc2)}
+t025.pp:\begin{titlepage}
+t025.pp:\maketitle
+t025.pp:\end{titlepage}
+t026.pp:\title{Infinitarily Definable Sets}
+t026.pp:\begin{titlepage}
+t026.pp:\maketitle
+t026.pp:\end{titlepage}
+t027.pp:\title{Infinitary First Order Set Theory}
+t027.pp:\begin{titlepage}
+t027.pp:\maketitle
+t027.pp:\end{titlepage}
+t031.pp:\title{Pure Type Systems and HOL-Omega in ProofPower}
+t031.pp:\begin{titlepage}
+t031.pp:\maketitle
+t031.pp:\end{titlepage}
+t033.pp:\title{The Proposition}
+t033.pp:\begin{titlepage}
+t033.pp:\maketitle
+t033.pp:\end{titlepage}
+t034.pp:\title{A Self-Defining Semantics for First Order Set Theory}
+t034.pp:\begin{titlepage}
+t034.pp:\maketitle
+t034.pp:\end{titlepage}
+t042.pp:\title{A Higher Order Theory of Well-Founded Sets (with Urelements)}
+t042.pp:\begin{titlepage}
+t042.pp:\maketitle
+t042.pp:\end{titlepage}
+t043.pp:\title{More Miscellanea}
+t043.pp:\begin{titlepage}
+t043.pp:\maketitle
+t043.pp:\end{titlepage}
+t051.pp:\title{Infinitary Induction in HOL}
+t051.pp:\begin{titlepage}
+t051.pp:\maketitle
+t051.pp:\end{titlepage}
+t052.pp:\title{The Logical Syntax of Language}
+t052.pp:\begin{titlepage}
+t052.pp:\maketitle
+t052.pp:\end{titlepage}
+t053.pp:\title{Simple Predicate Calculus Proof Methods for HOL and Z}
+t053.pp:\begin{titlepage}
+t053.pp:\maketitle
+t053.pp:\end{titlepage}
+t054.pp:\title{Formal Synthetic Epistemology}
+t054.pp:\begin{titlepage}
+t054.pp:\maketitle
+t054.pp:\end{titlepage}
+t055.pp:\title{Unicode Characters in ProofPower through Lualatex}
+t055.pp:\begin{titlepage}
+t055.pp:\maketitle
+t055.pp:\end{titlepage}
+t056.pp:\title{Ordinals and Enumerations}
+t056.pp:\begin{titlepage}
+t056.pp:\maketitle
+t056.pp:\end{titlepage}
+t057.pp:\title{Formal Architectural Modelling}
+t057.pp:\begin{titlepage}
+t057.pp:\maketitle
+t057.pp:\end{titlepage}
+t058.pp:\title{Strong Infinity}
+t058.pp:\hypersetup{pdftitle={Strong Infinity}}
+t058.pp:\begin{titlepage}
+t058.pp:\maketitle
+t058.pp:\end{titlepage}
