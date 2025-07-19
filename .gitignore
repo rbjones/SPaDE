@@ -1,0 +1,35 @@
+# git ignores for ProofPower.
+# directories created by the C compiler on Mac OS X.
+*.dSYM/
+# Suffixes of files generated during the build process.
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.grm.run
+*.grm.txt
+*.hrf
+*.idx
+*.inc
+*.ldd
+*.lof
+*.log
+*.lot
+*.o
+*.pdf
+*.polydb
+*.ps
+*.sid
+*.sml
+*.tch
+*.th
+*.th.doc
+*.thl.doc
+*.thy.doc
+*.theories
+*.toc
+*.ttd
+# Archives of various kinds
+*.tar
+*.tgz
+*.zip
