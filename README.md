@@ -1,5 +1,6 @@
-# chdkr
-**Cambridge HOL for Declarative Knowledge Repository**
+# Cambridge HOL for Declarative Knowledge Repository
+
+Yes, not good name, but I timed out on my search for a better one.
 
 The purpose of this project is to argue the case for,
 and build infrastructure to support,
@@ -13,19 +14,23 @@ at the University of Cambridge for use in
 the interactive theorem prover then called "Cambridge HOL".
 
 For the purposes of this project, it is the abstract structure of
-the Cambridge HOL logical system which is adopted.
+the Cambridge HOL logical system which is adopted
+and promoted for a broader role.
 The project separates out that abstract representation and logical system
 from its concrete forms, concrete syntax and physical storage formats,
-allowing for a diversity of front ends using the same underlying
-abstract representation for a diversity of declarative language
-or LLM mediated dialogue yielding structures reflecting user requirements
- without explicit textual renderings.
+allowing for a diversity of front ends, using the same underlying
+abstract representation, for a diversity of declarative languages
+or for AI mediated dialogue yielding structures reflecting
+user requirements, perhaps with no explicit textual renderings.
 
 The divorce from the concrete will be achieved through the provision
 of APIs and protocols supporting both front ends and back ends.
 Progression of the project will depend on there being such front ends
 and back ends, but these will be development tools and exemplars
 rather than products.
+The main aim of this project is to create a deductive intelligence
+which will reliably and efficiently work deductively within any logical
+context rendered through the defined interfaces.
 
 There are two main subsystems which will be addressed by the project.
 The logical structure of the knowledge repository,
@@ -55,4 +60,20 @@ The possibility of doing this permits simplicity in the logical kernel
 to be taken to its limits, but demands that the development of the theory
 hierarchy focus on the machinery for metatheory.
 
+The structure of the repo at this point falls into two directories:
 
+* [docs](docs/README.md).
+    This is the main documentation covering all aspects of the description of the project including formal specifications.
+
+* [retro](retro/README.md)
+    This is a directory which contains material from previous projects
+    and work preliminary to the specification and implementation of the new project which makes use of some of that previous material, and must be done in that context in the first instance.
+
+```
+ⓈHOLCONST
+│ $⦏≤⋎s⦎ : 'a ℙ → 'b ℙ → BOOL
+├──────
+│ ∀ A B⦁ A ≤⋎s B ⇔ ∃f⦁
+│	∀x y⦁ x ∈ A ∧ y ∈ A ⇒ f x ∈ B ∧ f y ∈ B ∧ (f x = f y ⇒ x = y)
+■
+```

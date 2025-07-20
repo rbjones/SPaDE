@@ -1,4 +1,5 @@
-# git ignores for ProofPower.
+# git ignores for chdkr.
+.DS_Store
 # directories created by the C compiler on Mac OS X.
 *.dSYM/
 # Suffixes of files generated during the build process.
