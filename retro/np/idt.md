@@ -19,11 +19,24 @@ In the case that new types or type constructors are required,
 this involves demonstrating that the new types being introduced
 are isomorphic to structures which can already be defined in the
 context which is to be extended with the new types.
-For inductive types 
+For inductive types, this depends on there being types already
+available which are large enough to be closed under the reqhired
+constructors for the inductive type.
+For example, the simplest such type is the natural nunmbers,
+so in order to conservatively introduce the natural numbers
+a representative type is required which is close under the
+constructors 0 and Suc.
 
-The universality of the proposed system depends upon the possibility of
-strengthening through axiomatic princples similar to
-large cardinal axioms in set theory.
+This demands a type with infinitely many members, and so cannot
+be done without an axiom of infinity
+(and as it happens, is simple enough to use for the natural numbers
+without using inductive datatype support).
+More elaborate inductive types require larger representation types
+in order to get a fixed point.
+
+The universality of the proposed system therefore depends upon
+the possibility of strengthening through axiomatic princples
+similar to large cardinal axioms in set theory.
 
 In the context of HOL, this strengthening does not require an axiomatic
 set theory, but can be realised by strong axioms of infinity over
