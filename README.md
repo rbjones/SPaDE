@@ -1,6 +1,6 @@
 # Cambridge HOL for Declarative Knowledge Repository
 
-Yes, not good name, but I timed out on my search for a better one.
+Yes, not a good name, but I timed out on my search for a better one.
 
 The purpose of this project is to argue the case for,
 and build infrastructure to support,
