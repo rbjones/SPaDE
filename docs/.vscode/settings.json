@@ -1,0 +1,18 @@
+// filepath: /Users/rbj/git/chdkr/docs/.vscode/settings.json
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "make",
+      "command": "make",
+      "args": [],
+      "env": {}
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "make",
+      "tools": ["make"]
+    }
+  ],
+  "latex-workshop.latex.autoBuild.run": "onSave"
+}
