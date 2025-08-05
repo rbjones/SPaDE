@@ -1,6 +1,57 @@
-# Cambridge HOL for Declarative Knowledge Repository
+# Synthetic Philoaophy and Deductive Engineering
 
-Yes, not a good name, but I timed out on my search for a better one.
+This project is intended to progress the earliest and
+most fundamental aspects of technology to support
+the application of deductive intelligence to reasoning
+about knowledge in general, focussing initially on
+logically rigorous engineering design and software development.
+
+The initial focus on software is intended to enable
+reflexive self-improvement through metatheoretic reasoning.
+
+The term Synthetic Philosophy is used here for an approach
+to philosophy following in the steps of Rudolf Carnap,
+whose contributions to Logical Positivism were
+substantially oriented to facilitating rigour in science through
+the adoption of formal techniques inspired in Carnap by his early
+acquaintance with the work of Gottlob Frege.
+
+The main difference in the orientation of "Synthetic Philosophy"
+is that the intended beneficiary in the first instance
+(before "everything") is Engineering rather than Science,
+and the ambition is to facilitate the establishment of
+design methods in which rigorous deductive reasoning is
+so closely interwoven into the design process that formal
+assurance that requirements are met is a normal outcome of the
+design process.
+This more generally we conceive of as moving towards a new deductive paradigm for information processing in general,
+in consequence of which the effects of computation can be seen
+as extensions to our body of knowledge about the world.
+
+In pursuit of that goal, the ability to manage
+large distributed bodies of shared knowledge which are
+semantically unambiguous and logically coherent
+is crucial.
+In consequence a first architectural decision is to break
+with a common feature of Interctive Theorem Provers in the
+LCF tradition, by decoupling the knowledge repositories from
+the deductive intelligence.
+
+We therefore have two major subdivisions of the project:
+
+1. [The Knowledge Repository](kr/KnowledgeRepo.md)
+2. (The )
+
+For this purpose I propose the use of a single abstract form
+of representation of propositions which is universal
+in its ability to express declarative knowledge.
+whatever the original presentation of that knowledge
+(subject to the definition of `declarative knowledge'
+which I will aupply).
+This is decoupled, as an abstract foundational logical system
+indexed by interpretation cardinality, from concrete forms.
+
+*****************
 
 The purpose of this project is to argue the case for,
 and build infrastructure to support,
@@ -63,17 +114,23 @@ hierarchy focus on the machinery for metatheory.
 The structure of the repo at this point falls into two directories:
 
 * [docs](docs/README.md).
-    This is the main documentation covering all aspects of the description of the project including formal specifications.
+    This is the main documentation covering all aspects of
+    the description of the project including formal specifications.
+    The more foundational philosophical aspects of the project
+    and the large scale architecture of the proposals
+    are presented here.
+
+* [kr](kr/README.md)
+    Concerned with the structure and management of
+    knowledge repositories
+
+* [dk](dk/README.md)
+    Concerned with the deductive kernel
 
 * [retro](retro/README.md)
-    This is a directory which contains material from previous projects
-    and work preliminary to the specification and implementation of the new project which makes use of some of that previous material, and must be done in that context in the first instance.
+    This is a directory which contains material from
+    previous projects and work preliminary to
+    the specification and implementation of the new project
+    which makes use of some of that previous material,
+    and must be progressed in that context in the first instance.
 
-```
-ⓈHOLCONST
-│ $⦏≤⋎s⦎ : 'a ℙ → 'b ℙ → BOOL
-├──────
-│ ∀ A B⦁ A ≤⋎s B ⇔ ∃f⦁
-│	∀x y⦁ x ∈ A ∧ y ∈ A ⇒ f x ∈ B ∧ f y ∈ B ∧ (f x = f y ⇒ x = y)
-■
-```
