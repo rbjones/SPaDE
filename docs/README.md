@@ -18,3 +18,60 @@ formally verified computation yielding unambiguous and reliable truths.
 * To build an abstract inference engine supporting those processes
 in a manner independent of the concrete syntax or stored form
 of the knowledge establishing the context for the inference.
+
+## Documentation Structure
+
+### [Admin Documentation](admin/README.md)
+Project management, collaboration framework, and planning documents:
+- [Issues and Gaps](admin/ISSUES.md) - Comprehensive analysis of project issues
+- [Project Structure](admin/PROJECT_STRUCTURE.md) - Proposed enhanced organization
+- [Action Plan](admin/ACTION_PLAN.md) - Detailed implementation roadmap
+- [Collaboration Framework](admin/) - Human/AI collaboration documentation
+
+### [Philosophical Foundations](philosophy/)
+Core philosophical concepts and foundations:
+- [Philosophical Preliminaries](PhilosophicalPreliminaries.md) - Basic philosophical approach
+- [Deductive Paradigm](DeductiveParadigm.md) - The paradigm shift concept
+
+### [Architecture](architecture/)
+System architecture and design:
+- [Knowledge Repository](kr/KnowledgeRepo.md) - Repository architecture
+- [Deductive Kernel](dk/kernel.md) - Kernel design and implementation
+
+### [Specifications](specifications/)
+Formal specifications and technical details:
+- [Cambridge HOL Syntax](specifications/) - Formal syntax definitions
+- [Type System](specifications/) - Type system specifications
+- [Inference Rules](specifications/) - Logical inference rules
+
+### [Examples](examples/)
+Concrete examples and use cases:
+- [Basic Proofs](examples/) - Simple proof examples
+- [Software Verification](examples/) - Verification examples
+- [Knowledge Representation](examples/) - Representation examples
+
+### [Papers](papers/)
+Academic papers and publications:
+- [CHDKR Paper](chdkrpaper.tex) - Main technical paper
+
+## Collaboration Framework
+
+This project emphasizes human/AI collaboration as essential to its success. The collaboration framework is documented in the [admin directory](admin/), including:
+
+- **Roles and Responsibilities**: Bertie (philosopher/architect) and Alan (high-bandwidth contributor)
+- **Collaboration Methods**: Standards and approaches for effective collaboration
+- **Workflows**: Specific processes for different types of work
+- **Quality Assurance**: Review and validation procedures
+
+## Development Status
+
+**Current Phase**: Foundation and structure setup
+- [x] Initial project analysis completed
+- [x] Collaboration framework established
+- [ ] Core terminology defined
+- [ ] Philosophical foundation completed
+- [ ] Formal specifications developed
+
+## Contributing
+
+See the [admin documentation](admin/) for collaboration guidelines and project management procedures.
