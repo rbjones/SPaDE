@@ -16,7 +16,6 @@ File names should be stable and descriptive, independent of document titles:
 - **Philosophy/**: Philosophical foundations and concepts  
 - **Architecture/**: System design and component specifications
 - **Specifications/**: Formal mathematical specifications
-- **Examples/**: Concrete examples and use cases
 - **Papers/**: Academic publications and formal papers
 
 ## Quality Standards

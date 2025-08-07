@@ -34,11 +34,6 @@ SPaDE/
 │   │   ├── type-system.md
 │   │   ├── inference-rules.md
 │   │   └── metatheory.md
-│   ├── examples/                      # Concrete examples
-│   │   ├── README.md
-│   │   ├── basic-proofs.md
-│   │   ├── software-verification.md
-│   │   └── knowledge-representation.md
 │   └── papers/                        # Academic papers
 │       ├── chdkrpaper.tex
 │       └── other-papers/
@@ -91,7 +86,6 @@ SPaDE/
 - **philosophy/**: Complete philosophical foundations
 - **architecture/**: System architecture and design
 - **specifications/**: Formal mathematical specifications
-- **examples/**: Concrete examples and tutorials
 - **papers/**: Academic papers and publications
 
 ### `kr/` and `dk/` - Implementation Directories
@@ -124,6 +118,14 @@ Automation and configuration:
 - **scripts/**: Build, test, and deployment scripts
 - **config/**: Configuration files for different environments
 
+## Training and Theory Sources
+
+Rather than creating our own examples, the project will focus on:
+- **Established theory sources**: Using existing mathematical and logical theories
+- **KR interfaces**: Accessing rich theory repositories through generic interfaces
+- **AI training**: Leveraging established theories for training AI algorithms
+- **Real-world applications**: Working with actual theory bases rather than simplified examples
+
 ## Migration Strategy
 
 ### Phase 1: Create Missing Structure
@@ -135,8 +137,8 @@ Automation and configuration:
 ### Phase 2: Fill Content Gaps
 1. Complete philosophical foundations
 2. Develop formal specifications
-3. Create concrete examples
-4. Design API and protocol specifications
+3. Design API and protocol specifications
+4. Establish theory source integration
 
 ### Phase 3: Implementation
 1. Begin actual implementation in `kr/src/` and `dk/src/`
@@ -153,6 +155,7 @@ Automation and configuration:
 5. **Testing**: Comprehensive testing structure
 6. **Documentation**: Documentation is co-located with code
 7. **Automation**: Clear place for build and deployment automation
+8. **Theory Integration**: Focus on established sources rather than examples
 
 ## Next Steps
 

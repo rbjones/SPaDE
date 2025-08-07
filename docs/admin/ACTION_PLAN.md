@@ -21,7 +21,6 @@ This document outlines a prioritized action plan to address the issues identifie
    - [ ] `docs/philosophy/README.md`
    - [ ] `docs/architecture/README.md`
    - [ ] `docs/specifications/README.md`
-   - [ ] `docs/examples/README.md`
    - [ ] `api/README.md`
    - [ ] `tools/README.md`
    - [ ] `tests/README.md`
@@ -72,19 +71,19 @@ This document outlines a prioritized action plan to address the issues identifie
    - [ ] Define inference rules
    - [ ] Outline metatheory structure
 
-### Week 4: Examples and Use Cases
+### Week 4: Theory Source Integration
 **Priority: Medium**
 
-1. **Create concrete examples** (Medium Priority)
-   - [ ] Create `docs/examples/basic-proofs.md`
-   - [ ] Create `docs/examples/software-verification.md`
-   - [ ] Create `docs/examples/knowledge-representation.md`
-   - [ ] Create `docs/examples/ai-integration.md`
+1. **Design theory source interfaces** (Medium Priority)
+   - [ ] Create `docs/architecture/theory-sources.md`
+   - [ ] Create `docs/architecture/kr-interfaces.md`
+   - [ ] Create `docs/architecture/ai-training.md`
+   - [ ] Create `docs/architecture/real-world-applications.md`
 
-2. **Document use cases** (Medium Priority)
-   - [ ] Create `docs/examples/use-cases.md`
-   - [ ] Create `docs/examples/domain-examples.md`
-   - [ ] Create `docs/examples/migration-examples.md`
+2. **Document theory integration strategy** (Medium Priority)
+   - [ ] Create `docs/architecture/theory-integration.md`
+   - [ ] Create `docs/architecture/established-sources.md`
+   - [ ] Create `docs/architecture/training-strategy.md`
 
 ## Phase 2: Technical Specifications (Weeks 5-8)
 
@@ -181,7 +180,24 @@ This document outlines a prioritized action plan to address the issues identifie
    - [ ] Performance tests
    - [ ] Validation tools
 
-## Phase 4: Documentation and Community (Ongoing)
+## Phase 4: Theory Integration (Ongoing)
+
+### Theory Source Integration
+**Priority: Medium**
+
+1. **Establish theory source connections** (Medium Priority)
+   - [ ] Design interfaces to established theory repositories
+   - [ ] Implement theory source parsers and converters
+   - [ ] Create training data pipelines from theory sources
+   - [ ] Validate theory source integration
+
+2. **AI Training Integration** (Medium Priority)
+   - [ ] Design AI training protocols using theory sources
+   - [ ] Implement theory-based training data generation
+   - [ ] Create validation frameworks for AI training
+   - [ ] Establish continuous learning from theory sources
+
+## Phase 5: Documentation and Community (Ongoing)
 
 ### Documentation Completion
 **Priority: Medium**
@@ -189,7 +205,7 @@ This document outlines a prioritized action plan to address the issues identifie
 1. **Complete all documentation** (Medium Priority)
    - [ ] API documentation
    - [ ] User guides
-   - [ ] Tutorials
+   - [ ] Theory integration guides
    - [ ] FAQ
 
 2. **Create community resources** (Low Priority)
@@ -205,7 +221,7 @@ This document outlines a prioritized action plan to address the issues identifie
 - [ ] Project structure implemented
 - [ ] Core terminology defined
 - [ ] Philosophical foundation complete
-- [ ] Basic examples created
+- [ ] Theory source integration strategy defined
 
 ### Phase 2 Success Criteria
 - [ ] API specifications complete
@@ -220,6 +236,12 @@ This document outlines a prioritized action plan to address the issues identifie
 - [ ] Test suite passing
 
 ### Phase 4 Success Criteria
+- [ ] Theory source integration working
+- [ ] AI training from theory sources functional
+- [ ] Real-world theory applications demonstrated
+- [ ] Continuous learning from theory sources established
+
+### Phase 5 Success Criteria
 - [ ] Complete documentation
 - [ ] Community guidelines established
 - [ ] Project ready for external contributors
@@ -230,11 +252,13 @@ This document outlines a prioritized action plan to address the issues identifie
 1. **Complexity of reflexive reasoning** - Start with simple metatheory
 2. **Performance of distributed system** - Begin with centralized implementation
 3. **AI integration challenges** - Focus on human-usable interfaces first
+4. **Theory source integration complexity** - Start with simple, well-documented sources
 
 ### Contingency Plans
 1. **If reflexive reasoning proves too complex** - Fall back to traditional LCF approach initially
 2. **If distributed architecture is too complex** - Start with centralized repository
-3. **If AI integration is premature** - Focus on human-usable interfaces
+3. **If AI integration is premature** - Focus on human-usable interfaces first
+4. **If theory source integration is challenging** - Start with manual theory entry and validation
 
 ## Resource Requirements
 
