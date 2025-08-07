@@ -1,6 +1,6 @@
-# CHDKR Project Documentation
+# SPaDE Project Documentation
 
-The chdkr project has the following main objectives:
+The SPaDE project has the following main objectives:
 
 * To argue that the abstract representation of the logic known
 as _Cambridge HOL_ is suitable as a general representation form for
