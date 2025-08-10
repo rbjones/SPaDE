@@ -3,8 +3,7 @@
 The SPaDE project has the following main objectives:
 
 * To argue that the abstract representation of the logic known
-as _Cambridge HOL_ is suitable as a general representation form for
-declarative knowledge irrespective of what language or coding it may have been presented or stored in.
+as _Cambridge HOL_ is suitable as a general representation form for declarative knowledge irrespective of what language or coding it may have been presented or stored in.
 
 * To articulate a conception of a
 [deductive paradigm shift](DeductiveParadigm) which,

@@ -1,136 +1,19 @@
-# Synthetic Philoaophy and Deductive Engineering
+# Synthetic Philosophy and Deductive Engineering
 
-This project is intended to progress the earliest and
-most fundamental aspects of technology to support
-the application of deductive intelligence to reasoning
-about knowledge in general, focussing initially on
-logically rigorous engineering design and software development.
+This project seeks to progress the proliferation of benign intelligence across the cosmos from small beginnings here on earth.
 
-The initial focus on software is intended to enable
-reflexive self-improvement through metatheoretic reasoning.
+The _purpose_ is derived from ethical principles in the context of pragmatic constraints, taking into account the fundamental imperative of evolution.
 
-The term Synthetic Philosophy is used here for an approach
-to philosophy following in the steps of Rudolf Carnap,
-whose contributions to Logical Positivism were
-substantially oriented to facilitating rigour in science through
-the adoption of formal techniques inspired in Carnap by his early
-acquaintance with the work of Gottlob Frege.
+Its progression is considered as an engineering process in which the means to proliferation are engineered and applied by ever advancing intelligent infrastructure exploiting and continually advancing a distributed shared repository of declarative knowledge.
 
-The main difference in the orientation of "Synthetic Philosophy"
-is that the intended beneficiary in the first instance
-(before "everything") is Engineering rather than Science,
-and the ambition is to facilitate the establishment of
-design methods in which rigorous deductive reasoning is
-so closely interwoven into the design process that formal
-assurance that requirements are met is a normal outcome of the
-design process.
-This more generally we conceive of as moving towards a new deductive paradigm for information processing in general,
-in consequence of which the effects of computation can be seen
-as extensions to our body of knowledge about the world.
+The contribution sought by this project to that purpose is in two principle areas.
+The first is concerned with the management of that shared repository.
+The second with the architecture and fundamental core of the deductive intelligence which is the engine of proliferation.
 
-In pursuit of that goal, the ability to manage
-large distributed bodies of shared knowledge which are
-semantically unambiguous and logically coherent
-is crucial.
-In consequence a first architectural decision is to break
-with a common feature of Interctive Theorem Provers in the
-LCF tradition, by decoupling the knowledge repositories from
-the deductive intelligence.
+Further elaboration of the 'synthetic philosophy' which underpins the project, and the architecture for proliferation which emerges from it, appears in the [docs](docs/README.md) directory, together with all other project documentation not specific to the two subsystems of special concern.
 
-We therefore have two major subdivisions of the project:
+The [kr](kr/README.md) directory contains those parts of the project contributing to the architecture of the distributed repository of declarative knowledge.
 
-1. [The Knowledge Repository](kr/KnowledgeRepo.md)
-2. (The )
-
-For this purpose I propose the use of a single abstract form
-of representation of propositions which is universal
-in its ability to express declarative knowledge.
-whatever the original presentation of that knowledge
-(subject to the definition of `declarative knowledge'
-which I will aupply).
-This is decoupled, as an abstract foundational logical system
-indexed by interpretation cardinality, from concrete forms.
-
-*****************
-
-The purpose of this project is to argue the case for,
-and build infrastructure to support,
-the idea that a particular variant of classical Higher Order Logic
-is suitable for the representation and manipulation
-of all declarative knowledge.
-
-The variant in question is called "Cambridge HOL"
-since it was devised by Michael Gordon and associates
-at the University of Cambridge for use in
-the interactive theorem prover then called "Cambridge HOL".
-
-For the purposes of this project, it is the abstract structure of
-the Cambridge HOL logical system which is adopted
-and promoted for a broader role.
-The project separates out that abstract representation and logical system
-from its concrete forms, concrete syntax and physical storage formats,
-allowing for a diversity of front ends, using the same underlying
-abstract representation, for a diversity of declarative languages
-or for AI mediated dialogue yielding structures reflecting
-user requirements, perhaps with no explicit textual renderings.
-
-The divorce from the concrete will be achieved through the provision
-of APIs and protocols supporting both front ends and back ends.
-Progression of the project will depend on there being such front ends
-and back ends, but these will be development tools and exemplars
-rather than products.
-The main aim of this project is to create a deductive intelligence
-which will reliably and efficiently work deductively within any logical
-context rendered through the defined interfaces.
-
-There are two main subsystems which will be addressed by the project.
-The logical structure of the knowledge repository,
-and the core deductive capabilities which enable applications to 
-process and apply the knowledge in the repository.
-These core capabilities are intended to contribute
-to a deductive paradigm shift in which information processing in general 
-is augmented by reliable and efficient formal rigour. 
-
-The development of the core deductive capabilities will be focused
-on certain areas which will ultimately contribute to the continued
-development of the broader applications.
-That first focus will be on formally rigorous design and
-build capabilities.
-Within that a medium term focus will be on AI supported
-software engineering, and in the first instance the logical kernel
-will be re-engineered to facilitate the development of
-its own metatheory and the verification of derived rules
-which can then be efficiently applied in derivations.
-For such purposes, programming languages will be represented
-by the abstract HOL syntax, and a significant adaptation
-of the LCF paradigm now widely used in interactive proof tools
-is envisaged, allowing that tactics which have been proven to be sound
-can shortcut the requirement for detailed verification of
-low level proof steps.
-The possibility of doing this permits simplicity in the logical kernel
-to be taken to its limits, but demands that the development of the theory
-hierarchy focus on the machinery for metatheory.
-
-The structure of the repo at this point falls into two directories:
-
-* [docs](docs/README.md).
-    This is the main documentation covering all aspects of
-    the description of the project including formal specifications.
-    The more foundational philosophical aspects of the project
-    and the large scale architecture of the proposals
-    are presented here.
-
-* [kr](kr/README.md)
-    Concerned with the structure and management of
-    knowledge repositories
-
-* [dk](dk/README.md)
-    Concerned with the deductive kernel
-
-* [retro](retro/README.md)
-    This is a directory which contains material from
-    previous projects and work preliminary to
-    the specification and implementation of the new project
-    which makes use of some of that previous material,
-    and must be progressed in that context in the first instance.
-
+The [dk](dk/README.md) directory contains those parts of the project contributing to and building beyond the deductive kernel.
+The deductive kernel is the part of the system which guarantees the soundness of deduction.
+This directory also covers the architecture for intelligence distributed throughout the knowledge repository.

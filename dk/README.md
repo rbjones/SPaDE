@@ -8,15 +8,16 @@ The Deductive Kernel is the core logical inference engine that performs formal r
 
 ## Key Features
 
-- **Abstract Logical Engine**: Completely divorced from concrete syntax
-- **Reflexive Capabilities**: Can reason about its own metatheory
-- **Verified Tactics**: Supports tactics proven to be sound
-- **AI Integration**: Designed to work with AI-assisted proof generation
+- **Abstract Logical Engine**: Completely divorced from concrete syntax and persistent theory representation.
+- **Reflexive Capabilities**: The kernel admits the direct use of derived rules which are proven consistent with the specified derivability relation.
+- **Derived Rules Instead of Tactics**: Derived rules play the role previously assumed by tactics, yielding the theorem which would normally be supplied by the tactic.
+- **AI Integration**: Designed to work with AI which will use neural net heuristics in proof search and will implement derived rules for common inference patterns.
 - **Efficient Execution**: Supports direct execution of verified algorithms
 
 ## Architecture
 
-The Deductive Kernel operates on contexts from the Knowledge Repository and delivers theorems derivable in those contexts. Unlike traditional LCF systems, it does not manipulate the repository directly - theorems are not automatically added to contexts.
+The Deductive Kernel operates on contexts from the Knowledge Repository and delivers theorems derivable in those contexts.
+Unlike traditional LCF systems, it does not manipulate the repository directly - theorems are not automatically added to contexts.
 
 ### Core Concepts
 
@@ -26,15 +27,6 @@ The Deductive Kernel operates on contexts from the Knowledge Repository and deli
 - **Metatheory**: The theory of the logical system itself
 - **Reflexive Reasoning**: The ability to reason about the system within itself
 
-## Directory Structure
-
-```
-dk/
-├── README.md              # This file
-├── src/                   # Source code implementation
-├── specs/                 # Formal specifications
-├── tests/                 # Test suite
-└── docs/                  # DK-specific documentation
 ```
 
 ## Documentation
@@ -44,14 +36,11 @@ dk/
 - [API Documentation](docs/) - Interface documentation
 - [Metatheory](specs/metatheory.md) - Self-referential theory
 
-## Implementation Status
+## Development Status
 
-**Current Status**: Design phase
-- [x] High-level design sketched
-- [x] Core concepts identified
-- [ ] Formal specifications complete
-- [ ] Implementation started
-- [ ] Test suite created
+Preliminary prototyping plan sketched.
+
+- [Plan1](Plan1.md) - Deductive Kernel Development Plan
 
 ## Key Innovations
 
