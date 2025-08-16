@@ -27,33 +27,19 @@ Project management, collaboration framework, and planning documents:
 - [Action Plan](admin/ACTION_PLAN.md) - Detailed implementation roadmap
 - [Collaboration Framework](admin/) - Human/AI collaboration documentation
 
-### [Philosophical Foundations](philosophy/)
+### [Philosophy and Architecture]
 Core philosophical concepts and foundations:
 - [Philosophical Preliminaries](PhilosophicalPreliminaries.md) - Basic philosophical approach
+- [Synthetic Philosophy](SyntheticPhilosophy)
 - [Deductive Paradigm](DeductiveParadigm.md) - The paradigm shift concept
+- [Epistemological Stack](EpistemologicalStack.md)
+- [Focal Engineering](FocalEngineering.md)
 
-### [Architecture](architecture/)
-System architecture and design:
+### [Knowledge Repository](kr/README.md/)
 - [Knowledge Repository](kr/KnowledgeRepo.md) - Repository architecture
+
+### [Deductive Kernel](dk/README.md)
 - [Deductive Kernel](dk/kernel.md) - Kernel design and implementation
-
-### [Specifications](specifications/)
-Formal specifications and technical details:
-- [Cambridge HOL Syntax](specifications/) - Formal syntax definitions
-- [Type System](specifications/) - Type system specifications
-- [Inference Rules](specifications/) - Logical inference rules
-
-### [Papers](papers/)
-Academic papers and publications:
-- [CHDKR Paper](chdkrpaper.tex) - Main technical paper
-
-## Theory Source Integration
-
-Rather than creating our own examples, the project focuses on:
-- **Established theory sources**: Using existing mathematical and logical theories
-- **KR interfaces**: Accessing rich theory repositories through generic interfaces
-- **AI training**: Leveraging established theories for training AI algorithms
-- **Real-world applications**: Working with actual theory bases rather than simplified examples
 
 ## Collaboration Framework
 
@@ -63,16 +49,6 @@ This project emphasizes human/AI collaboration as essential to its success. The 
 - **Collaboration Methods**: Standards and approaches for effective collaboration
 - **Workflows**: Specific processes for different types of work
 - **Quality Assurance**: Review and validation procedures
-
-## Development Status
-
-**Current Phase**: Foundation and structure setup
-- [x] Initial project analysis completed
-- [x] Collaboration framework established
-- [ ] Core terminology defined
-- [ ] Philosophical foundation completed
-- [ ] Formal specifications developed
-- [ ] Theory source integration strategy defined
 
 ## Contributing
 
