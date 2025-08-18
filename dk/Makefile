@@ -120,7 +120,9 @@ pdf: $(PDFFILES)
 ######################################################################
 
 clean:
-	rm -f $(HOLTEXS) $(SMLFILES) $(LDDFILES)
+	rm -f $(COMDIRCPY) $(HOLTEXS) $(LDDFILES) \
+	$(MDSMLS) $(MDTEXS) $(PPLDDS) $(PPSMLS) $(SPCPPS) \
+	$(THPPS) $(THTEXS)
 	rm -f *.aux *.bbl *.blg *.err *.idx *.log *.lot *.out *.sid *-e \
 	*.thna.pp *.sml *.toc *.th.pp *.stats.doc *.stats.tex t000abs.tex \
 	doc_theories.tex \\#*\\#

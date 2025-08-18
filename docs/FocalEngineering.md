@@ -37,4 +37,8 @@ From the bottom up:
   Then we have to move to the design of a completely new system which will function in a context which is devoid of most everything we have here on planet earth.
 4. *Interstellar Proliferation*
 
+### The Epistemological Connection
+
+The focal tower as described above correlates with the [epistemological stack](EpistemologicalStack.md) in the following way.
+
 ## The Focal Heirarchy

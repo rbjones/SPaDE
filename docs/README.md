@@ -29,6 +29,7 @@ Project management, collaboration framework, and planning documents:
 
 ### [Philosophy and Architecture]
 Core philosophical concepts and foundations:
+- [A Science Fantasy](ScienceFantasy.md) - a speculation on the distant future providing a rationale for project
 - [Philosophical Preliminaries](PhilosophicalPreliminaries.md) - Basic philosophical approach
 - [Synthetic Philosophy](SyntheticPhilosophy)
 - [Deductive Paradigm](DeductiveParadigm.md) - The paradigm shift concept
