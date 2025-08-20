@@ -12,34 +12,36 @@ will transform the exploitation of declarative knowledge
 from computation processes of uncertain effect to
 formally verified computation yielding unambiguous and reliable truths.
 
-* To specify APIs and protocols for access to a distrbuted shared repository of knowledge of which the abstract form is the abstract syntax of HOL but the concrete forms diverse, enabling information in any form to be accessed as an element of that distributed repository.
+* To specify APIs and protocols for access to a distrbuted shared repository of knowledge.
+The abstract form of knowledge is that of the abstract syntax of HOL and the abstract semantics is also that of HOL.
+The concrete forms may be diverse, and concrete semantics addresses the material world by giving concrete interpretation for various abstract domains.
+Arbitrary sources of data can be viewed as incorporated into this scheme, wither by treating it as data (i.e. assigning explicit values to new names), or by semantic embeddings, shallow or deep.
 
 * To build an abstract inference engine supporting those processes
 in a manner independent of the concrete syntax or stored form
-of the knowledge establishing the context for the inference.
+of the knowledge which forms the logical context for the inference.
 
 ## Documentation Structure
 
+
 ### [Admin Documentation](admin/README.md)
+
 Project management, collaboration framework, and planning documents:
-- [Issues and Gaps](admin/ISSUES.md) - Comprehensive analysis of project issues
-- [Project Structure](admin/PROJECT_STRUCTURE.md) - Proposed enhanced organization
-- [Action Plan](admin/ACTION_PLAN.md) - Detailed implementation roadmap
-- [Collaboration Framework](admin/) - Human/AI collaboration documentation
 
+* [Issues and Gaps](admin/ISSUES.md) - Comprehensive analysis of project issues
 
+* [Collaboration Framework](admin/) - Human/AI collaboration documentation
 
 ### Philosophy and Architecture
 
 Core philosophical concepts and foundations:
 
-* [A Science Fantasy](ScienceFantasy.md) - a speculation on the distant future providing a rationale for project
+* [A Science Fantasy](STEMFantasy.md) - a speculation on the distant future providing a rationale for project
 * [Philosophical Preliminaries](PhilosophicalPreliminaries.md) - Basic philosophical approach
 * [Synthetic Philosophy](SyntheticPhilosophy.md)
 * [Deductive Paradigm](DeductiveParadigm.md) - The paradigm shift concept
 * [Epistemological Stack](EpistemologicalStack.md)
 * [Focal Engineering](FocalEngineering.md)
-
 
 ### [Knowledge Repository](kr/README.md/)
 
@@ -51,7 +53,6 @@ Core philosophical concepts and foundations:
 * [Deductive Kernel](dk/kernel.md) - Kernel design and implementation
 
 ## Collaboration Framework
-
 
 This project emphasizes human/AI collaboration as essential to its success. The collaboration framework is documented in the [admin directory](admin/), including:
 

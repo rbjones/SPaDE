@@ -12,7 +12,7 @@ Here we see that focus on the problem of AI design may be expected to advance ca
 It may be that the benefits of focus, and the possibility of singular focus, can be turned into architectural models and strategic plans, and that is the purpose of this note.
 
 There are two kinds of focal thinking which contribute to the proposed architecture.
-These come as a *focal tower* and a *focal heirchy* which are discussed in turn.
+These come as a _focal tower_ and a _focal heirchy_ which are discussed in turn.
 
 ## A Focal Tower
 
@@ -24,18 +24,18 @@ As we advance up the stack, the level and breadth of the relevant capabilities a
 
 The stack can have any number of layers, so a sketch with a small number is the best place to start.
 From the bottom up:
-1. *Logic and Software Engineering*
+1. _Logic and Software Engineering_
   In this the broad capability is in logical reasoning in a logical system suitable for all deductive reasoning about declarative knowledge.
   The context in which that capability is exercised is contemporary accelerated computing.
   The focus, which is a singular focus, is on reasoning about programs, since the embraces the capability to completely re-engineer this kind of reasoning capability.
-2. *Engineering Design*
+2. _Engineering Design_
   The next layer takes us out of the purely logical into the physical work, from engineering software to engineering physical artefacts.
   The context for such engineering is the world as we find it, with existing physical system to support design and manufacturing, and the focus is on the advancement of the physical infrastructure supporting design and manufacture.
-3. *Ecosystem Engineering*
+3. _Ecosystem Engineering_
   The previous layer a capability in the context of what we now have on planet Earth.
   What happens as we try to establish such a capability on some other planet?
   Then we have to move to the design of a completely new system which will function in a context which is devoid of most everything we have here on planet earth.
-4. *Interstellar Proliferation*
+4. _Interstellar Proliferation_
 
 ### The Epistemological Connection
 
