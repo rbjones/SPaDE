@@ -24,10 +24,12 @@ As we advance up the stack, the level and breadth of the relevant capabilities a
 
 The stack can have any number of layers, so a sketch with a small number is the best place to start.
 From the bottom up:
-1. _Logic and Software Engineering_
+
+1. Logic and Software Engineering_
   In this the broad capability is in logical reasoning in a logical system suitable for all deductive reasoning about declarative knowledge.
   The context in which that capability is exercised is contemporary accelerated computing.
   The focus, which is a singular focus, is on reasoning about programs, since the embraces the capability to completely re-engineer this kind of reasoning capability.
+
 2. _Engineering Design_
   The next layer takes us out of the purely logical into the physical work, from engineering software to engineering physical artefacts.
   The context for such engineering is the world as we find it, with existing physical system to support design and manufacturing, and the focus is on the advancement of the physical infrastructure supporting design and manufacture.

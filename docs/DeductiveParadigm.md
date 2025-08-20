@@ -1,7 +1,3 @@
 # The Coming Deductive Paradigm Shift
 
-
-
-
-
-[Some background on the ingress of formal methods into systems design methods.](https://x.com/i/grok/share/7yV5cTt9u2Q8bxGM73bVlEMHF)
+This document outlines the vision for a paradigm shift in information processing, transitioning from traditional computational methods to a deductive approach. The shift is driven by the need for more efficient and reliable reasoning systems that can leverage distributed knowledge repositories.

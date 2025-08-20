@@ -23,6 +23,7 @@ of the knowledge which forms the logical context for the inference.
 
 ## Documentation Structure
 
+The documentation is organized into several directories, each serving a specific purpose:
 
 ### [Admin Documentation](admin/README.md)
 
@@ -46,7 +47,6 @@ Core philosophical concepts and foundations:
 ### [Knowledge Repository](kr/README.md/)
 
 * [Knowledge Repository](kr/KnowledgeRepo.md) - Repository architecture
-
 
 ### [Deductive Kernel](dk/README.md)
 
