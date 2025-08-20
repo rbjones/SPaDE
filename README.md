@@ -14,6 +14,7 @@ Further elaboration of the 'synthetic philosophy' which underpins the project, a
 
 The [kr](kr/README.md) directory contains those parts of the project contributing to the architecture of the distributed repository of declarative knowledge.
 
-The [dk](dk/README.md) directory contains those parts of the project contributing to and building beyond the deductive kernel.
+The [dk](dk/README.md) directory contains those parts of the project contributing to the deductive kernel.
 The deductive kernel is the part of the system which guarantees the soundness of deduction.
-This directory also covers the architecture for intelligence distributed throughout the knowledge repository.
+
+The [di](di/README.md) directory contains the support for deductive intelligence which makes feasible the application of deduction and the transition to a deductive rather than a computation paradigm for information processing.  This wraps the deductive kernel with layers of focal intelligence making use of multilayered neural nets closely coupled with the heirarchy of logical contexts found in the distributed knowledge repository.
