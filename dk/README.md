@@ -1,12 +1,17 @@
 # Deductive Kernel (DK)
 
-This directory contains the implementation and specifications for the Deductive Kernel component of the SPaDE project.
+This directory contains the documentation prototyping and implementation of the Deductive Kernel component of the SPaDE project.
+(initially written by Alan, an LLM on the basis of an insufficient briefing and not yet fully aligned with the project's goals).
 
 ## Overview
 
-The Deductive Kernel is the core logical inference engine that performs formal reasoning within contexts provided by the Knowledge Repository. It represents a significant evolution beyond the traditional LCF paradigm, designed for reflexive self-improvement and AI integration.
+The Deductive Kernel is the core logical inference engine that ensures the rigour of the formal reasoning taking place in the SPaDE project and makes possible intelligence and productivity of the system in deductive engineering.
 
 ## Key Features
+
+This is a conception of logical kernel derivative but divergent from the LCF paradigm.
+Its connection with the LCF paradigm will be evident in the similarity of much of the formal kernal specification with existing LCF implementations of proof support for HOL.
+However certain features present in LCF systems but technically going beyond it are central to the design of the Deductive Kernel, and become dominant features in its exploitation.
 
 - **Abstract Logical Engine**: Completely divorced from concrete syntax and persistent theory representation.
 - **Reflexive Capabilities**: The kernel admits the direct use of derived rules which are proven consistent with the specified derivability relation.
@@ -27,8 +32,6 @@ Unlike traditional LCF systems, it does not manipulate the repository directly -
 - **Metatheory**: The theory of the logical system itself
 - **Reflexive Reasoning**: The ability to reason about the system within itself
 
-```
-
 ## Documentation
 
 - [Kernel Overview](kernel.md) - Informal design sketch
@@ -45,20 +48,26 @@ Preliminary prototyping plan sketched.
 ## Key Innovations
 
 ### 1. LCF Evolution
+
 The kernel evolves beyond the traditional LCF paradigm by:
+
 - Separating logical inference from theory management
 - Supporting verified tactics that can be trusted without detailed proof
 - Enabling reflexive reasoning about the system itself
 
 ### 2. Reflexive Capabilities
+
 The kernel is designed to support:
+
 - Self-analysis through metatheory
 - Verification of its own algorithms
 - Self-improvement through reflexive reasoning
 - AI-assisted development of its own capabilities
 
 ### 3. AI Integration
+
 Designed to intersect with AI capabilities:
+
 - AI-assisted proof generation
 - Verified tactics that can be trusted
 - Human-AI collaboration models
@@ -100,10 +109,17 @@ Designed to intersect with AI capabilities:
 See the main project [CONTRIBUTING.md](../CONTRIBUTING.md) for general guidelines.
 
 For DK-specific development:
-1. Review the formal specifications in `specs/`
-2. Follow the architecture defined in `docs/`
-3. Add tests for all new functionality
-4. Update documentation for any API changes
+
+1. Consider Kernel interfaces and implementations for languages suitable for AI such as Python.
+
+
+## Formal Specifications in ProofPower HOL
+
+[dk001.md](dk001.md) - Kernel Specifications in ProofPower HOL
+
+## Formal Specifications in HOL4
+
+[h4001.md](h4001.md) - The abstract syntax of HOL
 
 ## References
 

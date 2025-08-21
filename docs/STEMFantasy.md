@@ -16,6 +16,7 @@ The theory of evolution is now most closely associated with Charles Darwin, and 
 THe modern synthesis, incorporating significant parts of modern evolutionary science, is arguably less applicable both to the prebiotic evolution which lead to first life on earth and to the postbiotic evolution which may determine the future of non-biological intelligence, or the ongoing biological evolution in which synthetic biology begins to inject intelligent design into the genome.
 
 Here we consider a conception of evolution broadened to cover such developments, which is:
+
 1. That evolution occurs where there are populations of systems which imperfectly reproduce.
 2. That the direction of evolution is determined by which variants are conducive at any time to increased proliferation of its holders.
 
@@ -34,6 +35,8 @@ Mankind, as his culture has evolved since he first appeared on earth around a me
 As that knowledge has grown, it has also engendered _abstraction_, a way of extracting from large bodies of particular knowledge, general principles applicable to all.
 
 Three phases in the progression of abstraction are worth noting in this context.
-- The first is the development of number   systems and the various computational manipulations which they admit.  Alongside this we see the development of geometric techniques relevant, for example, to the administration of land alongside the meandering Nile.
--  The second phase begins with the emergence of Mathematics as a theoretic discipline, its rigorisation through the axiomatic method and the beginnings of the study of Logic, most prominently in the first instance by Aristotle.
+
+- The first is the development of number systems and the various computational manipulations which they admit.  Alongside this we see the development of geometric techniques relevant, for example, to the administration of land alongside the meandering Nile.
+
+- The second phase begins with the emergence of Mathematics as a theoretic discipline, its rigorisation through the axiomatic method and the beginnings of the study of Logic, most prominently in the first instance by Aristotle.
 Mathematics, both pure and applied continued to be developed eventually underpinning modern science and the industrial revolution,
