@@ -17,6 +17,7 @@ The Knowledge Repository is a core component of the SPaDE architecture that prov
 ## Architecture
 
 The Knowledge Repository is structured around the concept of **contexts** - versioned signatures that contain:
+
 - Type assignments for constant names
 - Constraints (Boolean terms) on those names
 - Metadata and relationships to other contexts
@@ -28,17 +29,6 @@ The Knowledge Repository is structured around the concept of **contexts** - vers
 - **Constraint**: Boolean terms that must be satisfied
 - **Metadata**: Contexts that describe other contexts
 
-## Directory Structure
-
-```
-kr/
-├── README.md              # This file
-├── src/                   # Source code implementation
-├── specs/                 # Formal specifications
-├── tests/                 # Test suite
-└── docs/                  # KR-specific documentation
-```
-
 ## Documentation
 
 - [Knowledge Repository Overview](KnowledgeRepo.md) - Main specification
@@ -46,41 +36,20 @@ kr/
 - [Formal Specifications](specs/) - Mathematical specifications
 - [API Documentation](docs/) - Interface documentation
 
-## Implementation Status
-
-**Current Status**: Conceptual design phase
-- [x] High-level architecture defined
-- [x] Core concepts identified
-- [ ] Formal specifications complete
-- [ ] Implementation started
-- [ ] Test suite created
-
-## Related Components
-
-- **Deductive Kernel (dk/)**: The logical inference engine that operates on KR contexts
-- **API Layer**: Interfaces for accessing and manipulating knowledge
-- **Tools**: Parsers, generators, and utilities for working with knowledge
-
-## Development Priorities
-
-1. **Complete formal specifications** for context management
-2. **Implement core context operations** (create, extend, query)
-3. **Design distributed consistency protocols**
-4. **Create concrete syntax parsers**
-5. **Build test suite and validation tools**
-
 ## Contributing
 
 See the main project [CONTRIBUTING.md](../CONTRIBUTING.md) for general guidelines.
 
-For KR-specific development:
-1. Review the formal specifications in `specs/`
-2. Follow the architecture defined in `docs/`
-3. Add tests for all new functionality
-4. Update documentation for any API changes
+Software supporting the knowledge repository is not a single monolith, because it is required to provide access from multiple programming languages and environments, to multiple forms of stored information viewed as theories in the repository.
+
+We therefore require an abstract specification of the abstract structure of the repository, and a variety of interfaces which mediate between stored data and software systems interpreting the stored representations as theories in the repository, and presenting that interpretation in a form suitable for the specific programming environment.
+
+There are therefore many opportunities for collaboration by contributing to the development of these interfaces and specifications.
+
+Some stored forms will have been specifically designed for this repository, but others will be heritage formats that need to be interpreted, a process which essentially consists in making explicit the semantics of the data.
+In these latter cases, the metadata supplying that interpretation may (and ideally should) be held in the knowledge repository as metatheory.
 
 ## References
 
 - [Cambridge HOL](https://www.cl.cam.ac.uk/research/hvg/HOL/) - The logical foundation
 - [LCF Paradigm](https://en.wikipedia.org/wiki/LCF_(theorem_prover)) - Traditional approach we're evolving from
-- [Distributed Systems](https://en.wikipedia.org/wiki/Distributed_computing) - Background on distributed architectures 

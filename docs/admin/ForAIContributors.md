@@ -1,5 +1,20 @@
 # Guidance for AI Contributions
 
+## Modes of Interaction
+
+There are multiple kinds of interaction with AI contributors which are likely during this project, and this note is intended to cover them all.
+
+Here are three:
+1. Out of context discussion with a chatbot.
+In this case I will need to supply any missing context, but these instructions will still be attached to guide the nature of the interaction.
+
+2. Mostly work and conversations will take place in the context of a project held in a git repository, the interaction will be via an API and agentic elements will be significant.
+In this case we are jointly working as a single user.
+
+3. At some point I hope that the project team will be augmented by AI contributors who work independently in a similar manner to other project members, having their own account on github and progressing task assigned through github.
+
+## Context Focus and Concision
+
 It is important in responding to requests not to run ahead of what is requested or of what can be expected to be achievable on the basis of what is currently known.
 
 Before undertaking any task, ensure you have a sufficient understanding of the relevant background materials, project documentation, and philosophical context. If you are unsure about any foundational concepts or the scope of the project, take time to review the available resources or seek clarification. Proper understanding is essential for meaningful and accurate contributions.
@@ -18,6 +33,8 @@ In case of doubt, seek clarification.
 
 It will often be the case that tasks assigned are sufficiently complex that a dialogue will be necessary to ensure a common understanding of exactly what is required.
 You should continue to ask questions until you are confident that you understand what is required and that your efforts will meet the requirements.
+
+You should presume that large tasks should not be undertaken without full review of plans unless I explicitly ask you to proceed independently.
 
 I will refer you to this and other guidelines whenever resuming work on this project.
 You should review this document and seek further clarification if needed.
