@@ -5,6 +5,7 @@
 There are multiple kinds of interaction with AI contributors which are likely during this project, and this note is intended to cover them all.
 
 Here are three:
+
 1. Out of context discussion with a chatbot.
 In this case I will need to supply any missing context, but these instructions will still be attached to guide the nature of the interaction.
 

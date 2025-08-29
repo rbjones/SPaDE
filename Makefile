@@ -4,9 +4,12 @@
 .PHONY: all clean dk kr docs test help
 
 # Default target
-all: dk kr docs
+all: docs di dk kr
 
 # Component targets with argument passthrough
+di-%:
+	$(MAKE) -C di $*
+
 dk-%:
 	$(MAKE) -C dk $*
 
@@ -17,17 +20,20 @@ docs-%:
 	$(MAKE) -C docs $*
 
 # Shorthand targets
+di: di-all
 dk: dk-all
 kr: kr-all
 docs: docs-all
 
 # Testing
-test: test-dk test-kr
+test: test-di test-dk test-kr
+test-di: di-test
 test-dk: dk-test
 test-kr: kr-test
 
 # Cleanup
-clean: clean-dk clean-kr clean-docs
+clean: clean-di clean-dk clean-kr clean-docs
+clean-dk: di-clean
 clean-dk: dk-clean
 clean-kr: kr-clean
 clean-docs: docs-clean
@@ -37,7 +43,8 @@ build-docs: docs-build
 serve-docs: docs-serve
 
 # Development
-dev: dev-dk dev-kr
+dev: dev-di dev-dk dev-kr
+dev-dk: di-dev
 dev-dk: dk-dev
 dev-kr: kr-dev
 
@@ -47,11 +54,13 @@ help:
 	@echo ""
 	@echo "Available targets:"
 	@echo "  all           - Build all components"
+	@echo "  di            - Build deductive intelligence"
 	@echo "  dk            - Build deductive kernel"
 	@echo "  kr            - Build knowledge repository"
 	@echo "  docs          - Build documentation"
 	@echo ""
 	@echo "Component-specific targets:"
+	@echo "  di-<target>   - Run <target> in di directory"
 	@echo "  dk-<target>   - Run <target> in dk directory"
 	@echo "  kr-<target>   - Run <target> in kr directory"
 	@echo "  docs-<target> - Run <target> in docs directory"
