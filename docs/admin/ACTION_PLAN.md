@@ -1,283 +1,60 @@
 # SPaDE Project Action Plan
 
-This document outlines a prioritized action plan to address the issues identified in `ISSUES.md` and implement the proposed structure from `PROJECT_STRUCTURE.md`.
+## Preliminary Notes
 
-## Phase 1: Foundation and Structure (Weeks 1-4)
+I completely scrapped the AI generated actiom plan!
+No surprisingly, it was a million miles from my reality.
 
-### Week 1: Project Structure Setup
-**Priority: Critical**
+This is not a "Waterfall" type development, i.e. its not going to progress from the top down in orderly steps.
+I did want to put together some good top level acounts of what I am trying to do so that agentic AI might be better able to assist me, but that's real hard to do and I need to get spades in the ground and go back to that later.
 
-1. **Create missing directories** (High Priority)
-   - [ ] Create `kr/src/`, `kr/specs/`, `kr/tests/`, `kr/docs/`
-   - [ ] Create `dk/src/`, `dk/specs/`, `dk/tests/`, `dk/docs/`
-   - [ ] Create `api/` directory with subdirectories
-   - [ ] Create `tools/` directory with subdirectories
-   - [ ] Create `tests/` directory with subdirectories
-   - [ ] Create `scripts/` and `config/` directories
+## Some Key Features of the Architecture
 
-2. **Create missing README files** (High Priority)
-   - [x] `kr/README.md` - ✅ Completed
-   - [x] `dk/README.md` - ✅ Completed
-   - [ ] `docs/philosophy/README.md`
-   - [ ] `docs/architecture/README.md`
-   - [ ] `docs/specifications/README.md`
-   - [ ] `api/README.md`
-   - [ ] `tools/README.md`
-   - [ ] `tests/README.md`
+### Delivery as MCP server(s)
 
-3. **Move existing files to appropriate locations** (Medium Priority)
-   - [ ] Move `docs/PhilosophicalPreliminaries.md` → `docs/philosophy/`
-   - [ ] Move `docs/DeductiveParadigm.md` → `docs/philosophy/`
-   - [ ] Move `kr/KnowledgeRepo.md` → `docs/architecture/`
-   - [ ] Move `kr/KRUniversality.md` → `docs/philosophy/`
-   - [ ] Move `dk/kernel.md` → `docs/architecture/`
-   - [ ] Move `docs/chdkrpaper.tex` → `docs/papers/`
+On digging down to explore what can be prototyped ASAP, I arrived at greater clarity on some architectural features which can be prototyped early on.
 
-### Week 2: Core Definitions and Concepts
-**Priority: Critical**
+It was always my intention that this project would not be involved in "user interfaces", and in particular, concrete syntax (though inevitably would have some engagement with concrete representations for storage).
+The intention was that SPaDE would be a tool for AIs, and that insofar as humans access the knowledge repository their access would be mediated by LLMs or subsequent generations of agentic AI.
 
-1. **Define core terminology** (High Priority)
-   - [ ] Create `docs/GLOSSARY.md` with definitions of:
-     - Declarative knowledge
-     - Cambridge HOL
-     - Synthetic Philosophy
-     - Deductive paradigm
-     - Context, Extension, Constraint
-     - Metatheory, Reflexive reasoning
+I am now able to make that more definite, insofar as I am now acquainted with the mechanisms which that would involve, and it looks like SPaDE capabilities will be delivered through an MCP server.
+Those capabilities may ultimately embrace the whole of what I am calling "focal engineering", which is to say the solution of problems in perfect information spaces using formal models and derivatives of alpha-zero methods.
 
-2. **Complete philosophical foundation** (High Priority)
-   - [ ] Expand `docs/philosophy/synthetic-philosophy.md`
-   - [ ] Complete `docs/philosophy/declarative-knowledge.md`
-   - [ ] Complete `docs/philosophy/deductive-paradigm.md`
-   - [ ] Create `docs/philosophy/carnap-comparison.md`
+### Some Prototype-Relevant Architecture
 
-3. **Create architecture overview** (Medium Priority)
-   - [ ] Create `docs/architecture/overview.md`
-   - [ ] Create `docs/architecture/system-components.md`
-   - [ ] Create `docs/architecture/data-flow.md`
+Three parts of the project represent something of an onion, the knowledge repository at the core, the deductive kernel moving us from storage to inference, and the "deductive intelligence" which uses focal AI to achieve intelligent formally verified design.
+All this embedded in user facing agentic LLM which elicits user requirements casting them behind the scenes as formal models and requirements specifications providing a basis for formally verified design and implementation.
 
-### Week 3: Formal Specifications Framework
-**Priority: High**
+The prototyping can progress from the inside od the onion out, but from the very beginning will seek to establish the delivery of its rudumentary capabilities through MCP servers (providing early evaluation of their suitability).
 
-1. **Set up specification structure** (High Priority)
-   - [ ] Create `docs/specifications/hol-syntax.md`
-   - [ ] Create `docs/specifications/type-system.md`
-   - [ ] Create `docs/specifications/inference-rules.md`
-   - [ ] Create `docs/specifications/metatheory.md`
+## Initial Prototyping Steps
 
-2. **Begin formal definitions** (Medium Priority)
-   - [ ] Define Cambridge HOL syntax formally
-   - [ ] Specify type system rules
-   - [ ] Define inference rules
-   - [ ] Outline metatheory structure
+As I write, I have first formal specifications of the logical structure of the knowledge repository as recursive datatypes in HOL4.
+Copilot has recast this in SML and Python.
+This will mediate in the transfer of theory heirarchies from ProofPower HOL (in the first instance) and HOL4 later into SPaDE repositories.
 
-### Week 4: Theory Source Integration
-**Priority: Medium**
+This will take place in two steps, the first being the extraction of the theory heirarchy into an ML structure corresponding to the logical structure of the SPaDE repository.
+This will provide a first check on whether the structure is satisfactory, and may result in some evolution of that structure.
+The second step will be to linearise this abstract structure for saving in a file which will be the stored form of the repository.
 
-1. **Design theory source interfaces** (Medium Priority)
-   - [ ] Create `docs/architecture/theory-sources.md`
-   - [ ] Create `docs/architecture/kr-interfaces.md`
-   - [ ] Create `docs/architecture/ai-training.md`
-   - [ ] Create `docs/architecture/real-world-applications.md`
+We are then in a position to prototype a read-only MCP permitting read access to this repository.
+In the first instance this is likely to be in Python.
+As yet we have no specification of the interface to the MCP server, and the establishment of that interface will enable a first level of evaluation of whether the intended services can efficiently be delivered as MCP servers.
 
-2. **Document theory integration strategy** (Medium Priority)
-   - [ ] Create `docs/architecture/theory-integration.md`
-   - [ ] Create `docs/architecture/established-sources.md`
-   - [ ] Create `docs/architecture/training-strategy.md`
+The intention is that this will also be a testbed for the hosting facilities which would enable the services to be delivered in a scalable and efficient manner, with free and paid service levels.
 
-## Phase 2: Technical Specifications (Weeks 5-8)
+## Prototype Driven Development Plan
 
-### Week 5: API and Protocol Design
-**Priority: High**
+There are many features of the intended system which will need to be prototyped as early as practical, and I envisage that development will be driven by the steps needed to evaluate as many of the highest risk innovations at the earliest possible stage as possible.
 
-1. **Design API interfaces** (High Priority)
-   - [ ] Create `api/interfaces/kernel-api.md`
-   - [ ] Create `api/interfaces/repository-api.md`
-   - [ ] Create `api/interfaces/context-api.md`
-   - [ ] Create `api/interfaces/theorem-api.md`
+I will just mention some of the early steps beyond achieving MCP deployment of a minimal read capability.
 
-2. **Define communication protocols** (High Priority)
-   - [ ] Create `api/protocols/context-protocol.md`
-   - [ ] Create `api/protocols/theorem-protocol.md`
-   - [ ] Create `api/protocols/distribution-protocol.md`
-
-### Week 6: Implementation Strategy
-**Priority: High**
-
-1. **Choose implementation language** (High Priority)
-   - [ ] Evaluate language options (Haskell, OCaml, Rust, etc.)
-   - [ ] Document language choice and rationale
-   - [ ] Create `docs/implementation/language-choice.md`
-
-2. **Design bootstrapping strategy** (High Priority)
-   - [ ] Create `docs/implementation/bootstrapping.md`
-   - [ ] Define self-hosting approach
-   - [ ] Plan implementation phases
-
-### Week 7: Development Tools
-**Priority: Medium**
-
-1. **Design development tools** (Medium Priority)
-   - [ ] Create `tools/parsers/hol-parser.md`
-   - [ ] Create `tools/generators/proof-generator.md`
-   - [ ] Create `tools/utilities/context-manager.md`
-
-2. **Set up build system** (Medium Priority)
-   - [ ] Create `scripts/build.sh`
-   - [ ] Create `config/build.yml`
-   - [ ] Create `scripts/test.sh`
-
-### Week 8: Testing Framework
-**Priority: Medium**
-
-1. **Design testing strategy** (Medium Priority)
-   - [ ] Create `tests/unit/kernel-tests.md`
-   - [ ] Create `tests/unit/repository-tests.md`
-   - [ ] Create `tests/integration/system-tests.md`
-   - [ ] Create `tests/performance/scalability-tests.md`
-
-## Phase 3: Implementation (Weeks 9-16)
-
-### Weeks 9-10: Core Implementation
-**Priority: High**
-
-1. **Implement basic kernel** (High Priority)
-   - [ ] Type checking system
-   - [ ] Basic inference engine
-   - [ ] Proof checking
-   - [ ] Context management
-
-2. **Implement basic repository** (High Priority)
-   - [ ] Context storage
-   - [ ] Extension operations
-   - [ ] Constraint management
-   - [ ] Basic querying
-
-### Weeks 11-12: API Implementation
-**Priority: High**
-
-1. **Implement core APIs** (High Priority)
-   - [ ] Kernel API implementation
-   - [ ] Repository API implementation
-   - [ ] Context API implementation
-   - [ ] Basic protocol implementation
-
-### Weeks 13-14: Tools and Utilities
-**Priority: Medium**
-
-1. **Implement development tools** (Medium Priority)
-   - [ ] HOL parser
-   - [ ] Proof generator
-   - [ ] Context manager
-   - [ ] Basic utilities
-
-### Weeks 15-16: Testing and Validation
-**Priority: Medium**
-
-1. **Implement test suite** (Medium Priority)
-   - [ ] Unit tests for all components
-   - [ ] Integration tests
-   - [ ] Performance tests
-   - [ ] Validation tools
-
-## Phase 4: Theory Integration (Ongoing)
-
-### Theory Source Integration
-**Priority: Medium**
-
-1. **Establish theory source connections** (Medium Priority)
-   - [ ] Design interfaces to established theory repositories
-   - [ ] Implement theory source parsers and converters
-   - [ ] Create training data pipelines from theory sources
-   - [ ] Validate theory source integration
-
-2. **AI Training Integration** (Medium Priority)
-   - [ ] Design AI training protocols using theory sources
-   - [ ] Implement theory-based training data generation
-   - [ ] Create validation frameworks for AI training
-   - [ ] Establish continuous learning from theory sources
-
-## Phase 5: Documentation and Community (Ongoing)
-
-### Documentation Completion
-**Priority: Medium**
-
-1. **Complete all documentation** (Medium Priority)
-   - [ ] API documentation
-   - [ ] User guides
-   - [ ] Theory integration guides
-   - [ ] FAQ
-
-2. **Create community resources** (Low Priority)
-   - [ ] Contributing guidelines
-   - [ ] Code of conduct
-   - [ ] Issue templates
-   - [ ] Pull request templates
-
-## Success Criteria
-
-### Phase 1 Success Criteria
-- [ ] All missing README files created
-- [ ] Project structure implemented
-- [ ] Core terminology defined
-- [ ] Philosophical foundation complete
-- [ ] Theory source integration strategy defined
-
-### Phase 2 Success Criteria
-- [ ] API specifications complete
-- [ ] Implementation strategy defined
-- [ ] Development tools designed
-- [ ] Testing framework designed
-
-### Phase 3 Success Criteria
-- [ ] Basic kernel implementation working
-- [ ] Basic repository implementation working
-- [ ] Core APIs functional
-- [ ] Test suite passing
-
-### Phase 4 Success Criteria
-- [ ] Theory source integration working
-- [ ] AI training from theory sources functional
-- [ ] Real-world theory applications demonstrated
-- [ ] Continuous learning from theory sources established
-
-### Phase 5 Success Criteria
-- [ ] Complete documentation
-- [ ] Community guidelines established
-- [ ] Project ready for external contributors
-
-## Risk Mitigation
-
-### High-Risk Items
-1. **Complexity of reflexive reasoning** - Start with simple metatheory
-2. **Performance of distributed system** - Begin with centralized implementation
-3. **AI integration challenges** - Focus on human-usable interfaces first
-4. **Theory source integration complexity** - Start with simple, well-documented sources
-
-### Contingency Plans
-1. **If reflexive reasoning proves too complex** - Fall back to traditional LCF approach initially
-2. **If distributed architecture is too complex** - Start with centralized repository
-3. **If AI integration is premature** - Focus on human-usable interfaces first
-4. **If theory source integration is challenging** - Start with manual theory entry and validation
-
-## Resource Requirements
-
-### Phase 1-2: Documentation and Design
-- **Time**: 8 weeks
-- **Skills**: Technical writing, formal specification, system design
-- **Tools**: Markdown editors, LaTeX, diagram tools
-
-### Phase 3-4: Implementation
-- **Time**: 8+ weeks
-- **Skills**: Functional programming, theorem proving, distributed systems
-- **Tools**: Development environment, testing frameworks, CI/CD
-
-## Next Immediate Actions
-
-1. **This week**: Create all missing directories and README files
-2. **Next week**: Begin core terminology definitions
-3. **Following week**: Start philosophical foundation completion
-
----
-
-*This plan should be updated as progress is made and new requirements are identified.* 
+- Update Capability
+- Primitive Inference
+- Independent development of metatheory
+  Instead of tactics and tacticals this system will work with proven derived rules using relexive features.
+  Without the traditional machinery a repo of metatheory will have to be populated by transfer from another proof tool.
+  It is only then that the primitive features for efficient computation and reflexion can be introduced.
+- Deductive Intelligence
+  In parallel with the development of the metatheoretic machinery enabling reflection, it will be possible to prototype the neural net heuristics for deductive intelligence.
+- Choice of target languages for agentic verified software development.

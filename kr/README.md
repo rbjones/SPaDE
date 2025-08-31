@@ -10,8 +10,9 @@ The Knowledge Repository is a core component of the SPaDE architecture that prov
 
 - **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all declarative knowledge
 - **Distributed Architecture**: Supports widely distributed shared knowledge repositories
-- **Version Control**: Maintains versioned contexts for knowledge evolution
-- **Multi-language Support**: Supports diverse concrete syntaxes through abstract HOL representation
+- **Version Control**: Maintains versioned contexts or theories in a WORM repository
+- **Multi-language Support**: Supports diverse languagess through the abstract syntax of HOL (concrete syntax dealt with at other levels)
+- **Diverse Storage Support** as well as read/write support for native repositories, read access to diverse knowledge and data sources will be supported by special interfaces using metadat for interpretation.
 - **Consistency Management**: Ensures logical consistency across distributed repositories
 
 ## Architecture
@@ -36,6 +37,8 @@ The Knowledge Repository is structured around the concept of **contexts** - vers
 - [Formal Specifications](specs/) - Mathematical specifications
 - [API Documentation](docs/) - Interface documentation
 
+## Strategies Tactics and Plans
+
 ## Contributing
 
 See the main project [CONTRIBUTING.md](../CONTRIBUTING.md) for general guidelines.
@@ -51,5 +54,5 @@ In these latter cases, the metadata supplying that interpretation may (and ideal
 
 ## References
 
-- [Cambridge HOL](https://www.cl.cam.ac.uk/research/hvg/HOL/) - The logical foundation
+- [Cambridge HOL](https://www.cl.cam.ac.uk/research/hvg/HOL/) - The logical foundation (give or take)
 - [LCF Paradigm](https://en.wikipedia.org/wiki/LCF_(theorem_prover)) - Traditional approach we're evolving from
