@@ -21,7 +21,11 @@ The Knowledge Repository is structured around the concept of **contexts** - vers
 
 - Type assignments for constant names
 - Constraints (Boolean terms) on those names
-- Metadata and relationships to other contexts
+
+A context is essentially the content of a theory and its ancestry, and because of the distributed nature of this repository, that ancestry may be draw from disparate sources.
+
+- Metatheory is intended to be a significant feature of SPaDE, and metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
+A major part of such metadata is expected to be the demonstration of derived rules of inference, use of which is expected to displace in SPaDE the role of tactics and other high level proof facilities in more tranditional LCF proof support.
 
 ### Core Concepts
 
