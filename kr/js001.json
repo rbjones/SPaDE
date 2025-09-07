@@ -1,0 +1,148 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "hterm",
+    "description": "JSON schema for the HOL datatype hterm",
+    "type": "object",
+    "oneOf": [
+        {
+            "title": "Tmv",
+            "type": "object",
+            "properties": {
+                "Tmv": {
+                    "type": "object",
+                    "properties": {
+                        "rname": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "rname"
+                    ]
+                }
+            },
+            "required": [
+                "Tmv"
+            ]
+        },
+        {
+            "title": "Tmc",
+            "type": "object",
+            "properties": {
+                "Tmc": {
+                    "type": "object",
+                    "properties": {
+                        "rname": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "rname"
+                    ]
+                }
+            },
+            "required": [
+                "Tmc"
+            ]
+        },
+        {
+            "title": "Tapp",
+            "type": "object",
+            "properties": {
+                "Tapp": {
+                    "type": "object",
+                    "properties": {
+                        "left": {
+                            "$ref": "#/"
+                        },
+                        "right": {
+                            "$ref": "#/"
+                        }
+                    },
+                    "required": [
+                        "left",
+                        "right"
+                    ]
+                }
+            },
+            "required": [
+                "Tapp"
+            ]
+        },
+        {
+            "title": "Tabs",
+            "type": "object",
+            "properties": {
+                "Tabs": {
+                    "type": "object",
+                    "properties": {
+                        "rname": {
+                            "type": "string"
+                        },
+                        "htype": {
+                            "type": "string"
+                        },
+                        "hterm": {
+                            "$ref": "#/"
+                        }
+                    },
+                    "required": [
+                        "rname",
+                        "htype",
+                        "hterm"
+                    ]
+                }
+            },
+            "required": [
+                "Tabs"
+            ]
+        },
+        {
+            "title": "Trel",
+            "type": "object",
+            "properties": {
+                "Trel": {
+                    "type": "object",
+                    "properties": {
+                        "rname": {
+                            "type": "string"
+                        },
+                        "hterm": {
+                            "$ref": "#/"
+                        }
+                    },
+                    "required": [
+                        "rname",
+                        "hterm"
+                    ]
+                }
+            },
+            "required": [
+                "Trel"
+            ]
+        },
+        {
+            "title": "Tloc",
+            "type": "object",
+            "properties": {
+                "Tloc": {
+                    "type": "object",
+                    "properties": {
+                        "rname": {
+                            "type": "string"
+                        },
+                        "hterm": {
+                            "$ref": "#/"
+                        }
+                    },
+                    "required": [
+                        "rname",
+                        "hterm"
+                    ]
+                }
+            },
+            "required": [
+                "Tloc"
+            ]
+        }
+    ]
+}
