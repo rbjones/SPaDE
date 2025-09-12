@@ -38,7 +38,6 @@ A major part of such metadata is expected to be the demonstration of derived rul
 
 - [Knowledge Repository Overview](KnowledgeRepo.md) - Main specification
 - [Universality Argument](KRUniversality.md) - Justification for HOL universality
--
 
 ### HOL Specifications
 
