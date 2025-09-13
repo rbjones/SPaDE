@@ -37,7 +37,10 @@ A major part of such metadata is expected to be the demonstration of derived rul
 ## Documentation
 
 - [Knowledge Repository Overview](KnowledgeRepo.md) - Main specification
-- [Universality Argument](KRUniversality.md) - Justification for HOL universality
+- [Knowledge Repository Structural Description](KnowledgeRepo.md) - Detailed architecture and design
+- [SPaDE Native Repository](SPaDENativeRepo.md) - Native repository format
+- [Knowledge Repository Prototyping Strategies](KRproto.md) - Development strategies
+- [Universality Discussions](KRUniversality.md) - Justification for HOL universality
 
 ### HOL Specifications
 
