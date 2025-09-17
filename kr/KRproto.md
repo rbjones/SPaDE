@@ -21,7 +21,7 @@ The resulting capabilities will then made available through an MCP server interf
 In the first instance, neither intelligent nor even deductive capabilities will be provided, but we will nevertheless approach as early as possible the delivery of some service through an MCP server.
 That earliest service will be simply access to the content of a theory hierarchy, and to provide that service we will export theory hierarchies from existing HOL ITP systems.
 
-## The Structure of a SPaDE repository
+## [The Structure of a SPaDE repository](SPaDENativeRepo.md)
 
 A SPaDE repository contains a heirarchy of contexts or theories, each of which introduces various names by including them in a signature indicating what type of value they denote, and providing a constraint which assigns meaning to the names.
 At the lowest level, to provide complete generality, these structures are stored in a postfix format in which both operands and operators are represented as null-terminated UTF-8 strings.

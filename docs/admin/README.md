@@ -10,22 +10,24 @@ The SPaDE project aims to achieve goals that are not achievable without effectiv
 - **Methods and standards** for collaborative work
 - **Workflows and processes** for effective collaboration
 - **Quality assurance** and validation procedures
-- **Communication protocols** and documentation standards
 
 ## Contents
 
 ### Collaboration Framework
+
 - [**Roles and Responsibilities**](roles-responsibilities.md) - Definition of Bertie (philosopher/architect) and Alan (high-bandwidth contributor) roles
 - [**Collaboration Methods**](collaboration-methods.md) - Standards and approaches for human/AI collaboration
 - [**Workflows**](workflows.md) - Specific processes for different types of work
 - [**Communication Protocols**](communication-protocols.md) - How we communicate and document our work
 
 ### Project Management
+
 - [**Project Planning**](../ACTION_PLAN.md) - Detailed implementation roadmap
 - [**Issues Tracking**](../ISSUES.md) - Comprehensive list of gaps and issues
 - [**Project Structure**](../PROJECT_STRUCTURE.md) - Proposed enhanced project organization
 
 ### Quality Assurance
+
 - [**Review Standards**](review-standards.md) - How work is reviewed and validated
 - [**Validation Procedures**](validation-procedures.md) - Ensuring correctness and alignment
 - [**Feedback Loops**](feedback-loops.md) - Continuous improvement processes
@@ -44,4 +46,4 @@ This framework will evolve as we learn what works best for our collaboration. Al
 
 ---
 
-*This documentation is essential to the project's success and should be regularly reviewed and updated.* 
+*This documentation is essential to the project's success and should be regularly reviewed and updated.*

@@ -46,38 +46,71 @@ These are the positions of the CAR and CDR of the CONS cell in the linear sequen
 A pointer to NIL will always be the empty byte sequence (index 0).
 Pointers are represented as base 256 numbers, with the most significant byte first ("big endian"), the number being the index of the target sequence in the linear sequence of sequences, starting from 0 which will always be the position of NIL.
 
-## Layer 3: A Hierarchy of Contexts or Theories
+## Layer 3: The Hierarchies of Names and Contexts
 
-This of course, is the complicated bit and likely to evolve as we proceed.
-We can do this by stages, since the representation of types and terms is relatively straightforward and must be addressed first.
+From here on in structures are represented as S-expressions using the tree structure of layer 2.
 
-First however, we need to know what is a name.
+This specification will not give the well-formedness conditions for these structures, but will be exclusively concerned with the representation of these structures as S-expressions.
+This primarily consists in enumerating the various kinds of node which will be used in the representation, and describing the components compounded by the structure.
+
+Each node will be a list formed using CONS cells of which the first element is an atom identifying the kind of node, and the remaining elements are the components of that node.
+That atom will consist of two null terminated byte strings of which the first is the kind of entity constructed and the second the manner of construction.
+
+These are:
+
+1. Type
+  1.1 Type variable: Name x Arity
+  1.2 Type construction: Name x Type list
+2. Term
+  2.1 Variable: Name x Type
+  2.2 Consta;nt: Name x Type
+  2.3 Application: Term x Term
+  2.4 Abstraction: Name x Term
+  2.5 Literal: S-expression
+  2.6 Relocation: Name x Term
+3. Parents: Theory list
+4. Signature: (Type x num)list x (sname x Type)list
+5. Extension: Signature x Term
+6. Theory: Parents x Extension list x SignedHash
+7. Folder: (sname x (Theory | Folder))list
+
+
+In the above each construction is either an atom or a list, but lists are mostly short finite lists of components and are shown as if tuples using the "x" operator.
+This is purely a typographical convenience.
+
+First however, we need to know what is a name, and the interrelationship of names in different logical contexts.
+In SPaDE repositories there are two distinct but interrelated hierarchical structure.
+
+### The Name Hierarchy
+
+The first is a hierarchy of names which provides a global namespace in which names are allocated to contributors in such a way that the names allocated to distinct contributors are distinct, enabling different contributions to be coherently combined.
+The meanings assigned to these names are subject to amendment, and the name spaces are therefore versioned, so that the logical context for any theorem can be reconstructed.
+The hierarchy of names is built using collections which may generally be thought of as folders or directories, at the lowest level of which appear *theories*, which determine a logical context by extension to previously defined contexts.
+Within a SPaDE respository there will be a versioned hierarchy of folders containing theories.
+Above that level, to enable reference to contexts in other repositories, there will be a further hierarchy of folders or directories, which corresponds (as far as earthly repositories are concerned) to the structure of URL's.
+
+In order for this hierarchy to be open ended, to admit continuous expansion through other planets, star systems and galaxies, all name references will be relative, and access to larger domains will be possible through higher levels of the hierarchy.
+
+Though in principle this makes it possible for developments to take place in the context of the entire known subsystems of the cosmic namespace, we neverthess want to enable each development to take place in a context curated for that development, including only the vocabulary for theories on which the development depends.
+This is essential to enable appropriate focus, and for the operation of the focal AI methods which are to be used in the deductive intelligence subsystem.
+
+### The Context Hierarchy
+
+The second hierarchy is that of contexts.
+A context is formed by extending one or more prior contexts (which may be called *parents*)by adding new names and constraints on those names.
+Such references to prior contexts may be to contexts in the same repository.
+They will always be to specific versions of those contexts, so that the context in which any theorem was proved can be reconstructed.
+Such a reference can be either symbolic or by pointer to the position in the SPaDE Native Repository of the context being referred to.
+Both of these methods will be used, and the integrity of reference to contexts will be ensured by the use of checksums or hashes and digital signatures to verify the content of each logical context in which any theorem has been derived.
 
 ### Names
 
-The idea that we can have shared widely distributed repositories of declarative knowledge requires that we can have a shared universe of names divided among potential contributors, ensuring that merging contributions does not compromise logical consistency.
-This requires an administrative structure which can allocate namespaces to contributors, and ensure that these namespaces are disjoint.
-
-URL's and URI's already accomplish this through the registration of domain names, though this is limited to planet Earth, and will need adaptation to encompass other planets, stars and galaxies.
-For that purpose it is natural to anticipate higher levels to the existing domain name system within which our existing domain names are nested.
-A further difficulty in such a naming scheme, even if only for planet Earth, is that the names are long and cumbersome.
-
-To deal with these two problems, names in SPaDE will be relative, so that references to names defined locally will be less cumbersome.
-The problem of name complexity can also be mitigated in the repository by defining local names as synonyms for cumbersome remote references.
-It is also open to software presentating formal materials for human consumption to adopt further mitigations in those presentations (SPaDE does not provide such interfaces, delivering functionality exclusively through MCP servers).
-
-Names will therefore be presented a relative paths, navigating structures which are or can be undestood as directories or folders in a hierarchical knowledge repository.
+Names will therefore be presented as relative paths, navigating structures which are or can be understood as directories or folders in a hierarchical knowledge repository.
 Such a relative path will consist of a single numerical shift to a higher level in the hierarchy, together with a path to a specific defined name in a repository, local or remote.
-Each element in the path will be a byte sequence which may or may not be a UTF-8 character string, optionally followed by a version number, which will usually be required in a reference to a remote repository.
+Each element in the path will be a byte sequence which may or may not be a UTF-8 character string.
 
-**[There is a problem here in ensuring that the correct version of a constant is located, which concerns when it is necessary to identify version numbers in the path.
-A protective measure to ensure integrity in case I get that wrong will be the use of checksums or hashes to verify the content of each logical context in which any theorem has been derived.]**
+These will be encoded in a single atom interpreted as a sequence of null terminated byte sequences.
 
-This is a particularly tricky part of the design and will benefit from further thought and discussion.
-The lower levels of the repository structure are intended to replicate the behaviour of functional programming languages when editing list structures.
-When this happens, the original structure remains unchanged, and a new structure is created which shares as much of the original as possible though links in CONS cells to the original structure.
+### Types
 
-At this level integrity seems straightforward.
-However, in the structures which are intended there are two further hierarchies as follows.
-
-There is the name hierarchy in which names of constants are fixed by the descent through a hierarchy of folders or directories, each of which may have a version number.
+A type is either

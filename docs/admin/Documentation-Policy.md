@@ -7,6 +7,7 @@ The subsystems are at present:
 - kr - Knowledge Repository
 - dk - Deductive Kernel
 - di - Deductive Intelligence
+- mcp - MCP Server and use of A2A protocol
 
 Where there is no compelling reason to do otherwise, documents will be written in github markdown, and will be organised in such a way as to provide a transparent and complete view of the project from the project web site on rbjones.github.io/SPaDE
 

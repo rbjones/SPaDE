@@ -40,6 +40,8 @@ A major part of such metadata is expected to be the demonstration of derived rul
 - [Knowledge Repository Structural Description](KnowledgeRepo.md) - Detailed architecture and design
 - [SPaDE Native Repository](SPaDENativeRepo.md) - Native repository format
 - [Knowledge Repository Prototyping Strategies](KRproto.md) - Development strategies
+- [Scraping ProofPower HOL Theories into a SPaDE Repository
+](SPaDEppSCrape.md)]
 - [Universality Discussions](KRUniversality.md) - Justification for HOL universality
 
 ### HOL Specifications
