@@ -1,8 +1,11 @@
 # Copilot Instructions
 
-These instructions are for GitHub Copilot.
+**Version** 1.1
+**Last Updated**: September 22 2025
 
-Most of the information which github copilot needs to contribute to the project is equally relevant to human collaborators, and is therefore included in the main project documentation.
+These instructions are for GitHub Copilot, but the may also be applicable to other agentic AI systems.
+
+Most of the information which github copilot needs to contribute to the project is equally relevant to other agentic AI and human collaborators, and is therefore included in the main project documentation.
 These instructions are therefore relatively brief, and are intended to be read in conjunction with the main project documentation.
 
 The main project documentation should all be accessible from the top level README.md file and the documents referred to from that file, which includes README.md files in most of the subdirectories of the repository.

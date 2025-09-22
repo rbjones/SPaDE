@@ -3,9 +3,9 @@
 ## Preliminary Notes
 
 I completely scrapped the AI generated actiom plan!
-No surprisingly, it was a million miles from my reality.
-
+Not surprisingly, it was a million miles from my reality.
 This is not a "Waterfall" type development, i.e. its not going to progress from the top down in orderly steps.
+
 I did want to put together some good top level acounts of what I am trying to do so that agentic AI might be better able to assist me, but that's real hard to do and I need to get spades in the ground and go back to that later.
 
 ## Some Key Features of the Architecture
