@@ -40,9 +40,14 @@ A major part of such metadata is expected to be the demonstration of derived rul
 - [Knowledge Repository Structural Description](KnowledgeRepo.md) - Detailed architecture and design
 - [SPaDE Native Repository](SPaDENativeRepo.md) - Native repository format
 - [Knowledge Repository Prototyping Strategies](KRproto.md) - Development strategies
-- [Scraping ProofPower HOL Theories into a SPaDE Repository
-](SPaDEppSCrape.md)]
+- [Scraping ProofPower HOL Theories into a SPaDE Repository](SPaDEppScrape.md) - ProofPower scraping overview
+- [ProofPower HOL Interface for SPaDE](ppholinterface.md) - SML interface specification
 - [Universality Discussions](KRUniversality.md) - Justification for HOL universality
+
+### Documentation Review and Status
+
+- [KR Documentation Review Report](KR_Documentation_Review_Report.md) - Comprehensive assessment of documentation completeness
+- [KR Documentation Action Plan](KR_Documentation_Action_Plan.md) - Critical issues and next steps for implementation readiness
 
 ### HOL Specifications
 
