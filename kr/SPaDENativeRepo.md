@@ -2,6 +2,30 @@
 
 The SPaDE Native Repository is a specific concrete representation of a subtree of the hierarchic repository of declarative knowledge envisaged by the SPaDE project.
 
+These repositories act in some respects like the domain name system for the internet.
+Like domain names they constitute units of an addressing scheme which allocated to entities, who may then independently contribute to the larger structure, while linking to other contributions as necessary.
+The fit into the domain name system by using a URL as the lower part of a name (allowing that higher levels might eventually prove desirable).
+
+It is not necessary for a SPaDE repository to have any predetermined physical structure, provided only that content can be presented and managed according to the abstract structure described in [KnowledgeRepo.md].(KnowledgeRepo.md).
+However, the SPaDE knowledge representaton sofware is engineered to use a specific concrete representation of a subtree of the hierarchic repository, and repositories structured in this way are described as SPaDE Native Repositories.
+
+The SPaDE Native Repository structure uses a linear binary file as a versioned WORM (Write Once Read Many) repository, in which the entire content of the repository is stored in a single file, to which new versions may be efficiently added by appending amendments and supplements to the end of the file.
+At the lowest level such a repository consists of a sequence of null terminated byte sequences, which may be interpreted as UTF-8 character strings, or as any other type of data.
+To enable binary zeros in the sequences, binary 1 is used as an escape character (only when preceding 0 or 1).
+This same representation of sequences of bytes may be used at multiple levels in the repository structure.
+
+In the SPaDE Native Repository structure, these byte sequences are used to construct a binary tree structure in which each node is either an atom (itself a null terminated byte sequence), the empty list (NIL), or a binary node (CONS cell) which adds a head to a list.
+The CONS cell links its two components by pointers to the positions of those components in the linear file containing the repository.
+For this to work as a WORM repository, pointers are represented as base 256 numbers, with the most significant byte first ("big endian"), the number being a byte displacement in the linear file.
+These pointer must therefore always point backwards in the file to a position which has already been written.
+The only pointers in SPaDE Native Repositories
+are in CONS cells.
+
+The top of the repository will always be a CONS cell which is the last null terminated byte sequence in the file, and can only be located by reading the entire file.
+It will be the CONS cell which adds the head to the list of versions of the repository, the last version being at the end of the file.
+
+The logical structure of the repository is then represented as S-expressions using this tree structure, each structure in the repository being represented as a list in which the first element is an atom identifying the kind of structure, and the remaining elements are the components of that structure.
+
 In this document a layered presentation of the structure of that repository is given, from the bottom up.
 For the sake of logical coherence, this is a versioned WORM repository, ensuring that for every theorem the context in which it was proved is preserved and can be reconstructed.
 Amendments to the content of the repository create new versions, leaving prior versions intact, and theorems are preserved as valid in a specific context, requiring new proofs if the context is changed.
@@ -63,17 +87,16 @@ These are:
   1.2 Type construction: Name x Type list
 2. Term
   2.1 Variable: Name x Type
-  2.2 Consta;nt: Name x Type
+  2.2 Constant: Name x Type
   2.3 Application: Term x Term
-  2.4 Abstraction: Name x Term
+  2.4 Abstraction: Name x Type x Term
   2.5 Literal: S-expression
   2.6 Relocation: Name x Term
 3. Parents: Theory list
-4. Signature: (Type x num)list x (sname x Type)list
+4. Signature: (sname x num)list x (sname x Type)list
 5. Extension: Signature x Term
 6. Theory: Parents x Extension list x SignedHash
 7. Folder: (sname x (Theory | Folder))list
-
 
 In the above each construction is either an atom or a list, but lists are mostly short finite lists of components and are shown as if tuples using the "x" operator.
 This is purely a typographical convenience.

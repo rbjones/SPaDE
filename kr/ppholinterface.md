@@ -22,7 +22,7 @@ The first component of a theory in the SPaDE repo will always be a list of paren
 This list includes the numerical position of each theory and the a signed cryptographic hash of the theory which is taken from the theory).
 There follows a list of extensions, and concluded by a signed hash of the theory signeed by the server which created it.
 In a first prototype these signed hashes may be omitted.
-Note that the order of these components in terms of their numerical position in the repo will be that in the description, but the components will be combined in a list using CONS cells in hte given order, at each step adding a head to the list, so the order of the list is opposite to the order in the description.
+Note that the order of these components in terms of their numerical position in the repo will be that in the description, but the components will be combined in a list using CONS cells in the given order, at each step adding a head to the list, so the order of the list is opposite to the order in the description.
 
 Each extension consists of the signature of set of new type constructors and term constants (which may be empty) and a constraint, which may be either a new axiom or a constraint on the values of the new names.
 This repository structure gives only meanings, and is not intended for the storage of theorems, for which other structures may be appropriate.
@@ -68,7 +68,7 @@ get_children : string -> string list
 
 ### Extracting the components of a theory
 
-It is not necessary to open a theory to extract its components, and some theories (the ancestors of "basif-hol") cannot be opened.
+It is not necessary to open a theory to extract its components, and some theories (the ancestors of "basic-hol") cannot be opened.
 
 ```sml
 get_types : string -> TYPE list
@@ -87,8 +87,18 @@ The two possibilities which come to mind are:
 1. Use the tags against which a definition is stored to identify the constants defined.
 2. Analyse the constraints to determine in which constraints each constant first appears.
 
-The first is simplest, and should suffice for a first prototype.
+The first is probably simplest, and should suffice for a first prototype.
 If it should prove fallible we will need to think again.
+
+The extensions which form a theory can be established in the following way:
+
+1. Gather the list of all definitions in the theory using get_defns. This list is in the reverse of the order in which the definitions were made. Each definition is a pair of a list of tags and a theorem. The tags are the names of the new constants or type constructorsintroduced, and the name of the definition (which is the last in the list and should be ignored for present purposes).
+To establish the signature from this list it is necessary to establish whether each tag is a type or a constant.
+This can be done using get_type_arity, which returns NIL if the name is not a type constructor, and Value n if it is a type constructor of arity n.
+If it is not a type constructor, it must be a constant, and its type can be found using get_consts, which returns the list of all constants in the theory, from which the type of the constant can be found by matching names.
+
+2. Retrieve the axioms using get_axioms.
+Each axiom will form an extension with no new types or constants.  The order is not important in SPaDE, though it is in ProofPower HOL.
 
 ### Disassembling Theorems, Terms and Types
 
@@ -127,3 +137,42 @@ dest_const: TERM−> (string ∗ TYPE)
 dest_app: TERM−> (TERM ∗ TERM)
 dest_λ: TERM−> (TERM ∗ TERM)
 ```
+
+## Writing to a SPaDE Native Repository
+
+Details of the structure  a SPaDE native repository are given in [The SPaDE Native Repository](./SPaDENativeRepo.md).
+
+Writing to such a repository from ProofPower HOL to a large extent reflect the structure of the above functions for extracting the components of a ProofPower HOL theory.
+
+###
+
+The top level functions for scraping ProofPower HOL theories into a SPaDE native repository are:
+
+```sml
+(* Given the file name for a new SPaDE repository and a list of theory names, scrape those theories and their ancestry into the repository.)
+
+scrape_pp_theories : string -> string list -> unit
+
+(* Given the file name for a new SPaDE repository, scrape all the theories in the current ProofPower HOL database into the repository. *)
+
+scrape_pp_db : string -> unit
+```
+
+The top level of a repository scraped from ProofPower HOL will be a folder of versions of the repo which contains version 1 only.
+Version 1 of the repository will be a folder containing all the theories in the database.
+
+A folder is a list of theories or folders.
+
+
+In all cases the theories will be processed in an order in which no theory appears before any of its ancestors.
+
+These top level functions will open a binary output stream to the given file name, will write a NIL at the beginning of the repository, and then write each theory to the repository as successive versions of a folder of theories.
+ list of theories constructed using the repository coding of a CONS constructor.
+It will then terminate the list will a CONS to NIL and create a top-level folder with the and will write the top level folder of the repository at the end of the process.
+
+### Writing a theory to the repository
+
+The function for writing theories to the repository must keep track of the position of theories in the repository so that 
+
+```sml
+(* Given the name of a theory, write it to the current SPaDE repository. *)
