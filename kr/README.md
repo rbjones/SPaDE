@@ -54,7 +54,8 @@ All reviews documents are held in the [reviews](../reviews) subdirectory.
 
 ### SML Code
 
-- [m4001.sml](m4001.sml) HOL Abstract Syntax - SML translation of the repository structure in h4001.md
+*SML interface code will be generated as part of the first prototype implementation.*
+
 - [m4002.md](m4002.md) - ProofPower HOL Database Exporter Interface
 
 ### Python Code
