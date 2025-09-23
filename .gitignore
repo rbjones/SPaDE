@@ -21,7 +21,7 @@
 *.polydb
 *.ps
 *.sid
-*.sml
+
 *.tch
 *.th
 *.th.doc
