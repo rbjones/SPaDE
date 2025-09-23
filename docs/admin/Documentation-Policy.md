@@ -33,9 +33,9 @@ The docs directory also covers:
 - **Specifications/**: Formal mathematical specifications relevant to multiple subsystems
 - **Papers/**: Academic publications and formal papers
 
-For low-level technical materials common to more than one subsystem, the top-level [common](../../common/) directory will be used.
+For low-level technical materials common to more than one subsystem, the top-level "common" directory will be used.
 
-For material of a non-technical nature there is an [admin](admin) subdirectory of the docs directory.
+For material of a non-technical nature there the admin subdirectory of the docs directory should be used..
 
 This includes:
 
@@ -48,7 +48,7 @@ This includes:
 
 ## Collaboration Documentation
 
-- All collaboration methods and workflows are documented in `admin/`
+- All collaboration methods and workflows are documented in `admin/` (apart from one in the .github directory)
 - Human/AI collaboration framework is essential to project success
 - Regular review and refinement of collaboration methods
 - Clear roles and responsibilities for human and AI contributors

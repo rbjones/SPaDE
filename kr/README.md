@@ -46,8 +46,7 @@ A major part of such metadata is expected to be the demonstration of derived rul
 
 ### Documentation Review and Status
 
-- [KR Documentation Review Report](KR_Documentation_Review_Report.md) - Comprehensive assessment of documentation completeness
-- [KR Documentation Action Plan](KR_Documentation_Action_Plan.md) - Critical issues and next steps for implementation readiness
+All reviews documents are held in the [reviews](../reviews) subdirectory.
 
 ### HOL Specifications
 

@@ -9,20 +9,22 @@ The Deductive Kernel is the core logical inference engine that ensures the rigou
 
 ## Key Features
 
-This is a conception of logical kernel derivative but divergent from the LCF paradigm.
+This is a conception of logical kernel derivative of but divergent from the LCF paradigm.
 Its connection with the LCF paradigm will be evident in the similarity of much of the formal kernal specification with existing LCF implementations of proof support for HOL.
 However certain features present in LCF systems but technically going beyond it are central to the design of the Deductive Kernel, and become dominant features in its exploitation.
 
 - **Abstract Logical Engine**: Completely divorced from concrete syntax and persistent theory representation.
+This implements the primitive inference rules of the logic and basic proof construction mechanisms.
 - **Reflexive Capabilities**: The kernel admits the direct use of derived rules which are proven consistent with the specified derivability relation.
 - **Derived Rules Instead of Tactics**: Derived rules play the role previously assumed by tactics, yielding the theorem which would normally be supplied by the tactic.
-- **AI Integration**: Designed to work with AI which will use neural net heuristics in proof search and will implement derived rules for common inference patterns.
 - **Efficient Execution**: Supports direct execution of verified algorithms
 
 ## Architecture
 
-The Deductive Kernel operates on contexts from the Knowledge Repository and delivers theorems derivable in those contexts.
+The Deductive Kernel operates in contexts from the Knowledge Repository and delivers theorems digitally signed as derivable in those contexts.
+It provides certain basic facilities which can be engineered without AI or are provided by other trusted software systems.
 Unlike traditional LCF systems, it does not manipulate the repository directly - theorems are not automatically added to contexts.
+It is expected that context specialists in the di subsystem will maintain independent caches of theorems proven in their domain (context) of expertise.
 
 ### Core Concepts
 
@@ -34,10 +36,9 @@ Unlike traditional LCF systems, it does not manipulate the repository directly -
 
 ## Documentation
 
+Barely started.
+
 - [Kernel Overview](kernel.md) - Informal design sketch
-- [Formal Specifications](specs/) - Mathematical specifications
-- [API Documentation](docs/) - Interface documentation
-- [Metatheory](specs/metatheory.md) - Self-referential theory
 
 ## Development Status
 
@@ -49,11 +50,11 @@ Preliminary prototyping plan sketched.
 
 ### 1. LCF Evolution
 
-The kernel evolves beyond the traditional LCF paradigm by:
+The kernel evolves beyond (aka breaks with!) the traditional LCF paradigm by:
 
 - Separating logical inference from theory management
-- Supporting verified tactics that can be trusted without detailed proof
-- Enabling reflexive reasoning about the system itself
+- Supplanting tactics with derived rules
+- Enabling reflexive reasoning to verify derived rules and apply them directly.
 
 ### 2. Reflexive Capabilities
 
@@ -64,66 +65,9 @@ The kernel is designed to support:
 - Self-improvement through reflexive reasoning
 - AI-assisted development of its own capabilities
 
-### 3. AI Integration
-
-Designed to intersect with AI capabilities:
-
-- AI-assisted proof generation
-- Verified tactics that can be trusted
-- Human-AI collaboration models
-- Automated verification of AI-generated proofs
-
-## Related Components
-
-- **Knowledge Repository (kr/)**: Provides contexts for logical inference
-- **API Layer**: Interfaces for accessing kernel capabilities
-- **Tools**: Development and verification tools
-
-## Development Priorities
-
-1. **Complete formal specifications** for the logical system
-2. **Implement core inference engine** (type checking, proof checking)
-3. **Design metatheory framework** for reflexive reasoning
-4. **Create verified tactic system**
-5. **Build AI integration interfaces**
-
-## Technical Challenges
-
-### 1. Metatheory Formalization
-- Formalizing the theory of the logical system within itself
-- Ensuring consistency of reflexive reasoning
-- Managing the complexity of self-reference
-
-### 2. Performance Optimization
-- Efficient theorem proving for large knowledge bases
-- Optimized tactic execution
-- Scalable proof checking
-
-### 3. AI Integration
-- Interfaces for AI-assisted proof generation
-- Verification of AI-generated proofs
-- Human-AI collaboration protocols
-
-## Contributing
-
-See the main project [CONTRIBUTING.md](../CONTRIBUTING.md) for general guidelines.
-
-For DK-specific development:
-
-1. Consider Kernel interfaces and implementations for languages suitable for AI such as Python.
-
-
-## Formal Specifications in ProofPower HOL
-
-[dk001.md](dk001.md) - Kernel Specifications in ProofPower HOL
-
-## Formal Specifications in HOL4
-
-[h4001.md](../kr/h4001.md) - The abstract syntax of HOL
-
 ## References
 
 - [LCF Paradigm](https://en.wikipedia.org/wiki/LCF_(theorem_prover)) - Traditional approach
 - [Cambridge HOL](https://www.cl.cam.ac.uk/research/hvg/HOL/) - Logical foundation
 - [Reflexive Programming](https://en.wikipedia.org/wiki/Reflection_(computer_programming)) - Self-modifying systems
-- [Metatheory](https://en.wikipedia.org/wiki/Metatheory) - Theory about theories 
+- [Metatheory](https://en.wikipedia.org/wiki/Metatheory) - Theory about theories

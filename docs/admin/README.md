@@ -1,6 +1,6 @@
 # Administration and Collaboration Documentation
 
-This directory contains documentation for the human/AI collaboration framework that is essential to the SPaDE project's success.
+This directory contains documentation for the human/AI collaboration framework that is essential to the SPaDE project's success and all other matters of an administrative nature.
 
 ## Purpose
 
@@ -13,18 +13,9 @@ The SPaDE project aims to achieve goals that are not achievable without effectiv
 
 ## Contents
 
-### Collaboration Framework
-
-- [**Roles and Responsibilities**](roles-responsibilities.md) - Definition of Bertie (philosopher/architect) and Alan (high-bandwidth contributor) roles
-- [**Collaboration Methods**](collaboration-methods.md) - Standards and approaches for human/AI collaboration
-- [**Workflows**](workflows.md) - Specific processes for different types of work
-- [**Communication Protocols**](communication-protocols.md) - How we communicate and document our work
-
 ### Project Management
 
-- [**Project Planning**](ACTION_PLAN.md) - Detailed implementation roadmap
-- [**Issues Tracking**](ISSUES.md) - Comprehensive list of gaps and issues
-- [**Project Structure**](../PROJECT_STRUCTURE.md) - Proposed enhanced project organization
+A github project has been set up and github facilities will be used to manage tasks and issues.
 
 ### Quality Assurance
 
@@ -42,8 +33,4 @@ The SPaDE project aims to achieve goals that are not achievable without effectiv
 
 ## Evolution
 
-This framework will evolve as we learn what works best for our collaboration. All changes should be documented and justified based on our experience.
-
----
-
-*This documentation is essential to the project's success and should be regularly reviewed and updated.*
+This framework will evolve as we learn what works best for our collaboration.
