@@ -119,7 +119,7 @@ For DK-specific development:
 
 ## Formal Specifications in HOL4
 
-[h4001.md](h4001.md) - The abstract syntax of HOL
+[h4001.md](../kr/h4001.md) - The abstract syntax of HOL
 
 ## References
 

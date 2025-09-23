@@ -22,8 +22,8 @@ The SPaDE project aims to achieve goals that are not achievable without effectiv
 
 ### Project Management
 
-- [**Project Planning**](../ACTION_PLAN.md) - Detailed implementation roadmap
-- [**Issues Tracking**](../ISSUES.md) - Comprehensive list of gaps and issues
+- [**Project Planning**](ACTION_PLAN.md) - Detailed implementation roadmap
+- [**Issues Tracking**](ISSUES.md) - Comprehensive list of gaps and issues
 - [**Project Structure**](../PROJECT_STRUCTURE.md) - Proposed enhanced project organization
 
 ### Quality Assurance
