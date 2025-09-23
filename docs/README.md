@@ -44,13 +44,13 @@ Core philosophical concepts and foundations:
 * [Epistemological Stack](EpistemologicalStack.md)
 * [Focal Engineering](FocalEngineering.md)
 
-### [Knowledge Repository](kr/README.md/)
+### [Knowledge Repository](../kr/README.md)
 
-* [Knowledge Repository](kr/KnowledgeRepo.md) - Repository architecture
+* [Knowledge Repository](../kr/KnowledgeRepo.md) - Repository architecture
 
-### [Deductive Kernel](dk/README.md)
+### [Deductive Kernel](../dk/README.md)
 
-* [Deductive Kernel](dk/kernel.md) - Kernel design and implementation
+* [Deductive Kernel](../dk/kernel.md) - Kernel design and implementation
 
 ## Collaboration Framework
 
