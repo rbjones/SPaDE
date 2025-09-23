@@ -7,7 +7,7 @@ The existing documentation is a present oriented towards guidance for copilot an
 
 - [Instructions for Copilot](.github/copilot-instructions.md)
 
-- [For AI Contributors](docs/admin/ForAIContributors.md
+- [For AI Contributors](docs/admin/ForAIContributors.md)
 
 - [Collaboration Methods](docs/admin/collaboration-methods.md)
 

@@ -19,9 +19,9 @@ A github project has been set up and github facilities will be used to manage ta
 
 ### Quality Assurance
 
-- [**Review Standards**](review-standards.md) - How work is reviewed and validated
-- [**Validation Procedures**](validation-procedures.md) - Ensuring correctness and alignment
-- [**Feedback Loops**](feedback-loops.md) - Continuous improvement processes
+- [**Review Standards**](roles-responsibilities.md#review-and-validation) - How work is reviewed and validated
+- [**Validation Procedures**](roles-responsibilities.md#review-and-validation) - Ensuring correctness and alignment
+- [**Feedback Loops**](workflows.md) - Continuous improvement processes
 
 ## Principles
 
