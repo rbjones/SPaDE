@@ -172,7 +172,84 @@ It will then terminate the list will a CONS to NIL and create a top-level folder
 
 ### Writing a theory to the repository
 
-The function for writing theories to the repository must keep track of the position of theories in the repository so that 
+The function for writing theories to the repository must keep track of the position of theories in the repository so that parent theory references can be correctly established.
 
 ```sml
 (* Given the name of a theory, write it to the current SPaDE repository. *)
+write_theory : repo_state -> string -> repo_state
+
+(* Write theory parents list to establish context *)
+write_theory_parents : repo_state -> (string * repo_position) list -> repo_state
+
+(* Write a single theory extension (signature + constraint) *)
+write_extension : repo_state -> (string * htype) list -> hterm -> repo_state
+
+(* Convert ProofPower objects to SPaDE format *)
+pp_type_to_htype : TYPE -> htype
+pp_term_to_hterm : TERM -> hterm
+pp_thm_to_hsequent : THM -> hsequent
+
+(* Extract components from ProofPower definitions *)
+extract_signature : (string list * THM) -> (string * htype) list
+extract_constraint : (string list * THM) -> hterm
+classify_tag : string -> [`TYPE of int | `CONST of htype]
+
+(* Repository state management *)
+type repo_position = int
+type theory_map = (string * repo_position) list
+type repo_state = {
+    output_stream : BinIO.outstream,
+    current_pos : repo_position,
+    theory_positions : theory_map
+}
+
+init_repository : string -> repo_state
+finalize_repository : repo_state -> unit
+
+(* Basic repository writing primitives *)
+write_nil : repo_state -> repo_state
+write_atom : repo_state -> string -> repo_state
+write_cons : repo_state -> repo_state
+
+(* SPaDE data structure writing *)
+write_htype : repo_state -> htype -> repo_state
+write_hterm : repo_state -> hterm -> repo_state
+write_hsequent : repo_state -> hsequent -> repo_state
+write_signature : repo_state -> (string * htype) list -> repo_state
+write_constraint : repo_state -> hterm -> repo_state
+
+(* Theory processing utilities *)
+topological_sort : string list -> string list
+gather_theory_extensions : string -> ((string * htype) list * hterm) list  
+gather_theory_axioms : string -> hterm list
+
+(* Validation and utility functions *)
+validate_theory_order : string list -> bool
+compute_theory_dependencies : string list -> string list
+estimate_repository_size : string list -> int
+
+(* Exception handling *)
+exception ExportError of string
+exception TheoryNotFound of string  
+exception InvalidTheoryOrder of string list
+```
+
+### Error Handling and Validation
+
+The export process includes comprehensive error handling to ensure robust operation:
+
+- **ExportError**: Raised for general export failures with descriptive message
+- **TheoryNotFound**: Raised when a specified theory cannot be found in the database
+- **InvalidTheoryOrder**: Raised when theories are not in proper dependency order
+
+### Implementation Notes
+
+1. All functions that write to the repository return an updated `repo_state` to track the current position and maintain theory location mappings.
+
+2. The topological sorting ensures that no theory is processed before all its ancestors have been written to the repository.
+
+3. The conversion functions handle the mapping between ProofPower's concrete syntax and SPaDE's abstract HOL representation.
+
+4. Repository writing uses a postfix notation where data structures are built from the inside out, with CONS operations appearing after their operands.
+
+5. Type and constant signatures are extracted from definition tags, with type classification using `get_type_arity` to distinguish type constructors from constants.
