@@ -8,7 +8,7 @@ The Knowledge Repository is a core component of the SPaDE architecture that prov
 
 ## Key Features
 
-- **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all declarative knowledge.  The knowledge repository does not contain concrete syntzx and is not ties to any concrete physical representation, though there is a native SPaDE representation which is used for repositories constructed by SPaDE kr rather than other sources viewed as kr repos.
+- **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all declarative knowledge.  The knowledge repository does not contain concrete syntax and is not ties to any concrete physical representation, though there is a native SPaDE representation which is used for repositories constructed by SPaDE kr rather than other sources viewed as kr repos.
 - **Distributed Architecture**: Supports widely distributed shared knowledge repositories and incorporates knowledge from diverse sources, provide with appropriate metadata for interpretation.
 - **Version Control**: Maintains versioned contexts or theories in a WORM repository
 - **Multi-language Support**: Supports diverse languages through the abstract syntax of HOL (concrete syntax dealt with at other levels)

@@ -1,41 +1,49 @@
 # ProofPower HOL Interface for SPaDE
 
-This file contatins the details of the SML functions needed to scape a ProofPower HOL theory database for SPaDE.
+This file contains the details of the SML functions needed to scape a ProofPower HOL theory database for SPaDE.
 It is a mix of informal description of the process and a list of the SML functions needed to implement it.
 
 ## An informal account of the process
 
-The process of scraping a ProofPower HOL theory database into a SPaDE repository involves traversing the theory hierarchy, extracting the relevant components of each theory, and writing them into the SPaDE native repository format.
+The process of scraping a ProofPower HOL theory database into a SPaDE repository involves traversing the theory hierarchy, extracting the relevant components of each theory, and writing them into a SPaDE native repository in a different format.
 
-To scrape the entire theory hieratchy first find what theories are available using get_theory_names.
-Sort the theory names into a sequence in which no theory name appears before any of its ancestors, then process the theories in that order.
+The HOL theory hierarchy is accessed by invoking PolyML on the ProofPower HOL polyml database which contains the theories, loading the SML files containing the functions for exporting to the SPaDE native repository, and then invoking the top level function to scrape the theories.
+Note that the various functions mentioned in this document for accessing the ProofPower HOL database are part of the standard ProofPower HOL system, and will therefore already be in place when PolyML is invoked on a ProofPower HOL database.
 
-The top level of a repo is a folder which is the list of versions of the repo, which are numerically ordered, all the theories in the HOL database will be put in that directory, which will therefore by a labelled list of theories.
-The last node of that list will be created after every theory has been written to the repo.
+To scrape the entire theory hierarchy, first find what theories are available (using the sml procedure get\_theory\_names).
+Sort the theory names into a sequence in which no theory name appears before any of its ancestors, (this can be checked using the sml procedure get\_parents or get\_ancestors) then process the theories in that order.
 
-Each theory in turn is written to the repo.
-Whenever a structure is to be written to the repo, its components must first be written, and the location in the sequence is remembered for use in the CONS cell which will link that component into the whole.
-This can be done using a stack of positions.
+The top level of a SPaDE repo is a folder which is the list of versions of the repo, in which the constituent folder names are an initial segment of the natural numbers starting with 1.
+All the theories in the HOL database will be put in folder "1" which will be the sole constituent of the top level folder, indicating that it is the first and only version of the repo.
 
-In addition, the location of each theory should be remembered (though in principle it could be found) and of the last CONS in the top level folder.
+Folders are lists of name/value pairs, where the value is either a theory or another folder.
+That value is presented as a pair in which the first component is a tag indicating whether it is a folder or a theory, and the second component is the value.
+
+Each theory in turn is written to the repository followed by the
+structures which include it as a theory at the head of the folder (which is a list).
+When all the theories have been written, a further folder is written to the repository, which is the top level folder of the repository, containing the single folder named "1" which contains all the theories.
+
+Whenever a structure is to be written to the repo, its components must first be written, and their locations in the sequence are remembered for use in CONS cells which will link the components into the whole.
+This can be done using a stack of positions, which are byte displacements in the binary file into which the repository is being written.
+
 The first component of a theory in the SPaDE repo will always be a list of parent theories which determine the context from which the sequence of extensions which forms the theory is begun.
-This list includes the numerical position of each theory and the a signed cryptographic hash of the theory which is taken from the theory).
+This list includes the path within the repository to the theory (including the repo version number), the byte displacement in the repo of each theory (i.e. a pointer to the theory) and a signed cryptographic hash of the theory which is taken from the theory).
 There follows a list of extensions, and concluded by a signed hash of the theory signeed by the server which created it.
 In a first prototype these signed hashes may be omitted.
 Note that the order of these components in terms of their numerical position in the repo will be that in the description, but the components will be combined in a list using CONS cells in the given order, at each step adding a head to the list, so the order of the list is opposite to the order in the description.
 
-Each extension consists of the signature of set of new type constructors and term constants (which may be empty) and a constraint, which may be either a new axiom or a constraint on the values of the new names.
+Each extension consists of the signature of set of new type constructors and term constants (which may be empty) and a constraint, which is a closed term of type BOOL (and may or may not be conservative).
 This repository structure gives only meanings, and is not intended for the storage of theorems, for which other structures may be appropriate.
 So, unlike the more typical role of LCF proof tools, there is no evidence in this repository of whether the extensions are conservative.
-It is the intension in the broader structure of SPaDE that theorems when proving are signed by some authority as being derivable in a particular context, and the signing of of the theorem along with a cryptographic has of the context is what gives confidence in its derivability and truth.
+It is the intention in the broader structure of SPaDE that alleged theorems are signed by some authority as being derivable in a particular context, and the signing of of the theorem along with a cryptographic hash of the context is what gives confidence in its derivability and truth (the level of confidence depending on the signing authority).
 
 The details of converting for the repo the signature and constraint of an extension, follow a similar pattern.
 There are some differences between the structure of terms between ProofPower (and other HOLs), and SPaDE.
-Two features are extra in SPaDE, which are TERM relocations and TERM listerals.
+Two features are extra in SPaDE, which are TERM relocations and TERM literals.
 The former will not be needed for transcription of HOL theories.
 The latter may be used instead of the use in ProofPower HOL of literal constants.
-A literal constant in ProofPower HOL has a value derived from its name not a definition.
-Such constants can be scraped as literal terms, this will suffice for some prototyping, but will leave a semantic deficit, which would precvetn a full and faithfull replication of the HOL theories making use of them in SPaDE.
+A literal in ProofPower HOL is a constant that has a value derived from its name not from a definition.
+Such constants can be scraped as literal terms, this will suffice for some prototyping, but will leave a semantic deficit, which would prevent a full and faithful replication of the HOL theories making use of them in SPaDE.
 The workings of TERM literals in SPaDE is not yet fully worked out, and as this is done, the mapping may need to be changed.
 
 ## SML Functions For Accessing ProofPower HOL Theories
@@ -163,7 +171,6 @@ Version 1 of the repository will be a folder containing all the theories in the 
 
 A folder is a list of theories or folders.
 
-
 In all cases the theories will be processed in an order in which no theory appears before any of its ancestors.
 
 These top level functions will open a binary output stream to the given file name, will write a NIL at the beginning of the repository, and then write each theory to the repository as successive versions of a folder of theories.
@@ -172,7 +179,7 @@ It will then terminate the list will a CONS to NIL and create a top-level folder
 
 ### Writing a theory to the repository
 
-The function for writing theories to the repository must keep track of the position of theories in the repository so that 
+The function for writing theories to the repository must keep track of the position of theories in the repository so that
 
 ```sml
 (* Given the name of a theory, write it to the current SPaDE repository. *)

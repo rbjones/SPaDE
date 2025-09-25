@@ -23,7 +23,6 @@ I do not expect that in my lifetime we will have access to components of a Cosmi
 
 The top level abstract descriptions of the SPaDE repository must therefor address the way in which SPaDE envisages the integration of very many diverse local repositories into a single coherent cosmic repository.
 
-
 ### The Abstract Structure of the Cosmic Repository
 
 * The second part addresses the structure proposed for a widely distributed shared repository of declarative knowledge thus represented.
