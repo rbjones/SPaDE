@@ -9,33 +9,43 @@ The subsystems are at present:
 - di - Deductive Intelligence
 - mcp - MCP Server and use of A2A protocol
 
+## Documentation
+
 Where there is no compelling reason to do otherwise, documents will be written in github markdown, and will be organised in such a way as to provide a transparent and complete view of the project from the project web site on rbjones.github.io/SPaDE
-
-## File Naming Convention
-
-File names should be stable and descriptive (unless in a numeric sequence), independent of document titles:
-
-- Use descriptive, stable names: `collaboration-framework.md`, `project-issues.md`
-- No need to closely couple file names to document titles
-- Maintain consistent naming patterns across directories
-- Document titles can evolve without requiring file renames
-
-## Documentation Organization
 
 Documents specific to some subsystem will be in the top-level directory for that subsystem.
 
 High level and project wide documentation will be in the [docs](../README.md) directory, which has an [admin](README.md) subdirectory for materials of a non-technical nature.
 
-The docs directory also covers:
+## File Naming Convention
 
-- **Philosophy/**Philosophical foundations and concepts
-- **Architecture/**: System architecture and design
-- **Specifications/**: Formal mathematical specifications relevant to multiple subsystems
-- **Papers/**: Academic publications and formal papers
+The eneral policy on naming of documents is that they should be in numerical series prefixed by short identifiers for the subsystem, and for the kind of document as follows.
 
-For low-level technical materials common to more than one subsystem, the top-level "common" directory will be used.
+Subsystem codes:
 
-For material of a non-technical nature there the admin subdirectory of the docs directory should be used..
+- **tl** top level, system wide
+- **kr** knowledge repository
+- **dk** deductive kernel
+- **di** deductive intelligence
+- **mc** MCP server
+- **rv** review reports e.g. from copilot
+- **am** administration and management
+- **co** low level common materials
+
+Document kinds:
+
+- **ph** Philosophical materials
+- **ad** Architectural level design
+- **hd**: High level design
+- **dd**: Detailed design
+- **cd**: Code
+
+After the two prefixes documents will have a three digit number starting at 001 for each kind of document.
+Document suffixes will generally indicate the language in which the document is written.
+
+This a change from earlier policies and it will take some time to be fully implemented.
+
+## The Admin Directory
 
 This includes:
 
@@ -55,11 +65,12 @@ This includes:
 
 ## Exceptions to Markdown Policy
 
-The following are the exceptions to that policy which are currently anticipated:
+There was previously an intention to use markdown more exclusively, including for formal specifications, and at that time the following exceptions were noted.
+The following exceptions to the policy were then noted, but probably are no longer relevant.
 
 ### Conference Papers
 
-There will be a small number of papers prepared as if for publication in the proceedings of conferences, in whatever the required format is (normally latex with a special formatting). Where possible these may be constructed using the markdown package to include markdown sources.
+There may be a small number of papers prepared as if for publication in the proceedings of conferences, in whatever the required format is (normally latex with a special formatting). Where possible these may be constructed using the markdown package to include markdown sources.
 
 ### ProofPower .pp Files
 

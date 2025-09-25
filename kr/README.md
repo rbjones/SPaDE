@@ -36,21 +36,36 @@ A major part of such metadata is expected to be the demonstration of derived rul
 
 ## Documentation
 
+### Philosophical Background
+
+- [krph001.md](krph001.md) - Knowledge Repository Philosophical Background
+
+### Architecture Docs
+
 - [Knowledge Repository Overview](KnowledgeRepo.md) - Main specification
+- [Universality Discussions](KRUniversality.md) - Justification for HOL universality
+
+### High Level Design
+
 - [Knowledge Repository Structural Description](KnowledgeRepo.md) - Detailed architecture and design
+
+- [h4001.md](h4001.md) HOL Abstract Syntax - Formal specification of the repository structure in HOL
+
+### Detailed Design
+
 - [SPaDE Native Repository](SPaDENativeRepo.md) - Native repository format
-- [Knowledge Repository Prototyping Strategies](KRproto.md) - Development strategies
+
+### Prototyping
+
+- [KRproto.md](KRproto.md) - Prototyping strategies for knowledge repository development
 - [Scraping ProofPower HOL Theories into a SPaDE Repository](SPaDEppScrape.md) - ProofPower scraping overview
 - [ProofPower HOL Interface for SPaDE](ppholinterface.md) - SML interface specification
-- [Universality Discussions](KRUniversality.md) - Justification for HOL universality
 
 ### Documentation Review and Status
 
 All reviews documents are held in the [reviews](../reviews) subdirectory.
 
-### HOL Specifications
-
-- [h4001.md](h4001.md) HOL Abstract Syntax - Formal specification of the repository structure in HOL
+]
 
 ### SML Code
 
@@ -61,10 +76,6 @@ All reviews documents are held in the [reviews](../reviews) subdirectory.
 
 - [p4001.py](p4001.py) - Python HOL abstract syntax
 - [p4002.py](p4002.py) - Python interface to the Knowledge Repository
-
-### Strategies Tactics and Plans
-
-- [KRproto.md](KRproto.md) - Prototyping strategies for knowledge repository development
 
 ## Contributing
 
