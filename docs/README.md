@@ -56,11 +56,6 @@ Core philosophical concepts and foundations:
 
 This project emphasizes human/AI collaboration as essential to its success. The collaboration framework is documented in the [admin directory](admin/), including:
 
-* **Roles and Responsibilities**: Bertie (philosopher/architect) and Alan (high-bandwidth contributor)
-* **Collaboration Methods**: Standards and approaches for effective collaboration
-* **Workflows**: Specific processes for different types of work
-* **Quality Assurance**: Review and validation procedures
-
 ## Contributing
 
 See the [admin documentation](admin/) for collaboration guidelines and project management procedures.

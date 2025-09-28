@@ -1,6 +1,6 @@
-# SPaDE Native KR structure in HOL4
+# SPaDE Repository Structure
 
-In this document a formal specification in HOL of the abstract structure of the SPaDE Knowledge Repository is presented.
+In this document an informal description of the abstract structure of the SPaDE Knowledge Repository is presented.
 Separate documentation is available describing the structure of SPaDE native repositories as stored on persistent media, and ultimately there will be further documentation describing how more diverse sources of knowledge can be accessed as components of the SPaDE cosmic knowledge repository.
 
 The knowledge repository is a collection of name constraints, in which names are given meaning, first by assignment to each name of a type, and then by constraining the values which those names can take, by means of a term of type bool which is to be satisfied by any assignment of values to the names.
@@ -55,7 +55,7 @@ Its structure is therefore:
 
 In this, the repository is the largest structure managed by SPaDE native software.
 A complex of repositories arises when repositories share an addressing scheme allowing cross referencing in the formation of contexts and securing the uniqueness of names across the complex.
-Such a complex, is logically similar to a single repository, but may physically distributed.
+Such a complex, is logically similar to a single repository, but physically distributed.
 
 The concept of a universe acknowledges the likelihood that there are multiple sources of intelligence proliferating within the cosmos which are unknown to each other, or have not yet reached the point of systematically sharing knowledge.
 Thus the universe is a collection of complexes of repositories, each complex being self contained and not sharing names with any other complex.

@@ -34,11 +34,14 @@ Subsystem codes:
 
 Document kinds:
 
-- **ph** Philosophical materials
-- **ad** Architectural level design
+- **ph**: Philosophical materials
+- **ad**: Architectural level design
 - **hd**: High level design
 - **dd**: Detailed design
 - **cd**: Code
+- **ms**: Methods, processes and standards
+- **pl**: Plans and strategies
+- **te**: Testing and evaluation
 
 After the two prefixes documents will have a three digit number starting at 001 for each kind of document.
 Document suffixes will generally indicate the language in which the document is written.

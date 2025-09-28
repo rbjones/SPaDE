@@ -11,20 +11,15 @@ The Knowledge Repository is a core component of the SPaDE architecture that prov
 - **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all declarative knowledge.  The knowledge repository does not contain concrete syntax and is not ties to any concrete physical representation, though there is a native SPaDE representation which is used for repositories constructed by SPaDE kr rather than other sources viewed as kr repos.
 - **Distributed Architecture**: Supports widely distributed shared knowledge repositories and incorporates knowledge from diverse sources, provide with appropriate metadata for interpretation.
 - **Version Control**: Maintains versioned contexts or theories in a WORM repository
-- **Multi-language Support**: Supports diverse languages through the abstract syntax of HOL (concrete syntax dealt with at other levels)
-- **Diverse Storage Support** as well as read/write support for native repositories, read access to diverse knowledge and data sources will be supported by special interfaces using metadata for interpretation.
-- **Consistency Management**: Ensures logical consistency across distributed repositories when contexts are extended conservatively.
+ **Diverse Storage Support** as well as read/write support for native repositories, read access to diverse knowledge and data sources will be supported by special interfaces using metadata for interpretation.
+- **Consistency Management**: Is designed to support the management of consistency across distributed repositories through metatheoretic methods (which depend on the dk and di subsystems).
 
 ## Architecture
 
-The Knowledge Repository is structured around the concept of **contexts** - versioned signatures that contain:
+The Knowledge Repository is structured around the concept of **contexts** which are similar to theories in other HOL ITP systems, but which are not repositories for theorems (which are held in caches managed by di specialists in each context).
+The term theory is used to refer to a collection of context extensions (usually conservative) which yields a new context by introducing new names and constraints.
 
-- Type assignments for constant names
-- Constraints (Boolean terms) on those names
-
-A context is essentially the content of a theory and its ancestry, and because of the distributed nature of this repository, that ancestry may be drawn from disparate sources.
-
-- Metatheory is intended to be a significant feature of SPaDE, and metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
+Metatheory is intended to be a significant feature of SPaDE, and metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
 A major part of such metadata is expected to be the demonstration of derived rules of inference, use of which is expected to displace in SPaDE the role of tactics and other high level proof facilities in more tranditional LCF proof support.
 
 ### Core Concepts
@@ -39,26 +34,30 @@ A major part of such metadata is expected to be the demonstration of derived rul
 ### Philosophical Background
 
 - [krph001.md](krph001.md) - Knowledge Repository Philosophical Background
+- [krph002.md](krph002.md) - discussion of universal foundations for knowledge representation
 
-### Architecture Docs
+### Architecture Design
 
 - [Knowledge Repository Overview](KnowledgeRepo.md) - Main specification
-- [Universality Discussions](KRUniversality.md) - Justification for HOL universality
+
+- [krad001.md](krad001.md) HOL Abstract Syntax - Formal specification of the repository structure in HOL
 
 ### High Level Design
 
 - [Knowledge Repository Structural Description](KnowledgeRepo.md) - Detailed architecture and design
 
-- [h4001.md](h4001.md) HOL Abstract Syntax - Formal specification of the repository structure in HOL
+- [krhd001.md](krhd001.sml) Formal specification of the repository structure in HOL4 SML.
+- [krhd002].md](krhd002.md) - Prototyping strategies for knowledge repository development
+- [krhd003.md](krhd003.md) - Scraping ProofPower HOL Theories into a SPaDE Repository
 
 ### Detailed Design
 
-- [SPaDE Native Repository](SPaDENativeRepo.md) - Native repository format
+- [krdd001.md](krdd001.md) - ProofPower HOL interfaces for SPaDE theory export
+- [krdd002.md](krdd002.md) - SPaDE Native repository format
+- [krdd003.md](krdd003.md) - ?
 
 ### Prototyping
 
-- [KRproto.md](KRproto.md) - Prototyping strategies for knowledge repository development
-- [Scraping ProofPower HOL Theories into a SPaDE Repository](SPaDEppScrape.md) - ProofPower scraping overview
 - [ProofPower HOL Interface for SPaDE](ppholinterface.md) - SML interface specification
 
 ### Documentation Review and Status

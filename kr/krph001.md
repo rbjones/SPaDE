@@ -1,22 +1,28 @@
 # Knowledge Repository Philosophical Background
 
-The structure of the SPaDE knowledge repository is informed by supposed philosophical insights into the nature of knowledge and its representation.
-This document is a brief account of those ides, and the way in which they have influenced the design of the repository.
+The structure of the SPaDE knowledge repository is informed by supposed philosophical insights into the nature of declarative knowledge and its representation.
+This document is a brief account of those ideas, and the way in which they have influenced the design of the repository.
 It is not intended to be a rigorous philosophical treatise, but rather an informal bald account of the ideas which have influenced the design.
 
 ## Declarative Knowledge
 
-Declarative knowledge is that kind of knowledge which can be expressed in true sentences of a well defined declarative language, which is to say, that kind of language in which such sentences can be expressed.
+Declarative knowledge is that kind of knowledge which can be expressed in true sentences of a well defined declarative language.
+A declarative language speaks of some domain of discourse using expressions whose values are determined by the state of that domain.
+A sentence in a declarative language is an expression whose value is either true or false.
+The semantics of the language determine under what conditions a sentence is true, and the assertion of the sentence expresses the proposition that those conditions hold.
 
-To say that a declarative language is well defined is to say that the truth conditions of its sentences are known.
+To say that a declarative language is well defined is to say that the truth conditions of its sentences are well defined.
 
-It is now the case that we have languages concerned with abstract entities whose truth conditions are very precisely known, and for which there are almost complete semi-decision procedures, usually presented as formal deductive sytems.
+It is now the case (as a result of historically recent advanves in logic) that we have languages concerned with abstract entities whose truth conditions are very precisely known, and for which there are almost complete semi-decision procedures (algorithms), usually presented as formal deductive sytems.
 
-The meanings of languages which are about concrete rather than abstract entities are more difficult to express precisely, but may be though of a factored into two parts, of which one is the abstract part, which is about abstract entities, and the other is a mapping from concrete entities to abstract entities.
+The meanings of languages which are about concrete rather than abstract entities are more difficult to express precisely, but may be though of a factored into two parts, an abstract model and a concrete interpretation.
 
 If such a factoring is used, then truth conditions for sentences about concrete entities may be expressed in terms of truth conditions for sentences about abstract entities, and will benefit from the semi-decision procedures available for the abstract part of the language.
+The empirical claim then follows logically from the truth of the abstract proposition and the claim that the concrete interpretation is veridical.
+Given formal demonstration of the abstract proposition, the empirical proposition then inherits whatever level of trust is vested in the interpretation.
 
 This procedure can also be extended to cover language which is neither purely abstract nor purely concrete, but which addresses matters such as metaphysics or ethics.
+Similar considerations apply to conclusions reached by reasoning in abstract models with interpretation in these domains of discourse, though the grounds for confidence in the interpretations may be more tenuous.
 
 Thus abstract languages may be thought of as interpretable in many non-abstract domains, and as thereby serving to represent declarative knowledge about those domains.
 
