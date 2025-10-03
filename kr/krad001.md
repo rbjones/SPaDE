@@ -1,14 +1,51 @@
-# SPaDE Repository Structure
+# Knowledge Repository Architecture Overview
+
+## Introduction
 
 In this document an informal description of the abstract structure of the SPaDE Knowledge Repository is presented.
-Separate documentation is available describing the structure of SPaDE native repositories as stored on persistent media, and ultimately there will be further documentation describing how more diverse sources of knowledge can be accessed as components of the SPaDE cosmic knowledge repository.
+This is made more precise as a HOL4 formal specification in [krhd004.sml](krhd004.sml).
 
-The knowledge repository is a collection of name constraints, in which names are given meaning, first by assignment to each name of a type, and then by constraining the values which those names can take, by means of a term of type bool which is to be satisfied by any assignment of values to the names.
+Part of the motivation for this structure is given in [Philosophical Background for the Knowledge Repository](krph003.md).
+
+## Abstract and Concrete Structures
+
+## Concrete Representations
+
+SPaDE is designed to be agnostic as to concrete representations.
+The intention is to embrace all sources of declarative knowledge satisfying certain minimal conditions, by allowing their various concrete representations to be viewed, and possibly manipulated, as SPaDE repositories.
+
+The kinds of concrete representation which may be viewed as SPaDE repositories include:
+
+- Persistent stored forms
+- In-memory forms
+- As accessed through APIs and protocols
+- Concrete syntaxes
+
+The SPaDE project will provide, for various reasons to be discussed, support for several examples of the first three kinds, but none of the last, since all the functionality of SPaDE is designed to be delivered through MCP servers and/or other A2A APIs and protocols, which are not tied to any particular concrete syntax.
+It is expected that access to SPaDE repositories will normally be mediated by LLMs or subsequent generations of agentic AI, and that both code and formal specifications will ultimately become the province of AI, constructed to meet the requirements of users through dialogues in media suitable for the precise elicitation of requirements.
+
+These concrete representations are not the subject of this document, which is concerned with the abstract structure of SPaDE repositories. That structure is independent of any particular concrete representation, but provides a basis for the design of such representations.
+
+The SPaDE knowledge repository is a collection of name constraints, in which names are given meaning, first by assignment to each name of a type, and then by constraining the values which those names can take.
+The constraint is expressed, by means of a term of type bool which is to be satisfied by any assignment of values to the names.
+The terms are the terms of the simply typed lambda calculus, and the logic appropriate for reasoning about the knowledge represented in the repository is therefore closely related to Church's Simple Theory of Types, subject to certain refinements of which those adopted by the Cambridge HOL family of ITP systems are the major part (of which the most relevant are the small adjustmemts to accomodate type variables).
+
+The types and terms here are essentially those of the variant of Higher Order Logic derived from Alonzo Church's *Simple Theory of Types* by Michael Gordon and others and known as *Cambridge HOL*, which is the logical basis of several Interactive Theorem Provers including ProofPower HOL4.
+There are some complications arising from the more elaborate name space needed to ensure consistency in combining disparate repositories into a coherent whole.
+
 Names are given to two kinds of entities, type constructors, and constants.
-Constraints may involve either or both of types and constants.
+Constraints may involve either or both of types and constants and are usually closely coupled with the introduction of one or more new types or constants in a manner which does not further constrain the valuesany other names, in which case it is possible to prove that the extension is *conservative*, i.e. that any model of the prior names and constraints can be extended to a model of the new names and constraints.
+If constraint is not associated with new names it is either non-conservative (and usually called an axiom) or irrelevant (semantically).
 
 The name space within which this takes place ensures that all names are unique, and is structured hierarchically to support the logical combination of repositories from disparate origins.
 
+The main features of the SPaDE repository which distinguishes it from prior HOL ITP systems are:
+
+1. The limitation to the extensions to the logical system, conservative or not, i.e. definitions and axioms.
+The SPaDE repository does not serve as a store of theorems unless those theorems are included in theories which are metatheoretic and explicitly state deribability., and is crucial to the ability to support a widely distributed shared repository of declarative knowledge, and to the conception of a cosmic repository of declarative knowledge is the structure of names in the SPaDE repository.
+The structure of names in the SPaDE repository is the main feature which distinguishes it from prior HOL ITP systems, and is crucial to the ability to support a widely distributed shared repository of declarative knowledge, and to the conception of a cosmic repository of declarative knowledge.
+
+The claim that all
 Though this makes possible the combination of repositories, it is not normally desirable to be working in such a maximal context, and the use of focal AI methods to support reasoning will require that the context in which reasoning takes place is carefully curated to include only those names which are relevant to the subject matter at hand.
 
 Contexts are therefore a key concept in the use of the repository, and correspond to the organisation of formal theories in to hierarchies of theories, each theory being formed by extension of one or more prior theories, which may be called its *parents*.
@@ -51,7 +88,7 @@ Its structure is therefore:
 - folders
 - repositories
 - complexes of repositories
-- universe
+- cosmic repositories (universes)
 
 In this, the repository is the largest structure managed by SPaDE native software.
 A complex of repositories arises when repositories share an addressing scheme allowing cross referencing in the formation of contexts and securing the uniqueness of names across the complex.
@@ -64,15 +101,6 @@ It may be noted that stability in these naming structures is important to the in
 The use of signed cryptographic hashes to protect the integrity of contexts and the connection between contexts and theorems proven in those contexts will provide a check against corruption of context by changes to the naming structure, forcing appropriate editing of affected parent links and the re-proving of affected theorems (though the theorems are not stored in the repository but are independently managed by domain specialist deductive AI agents).
 
 Theorem proving will always take place in exactly one logical context, and access to the repository for that purpose will require the extraction of the content of the relevant context.
-
-## Preliminaries
-
-```sml
-app load ["bossLib", "stringTheory"];
-open bossLib Theory Parse;
-local open stringTheory pred_setTheory in end;
-val _ = new_theory "SPaDE_KR_Spec";
-```
 
 ## S-expressions
 

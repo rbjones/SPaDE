@@ -21,3 +21,5 @@ It's AI generated and therefore generic and will need to be adapted to the speci
 Since SPaDE functionality will be delivered exclusively through MCP servers, testing will be undertaken by copilot acting as a client to the MCP server.
 
 The process of building and deploying MCP servers will be automated using Continuous Integration/Continuous Deployment (CI/CD) pipelines.
+
+The testing of the MCP server undertaken by copilot will be fully scripted (with the assistance of copilot) and will be automatically executed as part of the CI/CD pipeline.

@@ -1,4 +1,4 @@
-(* SML translation of kr/h4001.md HOL datatypes *)
+(* SML translation of kr/krdd003.md HOL datatypes *)
 
 (* Names *)
 datatype sname =  Sn of string

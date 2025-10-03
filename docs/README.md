@@ -6,7 +6,7 @@ The SPaDE project has the following main objectives:
 as _Cambridge HOL_ is suitable as a general representation form for declarative knowledge irrespective of what language or coding it may have been presented or stored in.
 
 * To articulate a conception of a
-[deductive paradigm shift](DeductiveParadigm.md) which,
+[deductive paradigm shift](tlph005.md) which,
 with the benefit of effective automation only possible through AI
 will transform the exploitation of declarative knowledge
 from computation processes of uncertain effect to
@@ -25,7 +25,7 @@ of the knowledge which forms the logical context for the inference.
 
 The documentation is organized into several directories, each serving a specific purpose:
 
-### [Admin Documentation](admin/README.md)
+### [admin/README.md](admin/README.md) Admin Documentation
 
 Project management, collaboration framework, and planning documents:
 
@@ -37,12 +37,12 @@ Project management, collaboration framework, and planning documents:
 
 Core philosophical concepts and foundations:
 
-* [A STEM Fantasy](STEMFantasy.md) - a speculation on the distant future providing a rationale for project
-* [Philosophical Preliminaries](PhilosophicalPreliminaries.md) - Basic philosophical approach
-* [Synthetic Philosophy](SyntheticPhilosophy.md)
-* [Deductive Paradigm](DeductiveParadigm.md) - The paradigm shift concept
-* [Epistemological Stack](EpistemologicalStack.md)
-* [Focal Engineering](FocalEngineering.md)
+* [tlph001.md](tlph001.md) - A STEM Fantasy and Ethical Consequence. A speculation on the distant future providing a rationale for project
+* [tlph002.md](tlph002.md) - Synthetic Philosophy
+* [Philosophical Preliminaries](tlph006.md) - Basic philosophical approach
+* [Deductive Paradigm](tlph005.md) - The paradigm shift concept
+* [Epistemological Stack](tlph003.md)
+* [Focal Engineering](tlph004.md)
 
 ### [Knowledge Repository](../kr/README.md)
 
