@@ -1,4 +1,4 @@
-# Knowledge Repository (KR)
+# The Knowledge Repository
 
 This directory contains the design and implementation of the Knowledge Repository component of the SPaDE project.
 

@@ -9,7 +9,7 @@ Part of the motivation for this structure is given in [Philosophical Background 
 
 ## Abstract and Concrete Structures
 
-## Concrete Representations
+### Concrete Representations
 
 SPaDE is designed to be agnostic as to concrete representations.
 The intention is to embrace all sources of declarative knowledge satisfying certain minimal conditions, by allowing their various concrete representations to be viewed, and possibly manipulated, as SPaDE repositories.
@@ -26,26 +26,28 @@ It is expected that access to SPaDE repositories will normally be mediated by LL
 
 These concrete representations are not the subject of this document, which is concerned with the abstract structure of SPaDE repositories. That structure is independent of any particular concrete representation, but provides a basis for the design of such representations.
 
+### Abstract Structure
+
 The SPaDE knowledge repository is a collection of name constraints, in which names are given meaning, first by assignment to each name of a type, and then by constraining the values which those names can take.
 The constraint is expressed, by means of a term of type bool which is to be satisfied by any assignment of values to the names.
-The terms are the terms of the simply typed lambda calculus, and the logic appropriate for reasoning about the knowledge represented in the repository is therefore closely related to Church's Simple Theory of Types, subject to certain refinements of which those adopted by the Cambridge HOL family of ITP systems are the major part (of which the most relevant are the small adjustmemts to accomodate type variables).
+The terms are the terms of the simply typed lambda calculus, and the logic appropriate for reasoning about the knowledge represented in the repository is therefore closely related to Church's Simple Theory of Types, subject to certain refinements of which those adopted by the Cambridge HOL family of ITP systems are the major part (among which the most relevant are the small adjustments to accommodate type variables, and the admission of additional type constructors).
 
-The types and terms here are essentially those of the variant of Higher Order Logic derived from Alonzo Church's *Simple Theory of Types* by Michael Gordon and others and known as *Cambridge HOL*, which is the logical basis of several Interactive Theorem Provers including ProofPower HOL4.
-There are some complications arising from the more elaborate name space needed to ensure consistency in combining disparate repositories into a coherent whole.
+The types and terms here are essentially those of the variant of Higher Order Logic derived from Alonzo Church's *Simple Theory of Types* by Michael Gordon and others and known as *Cambridge HOL*, which is the logical basis of several Interactive Theorem Provers including ProofPower HOL, HOL4, HOL light and Isabelle HOL.
+There are some complications in SPaDE arising from the more elaborate name space needed to ensure consistency in combining disparate widely distributed repositories into a coherent extensible whole.
 
-Names are given to two kinds of entities, type constructors, and constants.
-Constraints may involve either or both of types and constants and are usually closely coupled with the introduction of one or more new types or constants in a manner which does not further constrain the valuesany other names, in which case it is possible to prove that the extension is *conservative*, i.e. that any model of the prior names and constraints can be extended to a model of the new names and constraints.
-If constraint is not associated with new names it is either non-conservative (and usually called an axiom) or irrelevant (semantically).
+Names are given to two kinds of entities, type constructors, and constants (terms).
+Though type and term variables are used in the logic, they are not constrained by the repository.
+Constraints may involve either or both of types and constants and are usually closely coupled with the introduction of one or more new types or constants in a manner which does not further constrain the valuesany other names, in which case it is normally possible to prove that the extension is *conservative*, i.e. that any model of the prior names and constraints can be extended to a model of the new names and constraints.
+If a constraint is not associated with new names it is either non-conservative (and usually called an axiom) or irrelevant (semantically, but should be a demonstrable theorem).
 
 The name space within which this takes place ensures that all names are unique, and is structured hierarchically to support the logical combination of repositories from disparate origins.
 
 The main features of the SPaDE repository which distinguishes it from prior HOL ITP systems are:
 
 1. The limitation to the extensions to the logical system, conservative or not, i.e. definitions and axioms.
-The SPaDE repository does not serve as a store of theorems unless those theorems are included in theories which are metatheoretic and explicitly state deribability., and is crucial to the ability to support a widely distributed shared repository of declarative knowledge, and to the conception of a cosmic repository of declarative knowledge is the structure of names in the SPaDE repository.
+The SPaDE repository does not serve as a store of theorems unless those theorems are included in theories which are metatheoretic and explicitly state deribability, and is crucial to the ability to support a widely distributed shared repository of declarative knowledge, and to the conception of a cosmic repository of declarative knowledge is the structure of names in the SPaDE repository.
 The structure of names in the SPaDE repository is the main feature which distinguishes it from prior HOL ITP systems, and is crucial to the ability to support a widely distributed shared repository of declarative knowledge, and to the conception of a cosmic repository of declarative knowledge.
 
-The claim that all
 Though this makes possible the combination of repositories, it is not normally desirable to be working in such a maximal context, and the use of focal AI methods to support reasoning will require that the context in which reasoning takes place is carefully curated to include only those names which are relevant to the subject matter at hand.
 
 Contexts are therefore a key concept in the use of the repository, and correspond to the organisation of formal theories in to hierarchies of theories, each theory being formed by extension of one or more prior theories, which may be called its *parents*.
@@ -86,13 +88,14 @@ Its structure is therefore:
 - terms
 - theories
 - folders
-- repositories
-- complexes of repositories
-- cosmic repositories (universes)
+- local repositories
+- diasporic repositories
+- the pansophic repository
 
-In this, the repository is the largest structure managed by SPaDE native software.
-A complex of repositories arises when repositories share an addressing scheme allowing cross referencing in the formation of contexts and securing the uniqueness of names across the complex.
-Such a complex, is logically similar to a single repository, but physically distributed.
+In that structure, earlier parts are the components which form the later, the latter defining very large name spaces encaspulating the abstract structures underlying the ddclarative knowledge of entire diaspora and ultimately the cosmos.
+
+Reasoning and its products do not take place in these large structures, but in contexts associated with theories and determined by the ancestry of theories.
+The contect associated with a theory is formed by the union of the signatures and constraints of that theory and all its ancestors.
 
 The concept of a universe acknowledges the likelihood that there are multiple sources of intelligence proliferating within the cosmos which are unknown to each other, or have not yet reached the point of systematically sharing knowledge.
 Thus the universe is a collection of complexes of repositories, each complex being self contained and not sharing names with any other complex.
@@ -116,14 +119,16 @@ Datatype: sexp =
 End
 ```
 
+Note that in HOL a string is an arbitrary finite sequence of bytes.
+
 ## Names
 
-Names are relative giving a place in the heirarchic structure relative to some given place.
-They are therefore represented as a number indicating a height above the current folder, and a path downward from that folder.
-Each stage selects a new folder, the last of which will be a theory.
+In order to enable the indefinite extension of the repository, and the logical combination of repositories from disparate origins, all names are *relative* and the top is open ended, enabling any two repositories from disparate origins to be logically combined into a single repository by adding an additional layer if necessary.
 
-Note that "string" here should be read as an arbitrary byte sequence, since names may contain characters outside the normal unicode range.
-This might not properly correspond to HOL strings in HOL4, but is necessary to support the full range of possible names.
+Names are relative, giving a place in the heirarchic structure relative to the locus of the name.
+Naturally this does give rise to complications when reasoning with theorems proven in different contexts, for which some innovation in the structure of terms is required (see below).
+
+They are therefore represented as a number indicating a height above the current theory, and a path downward from that folder, each step in the path being a simple name which selects a new folder, the last of which will be a theory.
 
 ```sml
 val _ = Datatype `sname = Sn string`;
@@ -195,20 +200,20 @@ End
 
 ```sml
 Datatype: htheory =
-      <| thname: sname;
-         parents: rname list # shash;
-         extensions: hext list;
-         shash: shash
+      <| Thname: sname;
+         Parents: rname list # shash;
+         Extensions: hext list;
+         Shash: shash
       |>
 End
 ```
 
 ## Folders
 
-Folders are used to structure the repository hierarchically, and contain theories or other folders.
+Folders are used to structure the repository hierarchically, and contain theories or other folders (not both).
 
 ```sml
-val _ = Datatype `folder = Rdict (((num + sname) # 'b) list)`;
+      val _ = Datatype `folder = Sdict (sname # 'b) list)`;
 ```
 
 ## Trees
@@ -219,12 +224,37 @@ So this is a simpler tree datatype which will suffice.
 ```sml
 val _ = Datatype
  `rtree =
-   Rfolder (rtree rdict)   |
-   Rleaf 'a`;
+   Sfolder ('a rtree) folder   |
+   Rleaf 'a;
 ```
 
 ## The Repository
 
 ```sml
-val _ = Datatype `hrepo = Hrepo (htheory rtree)`;
+val _ = Datatype `hrepo = Hrepo ((htheory folder) rtree)`;
 ```
+
+## Contexts and Views
+
+Each diaporic repository determines a diasporic context, which a syntactic and a semantic component.
+THe syntactic component is a signature and a set of constraints.
+The semantic componenet is a collection of assignments of values to the names in the signature which satisfy the constraints, and is therefore called a model.
+Each models determines the truth value of BOOLean terms constructed using only the names in the signature, and the soundness of the logic ensures that any term which can be proved true in the context is true in all models of the context.
+
+The context in which reasoning takes place will normally be a small part of that diasporic context, and the diasporic repository has additional structure which facilitates the choice of a context appropriate for any particular application or theory development.
+
+Two core mechanisms provide the bsis for this, with some additional elaborations related to integrity and security.
+
+The core features are:
+
+1. The definition of the diasporic context by a partially ordered tree of extensions.
+2. The grouping of extensions into theories.
+
+The context in which the extensions in a theory are to be interpreted is determined by the union of the signatures and constraints of the parent theories of that theory, together with all their ancestors.
+A new appliction may therefore select just those parent theories needed to incorporate all the names on which the proposed extensions depend.
+The context in which the extensions of that theory are then interpreted is the union of the contexts created by those parent theories.
+
+Theorems proven in that context are signed by some more or less trusted authority as derivable in that context, usng a cryptographic hash of the theory which not only reliably identifies the theory, but also insures against its modification.
+Because the integrity of theorems is established using  digital signatures, theorems do not need to be stored in the SPaDE repository, which is wholly devoted to securely recording logical contexts in which reasoning takes place rather than the resulting theorems.
+SPaDE does not permit modification to theories, ensuring that the context in which any theorem is proven cannot be misconstrued.
+It is possible to edit theories in a SPaDE repository, but this creates a new theory with a new name and a new hash, and any theorems proven in the prior theory remain valid in that theory, but not in the new theory.
