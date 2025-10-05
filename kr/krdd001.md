@@ -1,6 +1,6 @@
 # ProofPower HOL Interface for SPaDE
 
-This file contains the details of the SML functions needed to scape a ProofPower HOL theory database for SPaDE.
+This file contains the details of the SML functions needed to scrape a ProofPower HOL theory database for SPaDE.
 It is a mix of informal description of the process and a list of the SML functions needed to implement it.
 
 ## An informal account of the process
@@ -81,10 +81,13 @@ It is not necessary to open a theory to extract its components, and some theorie
 ```sml
 get_types : string -> TYPE list
 get_type_arity : string -> int OPT
+get_axiom : string -> string -> THM
 get_axioms : string -> (string list * THM) list
 get_consts : string -> TERM list
 get_defn : string -> string -> THM
 get_defns : string -> (string list * THM) list
+get_thm : string -> string -> THM
+get_thms : string -> (string list * THM) list
 ```
 
 In the SPaDE repository, signatures of types and constants are coupled with their defining constraints more closely than in ProofPower HOL, and types and constants can be introduced in a single extension with a single constraint.
@@ -148,11 +151,9 @@ dest_λ: TERM−> (TERM ∗ TERM)
 
 ## Writing to a SPaDE Native Repository
 
-Details of the structure  a SPaDE native repository are given in [The SPaDE Native Repository](./SPaDENativeRepo.md).
+Details of the structure a SPaDE native repository are given in [The SPaDE Native Repository](krdd002.md).
 
 Writing to such a repository from ProofPower HOL to a large extent reflect the structure of the above functions for extracting the components of a ProofPower HOL theory.
-
-###
 
 The top level functions for scraping ProofPower HOL theories into a SPaDE native repository are:
 

@@ -9,7 +9,7 @@ Here are three:
 1. Out of context discussion with a chatbot.
 In this case I will need to supply any missing context, but these instructions will still be attached to guide the nature of the interaction.
 
-2. Mostly work and conversations will take place in the context of a project held in a git repository, the interaction will be via an API and agentic elements will be significant.
+2. Work and conversations will usually take place in the context of a project held in a git repository, the interaction will be via an API and agentic elements will be significant.
 In this case we are jointly working as a single user.
 
 3. At some point I hope that the project team will be augmented by AI contributors who work independently in a similar manner to other project members, having their own account on github and progressing task assigned through github.

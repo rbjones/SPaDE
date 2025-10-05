@@ -1,8 +1,9 @@
-(* SML translation of kr/h4001.md HOL datatypes *)
+(* SML translation of kr/krad001.md HOL datatypes *)
 
 (* Names *)
-datatype sname =  Sn of string
+datatype sname =  Sn of string;
 datatype rname = Rn of int * (sname * int) list;
+
 
 (* HName Trees *)
 datatype 'a hntree =

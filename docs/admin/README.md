@@ -1,36 +1,45 @@
-# Administration and Collaboration Documentation
+# Administrative Documentation
 
-This directory contains documentation for the human/AI collaboration framework that is essential to the SPaDE project's success and all other matters of an administrative nature.
+The SPaDE project is intended, en route to its more ambitious goals, to transform engineering design and construction, starting with sofware development.
 
-## Purpose
+It is now clear to me that an important part of that is project management and administration, which will need to continuously evolve as the capabilities of AI systems evolve, and their role becomes more substantial.
 
-The SPaDE project aims to achieve goals that are not achievable without effective human/AI collaboration. This requires conscious development and clear documentation of:
+Because of the shifting balance between human and AI contributions, it is intended to document roles in ways which are agnostic as to whether the role is filled by a human or an AI system.
 
-- **Roles and responsibilities** between human and AI contributors
-- **Methods and standards** for collaborative work
-- **Workflows and processes** for effective collaboration
-- **Quality assurance** and validation procedures
+This documentation falls into the following categories:
 
-## Contents
+- **[Methods, processes and standards]**(#methods-processes-and-standards-(amms))(amms)
+- **[Plans and strategies]**(#plans-and-strategies-(ampl))(ampl)
+- **[Testing and evaluation]**(#testing-and-evaluation-(amte))(amte)
+
+## Methods, Processes and Standards (amms)
 
 ### Project Management
 
-A github project has been set up and github facilities will be used to manage tasks and issues.
+Interaction with the project will be managed through [GitHub Projects](https://github.com/orgs/SPaDE/projects).
+This is a facility which is still evolving, and I will update this documentation as I learn how to use it effectively.
 
-### Quality Assurance
+A github project has been set up for SPaDE, so the terminology used here when discussing plans will reflect that useed by the github project management system and will evolve with it
+All activities in such a project have to be set up as "issues" and dependencies between these issues are registered as "blocks".
+In this discussion I will use the term "task" to refer to an issue which is a significant piece of work, and "subtask" to refer to a smaller piece of work which is part of a larger task.
+Subtasks are registered as "child" issues, the task being the "parent" issue.
+So far the SPaDE "project" covers only the first MCP server prototype.
 
-- [**Review Standards**](roles-responsibilities.md#review-and-validation) - How work is reviewed and validated
-- [**Validation Procedures**](roles-responsibilities.md#review-and-validation) - Ensuring correctness and alignment
-- [**Feedback Loops**](workflows.md) - Continuous improvement processes
+I have found it difficult to see the dependencies between tasks, with the facilities available and have therefore adopted the practice of prefacing each task title with a number indicating its place in the sequence of tasks as well as the parent/child relationships.
+Thus (for example) task 3.2 is the second subtask of task 3.
+The sequences of tasks and subtasks will be documented in the project management system.
 
-## Principles
+Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which will be reviewed to address a strategy plan not yet reflected in the project management system.
 
-1. **Transparency**: All collaboration methods and decisions are documented
-2. **Iterative Improvement**: The collaboration framework itself evolves
-3. **Alignment**: AI contributions stay aligned with human vision
-4. **Validation**: Human oversight ensures quality and direction
-5. **Efficiency**: Leverage AI bandwidth while maintaining human depth
+- [amms001.md](amms001.md) Project Structure and Documentation Policy
+- [amms002.md](amms002.md) Roles, Responsibilities, Tasks
+- [amms003.md](amms003.md) Workflows
+- [amms004.md](amms004.md) Collaborative Guidelines
+- [amms005.md](amms005.md) Guidance for AI Contributions
 
-## Evolution
+## Plans and strategies (ampl)
 
-This framework will evolve as we learn what works best for our collaboration.
+- SPaDE Project Action Plan [ampl001.md](ampl001.md)
+- Prototyping Strategy [ampl002.md](ampl002.md)
+
+## Testing and evaluation (amte)

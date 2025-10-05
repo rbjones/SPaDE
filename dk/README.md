@@ -1,4 +1,4 @@
-# Deductive Kernel (DK)
+# The Deductive Kernel (dk directory)
 
 This directory contains the documentation prototyping and implementation of the Deductive Kernel component of the SPaDE project.
 (initially written by Alan, an LLM on the basis of an insufficient briefing and not yet fully aligned with the project's goals).

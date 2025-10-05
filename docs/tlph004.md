@@ -12,7 +12,7 @@ Here we see that focus on the problem of AI design may be expected to advance ca
 It may be that the benefits of focus, and the possibility of singular focus, can be turned into architectural models and strategic plans, and that is the purpose of this note.
 
 There are two kinds of focal thinking which contribute to the proposed architecture.
-These come as a _focal tower_ and a _focal heirchy_ which are discussed in turn.
+These come as a _focal tower_ and a _focal hierarchy_ which are discussed in turn.
 
 ## A Focal Tower
 
@@ -41,6 +41,14 @@ From the bottom up:
 
 ### The Epistemological Connection
 
-The focal tower as described above correlates with the [epistemological stack](EpistemologicalStack.md) in the following way.
+The focal tower as described above correlates with the [epistemological stack](tlph003.md) in the following way.
 
-## The Focal Heirarchy
+TODO explain the correlation.
+
+## The Focal Hierarchy
+
+In a SPaDE repository (and in any ITP like reasoning system) there is a natural hierarchy of theories, each theory building on its parents.
+Each theory is a perfect information space, since all answers all the information which can be used in determining theoremhood is available in the theory or its parents.
+The cumulative aggregate of the extensions in a theory and its ancestors is called in SPaDE a _context_, and each context is a perfect information space, suitable for focal reasoning by a specialist in that context.
+Since the theories are arranged in a hierarchy, the contexts are also arranged in a hierarchy.
+In SPaDE, the hierarchy is mirrored by a hierarchy of reasoning specialists which continuously learn both by undertaking reasoning tasks subcontracted to them, and by independent exploration of their context.

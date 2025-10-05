@@ -34,11 +34,15 @@ Subsystem codes:
 
 Document kinds:
 
-- **ph** Philosophical materials
-- **ad** Architectural level design
+- **ph**: Philosophical materials
+- **ad**: Architectural level design
 - **hd**: High level design
 - **dd**: Detailed design
-- **cd**: Code
+- **cd**: Detailed formal specifications and code
+- **ms**: Methods, processes and standards
+- **pl**: Plans and strategies
+- **te**: Testing and evaluation
+- **ep**: Papers intended for external publication
 
 After the two prefixes documents will have a three digit number starting at 001 for each kind of document.
 Document suffixes will generally indicate the language in which the document is written.
@@ -65,8 +69,8 @@ This includes:
 
 ## Exceptions to Markdown Policy
 
-There was previously an intention to use markdown more exclusively, including for formal specifications, and at that time the following exceptions were noted.
-The following exceptions to the policy were then noted, but probably are no longer relevant.
+There was previously an intention to use markdown more exclusively, as in a literate script system, including for formal specifications or code, and at that time the following exceptions were noted.
+The following exceptions to the policy were then noted, but probably are no longer relevant, insofar as there is no longer an intention to use markdown as a literate programming system.
 
 ### Conference Papers
 
@@ -91,7 +95,3 @@ The reflexive nature of the project architecture means that from the earliest po
 ## Evolution
 
 This policy will evolve as the project develops and we learn what works best for our collaboration and documentation needs. All changes should be documented and justified based on our experience.
-
----
-
-*This policy is essential to maintaining transparency and accessibility throughout the project's development.*

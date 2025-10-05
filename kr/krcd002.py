@@ -1,4 +1,4 @@
-# Python translation of kr/h4001.md HOL datatypes
+# Python translation of kr/krdd001.md HOL datatypes
 
 from dataclasses import dataclass
 from typing import List, Tuple, TypeVar, Generic, Union

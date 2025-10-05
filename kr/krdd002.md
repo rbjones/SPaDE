@@ -14,8 +14,9 @@ At the lowest level such a repository consists of a sequence of null terminated 
 To enable binary zeros in the sequences, binary 1 is used as an escape character (only when preceding 0 or 1).
 This same representation of sequences of bytes may be used at multiple levels in the repository structure.
 
-In the SPaDE Native Repository structure, these byte sequences are used to construct a binary tree structure in which each node is either an atom (itself a null terminated byte sequence), the empty list (NIL), or a binary node (CONS cell) which adds a head to a list.
+In the SPaDE Native Repository structure, these byte sequences are used to construct a binary tree structure in which each node is either an atom (itself a null terminated byte sequence), the empty list (NIL), or a binary node (CONS cell) which adds a head to a list or a node to a tree).
 The CONS cell links its two components by pointers to the positions of those components in the linear file containing the repository.
+So the CONS cell must always appear after the components to which it points.
 For this to work as a WORM repository, pointers are represented as base 256 numbers, with the most significant byte first ("big endian"), the number being a byte displacement in the linear file.
 These pointer must therefore always point backwards in the file to a position which has already been written.
 The only pointers in SPaDE Native Repositories
