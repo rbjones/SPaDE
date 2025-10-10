@@ -6,6 +6,9 @@
 *.aux
 *.bbl
 *.blg
+*.fdb_latexmk
+*.fls
+*.fmt
 *.dvi
 *.grm.run
 *.grm.txt
@@ -17,11 +20,12 @@
 *.log
 *.lot
 *.o
+*.out
 *.pdf
 *.polydb
 *.ps
-*.sid
-
+*.sig
+*.synctex.gz
 *.tch
 *.th
 *.th.doc

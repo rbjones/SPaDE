@@ -17,6 +17,10 @@ In the face of that evolutionary imperative, we may ask, what room is there for 
 Well, whatever you may think of the morals of contemporary society, the question could not have arisen without there having evolved some sense of moral propriety, and we must conclude that, notwithstanding scepticism around the consequences of "selfish" genes, moral codes have an important place in evolution (though perhaps of significance only quite recently in evolutionary terms).
 Its relative recency might suggest that moral codes only become significant once cultural evolution becomes a substantial factor helping to shape at least some aspects of biological evolution (perhaps by their influence on partner choices).
 
+## [SPaDE Project Aims and Ambitions](tlad002.md)
+
+In the light of the previous two discussions, we may now consider the aims and ambitions of the SPaDE project.
+
 ## [Synthetic Philosophy](tlph002.md)
 
 The philosophical perspective which underpins the project.

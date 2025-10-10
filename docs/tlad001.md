@@ -49,7 +49,7 @@ AI systems specialising in specific perfect information spaces, producing formal
 
 The application of focal intelligence to engineering design problems (broadly construed).
 
-## [Focal Tower](tlph004.md/#a-focal-tower)
+### [Focal Tower](tlph004.md/#a-focal-tower)
 
 A conceptual framework for understanding how focal engineering can be applied to problems in various domains, by identifying the perfect information spaces within those domains and applying appropriate focal AI techniques to solve problems within those spaces.
 
