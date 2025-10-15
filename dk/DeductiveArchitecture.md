@@ -10,12 +10,12 @@ Trust in the a pure LCF system rests entirely on the logical kernel, which is a 
 
 This architecture severely constrains the computational efficiency of deductive methods, and is therefore incompatible with advancement of the Deductive Paradigm to realise its full potential.
 Where proof involves computation, a strict adherence to the LCF paradigm would prevent direct computation by hardware and force an elaborate and inefficient evaluation method nonetheless dependent on the correctness of the hardware.
-LCF system usually do allow direct evaluation of some expressions, and in this way diverge from the "pure" LCF paradigm.
+LCF systems usually do allow direct evaluation of some expressions, and in this way diverge from the "pure" LCF paradigm.
 
-In SPaDE integrity of proof will be a matter of who or what you trust.
+In SPaDE, integrity of proof will be a matter of who or what you trust.
 Trust is associated with authorities.
-All theorems must be signed by the authority who finally derived it, and shown as dependent on the authorities upon which early stages in the proof depend.
-These complexes of authorities form a partially ordered metric of trust, and the repository will normally viewed through a filter parameterised by a level of trust which shows only the theorems whose assurance reaches the required level.
+All theorems must be signed by the authority who finally derived it, and shown as dependent on the authorities upon which earlier stages in the proof depend.
+These complexes of authorities form a partially ordered metric of trust, and the repository will normally be viewed through a filter parameterised by a level of trust which shows only the theorems whose assurance reaches the required level.
 
 The equivalent of the logical kernel of an LCF system will in SPaDE be one such authority.
 Two other kinds of authority will be typical.

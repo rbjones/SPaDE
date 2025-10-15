@@ -39,8 +39,10 @@ Document kinds:
 - **hd**: High level design
 - **dd**: Detailed design
 - **cd**: Detailed formal specifications and code
-- **ms**: Methods, processes and standards
+- **ms**: Methods and standards
 - **pl**: Plans and strategies
+- **td**: Task descriptions
+- **pd**: Process or procedure descriptions
 - **te**: Testing and evaluation
 - **ep**: Papers intended for external publication
 

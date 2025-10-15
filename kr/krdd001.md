@@ -51,6 +51,9 @@ The workings of TERM literals in SPaDE is not yet fully worked out, and as this 
 At present this is just a list of signatures providing multiple ways of extracting and disassembling a ProofPower HOL theory hierarchy.
 Some words may follow.
 
+Note that these are functions already implemented in ProofPower HOL, and are not part of the SPaDE code base.
+They are fully documented in the ProofPower HOL manual (usr029.pdf), this extract is for convenience of reference since that manual is large.
+
 Probably not needed:
 
 ```sml
@@ -178,9 +181,70 @@ These top level functions will open a binary output stream to the given file nam
  list of theories constructed using the repository coding of a CONS constructor.
 It will then terminate the list will a CONS to NIL and create a top-level folder with the and will write the top level folder of the repository at the end of the process.
 
+### Structural Differences between ProofPower HOL and SPaDE repositories
+
+The differences between the structure of a ProofPower HOL theory and a SPaDE theory are not confined to the lower level represetation for storage in persistent media.
+
+There are someimportant differences which arise from strategic decisions made in the design of SPaDE.
+The most important of these are:
+
+1. **Relative Names in SPaDE** HOL theory hierarchies are local to a single polyml database, whereas SPaDE repositories are intended to be global and long-lived.
+This leads to a more complex naming structure for theories in SPaDE, into which the simple almost flat namespace of HOL theories must be mapped.
+
+Note also, that the open-ended distributed nature of SPaDE repositories means that distinct repositories may be combined by adding an extra folder above two existing repositories (this will usually be the combining of two diasporic repositories into an extended diaspora).
+To allow for this to be possible, the names used in SPaDE HOL terms are relative.
+
+In a ProofPower HOL repository, though distributed across the theories in the ancestry of a theory, the names of types and constants in scope in that theory must be unique and are therefore simple names.
+
+In SPaDE, the names of types and constants in the ancestors of a theory must be qualified by the path within the repository to the theory in which they are defined.
+This can be achieved by including all the HOL theories in a single folder which constitutes one version of the SPaDE repository.
+To refer in one theory to a name defined in another theory, the path to that theory must be included in the name, which if the hierarchy is imported from ProofPower HOL will require a one directory uplift and then a path through the theory name to the local name.
+Thus, to refer in the theory *basic_hol* to the constant *name* in the theory "misc" the SPaDE name would be "(1,[misc;name])" (a pair consisting of a numeric uplift and a sequence of simple names).
+
+2. **Translation of ProofPowerLiterals** The structure of a SPaDE HOL term is more complex than that of a ProofPower HOL term, since it includes term relocations and TERM literals.
+
+Term relocations will never be present in a SPaDE repository, they are only there to mediate in use of terms outside the context in which they were constructed, so they will not be needed in transcribing HOL theories.
+
+Literal terms in ProofPower are a special class of constants which have a meaning derived from their name rather than from a definition.
+In SPaDE, literals are a more general mechanism, and the mapping from ProofPower HOL to SPaDE will be to use TERM literals in SPaDE to represent HOL literal constants.
+However, to do this the syntactic rules governing which constants are literal constants must be known.
+
+However, an expedient may be adopted which will suffice for prototyping, which is underpinned by the fact that no ProofPower HOL theory will contain constants which have not been defined, except for the literal constants.
+So any constant in a theory which is not defined in that theory or any of its ancestors must be a literal constant, and can be transcribed as a TERM literal in SPaDE.
+
+The effect of these requirements is that the transcription program must know when transcribing a theory, the theory in which each name in scope was defined, so that the correct relative name can be constructed, and any literal constants can be identified.
+
+Theorems in SPaDE are digitally signed sequents, and this applies also to the constraints associated with the introduction of new constants in a theory, and even to axiomatic constraints which introduce no new names.
+
+In the former case the signature gives a degree of confidence that the extension is conservative, in the latter that it is consistent with the prior theory.
+There are therefore three kinds of theorem in the SPaDE system corresponding to conservative extensions, consistent axiomatic extensions and derived theorems.
+
+For the sake of prototyping, the digital signatures may be omitted, but the structure must be in place to allow them to be added later.
+
+### Writing a SPaDE repository
+
+When scraping a ProofPower HOL theory database, the resulting SPaDE repository will have only one version, which will be version "1".
+So the top level of the repository will be a folder containing a single folder named "1" which contains all the theories in the database.
+Folders are created incrementally by writing each constituent theory or folder followed by a CONS cell linking it to the rest of the folder, which is terminated by a NIL.
+This is slightly complicated by folders not being mere lists of theories, but lists of pairs of names and theories or folders.
+
+In order to incrementally write this folder it is of course necessary to record the byte displacement in the file of each prior part of folder, as well as the start of the next theory.
+Once the theory is complete, its name is written and consed with the theory and the pair is then connected at the head of the folder to the previous part of the folder.
+
+This kind of maneuvre is needed at all levels of the repository, since all structures are built up from their components using CONS cells.
+A stack could be used to manage the process, but the implicit stack associated with functional recursion might suffice.
+
 ### Writing a theory to the repository
 
-The function for writing theories to the repository must keep track of the position of theories in the repository so that
+The first step in writing a theory to the repository is to establish the context in which the theory is to be understood.
 
-```sml
-(* Given the name of a theory, write it to the current SPaDE repository. *)
+This is done by identifying one or more parents, the ancestry of which will determine the context (and hence the namespace) in which the theory is defined.
+In order to ensure reliable preservation of the context in which any theorem has been derived, digital signatures are used, so this first part of a theory in which the context is recorded is not merely a set of parent names.
+It includes cryptographic hashes of the parent theories, and a digital signature of the whole context by the authority which created the theory.
+
+In the first instance, for prototyping, these signatures may be omitted, but the structure must be in place to allow them to be added later.
+In SPaDE parents need not be in the same local repository, but may be remote.
+In either case not only the path to the parent theory, but also the displacement in its own local repository are included in the context structure and in a terminating hash created from the whole theory.
+
+The context structure is followed by a list of extensions, each of which introduces new names (possibly none) and a constraint (which may be an axiom or a conservative extension).
+

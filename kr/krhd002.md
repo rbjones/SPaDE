@@ -2,9 +2,16 @@
 
 It is the (provisional) intention that the SPaDE project functionality will be delivered through one or more MCP servers and will be accessed by end-users via LLMs or later generations of AGI.
 
-From the earliest possible stage we aim to have a prototype MCP server, delivering in the first instance some very elementary service, which will probably be read-only unvarnished access to the content of SPaDE repositories.
-It is therefore necessary as soon as possible to create such a repository, and it is expected that this might best be achieved by exporting the content of some other HOL ITP theory hierarchy.
-Since I know it best, ProofPower will be the first target, though in due course we are likely to want to train on and adapt content from other systems.
+From the earliest possible stage we aim to have a prototype MCP server, delivering in the first instance some very elementary service, which will probably be low-level access to the content of SPaDE repositories.
+
+I first intended to do this by scraping a ProofPower HOL repo to make a more or less equivalent SPaDE repository.
+But while thinking this out, I decided that the import of theories from other systems (in general) important and non-trivial and the issues arising in the more general case are a distraction from putting together a quick and easy extract from ProofPower.
+It also occurred to me that I could do a low level capability which would could create a repo from scratch, and this would suffice for a first prototype MCP server.
+
+I am therefore considering a shorter route to exploring the exigencies of MCP servers by trying a simpler prototype which will create empty repositories and perform elementary operations to add and query material in them, probably at lower levels than the theory hierarchies which will ultimately populate them.
+
+All of this either is or will be more fully documented in other documents but for the purposes of the very first prototype I note that the more elaborate structure of a theory heirarchy is represented in SPaDE using a simple representation essentially the same as LISP S-expressions, which in turn is linearised as a sequence of null-terminated UTF-8 strings.
+The first very firstrepo can offer low level facilities for reading and writing such files, and for creating a repo from scratch, and need not have any knowledge or facilities specific to the intended application of the structures.
 
 ## An Overview of the Repository Prototyping Strategy
 
@@ -20,6 +27,12 @@ The resulting capabilities will then made available through an MCP server interf
 
 In the first instance, neither intelligent nor even deductive capabilities will be provided, but we will nevertheless approach as early as possible the delivery of some service through an MCP server.
 That earliest service will be simply access to the content of a theory hierarchy, and to provide that service we will export theory hierarchies from existing HOL ITP systems.
+
+### The first prototype
+
+The first prototype will be a simple MCP server which can create an empty repository or open an existing repository as an S-expression.
+It will support the primitive operations on S-expressions and allow extention of the repository by appending new S-expressions built using the existing structures, new atoms and CONS cells.
+
 
 ## [The Structure of a SPaDE repository](SPaDENativeRepo.md)
 

@@ -40,5 +40,21 @@
 *.zip
 *~
 
+# Python virtual environments and cache
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+
+# AI Toolkit configurations
+.aitk/
+
+# MCP Inspector cache
+inspector/
+
 # Exclude VS Code workspace files (temporary)
 *.code-workspace
