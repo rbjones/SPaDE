@@ -183,10 +183,14 @@ It will then terminate the list will a CONS to NIL and create a top-level folder
 
 ### Structural Differences between ProofPower HOL and SPaDE repositories
 
-The differences between the structure of a ProofPower HOL theory and a SPaDE theory are not confined to the lower level represetation for storage in persistent media.
+The differences between the structure of a ProofPower HOL theory and a SPaDE theory are not confined to the lower level representation for storage in persistent media.
 
-There are someimportant differences which arise from strategic decisions made in the design of SPaDE.
-The most important of these are:
+Someimportant differences arose from strategic decisions made early in the design of SPaDE, but review of these has cast doubt on their necessity or desirability.
+In particular, two additional constructors for terms had been introduced which are now thought to be unnecessary.
+
+We retain notes on the intended changes in case in case they ultimately do prove necessary, but for the time being we will proceed without these modifications to the structure of HOL theories.
+
+A significant change which we retain is the use of relative names for types and constants in SPaDE HOL theories, which is necessary to allow the open-ended distributed nature of SPaDE repositories.
 
 1. **Relative Names in SPaDE** HOL theory hierarchies are local to a single polyml database, whereas SPaDE repositories are intended to be global and long-lived.
 This leads to a more complex naming structure for theories in SPaDE, into which the simple almost flat namespace of HOL theories must be mapped.
@@ -201,7 +205,11 @@ This can be achieved by including all the HOL theories in a single folder which 
 To refer in one theory to a name defined in another theory, the path to that theory must be included in the name, which if the hierarchy is imported from ProofPower HOL will require a one directory uplift and then a path through the theory name to the local name.
 Thus, to refer in the theory *basic_hol* to the constant *name* in the theory "misc" the SPaDE name would be "(1,[misc;name])" (a pair consisting of a numeric uplift and a sequence of simple names).
 
-2. **Translation of ProofPowerLiterals** The structure of a SPaDE HOL term is more complex than that of a ProofPower HOL term, since it includes term relocations and TERM literals.
+2. **Translation of ProofPowerLiterals**
+
+It had been intended to facilitate the development of metatheoretic reasoning in SPaDE that a more elaborate kind of literal would be permitted and this would be a change in the HOL term structure.
+
+The structure of a SPaDE HOL term is more complex than that of a ProofPower HOL term, since it includes term relocations and TERM literals.
 
 Term relocations will never be present in a SPaDE repository, they are only there to mediate in use of terms outside the context in which they were constructed, so they will not be needed in transcribing HOL theories.
 

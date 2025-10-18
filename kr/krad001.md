@@ -155,18 +155,34 @@ val _ = Datatype
 
 Because names are relative, comparing constants in terms is complicated by the possibility of using constants in distinct contexts, and the need to adjust to a common context.
 There are several ways to approach this difficulty, and a final decision may not be made until prototyping is well progressed.
-Meanwhile provision is made in this specification for terms to be relocated.
 
-In the following we have the normal four kinds of term, variables, constants, applications and abstractions, with the addition of a term relocator.
+### Term Relocation
+
+In an earlier version of this specification I attempted to deal with this by including in the term structure a way of relocating terms from the context of construction to some other context of use.
+It has since been thought that interfering with the term structure for this purpose is not justified and other mechanisms may be used to achieve the same end.
+
+### Literals
+
+A second complication arises from the desire to facilitate and optimise metatheoretic reasoning, and resulted in a modification to the term structure to include *literal* terms, which are terms whose value is given by an S-expression.
+This too is now thought to be an unnecessary complication, and may be better achieved by other means.
+In ProofPower HOL literals are represented as constants for which there is no explicit definition, but whose meaning is given by special rules in the logic.
+The distinction between defined constants and literals is made in the first instance in the parser and type checking, which syntactically distinguishes between the names allowed for constants and the syntactic structure of the available literals (numeric values, and quoted characters or strings).
+
+SPaDE does not deal with concrete syntax, and so the distinction between defined constants and literals, and to accomodate naming conventions, potentially from other diasporic repositories allows arbitrary byte sequences as names.
+The various altenatives roles for constants in terms can nevertheless be accomodated by the packing of data into the byte sequences used as names.
+One way of achieving this is to pack into the byte seuqence two null terminated byte sequences, the first indicating the role of the constant (defined constant, numeric literal, string literal, etc.) and the second giving the data appropriate to that role.
+THe details of this will be settled later and elsewhere, since it does not affect the abstract structure of the repository at the level we are now addressing it
+
+### Term Structure
+
+The term structure therefore remains as in Cambridge HOL (and Churc's STT, apart from the elaborations to the structure of types providing for type variables and defined type constructors) with four kinds of term: variables, constants, applications and abstractions.
 
 ```sml
 val _ = Datatype
       `hterm = Tmv sname
              | Tmc rname htype
              | Tapp hterm hterm
-             | Tabs sname htype hterm
-             | Tloc rname hterm
-             | Tlit sexp;             
+             | Tabs sname htype hterm;             
 ```
 
 ## Sequents
@@ -208,6 +224,9 @@ Datatype: htheory =
 End
 ```
 
+We note that the SPaDE repository does not store theorems proven in the theories, since these are managed separately by domain specialist deductive AI agents.
+But the extensions in each theory are theorems, and there are outstanding issues about how to manage confidence in definitional extensions being conservative which have not yet been fully resolved, and may result in further elaboration to the structure of theories.
+
 ## Folders
 
 Folders are used to structure the repository hierarchically, and contain theories or other folders (not both).
@@ -228,16 +247,31 @@ val _ = Datatype
    Rleaf 'a;
 ```
 
-## The Repository
+## The Structure of Local Repositories
+
+A local repository is the concrete structure stored in a single SPaDE native repository file.
+It has the distinctive feature that it is the level at which branches and versions are managed.
+This is done through the top level folder of the local repository in which the tags associated with subfolders are labelled by ordered pairs constituting branch names and version numbers.
+This however has no effect on the abstract structure of the repository, which remains as a tree of folders and theories.
 
 ```sml
 val _ = Datatype `hrepo = Hrepo ((htheory folder) rtree)`;
 ```
 
+## Diasporic and Pansophic Repositories
+
+The whole point of SPaDEs more elaborate namespace is to support a single repository within which any parts can be selected to provide a context for reasoning and further extension.
+The combination of all local repositories which are reachable from each other forms a diasporic repository, which think of as constituting the entire knowledge reachable by the progeny of life on earth or some other point of origin.
+Since there may be more than one such origin, we may think of the collection of all diasporic repositories as constituting the pansophic repository, which encompasses all knowledge in the cosmos.
+The point of discussing a whole thus composed is to enaure that when previously disconnected diaspora encouter each other, we have a clear model of how their repositories may be logically combined.
+
+The way in which this has been addressed has been through the heirarchic structure of relative names, open ended at the top, so that any two diasporic repositories may be combined by adding a further layer to the hierarchy if necessary to ensure uniqueness of names.
+I don't think there is any urgency to formal modelling at this level.
+
 ## Contexts and Views
 
 Each diaporic repository determines a diasporic context, which a syntactic and a semantic component.
-THe syntactic component is a signature and a set of constraints.
+The syntactic component is a signature and a set of constraints.
 The semantic componenet is a collection of assignments of values to the names in the signature which satisfy the constraints, and is therefore called a model.
 Each models determines the truth value of BOOLean terms constructed using only the names in the signature, and the soundness of the logic ensures that any term which can be proved true in the context is true in all models of the context.
 
