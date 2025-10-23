@@ -15,4 +15,4 @@ The process of scraping a ProofPower HOL theory database into a SPaDE repository
 
 The procedural interface for accessing the ProofPower HOL database is described in [m4002.md](m4002.md).
 
-The SPaDE native repository format is described in [SPaDENativeRepo.md](SPaDENativeRepo.md).
+The SPaDE native repository format is described in [SPaDENativeRepo.md](krdd002.md).

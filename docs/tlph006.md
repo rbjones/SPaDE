@@ -39,3 +39,5 @@ The motivation for such proliferation comes from the evolutionary imperative, an
 What moral code could we imagine which is applicable to the kinds of intelligent system which will emerge in this cosmic explosion?
 I shall mention just one.
 Co-operation rather than control, coexistence rather than destruction.
+
+## [Knowledge Representation Universality](tlph006.md)

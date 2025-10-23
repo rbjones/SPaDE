@@ -1,0 +1,29 @@
+# Task Description for Review of Hyperlinks in Project Documentation
+
+## Purpose and Scope
+
+The purpose is to ensure integrity and completeness of the presentation of project documentation through github pages.
+The Scope will either be the entire SPaDE repository (the default) or specified subdirectories, but is restricted to the documentation files in markdown format (.md) only.
+
+## Background
+
+The documentation policy for the SPaDE project is in [amms001.md](amms001.md).
+The project root and each directory has a README.md file which provides an overview of the contents of that directory and links to the documents within it.
+All .md files in the directory should be linked from the README.md file for that directory or a subdirectory.
+In addition, documents may cross refer to other documents in the project.
+
+## Task Description
+
+First check that all .md files in the specified scope are linked from the README.md file for their directory.
+Missing links should be included in a new version of the README.md file for that directory.
+Links should be included in the README.md file in a style and structure similar to the existing links in the file.
+
+Once completeness of the README.md files has been ensured, the next step is to check all hyperlinks in all .md files in the specified scope.
+For each hyperlink, check that it points to an existing file in the project, and that if it points to a specific section within that file, that the section exists.
+For any broken links, either repair the link if the target section or file has been moved, or remove the link if the target section or file has been deleted.
+
+While undertaking these transformations a report should be compiled in which any unresolved issues are highlighted, and any corrections are noted.
+
+## Deliverables
+
+The resulting edits should be included in a pull request and the report should be entered into the reviews directory of SPaDE with a name conforming to the document naming conventions specific to reviews in [amms001.md](amms001.md).

@@ -137,4 +137,4 @@ These will be encoded in a single atom interpreted as a sequence of null termina
 
 ### Types
 
-A type is either
+A type is either a type variable or a constructed type.

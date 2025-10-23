@@ -45,12 +45,12 @@ The pretensions of the SPaDE repository to be a cosmic resource are substantiall
 This is primarily achieved by the addition of extra levels to the namespace, which introduced a little difficulty in defining what a name is and in the represention of names in the propositions of the repository.
 These questions are addressed in the architectural design [krad001.md](krad001.md) and the associated formal specification [krhd004.sml](krhd004.sml).
 
-### The Abstract Structure of the Cosmic Repository
+### The Abstract Structure of the Pansophic Repository
 
 * The second part addresses the structure proposed for a widely distributed shared repository of declarative knowledge thus represented.
 That structure is manifest in more than one way.
 
-  * The most important of those is perhaps an abstract account of the logical structure of the abstract cosmic repository which is the aggregate of all knowledge which is or can be logically viewed in the manner required by the project.
+  * The most important of those is perhaps an abstract account of the logical structure of the abstract pansophic repository which is the aggregate of all knowledge which is or can be logically viewed in the manner required by the project.
 
   * For each further development of this abstract structure, a specific context must be identified within that structure where it takes place, usually by extension of that context or by the elaboration of more results which are, in that context, demonstrably true.
 

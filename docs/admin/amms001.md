@@ -49,7 +49,11 @@ Document kinds:
 After the two prefixes documents will have a three digit number starting at 001 for each kind of document.
 Document suffixes will generally indicate the language in which the document is written.
 
-This a change from earlier policies and it will take some time to be fully implemented.
+When undertaking reviews, please place outputs from the review in a markdown file in the "reviews" directory file in the root of the repository, or in a subdirectory of that directory if the comments relate to a specific subproject.
+Use a filename which includes the date and time of the review followed by the contributor name, (e.g. copilot).
+The date and time should be rendered in a formal which collates the files in temporal order in a directory listing, e.g. 20241001-1530-copilot.md for a review made on 1st October 2024 at 15:30 by copilot.
+A further component of the filename may be a brief indication of the subject matter, e.g. 20241001-1530-copilot-KRreview.md
+Avoid using colons (:) in filenames as they cause issues with Jekyll/GitHub Pages processing.
 
 ## The Admin Directory
 

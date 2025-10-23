@@ -33,7 +33,6 @@ That earliest service will be simply access to the content of a theory hierarchy
 The first prototype will be a simple MCP server which can create an empty repository or open an existing repository as an S-expression.
 It will support the primitive operations on S-expressions and allow extention of the repository by appending new S-expressions built using the existing structures, new atoms and CONS cells.
 
-
 ## [The Structure of a SPaDE repository](SPaDENativeRepo.md)
 
 A SPaDE repository contains a heirarchy of contexts or theories, each of which introduces various names by including them in a signature indicating what type of value they denote, and providing a constraint which assigns meaning to the names.

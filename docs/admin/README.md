@@ -11,6 +11,7 @@ This documentation falls into the following categories:
 - **[Methods, processes and standards]**(#methods-processes-and-standards-(amms))(amms)
 - **[Plans and strategies]**(#plans-and-strategies-(ampl))(ampl)
 - **[Testing and evaluation]**(#testing-and-evaluation-(amte))(amte)
+- **[Task descriptions]**(#task-descriptions-(amtd))(amtd)
 
 ## Methods, Processes and Standards (amms)
 
@@ -43,3 +44,9 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 - Prototyping Strategy [ampl002.md](ampl002.md)
 
 ## Testing and evaluation (amte)
+
+## Task Descriptions (amtd)
+
+- [amtd001.md](amtd001.md) Task Description for Review of Hyperlinks in Project Documentation
+- [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the SPaDE Glossary
+- [amtd003.md](amtd003.md) Task Description for Augmentation of the SPaDE Glossary

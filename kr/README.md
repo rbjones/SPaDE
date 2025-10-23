@@ -16,9 +16,10 @@ The files in this directory are organized as follows:
 This section includes documents that provide the philosophical context and rationale for the design of the Knowledge Repository.
 This supplements the general philosophical materials in the [docs](../docs/README.md) directory.
 
-At the moment we have two muddled documents in this section, which will be rationalised in due course.
+At the moment we have three muddled documents in this section, which will be rationalised in due course.
 
 - [krph001.md](krph001.md) - Knowledge Repository Philosophical Background
+- [krph002.md](krph002.md) - Universality in the Representation of Declarative Knowledge
 - [krph003.md](krph003.md) - Philosophical Background for the Knowledge Repository
 
 ## Architectural Design
@@ -41,6 +42,7 @@ This section includes documents that provide a detailed design of the Knowledge 
 - [krdd001.md](krdd001.md) - ProofPower HOL interfaces for SPaDE theory export
 - [krdd002.md](krdd002.md) - SPaDE Native repository format
 - [krdd003.md](krdd003.md) - Formal specification of the repository structure in HOL4 SML.
+- [krdd004.md](krdd004.md) - Detail descrription of Procedures for SPaDE Native Repository I/O
 
 ## Code
 
@@ -53,6 +55,11 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd004.json](krcd004.json) - JSON schema for the HOL datatype hterm
 - [krcd005.sml](krcd005.sml) - ProofPower HOL Database Export
 - [krcd006.sml](krcd006.sml) - HOL4 specification of SPaDE repository
+
+## Task Descriptions
+
+This section includes documents that describe specific tasks related to the Knowledge Repository.
+- [krtd001.md](krtd001.md) - Task Description for Knowledge Repository Prototyping
 
 ## Testing and Evaluation
 

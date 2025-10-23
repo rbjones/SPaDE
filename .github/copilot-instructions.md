@@ -17,7 +17,7 @@ The contributions sought at this stage are primarily the reviewing of the existi
 
 2. Coding the first prototype, which will involve SPaDE native knowledge repository software providing read-only access to a repo created by scraping a ProofPower HOL theory hierarchy.
 
-When undertaking reviews of documentation, please place outputs from the review in a markdown file in the "reviews" directory file in the root of the repository, or in a subdirectory of that directory if the comments relate to a specific subproject.
+When undertaking reviews, please place outputs from the review in a markdown file in the "reviews" directory file in the root of the repository, or in a subdirectory of that directory if the comments relate to a specific subproject.
 Use a filename which includes the date and time of the review followed by the contributor name, (copilot) and collates the files in temporal order in a directory listing, e.g. 20241001-1530-copilot.md for a review made on 1st October 2024 at 15:30 by copilot.
 A further component of the filename may be a brief indication of the subject matter, e.g. 20241001-1530-copilot-KRreview.md
 
