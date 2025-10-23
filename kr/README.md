@@ -19,7 +19,7 @@ This supplements the general philosophical materials in the [docs](../docs/READM
 At the moment we have three muddled documents in this section, which will be rationalised in due course.
 
 - [krph001.md](krph001.md) - Knowledge Repository Philosophical Background
-- [krph002.md](krph002.md) - Universality in the Representation of [Declarative Knowledge](../docs/tlad001.md#declarative-knowledge)
+- [krph002.md](krph002.md) - Universality in the Representation of Declarative Knowledge
 - [krph003.md](krph003.md) - Philosophical Background for the Knowledge Repository
 
 ## Architectural Design
@@ -33,16 +33,16 @@ This section includes documents that outline the architectural design of the Kno
 This section includes documents that provide a high-level design of the Knowledge Repository.
 
 - [krhd002.md](krhd002.md) - Prototyping strategies for knowledge repository development
-- [krhd003.md](krhd003.md) - Scraping ProofPower HOL Theories into a [SPaDE](../docs/tlad001.md#spade) Repository
+- [krhd003.md](krhd003.md) - Scraping ProofPower HOL Theories into a SPaDE Repository
 
 ## Detailed Design
 
 This section includes documents that provide a detailed design of the Knowledge Repository.
 
-- [krdd001.md](krdd001.md) - ProofPower HOL interfaces for [SPaDE](../docs/tlad001.md#spade) theory export
-- [krdd002.md](krdd002.md) - [SPaDE](../docs/tlad001.md#spade) Native repository format
+- [krdd001.md](krdd001.md) - ProofPower HOL interfaces for SPaDE theory export
+- [krdd002.md](krdd002.md) - SPaDE Native repository format
 - [krdd003.md](krdd003.md) - Formal specification of the repository structure in HOL4 SML.
-- [krdd004.md](krdd004.md) - Detail descrription of Procedures for [SPaDE](../docs/tlad001.md#spade) Native Repository I/O
+- [krdd004.md](krdd004.md) - Detail descrription of Procedures for SPaDE Native Repository I/O
 
 ## Code
 

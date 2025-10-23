@@ -12,7 +12,7 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlph004.md - Focal Engineering](./tlph004.md)
 - [tlph005.md - The Deductive Paradigm Shift](./tlph005.md)
 - [tlph006.md - Philosophy and Architecture](./tlph006.md)
-- [tlph007.md - Universality in the Representation of [Declarative Knowledge](tlad001.md#declarative-knowledge)](./tlph007.md)
+- [tlph007.md](./tlph007.md) - Universality in the Representation of [Declarative Knowledge](tlad001.md#declarative-knowledge)
 - [tlph008.md - On the Expressiveness of Declarative Languages](./tlph008.md)
 
 ## Architecture
