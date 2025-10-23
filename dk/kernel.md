@@ -1,10 +1,10 @@
 # The Logical Kernel of SPaDE
 
-Though the departing point for the construction of SPaDE is the LCF paradigm, it does pretty much completely depart from it, and this document has not been brought in line with my present intentions, so probably best to pass over and come back later!
+Though the departing point for the construction of [SPaDE](../docs/tlad001.md#spade) is the LCF paradigm, it does pretty much completely depart from it, and this document has not been brought in line with my present intentions, so probably best to pass over and come back later!
 
 The decoupling of the knowledge repository from logical inference takes from the kernel a chunk of funtionality, and necessitates a different approach to assuring formal rigour in reasoning.
 
-Two other intended features of SPaDE also contribute to this transformation, those which together are intended to make the system fully reflexive, i.e. able to reason using proven derived rules.
+Two other intended features of [SPaDE](../docs/tlad001.md#spade) also contribute to this transformation, those which together are intended to make the system fully reflexive, i.e. able to reason using proven derived rules.
 Those two are, the ability to directly evaluate "code", and the use of this facility to turn rules proven conservative in the metatheory to implement derived rules of inference.
 
 In consequence

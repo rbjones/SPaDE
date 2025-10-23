@@ -1,6 +1,6 @@
 # An Epistemological Stack
 
-It is a thesis, upon which this project rests, that a single abstract representation suffices for all declarative knowledge, and hence that all declarative knowledge, in whatever form it is stored, can be viewed in that universal form, permitting core deductive technologies to be thus rendered universal.
+It is a thesis, upon which this project rests, that a single abstract representation suffices for all [declarative knowledge](tlad001.md#declarative-knowledge), and hence that all [declarative knowledge](tlad001.md#declarative-knowledge), in whatever form it is stored, can be viewed in that universal form, permitting core deductive technologies to be thus rendered universal.
 
 Support of that thesis may come in two parts, reflecting important epistemological distinctions.
 

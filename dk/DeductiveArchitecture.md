@@ -1,6 +1,6 @@
 # SPaDE Deductive Architecture
 
-The SPaDE Deductive Architecture is derived from the LCF paradigm, but now diverges too far from it to be properly described as following the LCF paradigm.
+The [SPaDE](../docs/tlad001.md#spade) Deductive Architecture is derived from the LCF paradigm, but now diverges too far from it to be properly described as following the LCF paradigm.
 
 ## Core Inference Mechanisms
 
@@ -12,12 +12,12 @@ This architecture severely constrains the computational efficiency of deductive 
 Where proof involves computation, a strict adherence to the LCF paradigm would prevent direct computation by hardware and force an elaborate and inefficient evaluation method nonetheless dependent on the correctness of the hardware.
 LCF systems usually do allow direct evaluation of some expressions, and in this way diverge from the "pure" LCF paradigm.
 
-In SPaDE, integrity of proof will be a matter of who or what you trust.
+In [SPaDE](../docs/tlad001.md#spade), integrity of proof will be a matter of who or what you trust.
 Trust is associated with authorities.
 All theorems must be signed by the authority who finally derived it, and shown as dependent on the authorities upon which earlier stages in the proof depend.
 These complexes of authorities form a partially ordered metric of trust, and the repository will normally be viewed through a filter parameterised by a level of trust which shows only the theorems whose assurance reaches the required level.
 
-The equivalent of the logical kernel of an LCF system will in SPaDE be one such authority.
+The equivalent of the logical kernel of an LCF system will in [SPaDE](../docs/tlad001.md#spade) be one such authority.
 Two other kinds of authority will be typical.
 The first are mechanisms for direct evaluation of executable specifications.
 The second is a general mechanism for inference by the execution of proven derived rules of the logic
@@ -31,9 +31,9 @@ Though this obviates the need for reduction to primitives, it is nevertheless in
 
 ## Deductive Intelligence
 
-Intelligent support for formal engineering in SPaDE will be provided by  layered alpha-zero like proof automation.
+Intelligent support for formal engineering in [SPaDE](../docs/tlad001.md#spade) will be provided by  layered alpha-zero like proof automation.
 Each theory has a specialist neural net trained by reinforcement learning, to provide heuristics for monte carlo tree search.
-Each such focal proof facility will have access to the specialists for each of its constituent theories (ancestors).
+Each such [focal](../docs/tlad001.md#focal) proof facility will have access to the specialists for each of its constituent theories (ancestors).
 
 ## Concrete Forms
 

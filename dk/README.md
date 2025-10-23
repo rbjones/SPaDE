@@ -1,11 +1,11 @@
 # The Deductive Kernel (dk directory)
 
-This directory contains the documentation prototyping and implementation of the Deductive Kernel component of the SPaDE project.
+This directory contains the documentation prototyping and implementation of the Deductive Kernel component of the [SPaDE](../docs/tlad001.md#spade) project.
 (initially written by Alan, an LLM on the basis of an insufficient briefing and not yet fully aligned with the project's goals).
 
 ## Overview
 
-The Deductive Kernel is the core logical inference engine that ensures the rigour of the formal reasoning taking place in the SPaDE project and makes possible intelligence and productivity of the system in deductive engineering.
+The Deductive Kernel is the core logical inference engine that ensures the rigour of the formal reasoning taking place in the [SPaDE](../docs/tlad001.md#spade) project and makes possible intelligence and productivity of the system in [deductive engineering](../docs/tlad001.md#deductive-engineering).
 
 ## Key Features
 

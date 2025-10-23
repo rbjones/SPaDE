@@ -1,6 +1,6 @@
 # Administrative Documentation
 
-The SPaDE project is intended, en route to its more ambitious goals, to transform engineering design and construction, starting with sofware development.
+The [SPaDE](../tlad001.md#spade) project is intended, en route to its more ambitious goals, to transform engineering design and construction, starting with sofware development.
 
 It is now clear to me that an important part of that is project management and administration, which will need to continuously evolve as the capabilities of AI systems evolve, and their role becomes more substantial.
 
@@ -20,11 +20,11 @@ This documentation falls into the following categories:
 Interaction with the project will be managed through GitHub Projects.
 This is a facility which is still evolving, and I will update this documentation as I learn how to use it effectively.
 
-A github project has been set up for SPaDE, so the terminology used here when discussing plans will reflect that useed by the github project management system and will evolve with it
+A github project has been set up for [SPaDE](../tlad001.md#spade), so the terminology used here when discussing plans will reflect that useed by the github project management system and will evolve with it
 All activities in such a project have to be set up as "issues" and dependencies between these issues are registered as "blocks".
 In this discussion I will use the term "task" to refer to an issue which is a significant piece of work, and "subtask" to refer to a smaller piece of work which is part of a larger task.
 Subtasks are registered as "child" issues, the task being the "parent" issue.
-So far the SPaDE "project" covers only the first MCP server prototype.
+So far the [SPaDE](../tlad001.md#spade) "project" covers only the first MCP server prototype.
 
 I have found it difficult to see the dependencies between tasks, with the facilities available and have therefore adopted the practice of prefacing each task title with a number indicating its place in the sequence of tasks as well as the parent/child relationships.
 Thus (for example) task 3.2 is the second subtask of task 3.
@@ -40,7 +40,7 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 
 ## Plans and strategies (ampl)
 
-- SPaDE Project Action Plan [ampl001.md](ampl001.md)
+- [SPaDE](../tlad001.md#spade) Project Action Plan [ampl001.md](ampl001.md)
 - Prototyping Strategy [ampl002.md](ampl002.md)
 
 ## Testing and evaluation (amte)
@@ -48,5 +48,5 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 ## Task Descriptions (amtd)
 
 - [amtd001.md](amtd001.md) Task Description for Review of Hyperlinks in Project Documentation
-- [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the SPaDE Glossary
-- [amtd003.md](amtd003.md) Task Description for Augmentation of the SPaDE Glossary
+- [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the [SPaDE](../tlad001.md#spade) Glossary
+- [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary

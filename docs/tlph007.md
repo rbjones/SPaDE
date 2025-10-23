@@ -2,15 +2,15 @@
 
 _[this is a mess and will probably need to be completely replaced]
 
-This is an informal account of how it is that there are representations of declarative knowledge which are universal, insofar as they can express any knowledge which might be expressed in any declarative language.
+This is an informal account of how it is that there are representations of [declarative knowledge](tlad001.md#declarative-knowledge) which are universal, insofar as they can express any knowledge which might be expressed in any declarative language.
 
 Though this is stated in a very definite way, there are two ways in which it demands qualification.
 
-* The first is that it depends upon a definition of _declarative knowledge_, which in turn rests upon a notion of _declarative language_, for both of which I would have to defer to a slightly more formal account of the thesis.
+* The first is that it depends upon a definition of _[declarative knowledge](tlad001.md#declarative-knowledge)_, which in turn rests upon a notion of _declarative language_, for both of which I would have to defer to a slightly more formal account of the thesis.
 
 * The second is more subtle and more difficult to express.
 It relates to limitation in the expressiveness of languages in which only countably many things may be said, by contrast with the richness of even the abstract universe, with its arbitrarily large cardinalities,about which we might like to talk in declarative language (let alone the concrete world, which fall numerically short, but which is more difficult to pin semantically).
-This may be read as scepticism about the expressiveness of set theory, which is in some respects the simplest of the languages which we regard as universal logical foundations for declarative knowledge.
+This may be read as scepticism about the expressiveness of set theory, which is in some respects the simplest of the languages which we regard as universal logical foundations for [declarative knowledge](tlad001.md#declarative-knowledge).
 The strongest grounds for accepting the thesis of universality is that for more than a century there has been no advancement in the expressiveness of set theory, and no alternative contender which can claim to surpass that expressiveness.
 
 Set theorist may regard the above as complete nonsense.
@@ -20,13 +20,13 @@ To a second approximation we see that the claim is that Lean interprets one vers
 The difference between these two versions of set theory is essentially in the "axiom of infinity", which in set theory comes as a large cardinal axiom.
 To get the relevant notion of universality you need to be comparing families of logical systems indexed by the minimum cardinality of their ontologies.
 
-First I must give an informal account of the rationale which underpins the claim to represent declarative knowledge in general, and in whatever declarative language it might be presented, in the abstract logical system which underpins the Cambridge HOL ITP (derivative of Church's Simple Theory of Types).
+First I must give an informal account of the rationale which underpins the claim to represent [declarative knowledge](tlad001.md#declarative-knowledge) in general, and in whatever declarative language it might be presented, in the abstract logical system which underpins the Cambridge HOL ITP (derivative of Church's Simple Theory of Types).
 
 That part of the rationale concerns universal expression of abstract declarative language, i.e. language in which the syntax is abstact and the semantics is in terms of abstract entities.
 A few words are needed to embrace concrete language, i.e. language about the material world.
 
 It is implicit in the pratice of formalisation using HOL that empirical phenomena can be modelled to whatever level of precision required in the purely logical system supported by the Cambridge HOL Interactive Theorem Prover (subject to limits imposed by complexity, human frailty and the state of the art in and )
-First I must give an informal account of the rationale which underpins the claim to represent declarative knowledge
+First I must give an informal account of the rationale which underpins the claim to represent [declarative knowledge](tlad001.md#declarative-knowledge)
 in general, and in whatever declarative language it might be presented, in the abstract logical system which underpins
 the Cambridge HOL ITP (derivative of Church's Simple Theory of Types).
 

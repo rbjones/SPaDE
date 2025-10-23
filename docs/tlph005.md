@@ -25,7 +25,7 @@ This is potentially more conclusive than testing the program, since testing is a
 
 Key features of the deductive paradigm:
 
-1. The signficance of data is made formally explicit, so that the data can be read as declarative knowledge.
+1. The signficance of data is made formally explicit, so that the data can be read as [declarative knowledge](tlad001.md#declarative-knowledge).
 
 2. Information Processing is specified in terms of the inference
 
@@ -33,17 +33,17 @@ Key features of the deductive paradigm:
 
 ### The representation of Declarative Knowledge
 
-The central pillar of support for the deductive paradigm comes from the theoretical and practical universality of the abstract representation for declarative knowledge adopted by the project, Higher Order Logic.
+The central pillar of support for the deductive paradigm comes from the theoretical and practical universality of the abstract representation for [declarative knowledge](tlad001.md#declarative-knowledge) adopted by the project, Higher Order Logic.
 
 The Universality of this representation not only permits it to integrate materials developed using more elaborate logical systems, but also to provide declarative views of diverse data sources, one metadata addressing the semantics of these sources is supplied (typically by semantic embedding.)
 
-Similar considerations apply to the processing of such data outside of SPaDE, which if furnished with suitable formal specifications can enable data processing to be understood as deductive inference.
+Similar considerations apply to the processing of such data outside of [SPaDE](tlad001.md#spade), which if furnished with suitable formal specifications can enable data processing to be understood as deductive inference.
 
 ### The Knowledge Repository
 
-The Knowledge Repository is a virtual distributed repository which not only includes declarative knowledge created as such for this project or imported from other logical systems, but also views of data in any other form, imported and represented in the same abstract form suitable for deductive reasoning in the system.
+The Knowledge Repository is a virtual distributed repository which not only includes [declarative knowledge](tlad001.md#declarative-knowledge) created as such for this project or imported from other logical systems, but also views of data in any other form, imported and represented in the same abstract form suitable for deductive reasoning in the system.
 
-The support for this knowledge repository consists of APIs which allow a variety of distinct sources to viewed as part of a distributed repository and imported in a standard form for processing in spade.
+The support for this knowledge repository consists of APIs which allow a variety of distinct sources to viewed as part of a distributed repository and imported in a standard form for processing in [spade](tlad001.md#spade).
 
 ### The Deductive Kernel
 
@@ -52,7 +52,7 @@ It has a structure which is derived from but diverges from strict adherence to t
 
 When similar tasks are accomplished by proofs in an LCF system to those which would under the computational paradigm have been directly computed, very considerable additional costs are incurred.
 
-The divergence from the strict letter of the LCF paradigm in SPaDE comes in three principal ways, of which the first two are not original in SPaDE:
+The divergence from the strict letter of the LCF paradigm in [SPaDE](tlad001.md#spade) comes in three principal ways, of which the first two are not original in [SPaDE](tlad001.md#spade):
 
 1. Admitting direct computation into proofs
 
@@ -62,11 +62,11 @@ The divergence from the strict letter of the LCF paradigm in SPaDE comes in thre
 
 ### Deductive Intelligence
 
-Deductive Intelligence in SPaDE comes through the use of artificial intelligence outside the deductive kernel to optimise all use of deduction in the system.
+Deductive Intelligence in [SPaDE](tlad001.md#spade) comes through the use of artificial intelligence outside the deductive kernel to optimise all use of [deduction](tlad001.md#deduction) in the system.
 Because of the complexity of detailed formal proofs, even when enhanced by oracles and reflection in the kernel, progression to widespread adoption of a deductive paradigm depends on the effective integration of AI techniques to assist in proof construction and verification.
 
 The approach which will be taken to this falls under the general heading of [focal engineering](tlph004.md).
-This approach is intended because deduction in formally defined theories constitutes a *perfect information space* similar to those for which the DeepMind alpha-zero system was developed, and it therefore to be addressed by similar methods in SPaDE, which make use of neural nets trained narrowly for these specific domains, rather than being trained using a very broad range of materials.
+This approach is intended because [deduction](tlad001.md#deduction) in formally defined theories constitutes a *perfect information space* similar to those for which the DeepMind alpha-zero system was developed, and it therefore to be addressed by similar methods in [SPaDE](tlad001.md#spade), which make use of neural nets trained narrowly for these specific domains, rather than being trained using a very broad range of materials.
 
 A significant difference is that deductive intelligence is targetted at not one such perfect information space, but a complex heirarchy corresponding to the theory structure in the distributed knowledge repository.
 It is therefore intended that specialists will be trained for each theory as the theory develops, and that these will in some cases constitute a layered neural net, and in others by a heirarchy of intelligent agents each with its own area of expertise.

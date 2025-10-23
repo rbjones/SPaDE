@@ -4,20 +4,20 @@
 - **Document ID**: krte001.md  
 - **Version**: 1.0
 - **Date**: 15 October 2025
-- **Author**: Analysis based on existing SPaDE codebase
+- **Author**: Analysis based on existing [SPaDE](../docs/tlad001.md#spade) codebase
 - **Status**: Ready for Review
 
 ## Executive Summary
 
-This document outlines the development strategy for the SPaDE Knowledge Repository prototype, consisting of two separate programs:
+This document outlines the development strategy for the [SPaDE](../docs/tlad001.md#spade) Knowledge Repository prototype, consisting of two separate programs:
 
-1. **SML ProofPower Scraper** - Offline batch process to extract ProofPower theories into SPaDE repositories
-2. **Python MCP Server** - Online service to query and browse SPaDE repositories via MCP protocol
+1. **SML ProofPower Scraper** - Offline batch process to extract ProofPower theories into [SPaDE](../docs/tlad001.md#spade) repositories
+2. **Python MCP Server** - Online service to query and browse [SPaDE](../docs/tlad001.md#spade) repositories via MCP protocol
 
 ## Architecture Overview
 
 ### Program Separation
-The prototype consists of two independent programs connected only through the SPaDE repository file format:
+The prototype consists of two independent programs connected only through the [SPaDE](../docs/tlad001.md#spade) repository file format:
 
 ```
 ProofPower DB → [SML Scraper] → SPaDE Repository File → [Python MCP Server] → MCP Clients
@@ -124,7 +124,7 @@ Mainly query optimization and MCP tool implementation.
 ## Integration Requirements
 
 ### File Format Compatibility
-Both programs must implement the SPaDE native repository binary format:
+Both programs must implement the [SPaDE](../docs/tlad001.md#spade) native repository binary format:
 - CONS cells with backward pointers (as per krdd002.md)
 - Null-terminated byte sequences with binary 1 as escape character
 - Repository versioning structure
@@ -138,7 +138,7 @@ Both must handle identical HOL datatype representations:
 ### Testing Strategy
 - Use small ProofPower theories for end-to-end validation
 - Create test repository files for MCP server development
-- Validate round-trip: ProofPower → SPaDE → Query results
+- Validate round-trip: ProofPower → [SPaDE](../docs/tlad001.md#spade) → Query results
 
 ## Current Assessment: STRONG FOUNDATION
 
@@ -186,7 +186,7 @@ Both must handle identical HOL datatype representations:
 
 ## Conclusion
 
-The SPaDE Knowledge Repository prototype is well-positioned for implementation. The existing codebase provides a solid foundation, the architecture is sound, and the development path is clear. 
+The [SPaDE](../docs/tlad001.md#spade) Knowledge Repository prototype is well-positioned for implementation. The existing codebase provides a solid foundation, the architecture is sound, and the development path is clear. 
 
 **Recommendation: Proceed with implementation focusing on SML scraper first, followed by Python MCP server development.**
 

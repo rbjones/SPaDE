@@ -18,7 +18,7 @@ It's AI generated and therefore generic and will need to be adapted to the speci
 
 ## Integration Process
 
-Since SPaDE functionality will be delivered exclusively through MCP servers, testing will be undertaken by copilot acting as a client to the MCP server.
+Since [SPaDE](../tlad001.md#spade) functionality will be delivered exclusively through MCP servers, testing will be undertaken by copilot acting as a client to the MCP server.
 
 The process of building and deploying MCP servers will be automated using Continuous Integration/Continuous Deployment (CI/CD) pipelines.
 

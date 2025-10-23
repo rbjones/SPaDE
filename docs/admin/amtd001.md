@@ -3,11 +3,11 @@
 ## Purpose and Scope
 
 The purpose is to ensure integrity and completeness of the presentation of project documentation through github pages.
-The Scope will either be the entire SPaDE repository (the default) or specified subdirectories, but is restricted to the documentation files in markdown format (.md) only. Historical material in the `reviews/` directory, all content under `retro/`, and any directory whose name begins with `.` are excluded from this task, except that any new report produced as part of the deliverables must still be placed in `reviews/`.
+The Scope will either be the entire [SPaDE](../tlad001.md#spade) repository (the default) or specified subdirectories, but is restricted to the documentation files in markdown format (.md) only. Historical material in the `reviews/` directory, all content under `retro/`, and any directory whose name begins with `.` are excluded from this task, except that any new report produced as part of the deliverables must still be placed in `reviews/`.
 
 ## Background
 
-The documentation policy for the SPaDE project is in [amms001.md](amms001.md).
+The documentation policy for the [SPaDE](../tlad001.md#spade) project is in [amms001.md](amms001.md).
 The project root and each directory has a README.md file which provides an overview of the contents of that directory and links to the documents within it. All .md files in the directory should be linked from the README.md file for that directory or a subdirectory.
 In addition, documents may cross refer to other documents in the project.
 
@@ -26,4 +26,4 @@ While undertaking these transformations a report should be compiled in which any
 
 ## Deliverables
 
-The resulting edits and the report should be included in a pull request. The report should be entered into the reviews directory of SPaDE with a name conforming to the document naming conventions specific to reviews in [amms001.md](amms001.md). Reference any specific GitHub workflow for submission if applicable.
+The resulting edits and the report should be included in a pull request. The report should be entered into the reviews directory of [SPaDE](../tlad001.md#spade) with a name conforming to the document naming conventions specific to reviews in [amms001.md](amms001.md). Reference any specific GitHub workflow for submission if applicable.

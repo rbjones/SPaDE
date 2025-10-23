@@ -1,12 +1,12 @@
 # Project Structure
 
-The SPaDE project is organized into a small number of subsystems, each serving a distinct purpose within the overall architecture. Understanding this structure is crucial for effective development and collaboration.
+The [SPaDE](tlad001.md#spade) project is organized into a small number of subsystems, each serving a distinct purpose within the overall architecture. Understanding this structure is crucial for effective development and collaboration.
 
 The primary purpose is the application of formal methods to the automation of design and implementation, in the first instance of software, but ultimately of any enterprise for which automated deductive reasoning may be used to ensure correctness.
 
 It is not intended that this project will directly interface with human users, but will be delivered by one or more MCP servers to agentic AI systems whose work on behalf of users it will facilitate.
 
-Support for intelligent reasoning will be organised in the SPaDE project into three buckets (each of which has a separate subdirectory of the SPaDE repository):
+Support for intelligent reasoning will be organised in the [SPaDE](tlad001.md#spade) project into three buckets (each of which has a separate subdirectory of the SPaDE repository):
 
 ## **Knowledge Representation (KR)**
 
@@ -33,7 +33,7 @@ The kernel ensures that signatures on theorems are propagated through proofs ens
 The DI bucket encompasses higher-level reasoning strategies and techniques, including the use of machine learning and other AI methods to enhance the system's reasoning capabilities.
 
 All theorem proving in the system takes place in a specific logical context, in which a collection of names complying with a signature and subject to defining constraints determine what sentences are true and which are derivable in the deductive system (these are not the same, the logic is not complete, though the shortfall is not significant for any known practical application).
-These constitute perfect information spaces, and are therefore amenable to *focal* AI methods (such as those used in the Deepmind alpha-zero technologies).
+These constitute perfect information spaces, and are therefore amenable to *[focal](tlad001.md#focal)* AI methods (such as those used in the Deepmind alpha-zero technologies).
 To realise the benefits of these methods, we therefore anticipate that a separate AI expert will be trained for each such context, and that problem solving will exploit the heuristics specific to the context (theory) while subcontracting to the expert for constituent contexts any subproblems which are local to that context.
 
 For non-trivial problems we envisage a marketplace in which multiple experts may be available for some domains and will bid for work.

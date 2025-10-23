@@ -1,6 +1,6 @@
 # SPaDE Prototyping Strategy
 
-The prototyping strategy for SPaDE is organised to enable the earliest possible prototyping of the most important and difficult aspects of the proposed architecture.
+The prototyping strategy for [SPaDE](../tlad001.md#spade) is organised to enable the earliest possible prototyping of the most important and difficult aspects of the proposed architecture.
 
 This means that certain capabilities essential for testing key features will be introduced at first in a very simplified form to enable prototyping of other features.
 
@@ -9,7 +9,7 @@ This document therefore begin's with a tentative list of those key features that
 ## Key Features to be Prototyped
 
 1. **Delivery by MCP server**, allowing for charging or free access to services.
-2. **SPaDE Native Repositories**, populated from established theory hierarchies, read only access in first instance.
+2. **[SPaDE](../tlad001.md#spade) Native Repositories**, populated from established theory hierarchies, read only access in first instance.
 3. **Proof by Primitive Rules** of HOL logic, first prototyping can cover many aspects of the system with only propositional reasoning.
 4. **Context Sensitive Alpha-Zero Proof Capability** This can be prototyped in the first instance while only primitive rules are available.
 5. **Efficient Execution** This is desirable in itself but is a precondition of delivering reflection (since otherwise proven derived rules will not be efficient).
@@ -30,14 +30,14 @@ This read facility will then be made available through an MCP server and queried
 
 The first MCP server depends upon:
 
-1. Transfer of Theory Structure from ProofPower HOL to native SPaDE repo.
+1. Transfer of Theory Structure from ProofPower HOL to native [SPaDE](../tlad001.md#spade) repo.
 
 2. Read access to native repo.
   This provides a basis to begin prototyping the other subsystems.
   Normally read access is expected to establish the logical context for ongoing work.
   Then:
 
-3. Write access to a SPaDE native repository (additions and amendments).  By appending a new version to the repository.
+3. Write access to a [SPaDE](../tlad001.md#spade) native repository (additions and amendments).  By appending a new version to the repository.
 
 4. Add integrity features using digital signatures to ensure against corruption of the repository, and guarantee the logical context in which any theorem is proven.
 
@@ -46,7 +46,7 @@ The first MCP server depends upon:
 6. Support for read-only meta-theoretic view of theories, in which, for example, a theory in which a constant *c* is defined has a meta-theory in which *c__def* is the defining term for the constant c.
 
 7. Read access to non-native sources of knowledge.  Candidates for access include:
-   - Access to ProofPower HOL theories without scraping them into a native SPaDE repository.
+   - Access to ProofPower HOL theories without scraping them into a native [SPaDE](../tlad001.md#spade) repository.
    - Access to other HOL systems, e.g. HOL4, HOL Light, Isabelle/HOL.
    - Access to other logical systems, e.g. Coq, Lean.
    - Generic read access to general data storage types, e.g. sql databases facilitated by metadata which may either provide access as data or under some additional semantic interpretation.
