@@ -4,7 +4,7 @@ This page concerns the export of theories from the ProofPower HOL theorem prover
 It is a detailed informal description of the algorithm to be implemented in the export tool.
 
  Other relevant documents are:
- 
+
 - [The ProofPower HOL interface for SPaDE](krdd001.md), in which the functions available in ProofPower for accessing the content of the theory hierarchy are described.
 - [The SPaDE Native Repository](krdd002.md), which outlines the structure and organization of SPaDE knowledge repositories.
 
