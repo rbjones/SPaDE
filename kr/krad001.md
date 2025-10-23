@@ -76,7 +76,7 @@ This hierarchy of directories or folders ensures that all names are unique, and 
 It is not expected that work will be undertaken in that maximal context, but its coherence ensures that any context formed by selecting a limited number of parent theories of the hierarchy will also be coherent.
 
 Careful selection of context is crucial for the effectiveness of [focal AI](../docs/tlad001.md#focal-intelligence-or-focal-ai).
-The use of [focal AI](../docs/tlad001.md#[focal](../docs/tlad001.md#focal)-intelligence-or-focal-ai) methods to support reasoning through domain specific specialists will require that the context in which reasoning takes place is curated to include only those names which are relevant to the subject matter at hand.
+The use of [focal AI](../docs/tlad001.md#focal-intelligence-or-focal-ai) methods to support reasoning through domain specific specialists will require that the context in which reasoning takes place is curated to include only those names which are relevant to the subject matter at hand.
 This is achieved by a hierarchy among theories which is distinct from the hierarchy of names induced by the folder structure and instead determined by an ancestry of theories through a parent/child relationship, each theory being formed by extension of one or more prior theories, which are be called its *parents*
 
 Thus we see that the repository consists of a suitably indexed collection of HOL signatures and constraining formulae which give meaning to the names in the signatures. The first part of this specification is therefore concerned with the abstract syntax of HOL, and later parts with the superstructure which ensures uniqueness of names and logical contexts.

@@ -10,7 +10,7 @@ A speculation on the distant future providing a rationale and moral grounding fo
 
 ### Evolutionary Imperatives
 
-The top of both the [epistemological stack](tlad001.md#epistemological-stack) and the [focal tower](tlad001.md#[focal](tlad001.md#focal)-tower) provide purpose and ethic for this work, motivating an emphasis on collaboration in all aspects of the project.
+The top of both the [epistemological stack](tlad001.md#epistemological-stack) and the [focal tower](tlad001.md#focal-tower) provide purpose and ethic for this work, motivating an emphasis on collaboration in all aspects of the project.
 The evolutionary imperative, "proliferate" ensures that whether you or I care about proliferation on the largest scale (intestellar, intergalactic...) it will be engendered and its form will be determined by those most successful in progressing it.
 
 In the face of that evolutionary imperative, we may ask, what room is there for ethics?
@@ -30,10 +30,10 @@ Beyond the language we are concerned with the nature of [deduction](tlad001.md#d
 
 ## [Focal Engineering](tlph004.md)
 
-The architecture is substantially influenced by the advantages to the realisation of engineering intelligence of focal techniques and [singular focus](tlad001.md#singular-focus), the [focal tower](tlad001.md#[focal](tlad001.md#focal)-tower), [focal](tlad001.md#focal) heirarchies, foundational and reductive methods.
+The architecture is substantially influenced by the advantages to the realisation of engineering intelligence of [focal](tlad001.md#focal) techniques and [singular focus](tlad001.md#singular-focus), the [focal tower](tlad001.md#focal-tower), [focal](tlad001.md#focal) heirarchies, foundational and reductive methods.
 The [focal tower](tlad001.md#focal-tower) and heirarchy are related to but more intricate than the [epistemological stack](tlad001.md#epistemological-stack).
 
-The top level(s?) of the [focal tower](tlad001.md#[focal](tlad001.md#focal)-tower) are concerned with the proliferation of intelligent self-proliferating systems across the cosmos.
+The top level(s?) of the [focal tower](tlad001.md#focal-tower) are concerned with the proliferation of intelligent self-proliferating systems across the cosmos.
 The motivation for such proliferation comes from the evolutionary imperative, and we may say that the moral imperative to engage with the approach toward this level is that without the engagement of those who have some moral sense, the nature of the proliferation might be entirely amoral.
 
 What moral code could we imagine which is applicable to the kinds of intelligent system which will emerge in this cosmic explosion?
