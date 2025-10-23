@@ -56,14 +56,11 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd005.sml](krcd005.sml) - ProofPower HOL Database Export
 - [krcd006.sml](krcd006.sml) - HOL4 specification of SPaDE repository
 
-## Task Descriptions
-
-This section includes documents that describe specific tasks related to the Knowledge Repository.
-- [krtd001.md](krtd001.md) - Task Description for Knowledge Repository Prototyping
-
 ## Testing and Evaluation
 
 This section includes documents that describe the testing and evaluation process for the Knowledge Repository.
+
+- [krte001.md](krte001.md) - Knowledge repository prototyping test notes
 
 ## TEMPORARY TRAILER
 

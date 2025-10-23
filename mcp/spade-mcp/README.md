@@ -39,13 +39,13 @@ After setting up the environment, you can run the server in your local dev machi
 
 | Folder / File| Contents                                     |
 | ------------ | -------------------------------------------- |
-| `.vscode`    | VSCode files for debugging                   |
-| `.aitk`      | Configurations for AI Toolkit                |
-| `src`        | The source code for the weather mcp server   |
+| `inspector/` | Optional MCP inspector client used for local testing |
+| `src/`       | The source code for the weather MCP server   |
 
 ## How to debug the Weather MCP Server
 
 > Notes:
+>
 > - [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is a visual developer tool for testing and debugging MCP servers.
 > - All debugging modes support breakpoints, so you can add breakpoints to the tool implementation code.
 
@@ -58,8 +58,8 @@ After setting up the environment, you can run the server in your local dev machi
 
 | Debug Mode | Ports | Definitions | Customizations | Note |
 | ---------- | ----- | ------------ | -------------- |-------------- |
-| Agent Builder | 3001 | [tasks.json](.vscode/tasks.json) | Edit [launch.json](.vscode/launch.json), [tasks.json](.vscode/tasks.json), [\_\_init\_\_.py](src/__init__.py), [mcp.json](.aitk/mcp.json) to change above ports. | N/A |
-| MCP Inspector | 3001 (Server); 5173 and 3000 (Inspector) | [tasks.json](.vscode/tasks.json) | Edit [launch.json](.vscode/launch.json), [tasks.json](.vscode/tasks.json), [\_\_init\_\_.py](src/__init__.py), [mcp.json](.aitk/mcp.json) to change above ports.| N/A |
+| Agent Builder | 3001 | VS Code debug task (user supplied) | Update your launch/task configuration or `src/__init__.py` to change the port. | Provide your own `.vscode` entry points when required. |
+| MCP Inspector | 3001 (Server); 5173 and 3000 (Inspector) | VS Code debug task (user supplied) | Update your launch/task configuration or `src/__init__.py` to change the port. | Provide your own `.vscode` entry points when required. |
 
 ## Feedback
 

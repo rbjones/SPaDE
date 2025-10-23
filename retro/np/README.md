@@ -1,12 +1,16 @@
-## directory retro/np
+# Retro/np directory
 
 This directory began as a copy of the directory src/rbjpub/pp/doc from
 the github repo rbjones/www.rbjones.com.
 It was the directory used to build the web directory at:
-www.rbjones.com/rbjpub/pp/doc
+<http://www.rbjones.com/rbjpub/pp/doc>
 In making the transfer I have deleted the history prior to this project,
 most of which can be found on the cited repo. in the unlikely event that
 anyone cares.
+
+## Documents
+
+- [idt.md](./idt.md) — Notes on inductive datatype tooling
 
 In the first instance the continuing work in this directory will be
 concerned with the formal specification of the logical kernel
@@ -14,7 +18,7 @@ around which a deductive intelligence will be built.
 This formal specification will be used by the new kernel to develop
 its own metatheory so that it can verify derived rules permitting them
 to be applied without independent checking (a substantial divergence
-from the LCF paradigm followed so far by prior implementations of 
+from the LCF paradigm followed so far by prior implementations of
 Cambridge HOL.
 ProofPower HOL already benefits from a formal specification of the
 language and kernel written in HOL by Rob Arthan.
@@ -45,6 +49,7 @@ This does nothing which cannot be done in existing implementations
 of Cambridge HOL by adding a further axiom.
 
 The most radical differences to the Kernal are:
+
 1. the ability to efficiently evaluate functions defined in HOL.
 Such a computation yields an equation between the function application
 and its computed value.

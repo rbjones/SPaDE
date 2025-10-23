@@ -7,12 +7,12 @@ The ProofPower HOL system is implemented in Standard ML.
 The theory hierarchy is stored in a PolyML database, and the system provides an API for accessing that database.
 This document is primarily concerned with implementation of a procedure in SML which extracts the content of that database and writes it out in the SPaDE native repository format.
 
-The SPaDE repository is described in [KnowledgeRepo.md](KnowledgeRepo.md).
+The SPaDE repository is summarised in [README.md](README.md).
 
-A HOL4 specification of the abstract syntax of the SPaDE repository is given in [h4001.md](h4001.md).
+A HOL4 specification of the abstract syntax of the SPaDE repository is given in [krcd006.sml](krcd006.sml).
 
-The process of scraping a ProofPower HOL theory database into a SPaDE repository is described in [SPaDEppScrape.md](SPaDEppScrape.md).
+The core ProofPower export program is implemented in [krcd005.sml](krcd005.sml).
 
-The procedural interface for accessing the ProofPower HOL database is described in [m4002.md](m4002.md).
+The Python tooling for interacting with the exported repository is developed in [krcd002.py](krcd002.py) and [krcd003.py](krcd003.py).
 
 The SPaDE native repository format is described in [SPaDENativeRepo.md](krdd002.md).

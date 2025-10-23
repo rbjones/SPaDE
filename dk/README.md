@@ -39,6 +39,8 @@ It is expected that context specialists in the di subsystem will maintain indepe
 Barely started.
 
 - [Kernel Overview](kernel.md) - Informal design sketch
+- [Deductive Architecture](DeductiveArchitecture.md) - Notes on the intended kernel architecture
+- [dk001.md](dk001.md) - Early deductive kernel working notes
 
 ## Development Status
 
@@ -67,7 +69,7 @@ The kernel is designed to support:
 
 ## References
 
-- [LCF Paradigm](https://en.wikipedia.org/wiki/LCF_(theorem_prover)) - Traditional approach
+- [LCF Paradigm](https://en.wikipedia.org/wiki/LCF_%28theorem_prover%29) - Traditional approach
 - [Cambridge HOL](https://www.cl.cam.ac.uk/research/hvg/HOL/) - Logical foundation
-- [Reflexive Programming](https://en.wikipedia.org/wiki/Reflection_(computer_programming)) - Self-modifying systems
+- [Reflexive Programming](https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29) - Self-modifying systems
 - [Metatheory](https://en.wikipedia.org/wiki/Metatheory) - Theory about theories

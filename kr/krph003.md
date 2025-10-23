@@ -9,7 +9,7 @@ The story may be split into two parts.
 ## HOL as Universal Knowledge Representation
 
 * The first part would then be the reasons for believing that the abstract syntax of Cambridge HOL is universal for the representation of declarative knowledge.
-For which, see [Knowledge Representation Universality](KRUniversality.md).
+For which, see [Universality in the Representation of Declarative Knowledge](krph002.md).
 However, the urgency of making that case is by no means compelling, since the project has independent merit.
 I spend years trying to philosophise about this, latterly under the heading "Synthetic Philosophy" but this didn't work for me, and   SPaDE is my escape from Philosophy back into Engineering.
 I did think some greatly stripped down philosophical underpinning would be appropriate, but as I consider the factors important to the success of SPaDE justification of the underlying logical system is probably not one of them..
@@ -43,7 +43,7 @@ Once communication begins between two such diaspora, it is envisaged that the di
 The pretensions of the SPaDE repository to be a cosmic resource are substantially derived from the design to maintain a coherent global context by partitioning the namespace, and the method whereby this is maintained as diasporic repositories merge.
 
 This is primarily achieved by the addition of extra levels to the namespace, which introduced a little difficulty in defining what a name is and in the represention of names in the propositions of the repository.
-These questions are addressed in the architectural design [krad001.md](krad001.md) and the associated formal specification [krhd004.sml](krhd004.sml).
+These questions are addressed in the architectural design [krad001.md](krad001.md) and the associated formal specification [krcd006.sml](krcd006.sml).
 
 ### The Abstract Structure of the Pansophic Repository
 

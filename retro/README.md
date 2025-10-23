@@ -1,4 +1,4 @@
-** retro directory **
+# Retro directory
 
 This directory is for materials which predate this project and/or are not
 intended for inclusion in any of the products in the forms found here.
@@ -7,7 +7,11 @@ It is anticipated that in researching and bootstrapping
 the new technology work undertaken using or adapting existing tools,
 for example ProofPower or possibly Clean, will be necessary or desitable.
 
-*** subdirectory np **
+## Available Materials
+
+- [np directory overview](np/README.md)
+
+## Subdirectory `np`
 
 In the first instance the materials found in the np directory come from
 research conducted by me using ProofPower over a 30 year period, and will

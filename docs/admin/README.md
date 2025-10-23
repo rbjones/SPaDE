@@ -17,7 +17,7 @@ This documentation falls into the following categories:
 
 ### Project Management
 
-Interaction with the project will be managed through [GitHub Projects](https://github.com/orgs/SPaDE/projects).
+Interaction with the project will be managed through GitHub Projects.
 This is a facility which is still evolving, and I will update this documentation as I learn how to use it effectively.
 
 A github project has been set up for SPaDE, so the terminology used here when discussing plans will reflect that useed by the github project management system and will evolve with it

@@ -3,10 +3,10 @@
 This page concerns the export of theories from the ProofPower HOL theorem prover into SPaDE knowledge repositories.
 It is a detailed informal description of the algorithm to be implemented in the export tool.
 
-Other relevant documents are:
-
-- [The ProofPower HOL interface for SPaDE](kr/krdd001.md), in which the functions available in ProofPower for accessing the content of the theory hierarchy are described.
-- [The SPaDE Native Repository](kr/krdd002.md), which outlines the structure and organization of SPaDE knowledge repositories.
+ Other relevant documents are:
+ 
+- [The ProofPower HOL interface for SPaDE](krdd001.md), in which the functions available in ProofPower for accessing the content of the theory hierarchy are described.
+- [The SPaDE Native Repository](krdd002.md), which outlines the structure and organization of SPaDE knowledge repositories.
 
 The export facility is to use to ProofPower HOL interface to extract the content of theories in a ProofPower HOL installation, and to create a SPaDE native repository containing that content.
 
@@ -45,14 +45,14 @@ Initially SPaDE will only provide full read/write support for repositories in it
 
 ### Writing the SPaDE Native Repository
 
-The coding of a SPaDE repository into that byte sequence is described in [The SPaDE Native Repository](kr/krdd002.md).
+The coding of a SPaDE repository into that byte sequence is described in [The SPaDE Native Repository](krdd002.md).
 
 ### The Extraction Algorithm
 
 The extraction algorithm is responsible for retrieving the content from a non-native repository (such as ProofPower HOL) and transforming it into a format compatible with the SPaDE native repository structure. This involves several key steps:
 
 1. **Accessing the Non-Native Repository**: Use the appropriate SML interface to connect to the non-native repository and access its content.
-The interfaces in ProofPower HOL are described in [The ProofPower HOL interface for SPaDE](kr/krdd001.md).
+The interfaces in ProofPower HOL are described in [The ProofPower HOL interface for SPaDE](krdd001.md).
 
 2. **Transforming the Content**: The process of transforming the content from the non-native format to the SPaDE format is relatively straightforward, as both HOL and SPaDE use higher-order logic, with almost the same underlying abstract syntax.
 The main innovation in SPaDE is the more elaborate name structure to ensure name uniqueness in a distributed environment, and the use of relative paths for names to allow for upward and outward expansion of the name space.

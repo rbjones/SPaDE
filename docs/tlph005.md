@@ -65,7 +65,7 @@ The divergence from the strict letter of the LCF paradigm in SPaDE comes in thre
 Deductive Intelligence in SPaDE comes through the use of artificial intelligence outside the deductive kernel to optimise all use of deduction in the system.
 Because of the complexity of detailed formal proofs, even when enhanced by oracles and reflection in the kernel, progression to widespread adoption of a deductive paradigm depends on the effective integration of AI techniques to assist in proof construction and verification.
 
-The approach which will be taken to this falls under the general heading of [focal engineering](FocalEngineering.md).
+The approach which will be taken to this falls under the general heading of [focal engineering](tlph004.md).
 This approach is intended because deduction in formally defined theories constitutes a *perfect information space* similar to those for which the DeepMind alpha-zero system was developed, and it therefore to be addressed by similar methods in SPaDE, which make use of neural nets trained narrowly for these specific domains, rather than being trained using a very broad range of materials.
 
 A significant difference is that deductive intelligence is targetted at not one such perfect information space, but a complex heirarchy corresponding to the theory structure in the distributed knowledge repository.

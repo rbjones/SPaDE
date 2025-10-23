@@ -34,3 +34,10 @@ Containing those parts of the project contributing to the deductive kernel.
 
 Containing the support for deductive intelligence which makes feasible the application of deduction and the transition to a deductive rather than a computation paradigm for information processing.
 This wraps the deductive kernel with layers of focal intelligence making use of multilayered neural nets closely coupled with the heirarchy of logical contexts found in the SPaDE distributed knowledge repository.
+
+## Supporting Material
+
+- [Project Structure Overview](docs/PROJECT_STRUCTURE.md)
+- [How to Contribute](CONTRIBUTING.md)
+- [Historic Materials (`retro` directory)](retro/README.md)
+- [Review Log](reviews/README.md)

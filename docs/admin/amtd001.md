@@ -3,7 +3,7 @@
 ## Purpose and Scope
 
 The purpose is to ensure integrity and completeness of the presentation of project documentation through github pages.
-The Scope will either be the entire SPaDE repository (the default) or specified subdirectories, but is restricted to the documentation files in markdown format (.md) only.
+The Scope will either be the entire SPaDE repository (the default) or specified subdirectories, but is restricted to the documentation files in markdown format (.md) only. Historical material in the `reviews/` directory, all content under `retro/`, and any directory whose name begins with `.` are excluded from this task, except that any new report produced as part of the deliverables must still be placed in `reviews/`.
 
 ## Background
 

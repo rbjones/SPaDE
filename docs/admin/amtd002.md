@@ -3,7 +3,7 @@
 ## Purpose and Scope
 
 The purpose of this task is to maintain and progress access to the SPaDE project glossary by linking to it appropriately.
-The project documentation in the scope of this review consists of all the .md files in the SPaDE project directory and its subdirectories.
+The project documentation in the scope of this review consists of all the .md files in the SPaDE project directory and its subdirectories, excluding the `reviews/` and `retro/` directories and any directory whose name begins with `.`.
 
 ## Background
 

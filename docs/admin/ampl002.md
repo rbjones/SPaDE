@@ -77,4 +77,4 @@ Links will be placed in this document to facilitate easy navigation and referenc
 
 Further details on prototyping may be found in the following subsystem specific documents:
 
-[KR prototyping - kr/KRproto.md](../../kr/KRproto.md)
+- [Knowledge repository prototyping overview](../../kr/krhd002.md)

@@ -3,7 +3,7 @@
 ## Introduction
 
 In this document an informal description of the abstract structure of the SPaDE Knowledge Repository is presented.
-This is made more precise as a HOL4 formal specification in [krhd004.sml](krhd004.sml).
+This is made more precise as a HOL4 formal specification in [krcd006.sml](krcd006.sml).
 
 Part of the motivation for this structure is given in [Philosophical Background for the Knowledge Repository](krph003.md).
 

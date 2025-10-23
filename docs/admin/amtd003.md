@@ -11,7 +11,7 @@ It is intended to provide definitions and explanations of special terminology an
 Entries in the glossary are ideally linked to the most appropriate first account of the terminology in the project documentation, either as a document or a section within a document, which provides the best available account of its meaning and usage.
 Otherwise a phrase, sentence or short paragraph in the glossary must suffice.
 
-The project documentation in the scope of this review consists in the .md files in the docs directory and its subdirectories.
+The project documentation in the scope of this review consists in the .md files in the docs directory and its subdirectories, excluding the `reviews/` and `retro/` directories and any directory whose name begins with `.`.
 
 ## Task Description
 
