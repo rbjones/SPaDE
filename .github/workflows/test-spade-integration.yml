@@ -5,13 +5,13 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: rbjones/pp/ProofPower
+  IMAGE_NAME: rbjones/pp/proofpower
 
 jobs:
   test-spade:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/rbjones/pp/ProofPower:latest
+      image: ghcr.io/rbjones/pp/proofpower:latest
     
     steps:
       - name: Checkout code
