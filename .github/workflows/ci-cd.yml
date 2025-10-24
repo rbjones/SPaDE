@@ -1,0 +1,50 @@
+name: Minimal CI for SPaDE (Make-aware)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect Makefile
+        id: detect_make
+        run: |
+          if [ -f Makefile ] || [ -f makefile ]; then echo "has_make=true" > $GITHUB_OUTPUT; else echo "has_make=false" > $GITHUB_OUTPUT; fi
+
+      - name: Run top-level make test (if Makefile present)
+        if: steps.detect_make.outputs.has_make == 'true'
+        run: |
+          echo "Running: make test"
+          make test
+
+      - name: Fallback: minimal language checks (only if no top-level Makefile)
+        if: steps.detect_make.outputs.has_make == 'false'
+        run: |
+          echo "No top-level Makefile found; running minimal language checks."
+          # Python quick-detect & test
+          if [ -f pyproject.toml ] || [ -f requirements.txt ] || ls *.py 1>/dev/null 2>&1; then
+            python3 -m pip install --user pytest >/dev/null 2>&1 || true
+            if [ -d tests ]; then python3 -m pytest -q; else echo "No tests/ directory found"; fi
+          else
+            echo "No python detected"
+          fi
+          # SML detection: print notice
+          if find . -type f -name '*.sml' -print -quit | grep -q .; then
+            echo "SML sources detected but no Makefile provided. Add subsystems/sml/Makefile and/or top-level Makefile."
+          fi
+
+      - name: Create build-info
+        run: |
+          mkdir -p out
+          echo "repo=${{ github.repository }}" > out/build-info.txt
+          echo "ref=${{ github.ref }}" >> out/build-info.txt
+          echo "sha=${{ github.sha }}" >> out/build-info.txt
+          echo "time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> out/build-info.txt
