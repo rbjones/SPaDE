@@ -12,7 +12,7 @@ I thought I would personalise the relationship by giving names to us, but at the
 At the moment the agentic AI is mostly github copilot-pro and the GPT model was accessed through the free tier on Cursor, which doesn't give enough to be viable.
 I do have a Grok API key, and that works in VSCode, but I'm still mainly using copilot.
 
-This document outlines the methods and standards for effective human/AI collaboration in the SPaDE project.
+This document outlines the methods and standards for effective human/AI collaboration in the [SPaDE](../tlad001.md#spade) project.
 
 ## Core Principles
 

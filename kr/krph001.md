@@ -1,16 +1,16 @@
 # Knowledge Repository Philosophical Background
 
-The structure of the SPaDE knowledge repository is informed by supposed philosophical insights into the nature of declarative knowledge and its representation.
+The structure of the [SPaDE](../docs/tlad001.md#spade) knowledge repository is informed by supposed philosophical insights into the nature of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) and its representation.
 This document is a brief account of those ideas, and the way in which they have influenced the design of the repository.
 It is not intended to be a rigorous philosophical treatise, but rather an informal bald account of the ideas which have influenced the design.
 
 ## Declarative Knowledge
 
-Declarative knowledge is that kind of knowledge which can be expressed in true sentences of a well defined declarative language.
+[Declarative knowledge](../docs/tlad001.md#declarative-knowledge) is that kind of knowledge which can be expressed in true sentences of a well defined declarative language.
 A declarative language speaks of some domain of discourse using expressions whose values are determined by the state of that domain.
 A sentence in a declarative language is an expression whose value is either "true" or "false".
 The semantics of the language determine under what conditions a sentence is true, and the sentence may therefore be used to enquire, assert or require that those conditions hold.
-A body of declarative knowledge consists in a collection of true declarative sentences.
+A body of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) consists in a collection of true declarative sentences.
 
 To say that a declarative language is *well defined* is to say that the truth conditions of its sentences are well defined.
 
@@ -27,7 +27,7 @@ This procedure can also be extended to cover language which is neither purely ab
 Similar considerations apply to conclusions reached by reasoning in abstract models with interpretation in these domains of discourse.
 Confidence in truth of the resulting propositions depends on that in the abstract model, and on confidence in the fidelity of the abstract model to the intended domain of discourse.
 
-Thus abstract languages may be thought of as interpretable in many non-abstract domains, and as thereby serving to represent declarative knowledge about those domains.
+Thus abstract languages may be thought of as interpretable in many non-abstract domains, and as thereby serving to represent [declarative knowledge](../docs/tlad001.md#declarative-knowledge) about those domains.
 
 ## Universality
 
@@ -43,4 +43,4 @@ In practice, and in particular, for the purposes of the kinds of reasoning requi
 Though it is set theory which is most likely to be understood as practically universal in this way, there are many other abstract logical systems which are equally expressive, if furnished with the similarly lavish ontologies and corresponding large cardinal axioms.
 Cardinality of ontology is the crucial factor.
 
-It is therefore alleged, that practically universal languages for the representation of declarative knowledge are plentiful, and we may then pass to more mudane questions affecting the choice of a single such foundation system for knowledge representation.
+It is therefore alleged, that practically universal languages for the representation of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) are plentiful, and we may then pass to more mudane questions affecting the choice of a single such foundation system for knowledge representation.

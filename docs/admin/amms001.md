@@ -11,7 +11,7 @@ The subsystems are at present:
 
 ## Documentation
 
-Where there is no compelling reason to do otherwise, documents will be written in github markdown, and will be organised in such a way as to provide a transparent and complete view of the project from the project web site on rbjones.github.io/SPaDE
+Where there is no compelling reason to do otherwise, documents will be written in github markdown, and will be organised in such a way as to provide a transparent and complete view of the project from the project web site on rbjones.github.io/[SPaDE](../tlad001.md#spade)
 
 Documents specific to some subsystem will be in the top-level directory for that subsystem.
 

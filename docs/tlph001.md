@@ -2,16 +2,16 @@
 
 ## Introduction
 
-To fully understand the rationale for the SPaDE project, it is necessary to consider the distant future of intelligence in the universe, and to address the ethical implications of that futuristic speculation.
+To fully understand the rationale for the [SPaDE](tlad001.md#spade) project, it is necessary to consider the distant future of intelligence in the universe, and to address the ethical implications of that futuristic speculation.
 
-In this document I present certain beliefs about the future which have contributed to my motivation for undertaking the SPaDE project.
+In this document I present certain beliefs about the future which have contributed to my motivation for undertaking the [SPaDE](tlad001.md#spade) project.
 These form a part of the philosophical stance which I now call [*Synthetic Philosophy*](tlph002.md).
 
 I do not aspire to articulating here a fully worked out philosophical system.
-I did spend some years in that endeavour, the chaotic results of which may be found in my now moribund git repository [SynEpis](https://github.com/rbjones/SynEpis), in which I pursued Epistemology construed as fundamental constructive philosophy to underpin knowledge engineering.
+I did spend some years in that endeavour, the chaotic results of which may be found in my now moribund git repository [SynEpis](https://github.com/rbjones/SynEpis), in which I pursued [Epistemology](tlad001.md#epistemology) construed as fundamental constructive philosophy to underpin knowledge engineering.
 Though that philosophical endeavour was closely coupled with Engineering, I found it insufficiently grounded for my continuous revisions of approach to terminate, and eventually decided that I needed to reposition the thinking in an engineering enterprise.
 
-The SPaDE project is that enterprise, and this document is part of the philosophical underpinning which present for that purpose.
+The [SPaDE](tlad001.md#spade) project is that enterprise, and this document is part of the philosophical underpinning which present for that purpose.
 
 The approach I will adopt, at least in the first instance, is to articulate the beliefs which provide a rationale for the project, and to use those premises to explain the key features of the project, expanding on them only to that extent necessary to make the rationale clear.
 
@@ -99,7 +99,7 @@ The systems dominating this sphere are unlikely to bear much resemblance to life
 
 Of course, these won't strictly be spheres, I use the term loosely.
 
-Now SPaDE is intended as an enabler of the whole.
+Now [SPaDE](tlad001.md#spade) is intended as an enabler of the whole.
 It plays into the following analysis of the key resources required to achieve most rapid proliferation across the cosmos.
 
 ### Resources for Proliferation
@@ -127,7 +127,7 @@ I'll make this simple:
 The knowledge needed is knowledge of how to build small systems which when transported to environments having suitable sources of energy and matter of the right kinds can develop into fully functional self-replicating systems.
 To maximise replication the intelligent system must use its knowledge of the cosmos, and its knowledge of how to build self-replicating systems, to seek out environments in which it can most rapidly replicate.
 
-Spade is intended to contribute to the latter two resources, knowledge and intelligence, in the expectation that these will be crucial to the proliferation of intelligence throughout the cosmos.
+[Spade](tlad001.md#spade) is intended to contribute to the latter two resources, knowledge and intelligence, in the expectation that these will be crucial to the proliferation of intelligence throughout the cosmos.
 
 ## The Importance of Knowledge
 
@@ -144,7 +144,7 @@ Alongside this we see the development of geometric techniques relevant, for exam
 - The second phase begins with the emergence of Mathematics as a theoretic discipline, its rigorisation through the axiomatic method and the beginnings of the study of Logic, most prominently in the first instance by Aristotle.
 Mathematics, both pure and applied continued to be developed eventually underpinning modern science and the industrial revolution.
 
-- The third phase comes after the successing of mathematical analysis in science and engineering pushes mathematics beyond fundamentals that were well understood, leading to a process of rigorisation which culminated in the reduction of mathematics to logic, and the establishment of logical foundations capable of supporting mathematics and all deductive reasoning in any body of declarative knowledge.
+- The third phase comes after the successing of mathematical analysis in science and engineering pushes mathematics beyond fundamentals that were well understood, leading to a process of rigorisation which culminated in the reduction of mathematics to logic, and the establishment of logical foundations capable of supporting mathematics and all deductive reasoning in any body of [declarative knowledge](tlad001.md#declarative-knowledge).
 
 ## The Primacy of Ethics
 
@@ -158,7 +158,7 @@ For this I make two observations.
 
 The first is, that despite arguments suggesting that it should not be possible, biological evolution has produced at least one species which is capable of genuine altruism, and we may therefore suspect that this has been a contributory factor in the success of that species.
 This suggests that the distinction between pragmatic and moral behaviour may be illusory.
-Since I am making the case for a moral dimension to the SPaDE project, you may take it that I don't accept that conclusion.
+Since I am making the case for a moral dimension to the [SPaDE](tlad001.md#spade) project, you may take it that I don't accept that conclusion.
 I do however consider this evidence that the evolutionary imperative is not incompatible with ethical behaviour.
 
 My second observation is that the kind of evolution we are now addressing, evolution by design iteration, is subject to influence by social factors, including contemporary ethical considerations, for a key to its sucess is the acceptance of its products by human society.

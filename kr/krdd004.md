@@ -1,27 +1,27 @@
 # Detail description of Procedures for SPaDE Native Repository I/O
 
-This document describes the procedures for reading and writing SPaDE native repositories in sufficent detail to guide implementation.
+This document describes the procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories in sufficent detail to guide implementation.
 
-In first drafts of this document the procedures defined are those necessary to write a SPaDE respository from scratch, and to read an existing repository into a suitably structured representation.
+In first drafts of this document the procedures defined are those necessary to write a [SPaDE](../docs/tlad001.md#spade) respository from scratch, and to read an existing repository into a suitably structured representation.
 
 Some of the detail will depend upon the language in which the procedures are implemented.
 Where possible pertinent differences will be highlighted.
 Only two languages are currently under consideration, SML (for HOL4 and ProofPower HOL implementations) and Python (for MCP server implementations).
-The former are only intended for the export of theory heirarchies from existing HOL ITP systems into SPaDE repositories, while the latter are intended for use in delivering the broader functionality of SPaDE through the logical kernel, deductive intelligence and MCP server subsystems.
+The former are only intended for the export of theory heirarchies from existing HOL ITP systems into [SPaDE](../docs/tlad001.md#spade) repositories, while the latter are intended for use in delivering the broader functionality of [SPaDE](../docs/tlad001.md#spade) through the logical kernel, deductive intelligence and MCP server subsystems.
 Python may also to be used in due course for export of theories from Lean.
 
-For the earliest prototyping the requirement is for SML procedures to write SPaDE repositories from scratch, and Python procedures to read such repositories into suitable structured representations.
+For the earliest prototyping the requirement is for SML procedures to write [SPaDE](../docs/tlad001.md#spade) repositories from scratch, and Python procedures to read such repositories into suitable structured representations.
 
 ## Context
 
 The following documents provide important context for understanding the procedures described here:
-The SPaDE native repository format is described in [krdd002.md](krdd002.md).
+The [SPaDE](../docs/tlad001.md#spade) native repository format is described in [krdd002.md](krdd002.md).
 
 ## Modules
 
 ### Low Level I/O Module
 
-This module provides low level procedures for reading and writing SPaDE native repositories as sequences of null terminated byte sequences held in linear binary files.
+This module provides low level procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories as sequences of null terminated byte sequences held in linear binary files.
 
 The operations required are:
 
@@ -58,7 +58,7 @@ The null terminatory of the individual byte sequences will then be escaped durin
 
 The coding of byte sequnces into null terminated form is as follows:
 
-A SPaDE native repository is a sequence of null terminated byte sequences.
+A [SPaDE](../docs/tlad001.md#spade) native repository is a sequence of null terminated byte sequences.
 It is necessary to have procedures for encoding arbitrary byte sequences as null terminated byte sequences, and for decoding such sequences back into arbitrary byte sequences.
 In doing so the following escape convention will be used.
 The binary character 1 will be used as an escape character to permit a zero byte to be included in a byte sequence.

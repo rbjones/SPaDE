@@ -26,7 +26,7 @@ This is still sketchy speculation, the following "plan" addressed only the early
 
 [some repetition here]
 The intention is to use HOL to bootstrap the new logical kernel, by creating a knowledge base which contains correctness results for derived rules without which the kernel would be very rudimentary.
-That knowledge base would then be viewed through the kr APIs to effectively convert it from a ProofPower theory hierarchy to a SPaDE knowledge base.
+That knowledge base would then be viewed through the kr APIs to effectively convert it from a ProofPower theory hierarchy to a [SPaDE](../docs/tlad001.md#spade) knowledge base.
 So here's how I think this might go.
 
 1. Initial Metatheory Development

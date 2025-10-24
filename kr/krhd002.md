@@ -1,26 +1,26 @@
 # Early KR prototyping
 
-It is the (provisional) intention that the SPaDE project functionality will be delivered through one or more MCP servers and will be accessed by end-users via LLMs or later generations of AGI.
+It is the (provisional) intention that the [SPaDE](../docs/tlad001.md#spade) project functionality will be delivered through one or more MCP servers and will be accessed by end-users via LLMs or later generations of AGI.
 
-From the earliest possible stage we aim to have a prototype MCP server, delivering in the first instance some very elementary service, which will probably be low-level access to the content of SPaDE repositories.
+From the earliest possible stage we aim to have a prototype MCP server, delivering in the first instance some very elementary service, which will probably be low-level access to the content of [SPaDE](../docs/tlad001.md#spade) repositories.
 
-I first intended to do this by scraping a ProofPower HOL repo to make a more or less equivalent SPaDE repository.
+I first intended to do this by scraping a ProofPower HOL repo to make a more or less equivalent [SPaDE](../docs/tlad001.md#spade) repository.
 But while thinking this out, I decided that the import of theories from other systems (in general) important and non-trivial and the issues arising in the more general case are a distraction from putting together a quick and easy extract from ProofPower.
 It also occurred to me that I could do a low level capability which would could create a repo from scratch, and this would suffice for a first prototype MCP server.
 
 I am therefore considering a shorter route to exploring the exigencies of MCP servers by trying a simpler prototype which will create empty repositories and perform elementary operations to add and query material in them, probably at lower levels than the theory hierarchies which will ultimately populate them.
 
-All of this either is or will be more fully documented in other documents but for the purposes of the very first prototype I note that the more elaborate structure of a theory heirarchy is represented in SPaDE using a simple representation essentially the same as LISP S-expressions, which in turn is linearised as a sequence of null-terminated UTF-8 strings.
+All of this either is or will be more fully documented in other documents but for the purposes of the very first prototype I note that the more elaborate structure of a theory heirarchy is represented in [SPaDE](../docs/tlad001.md#spade) using a simple representation essentially the same as LISP S-expressions, which in turn is linearised as a sequence of null-terminated UTF-8 strings.
 The first very firstrepo can offer low level facilities for reading and writing such files, and for creating a repo from scratch, and need not have any knowledge or facilities specific to the intended application of the structures.
 
 ## An Overview of the Repository Prototyping Strategy
 
-The intention is that a repository is an abstract structure which will be linearised for storage in a simple file for the SPaDE native repository structure.
+The intention is that a repository is an abstract structure which will be linearised for storage in a simple file for the [SPaDE](../docs/tlad001.md#spade) native repository structure.
 It is not thought that the extra complications involved in the use of more sophisticated database software will have significant benefits (though this will be reviewed as prototyping progresses).
 
 The repository will be accessed in the first instance by the KR subsystem, which will read the linear representation and create a structured representation more convenient for the intended usage.
 The first level of use of this will be by the deductive "kernel" (DK) which will provide a first layer of inferential capability.
-The second level of use, making use of the deductive kernel will involve focal AI, along the lines of DeepMind's alpha-zero, using neural net heuristics to guide Monte Carlo Tree Search (MCTS) processes.
+The second level of use, making use of the deductive kernel will involve [focal AI](../docs/tlad001.md#focal-intelligence-or-focal-ai), along the lines of DeepMind's alpha-zero, using neural net heuristics to guide Monte Carlo Tree Search (MCTS) processes.
 This differs from a typical application of that approach because we will be treated each context as a separate "perfect information space" with its own neural net, resulting in a hierarchy of intelligent agents which collaborate in the solution of any problem.
 
 The resulting capabilities will then made available through an MCP server interface.
@@ -35,7 +35,7 @@ It will support the primitive operations on S-expressions and allow extention of
 
 ## [The Structure of a SPaDE repository](krdd002.md)
 
-A SPaDE repository contains a heirarchy of contexts or theories, each of which introduces various names by including them in a signature indicating what type of value they denote, and providing a constraint which assigns meaning to the names.
+A [SPaDE](../docs/tlad001.md#spade) repository contains a heirarchy of contexts or theories, each of which introduces various names by including them in a signature indicating what type of value they denote, and providing a constraint which assigns meaning to the names.
 At the lowest level, to provide complete generality, these structures are stored in a postfix format in which both operands and operators are represented as null-terminated UTF-8 strings.
 This is further simplified by the structural device which we see in LISP in which aribitrary structures are represented in an underlying structure with only one constructor (CONS).
 

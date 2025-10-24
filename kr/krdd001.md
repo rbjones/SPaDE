@@ -1,19 +1,19 @@
 # ProofPower HOL Interface for SPaDE
 
-This file contains the details of the SML functions needed to scrape a ProofPower HOL theory database for SPaDE.
+This file contains the details of the SML functions needed to scrape a ProofPower HOL theory database for [SPaDE](../docs/tlad001.md#spade).
 It is a mix of informal description of the process and a list of the SML functions needed to implement it.
 
 ## An informal account of the process
 
-The process of scraping a ProofPower HOL theory database into a SPaDE repository involves traversing the theory hierarchy, extracting the relevant components of each theory, and writing them into a SPaDE native repository in a different format.
+The process of scraping a ProofPower HOL theory database into a [SPaDE](../docs/tlad001.md#spade) repository involves traversing the theory hierarchy, extracting the relevant components of each theory, and writing them into a [SPaDE](../docs/tlad001.md#spade) native repository in a different format.
 
-The HOL theory hierarchy is accessed by invoking PolyML on the ProofPower HOL polyml database which contains the theories, loading the SML files containing the functions for exporting to the SPaDE native repository, and then invoking the top level function to scrape the theories.
+The HOL theory hierarchy is accessed by invoking PolyML on the ProofPower HOL polyml database which contains the theories, loading the SML files containing the functions for exporting to the [SPaDE](../docs/tlad001.md#spade) native repository, and then invoking the top level function to scrape the theories.
 Note that the various functions mentioned in this document for accessing the ProofPower HOL database are part of the standard ProofPower HOL system, and will therefore already be in place when PolyML is invoked on a ProofPower HOL database.
 
 To scrape the entire theory hierarchy, first find what theories are available (using the sml procedure get\_theory\_names).
 Sort the theory names into a sequence in which no theory name appears before any of its ancestors, (this can be checked using the sml procedure get\_parents or get\_ancestors) then process the theories in that order.
 
-The top level of a SPaDE repo is a folder which is the list of versions of the repo, in which the constituent folder names are an initial segment of the natural numbers starting with 1.
+The top level of a [SPaDE](../docs/tlad001.md#spade) repo is a folder which is the list of versions of the repo, in which the constituent folder names are an initial segment of the natural numbers starting with 1.
 All the theories in the HOL database will be put in folder "1" which will be the sole constituent of the top level folder, indicating that it is the first and only version of the repo.
 
 Folders are lists of name/value pairs, where the value is either a theory or another folder.
@@ -26,7 +26,7 @@ When all the theories have been written, a further folder is written to the repo
 Whenever a structure is to be written to the repo, its components must first be written, and their locations in the sequence are remembered for use in CONS cells which will link the components into the whole.
 This can be done using a stack of positions, which are byte displacements in the binary file into which the repository is being written.
 
-The first component of a theory in the SPaDE repo will always be a list of parent theories which determine the context from which the sequence of extensions which forms the theory is begun.
+The first component of a theory in the [SPaDE](../docs/tlad001.md#spade) repo will always be a list of parent theories which determine the context from which the sequence of extensions which forms the theory is begun.
 This list includes the path within the repository to the theory (including the repo version number), the byte displacement in the repo of each theory (i.e. a pointer to the theory) and a signed cryptographic hash of the theory which is taken from the theory).
 There follows a list of extensions, and concluded by a signed hash of the theory signeed by the server which created it.
 In a first prototype these signed hashes may be omitted.
@@ -35,23 +35,23 @@ Note that the order of these components in terms of their numerical position in 
 Each extension consists of the signature of set of new type constructors and term constants (which may be empty) and a constraint, which is a closed term of type BOOL (and may or may not be conservative).
 This repository structure gives only meanings, and is not intended for the storage of theorems, for which other structures may be appropriate.
 So, unlike the more typical role of LCF proof tools, there is no evidence in this repository of whether the extensions are conservative.
-It is the intention in the broader structure of SPaDE that alleged theorems are signed by some authority as being derivable in a particular context, and the signing of of the theorem along with a cryptographic hash of the context is what gives confidence in its derivability and truth (the level of confidence depending on the signing authority).
+It is the intention in the broader structure of [SPaDE](../docs/tlad001.md#spade) that alleged theorems are signed by some authority as being derivable in a particular context, and the signing of of the theorem along with a cryptographic hash of the context is what gives confidence in its derivability and truth (the level of confidence depending on the signing authority).
 
 The details of converting for the repo the signature and constraint of an extension, follow a similar pattern.
-There are some differences between the structure of terms between ProofPower (and other HOLs), and SPaDE.
-Two features are extra in SPaDE, which are TERM relocations and TERM literals.
+There are some differences between the structure of terms between ProofPower (and other HOLs), and [SPaDE](../docs/tlad001.md#spade).
+Two features are extra in [SPaDE](../docs/tlad001.md#spade), which are TERM relocations and TERM literals.
 The former will not be needed for transcription of HOL theories.
 The latter may be used instead of the use in ProofPower HOL of literal constants.
 A literal in ProofPower HOL is a constant that has a value derived from its name not from a definition.
-Such constants can be scraped as literal terms, this will suffice for some prototyping, but will leave a semantic deficit, which would prevent a full and faithful replication of the HOL theories making use of them in SPaDE.
-The workings of TERM literals in SPaDE is not yet fully worked out, and as this is done, the mapping may need to be changed.
+Such constants can be scraped as literal terms, this will suffice for some prototyping, but will leave a semantic deficit, which would prevent a full and faithful replication of the HOL theories making use of them in [SPaDE](../docs/tlad001.md#spade).
+The workings of TERM literals in [SPaDE](../docs/tlad001.md#spade) is not yet fully worked out, and as this is done, the mapping may need to be changed.
 
 ## SML Functions For Accessing ProofPower HOL Theories
 
 At present this is just a list of signatures providing multiple ways of extracting and disassembling a ProofPower HOL theory hierarchy.
 Some words may follow.
 
-Note that these are functions already implemented in ProofPower HOL, and are not part of the SPaDE code base.
+Note that these are functions already implemented in ProofPower HOL, and are not part of the [SPaDE](../docs/tlad001.md#spade) code base.
 They are fully documented in the ProofPower HOL manual (usr029.pdf), this extract is for convenience of reference since that manual is large.
 
 Probably not needed:
@@ -183,55 +183,55 @@ It will then terminate the list will a CONS to NIL and create a top-level folder
 
 ### Structural Differences between ProofPower HOL and SPaDE repositories
 
-The differences between the structure of a ProofPower HOL theory and a SPaDE theory are not confined to the lower level representation for storage in persistent media.
+The differences between the structure of a ProofPower HOL theory and a [SPaDE](../docs/tlad001.md#spade) theory are not confined to the lower level representation for storage in persistent media.
 
-Someimportant differences arose from strategic decisions made early in the design of SPaDE, but review of these has cast doubt on their necessity or desirability.
+Someimportant differences arose from strategic decisions made early in the design of [SPaDE](../docs/tlad001.md#spade), but review of these has cast doubt on their necessity or desirability.
 In particular, two additional constructors for terms had been introduced which are now thought to be unnecessary.
 
 We retain notes on the intended changes in case in case they ultimately do prove necessary, but for the time being we will proceed without these modifications to the structure of HOL theories.
 
-A significant change which we retain is the use of relative names for types and constants in SPaDE HOL theories, which is necessary to allow the open-ended distributed nature of SPaDE repositories.
+A significant change which we retain is the use of relative names for types and constants in [SPaDE](../docs/tlad001.md#spade) HOL theories, which is necessary to allow the open-ended distributed nature of [SPaDE](../docs/tlad001.md#spade) repositories.
 
-1. **Relative Names in SPaDE** HOL theory hierarchies are local to a single polyml database, whereas SPaDE repositories are intended to be global and long-lived.
-This leads to a more complex naming structure for theories in SPaDE, into which the simple almost flat namespace of HOL theories must be mapped.
+1. **Relative Names in [SPaDE](../docs/tlad001.md#spade)** HOL theory hierarchies are local to a single polyml database, whereas [SPaDE](../docs/tlad001.md#spade) repositories are intended to be global and long-lived.
+This leads to a more complex naming structure for theories in [SPaDE](../docs/tlad001.md#spade), into which the simple almost flat namespace of HOL theories must be mapped.
 
-Note also, that the open-ended distributed nature of SPaDE repositories means that distinct repositories may be combined by adding an extra folder above two existing repositories (this will usually be the combining of two diasporic repositories into an extended diaspora).
-To allow for this to be possible, the names used in SPaDE HOL terms are relative.
+Note also, that the open-ended distributed nature of [SPaDE](../docs/tlad001.md#spade) repositories means that distinct repositories may be combined by adding an extra folder above two existing repositories (this will usually be the combining of two diasporic repositories into an extended diaspora).
+To allow for this to be possible, the names used in [SPaDE](../docs/tlad001.md#spade) HOL terms are relative.
 
 In a ProofPower HOL repository, though distributed across the theories in the ancestry of a theory, the names of types and constants in scope in that theory must be unique and are therefore simple names.
 
-In SPaDE, the names of types and constants in the ancestors of a theory must be qualified by the path within the repository to the theory in which they are defined.
-This can be achieved by including all the HOL theories in a single folder which constitutes one version of the SPaDE repository.
+In [SPaDE](../docs/tlad001.md#spade), the names of types and constants in the ancestors of a theory must be qualified by the path within the repository to the theory in which they are defined.
+This can be achieved by including all the HOL theories in a single folder which constitutes one version of the [SPaDE](../docs/tlad001.md#spade) repository.
 To refer in one theory to a name defined in another theory, the path to that theory must be included in the name, which if the hierarchy is imported from ProofPower HOL will require a one directory uplift and then a path through the theory name to the local name.
-Thus, to refer in the theory *basic_hol* to the constant *name* in the theory "misc" the SPaDE name would be "(1,[misc;name])" (a pair consisting of a numeric uplift and a sequence of simple names).
+Thus, to refer in the theory *basic_hol* to the constant *name* in the theory "misc" the [SPaDE](../docs/tlad001.md#spade) name would be "(1,[misc;name])" (a pair consisting of a numeric uplift and a sequence of simple names).
 
 2. **Translation of ProofPowerLiterals**
 
-It had been intended to facilitate the development of metatheoretic reasoning in SPaDE that a more elaborate kind of literal would be permitted and this would be a change in the HOL term structure.
+It had been intended to facilitate the development of metatheoretic reasoning in [SPaDE](../docs/tlad001.md#spade) that a more elaborate kind of literal would be permitted and this would be a change in the HOL term structure.
 
-The structure of a SPaDE HOL term is more complex than that of a ProofPower HOL term, since it includes term relocations and TERM literals.
+The structure of a [SPaDE](../docs/tlad001.md#spade) HOL term is more complex than that of a ProofPower HOL term, since it includes term relocations and TERM literals.
 
-Term relocations will never be present in a SPaDE repository, they are only there to mediate in use of terms outside the context in which they were constructed, so they will not be needed in transcribing HOL theories.
+Term relocations will never be present in a [SPaDE](../docs/tlad001.md#spade) repository, they are only there to mediate in use of terms outside the context in which they were constructed, so they will not be needed in transcribing HOL theories.
 
 Literal terms in ProofPower are a special class of constants which have a meaning derived from their name rather than from a definition.
-In SPaDE, literals are a more general mechanism, and the mapping from ProofPower HOL to SPaDE will be to use TERM literals in SPaDE to represent HOL literal constants.
+In [SPaDE](../docs/tlad001.md#spade), literals are a more general mechanism, and the mapping from ProofPower HOL to [SPaDE](../docs/tlad001.md#spade) will be to use TERM literals in [SPaDE](../docs/tlad001.md#spade) to represent HOL literal constants.
 However, to do this the syntactic rules governing which constants are literal constants must be known.
 
 However, an expedient may be adopted which will suffice for prototyping, which is underpinned by the fact that no ProofPower HOL theory will contain constants which have not been defined, except for the literal constants.
-So any constant in a theory which is not defined in that theory or any of its ancestors must be a literal constant, and can be transcribed as a TERM literal in SPaDE.
+So any constant in a theory which is not defined in that theory or any of its ancestors must be a literal constant, and can be transcribed as a TERM literal in [SPaDE](../docs/tlad001.md#spade).
 
 The effect of these requirements is that the transcription program must know when transcribing a theory, the theory in which each name in scope was defined, so that the correct relative name can be constructed, and any literal constants can be identified.
 
-Theorems in SPaDE are digitally signed sequents, and this applies also to the constraints associated with the introduction of new constants in a theory, and even to axiomatic constraints which introduce no new names.
+Theorems in [SPaDE](../docs/tlad001.md#spade) are digitally signed sequents, and this applies also to the constraints associated with the introduction of new constants in a theory, and even to axiomatic constraints which introduce no new names.
 
 In the former case the signature gives a degree of confidence that the extension is conservative, in the latter that it is consistent with the prior theory.
-There are therefore three kinds of theorem in the SPaDE system corresponding to conservative extensions, consistent axiomatic extensions and derived theorems.
+There are therefore three kinds of theorem in the [SPaDE](../docs/tlad001.md#spade) system corresponding to conservative extensions, consistent axiomatic extensions and derived theorems.
 
 For the sake of prototyping, the digital signatures may be omitted, but the structure must be in place to allow them to be added later.
 
 ### Writing a SPaDE repository
 
-When scraping a ProofPower HOL theory database, the resulting SPaDE repository will have only one version, which will be version "1".
+When scraping a ProofPower HOL theory database, the resulting [SPaDE](../docs/tlad001.md#spade) repository will have only one version, which will be version "1".
 So the top level of the repository will be a folder containing a single folder named "1" which contains all the theories in the database.
 Folders are created incrementally by writing each constituent theory or folder followed by a CONS cell linking it to the rest of the folder, which is terminated by a NIL.
 This is slightly complicated by folders not being mere lists of theories, but lists of pairs of names and theories or folders.
@@ -251,7 +251,7 @@ In order to ensure reliable preservation of the context in which any theorem has
 It includes cryptographic hashes of the parent theories, and a digital signature of the whole context by the authority which created the theory.
 
 In the first instance, for prototyping, these signatures may be omitted, but the structure must be in place to allow them to be added later.
-In SPaDE parents need not be in the same local repository, but may be remote.
+In [SPaDE](../docs/tlad001.md#spade) parents need not be in the same local repository, but may be remote.
 In either case not only the path to the parent theory, but also the displacement in its own local repository are included in the context structure and in a terminating hash created from the whole theory.
 
 The context structure is followed by a list of extensions, each of which introduces new names (possibly none) and a constraint (which may be an axiom or a conservative extension).

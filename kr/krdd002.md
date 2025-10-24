@@ -1,25 +1,25 @@
 # The SPaDE Native Repository
 
-The SPaDE Native Repository is a specific concrete representation of a subtree of the hierarchic repository of declarative knowledge envisaged by the SPaDE project.
+The [SPaDE](../docs/tlad001.md#spade) Native Repository is a specific concrete representation of a subtree of the hierarchic repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) envisaged by the [SPaDE](../docs/tlad001.md#spade) project.
 
 These repositories act in some respects like the domain name system for the internet.
 Like domain names they constitute units of an addressing scheme which allocated to entities, who may then independently contribute to the larger structure, while linking to other contributions as necessary.
 The fit into the domain name system by using a URL as the lower part of a name (allowing that higher levels might eventually prove desirable).
 
-It is not necessary for a SPaDE repository to have any predetermined physical structure, provided only that content can be presented and managed according to the abstract structure described in [KnowledgeRepo.md].(KnowledgeRepo.md).
-However, the SPaDE knowledge representaton sofware is engineered to use a specific concrete representation of a subtree of the hierarchic repository, and repositories structured in this way are described as SPaDE Native Repositories.
+It is not necessary for a [SPaDE](../docs/tlad001.md#spade) repository to have any predetermined physical structure, provided only that content can be presented and managed according to the abstract structure described in [KnowledgeRepo.md].(KnowledgeRepo.md).
+However, the [SPaDE](../docs/tlad001.md#spade) knowledge representaton sofware is engineered to use a specific concrete representation of a subtree of the hierarchic repository, and repositories structured in this way are described as [SPaDE](../docs/tlad001.md#spade) Native Repositories.
 
-The SPaDE Native Repository structure uses a linear binary file as a versioned WORM (Write Once Read Many) repository, in which the entire content of the repository is stored in a single file, to which new versions may be efficiently added by appending amendments and supplements to the end of the file.
+The [SPaDE](../docs/tlad001.md#spade) Native Repository structure uses a linear binary file as a versioned WORM (Write Once Read Many) repository, in which the entire content of the repository is stored in a single file, to which new versions may be efficiently added by appending amendments and supplements to the end of the file.
 At the lowest level such a repository consists of a sequence of null terminated byte sequences, which may be interpreted as UTF-8 character strings, or as any other type of data.
 To enable binary zeros in the sequences, binary 1 is used as an escape character (only when preceding 0 or 1).
 This same representation of sequences of bytes may be used at multiple levels in the repository structure.
 
-In the SPaDE Native Repository structure, these byte sequences are used to construct a binary tree structure in which each node is either an atom (itself a null terminated byte sequence), the empty list (NIL), or a binary node (CONS cell) which adds a head to a list or a node to a tree).
+In the [SPaDE](../docs/tlad001.md#spade) Native Repository structure, these byte sequences are used to construct a binary tree structure in which each node is either an atom (itself a null terminated byte sequence), the empty list (NIL), or a binary node (CONS cell) which adds a head to a list or a node to a tree).
 The CONS cell links its two components by pointers to the positions of those components in the linear file containing the repository.
 So the CONS cell must always appear after the components to which it points.
 For this to work as a WORM repository, pointers are represented as base 256 numbers, with the most significant byte first ("big endian"), the number being a byte displacement in the linear file.
 These pointer must therefore always point backwards in the file to a position which has already been written.
-The only pointers in SPaDE Native Repositories
+The only pointers in [SPaDE](../docs/tlad001.md#spade) Native Repositories
 are in CONS cells.
 
 The top of the repository will always be a CONS cell which is the last null terminated byte sequence in the file, and can only be located by reading the entire file.
@@ -33,7 +33,7 @@ Amendments to the content of the repository create new versions, leaving prior v
 
 The layers are as follows:
 
-1. *A linear sequence of byte sequences*.  These will in practice often be UTF-8 character strings, but may be arbitrary byte sequences.  It is intended that the SPaDE system be compatible with repositories which do not use UNICODE character sets, and which may incorporate binary data, so the entire encoding of the repository avoids any assumptions about or use of character sets.
+1. *A linear sequence of byte sequences*.  These will in practice often be UTF-8 character strings, but may be arbitrary byte sequences.  It is intended that the [SPaDE](../docs/tlad001.md#spade) system be compatible with repositories which do not use UNICODE character sets, and which may incorporate binary data, so the entire encoding of the repository avoids any assumptions about or use of character sets.
 Linear sequences of bytes are found at multiple levels, not only in this base layer, and the method of encoding is the same at all levels.
 
 2. Coded in that linear array *a general representation of tree structures*, represented in the simplest way as atoms, the empty list NIL, and binary nodes (CONS cells) which add a head to a list.
@@ -58,7 +58,7 @@ The first byte of each sequence identifies the kind of node, and is binary 2 for
 ### NIL
 
 NIL is represented by a single byte sequence consisting of the byte 2 (followed by the null terminator)
-For a minor space saving, the first byte sequence in each SPaDE repository file will be NIL, so that the index of NIL is always 0.
+For a minor space saving, the first byte sequence in each [SPaDE](../docs/tlad001.md#spade) repository file will be NIL, so that the index of NIL is always 0.
 
 ### Atoms
 
@@ -103,20 +103,20 @@ In the above each construction is either an atom or a list, but lists are mostly
 This is purely a typographical convenience.
 
 First however, we need to know what is a name, and the interrelationship of names in different logical contexts.
-In SPaDE repositories there are two distinct but interrelated hierarchical structure.
+In [SPaDE](../docs/tlad001.md#spade) repositories there are two distinct but interrelated hierarchical structure.
 
 ### The Name Hierarchy
 
 The first is a hierarchy of names which provides a global namespace in which names are allocated to contributors in such a way that the names allocated to distinct contributors are distinct, enabling different contributions to be coherently combined.
 The meanings assigned to these names are subject to amendment, and the name spaces are therefore versioned, so that the logical context for any theorem can be reconstructed.
 The hierarchy of names is built using collections which may generally be thought of as folders or directories, at the lowest level of which appear *theories*, which determine a logical context by extension to previously defined contexts.
-Within a SPaDE respository there will be a versioned hierarchy of folders containing theories.
+Within a [SPaDE](../docs/tlad001.md#spade) respository there will be a versioned hierarchy of folders containing theories.
 Above that level, to enable reference to contexts in other repositories, there will be a further hierarchy of folders or directories, which corresponds (as far as earthly repositories are concerned) to the structure of URL's.
 
 In order for this hierarchy to be open ended, to admit continuous expansion through other planets, star systems and galaxies, all name references will be relative, and access to larger domains will be possible through higher levels of the hierarchy.
 
 Though in principle this makes it possible for developments to take place in the context of the entire known subsystems of the cosmic namespace, we neverthess want to enable each development to take place in a context curated for that development, including only the vocabulary for theories on which the development depends.
-This is essential to enable appropriate focus, and for the operation of the focal AI methods which are to be used in the deductive intelligence subsystem.
+This is essential to enable appropriate focus, and for the operation of the [focal AI](../docs/tlad001.md#focal-intelligence-or-focal-ai) methods which are to be used in the deductive intelligence subsystem.
 
 ### The Context Hierarchy
 
@@ -124,7 +124,7 @@ The second hierarchy is that of contexts.
 A context is formed by extending one or more prior contexts (which may be called *parents*)by adding new names and constraints on those names.
 Such references to prior contexts may be to contexts in the same repository.
 They will always be to specific versions of those contexts, so that the context in which any theorem was proved can be reconstructed.
-Such a reference can be either symbolic or by pointer to the position in the SPaDE Native Repository of the context being referred to.
+Such a reference can be either symbolic or by pointer to the position in the [SPaDE](../docs/tlad001.md#spade) Native Repository of the context being referred to.
 Both of these methods will be used, and the integrity of reference to contexts will be ensured by the use of checksums or hashes and digital signatures to verify the content of each logical context in which any theorem has been derived.
 
 ### Names

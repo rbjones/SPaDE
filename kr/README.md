@@ -1,6 +1,6 @@
 # The Knowledge Repository
 
-This directory contains the design and implementation of the Knowledge Repository component of the SPaDE project.
+This directory contains the design and implementation of the Knowledge Repository component of the [SPaDE](../docs/tlad001.md#spade) project.
 
 The files in this directory are organized as follows:
 
@@ -19,7 +19,7 @@ This supplements the general philosophical materials in the [docs](../docs/READM
 At the moment we have three muddled documents in this section, which will be rationalised in due course.
 
 - [krph001.md](krph001.md) - Knowledge Repository Philosophical Background
-- [krph002.md](krph002.md) - Universality in the Representation of Declarative Knowledge
+- [krph002.md](krph002.md) - Universality in the Representation of [Declarative Knowledge](../docs/tlad001.md#declarative-knowledge)
 - [krph003.md](krph003.md) - Philosophical Background for the Knowledge Repository
 
 ## Architectural Design
@@ -33,16 +33,16 @@ This section includes documents that outline the architectural design of the Kno
 This section includes documents that provide a high-level design of the Knowledge Repository.
 
 - [krhd002.md](krhd002.md) - Prototyping strategies for knowledge repository development
-- [krhd003.md](krhd003.md) - Scraping ProofPower HOL Theories into a SPaDE Repository
+- [krhd003.md](krhd003.md) - Scraping ProofPower HOL Theories into a [SPaDE](../docs/tlad001.md#spade) Repository
 
 ## Detailed Design
 
 This section includes documents that provide a detailed design of the Knowledge Repository.
 
-- [krdd001.md](krdd001.md) - ProofPower HOL interfaces for SPaDE theory export
-- [krdd002.md](krdd002.md) - SPaDE Native repository format
+- [krdd001.md](krdd001.md) - ProofPower HOL interfaces for [SPaDE](../docs/tlad001.md#spade) theory export
+- [krdd002.md](krdd002.md) - [SPaDE](../docs/tlad001.md#spade) Native repository format
 - [krdd003.md](krdd003.md) - Formal specification of the repository structure in HOL4 SML.
-- [krdd004.md](krdd004.md) - Detail descrription of Procedures for SPaDE Native Repository I/O
+- [krdd004.md](krdd004.md) - Detail descrription of Procedures for [SPaDE](../docs/tlad001.md#spade) Native Repository I/O
 
 ## Code
 
@@ -54,7 +54,7 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd003.py](krcd003.py) - Repository read and write
 - [krcd004.json](krcd004.json) - JSON schema for the HOL datatype hterm
 - [krcd005.sml](krcd005.sml) - ProofPower HOL Database Export
-- [krcd006.sml](krcd006.sml) - HOL4 specification of SPaDE repository
+- [krcd006.sml](krcd006.sml) - HOL4 specification of [SPaDE](../docs/tlad001.md#spade) repository
 
 ## Testing and Evaluation
 
@@ -69,11 +69,11 @@ This material will either be moved into the new structure or into other document
 
 ## Overview
 
-The Knowledge Repository is a core component of the SPaDE architecture that provides a distributed, shared repository for declarative knowledge. It breaks with the traditional LCF paradigm by decoupling knowledge storage from the deductive kernel, permitting the repository to be distributed and open ended.
+The Knowledge Repository is a core component of the [SPaDE](../docs/tlad001.md#spade) architecture that provides a distributed, shared repository for [declarative knowledge](../docs/tlad001.md#declarative-knowledge). It breaks with the traditional LCF paradigm by decoupling knowledge storage from the deductive kernel, permitting the repository to be distributed and open ended.
 
 ## Key Features
 
-- **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all declarative knowledge.  The knowledge repository does not contain concrete syntax and is not ties to any concrete physical representation, though there is a native SPaDE representation which is used for repositories constructed by SPaDE kr rather than other sources viewed as kr repos.
+- **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all [declarative knowledge](../docs/tlad001.md#declarative-knowledge).  The knowledge repository does not contain concrete syntax and is not ties to any concrete physical representation, though there is a native [SPaDE](../docs/tlad001.md#spade) representation which is used for repositories constructed by [SPaDE](../docs/tlad001.md#spade) kr rather than other sources viewed as kr repos.
 - **Distributed Architecture**: Supports widely distributed shared knowledge repositories and incorporates knowledge from diverse sources, provide with appropriate metadata for interpretation.
 - **Version Control**: Maintains versioned contexts or theories in a WORM repository
  **Diverse Storage Support** as well as read/write support for native repositories, read access to diverse knowledge and data sources will be supported by special interfaces using metadata for interpretation.
@@ -84,8 +84,8 @@ The Knowledge Repository is a core component of the SPaDE architecture that prov
 The Knowledge Repository is structured around the concept of **contexts** which are similar to theories in other HOL ITP systems, but which are not repositories for theorems (which are held in caches managed by di specialists in each context).
 The term theory is used to refer to a collection of context extensions (usually conservative) which yields a new context by introducing new names and constraints.
 
-Metatheory is intended to be a significant feature of SPaDE, and metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
-A major part of such metadata is expected to be the demonstration of derived rules of inference, use of which is expected to displace in SPaDE the role of tactics and other high level proof facilities in more tranditional LCF proof support.
+Metatheory is intended to be a significant feature of [SPaDE](../docs/tlad001.md#spade), and metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
+A major part of such metadata is expected to be the demonstration of derived rules of inference, use of which is expected to displace in [SPaDE](../docs/tlad001.md#spade) the role of tactics and other high level proof facilities in more tranditional LCF proof support.
 
 ## Contributing
 

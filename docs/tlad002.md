@@ -1,14 +1,14 @@
 # SPaDE Project Aims and Ambitions
 
-The SPaDE project has the following main objectives:
+The [SPaDE](tlad001.md#spade) project has the following main objectives:
 
 - To argue that the abstract representation of the logic known
-as *Cambridge HOL* is suitable as a general representation form for declarative knowledge irrespective of what language or coding it may have been presented or stored in.
+as *Cambridge HOL* is suitable as a general representation form for [declarative knowledge](tlad001.md#declarative-knowledge) irrespective of what language or coding it may have been presented or stored in.
 
 - To articulate a conception of a
 [deductive paradigm shift](tlph005.md) which,
 with the benefit of effective automation only possible through AI
-will transform the exploitation of declarative knowledge
+will transform the exploitation of [declarative knowledge](tlad001.md#declarative-knowledge)
 from computation processes of uncertain effect to
 formally verified computation yielding unambiguous and reliable truths.
 

@@ -6,4 +6,4 @@ Its probably going to remain almost empty.
 
 The contents are:
 
-- [tlep001.tex](tlep001.tex) - A start on an abstract for a conference paper on SPaDE.  Originally intended for CPP 2026 but not completed.
+- [tlep001.tex](tlep001.tex) - A start on an abstract for a conference paper on [SPaDE](../tlad001.md#spade).  Originally intended for CPP 2026 but not completed.
