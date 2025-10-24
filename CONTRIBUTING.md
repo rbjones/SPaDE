@@ -1,4 +1,6 @@
-# Contributing to SPaDE
+---
+title: Contributing to SPaDE
+---
 
 Information for contributors to the [SPaDE](docs/tlad001.md#spade) project is at present somewhat disorganized and incomplete.
 
