@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Set up ProofPower and run tests
+        shell: zsh
         run: |
           # Check environment
           echo "Current PATH: $PATH"
@@ -42,6 +43,7 @@ jobs:
           fi
           
       - name: Run SPaDE integration tests
+        shell: zsh
         run: |
           # Run integration test script if it exists
           if [ -f common/test-spade-integration.sh ]; then
