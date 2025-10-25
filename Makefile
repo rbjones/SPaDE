@@ -1,9 +1,11 @@
 # SPaDE Project Makefile
 # Synthetic Philosophy and Deductive Engineering
 
-.PHONY: all clean dk kr docs test help
+.PHONY: all clean current dk kr docs test help
 
 # Default target
+current: kr-test
+
 all: docs di dk kr
 
 # Component targets with argument passthrough
@@ -14,7 +16,7 @@ dk-%:
 	$(MAKE) -C dk $*
 
 kr-%:
-	$(MAKE) -C kr $*
+	$(MAKE) -C kr -f krci001.mkf $*
 
 docs-%:
 	$(MAKE) -C docs $*

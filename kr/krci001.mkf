@@ -1,0 +1,43 @@
+# SPaDE kr Makefile
+# Knowledge Repository
+
+.PHONY: all clean current dk kr docs test help
+
+# Default target
+
+current: test
+
+# File classified by build method
+
+PPHOLSMLFILES = krcd005.sml 
+HOL4SMLFILES = krcd006.sml 
+PYTHONFILES = krcd001.sml krcd002.py krcd003.py krcd006.py krcd007.py
+
+PPHOLSMLLDD = $(PPHOLSMLFILES:.sml=.ldd)
+HOL4SMLLDD = $(HOL4SMLFILES:.sml=.ldd)
+
+LDDS = $(PPHOLSMLLDD) $(HOL4SMLLDD)
+
+HEAPSUFFIX = polydb
+PPDBNAME = daz
+PPPOLYDB = $(PPDIR)/bld/db/$(PPDBNAME).$(HEAPSUFFIX)
+PPDBLDD = $(PPDBNAME).ldd
+PPMLDBPFX = ""
+PPRUNML = pp-ml
+
+# Rules
+
+$(PPHOLSMLLDD): %.ldd: %.sml
+	@rm -f $@ $*.err 2>/dev/null
+	. $(PPDIR)/dev_env
+	which pp-ml
+	@echo "Compiling (code) using $(PPRUNML)" $<
+	@echo "PPBuild.pp'load \"$<\";"\
+		| $(PPRUNML) $(PPMLDBPFX)$(PPPOLYDB) > $*.err
+	@echo "+++ Compiled $<: OK (Compilation Run Complete) +++" >> $*.err
+	@mv $*.err $@
+
+test: $(PPHOLSMLLDD)
+
+clean:
+	rm -f $(LDDS)

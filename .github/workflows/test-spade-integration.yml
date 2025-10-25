@@ -34,24 +34,17 @@ jobs:
           which pp || echo "ProofPower not found in PATH"
           
           # Test basic ProofPower functionality
-          pp -d hol <<< "print_theory \"basic_hol\";"
-          
-          # Test basic SML syntax if files exist
-          if [ -f kr/krcd005.sml ]; then
-            echo "Testing SML syntax..."
-            pp -d hol <<< "use_file \"kr/krcd005.sml\";"
-          fi
+          pp -d hol <<< "print_theory \"basic_hol\";quit();"
           
       - name: Run SPaDE integration tests
         shell: bash
         run: |
-          # Run integration test script if it exists
-          if [ -f common/test-spade-integration.sh ]; then
-            chmod +x common/test-spade-integration.sh
-            ./common/test-spade-integration.sh
-          else
-            echo "No integration test script found - creating basic test"
-            echo "SPaDE repository structure test passed"
-          fi
-          echo "Running SPaDE repository tests..."
-          # Your test script here
+          # Check environment
+          echo "Current PATH: $PATH"
+          export PPDIR=/proofpower-source
+          echo "workspace directory contents:"
+          ls -la /workspace
+          # Source the ProofPower development environment
+          . /proofpower-source/dev_env
+          # Run default SPaDE tests
+          make
