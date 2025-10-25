@@ -43,7 +43,7 @@ jobs:
           fi
           
       - name: Run SPaDE integration tests
-        shell: zsh
+        shell: bash
         run: |
           # Run integration test script if it exists
           if [ -f common/test-spade-integration.sh ]; then
