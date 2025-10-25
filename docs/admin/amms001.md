@@ -31,20 +31,20 @@ Subsystem codes:
 - **rv** review reports e.g. from copilot
 - **am** administration and management
 - **co** low level common materials
-
 Document kinds:
 
-- **ph**: Philosophical materials
-- **ad**: Architectural level design
-- **hd**: High level design
-- **dd**: Detailed design
-- **cd**: Detailed formal specifications and code
-- **ms**: Methods and standards
-- **pl**: Plans and strategies
-- **td**: Task descriptions
-- **pd**: Process or procedure descriptions
-- **te**: Testing and evaluation
-- **ep**: Papers intended for external publication
+- **ph** Philosophical materials
+- **ad** Architectural level design
+- **hd** High level design
+- **dd** Detailed design
+- **cd** Detailed formal specifications and code
+- **ci** Continuous integration, release and deployment
+- **ms** Methods and standards
+- **pl** Plans and strategies
+- **td** Task descriptions
+- **pd** Process or procedure descriptions
+- **te** Testing and evaluation
+- **ep** Papers intended for external publication
 
 After the two prefixes documents will have a three digit number starting at 001 for each kind of document.
 Document suffixes will generally indicate the language in which the document is written.
