@@ -21,10 +21,11 @@ jobs:
         run: |
           # Check environment
           echo "Current PATH: $PATH"
-          echo "root directory contents:"
-          ls -la /
-          # Source the ProofPower environment
-          . /proofpower/dev_env
+          export PPDIR=/proofpower-source
+          echo "workspace directory contents:"
+          ls -la /workspace
+          # Source the ProofPower development environment
+          . /proofpower-source/dev_env
           
           echo "Testing HOL theory hierarchy scraping..."
           
