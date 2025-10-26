@@ -62,18 +62,19 @@ Often associated with the acceleration of AI development expected when AI is abl
 
 ### Singular Focus
 
-The use of focal intelligence to approach [*The Singularity*)(#the-singularity), by giving priority to the capabilities which enable AI to improve its own design and implementation.
+The use of focal intelligence to approach [*The Singularity*](#the-singularity), by giving priority to the capabilities which enable AI to improve its own design and implementation.
+There are multiple levels at which focus on reflexive capabilities can be beneficial, and this is a special kind of [focal engineering](#focal-engineering) which influences the development strategy for SPaDE.
 
 ### SPaDE
 
 An acronym for *Synthetic Philosophy and Deductive Engineering*.
-The name of an open source knowledge engineering project with a repository at github.com/rbj/SPaDE.
+The name of an open source knowledge engineering project with a repository at [github.com/rbjones/SPaDE](https://github.com/rbjones/SPaDE).
 
 ### Synthetic Epistemology
 
 Those part of [synthetic philosophy](#synthetic-philosophy) seeking to understand knowledge by designing the epistemic engines of the future.
 
-### Synthetic Philosophy
+### [Synthetic Philosophy](tlph002.md)
 
 A constructive philosophy seeking to understand the future by shaping it, primarily through deductive engineering including [synthetic epistemology](#synthetic-epistemology).
 

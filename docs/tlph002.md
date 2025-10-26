@@ -3,7 +3,48 @@
 Logical Positivism was that manifestation of positivism created in the wake of the great advances in the logical foundations of mathematics which took place around the turn of the 20th century.
 In the philosophy of Rudolf Carnap, inspired by the work of Bertrand Russell on the formalisation of mathematics and his ideas for "scientific philosophy", it promoted and facilitated the application of formal deductive systems to the advancement of logical rigour in philosophy and science.
 
+## Superstructure
+
+Probably the parts of this *philosophy* which are closest to academic analytic philosophy are those closest to the philosophical and logical foundations.
+But these ideas are unlikely to be well understood in isolation from the broader context of the *engineering* and *ethical* purpose which motivates them, and determines the synthetic character of the philosophy.
+
+In this document I shall try to address the foundational elements of synthetic philosophy, but feel the need to place those ideas in the context they serve by saying a litle about the superstructure which they are intended to support.
+
+
+### Purpose
+
+Synthetic Philosophy has purpose, and is engineered to advance that purpose.
+
 [Synthetic Philosophy](tlad001.md#synthetic-philosophy) is the name I have adopted for a successor to logical positivism oriented more broadly to Science, Technology Engineering and Mathematics (STEM).
+
+That orientation is instrumental.
+Synthetic philosophy is itself engineered to advance an ethical agenda derived from a rational speculation about the very long term future of intelligence in the cosmos.
+A sketch of the thinking which has lead to Synthetic Philosophy may be found as a [A STEM Fantasy and Ethical Consequence](tlph001.md).
+
+It is therefore a purposeful philosophy, anticipating key elements of the longer term proliferation of intelligence with the intent of influencing the moral character of that proliferation.
+At this point, I have little more to say about that purpose than that the proliferation should be benign, which I associate a preference for cooperation over conflict.
+Hopefully some elaboration and refinement will emerge as the project progresses, but the project will be mainly focussed on the manner in which its proliferation is engineered.
+
+
+Synthetic Philosophy has a layered structure which corresponds both to an [epistemological stack](tlph003.md) and a [focal tower](tlph004.md).
+
+The epistemological stack reflects the tripartite division in declarative knowledge, found in the philosophy of David Hume and also in Logical Positivism, into analytic, synthetic and normative knowledge.
+This is considered a stack since each layer builds on and makes use of the previous layers.
+In this, it is similar to a software stack.
+It is also a foundational structure (of more than three layers) most conspicuous in the lower levels where we find philosophy and logic providing formal foundations for mathematics and all analytic knowledge, which in turn provide a basis for science and engineering.
+The normative layer at the top of the stack is concerned with values and ethics, and provides the motivation for the whole enterprise of knowledge acquisition and application.
+
+The focal tower reflects the importance of specialisations to the effectiveness of constructive endeavours, and the focus required to address difficult problems in each domain.
+It recognises a variety of ways in which focus is enabled and exploited, the most basic of which corresponds to the layers of the epistemological stack,
+
+
+
+ in which abstract deductive reasoning underpins concrete knowledge of the world, which in turn underpins normative knowledge of values and ethics.
+in which abstract deductive reasoning underpins concrete knowledge of the world, which in turn underpins normative knowledge of values and ethics.
+
+
+
+
 A feature of the [SPaDE](tlad001.md#spade) project is its emphasis on *[focal](tlad001.md#focal) methods*, which involves the clarification of purpose and the concentration of effort on those aspects of knowledge engineering which are most relevant to the achievement of that purpose.
 
 The [SPaDE](tlad001.md#spade) project is an engineering manifestation of that philosophy, and this presentation of [synthetic philosophy](tlad001.md#synthetic-philosophy) is intended to show the main features of the philosophical system in alignment with the goals and structure of the project.
