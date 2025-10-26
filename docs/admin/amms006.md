@@ -6,15 +6,13 @@ This document describes how to maintain glossary links in the SPaDE documentatio
 
 The SPaDE project maintains a glossary of important terms in `docs/tlad001.md`. To improve documentation navigability, occurrences of these terms throughout the documentation should link to their glossary definitions.
 
-## The add_glossary_links.py Script
+## Adding Glossary Links
 
-The `add_glossary_links.py` script in this directory automates the process of adding glossary links to the documentation.
+The `amcd001.py` script in this directory automates the process of adding glossary links to the documentation.
 
 ### Location
 
-```
-docs/admin/add_glossary_links.py
-```
+[docs/admin/amcd001.py](./amcd001.py)
 
 ### Usage
 
@@ -122,6 +120,7 @@ However, automatic link addition in CI/CD is not recommended without human revie
 Suppose you add a new term "Metatheory" to the glossary with anchor `#metatheory`.
 
 1. Edit `docs/admin/add_glossary_links.py`:
+
    ```python
    TERMS = [
        # ... existing terms ...
@@ -131,6 +130,7 @@ Suppose you add a new term "Metatheory" to the glossary with anchor `#metatheory
    ```
 
 2. Run a dry-run:
+
    ```bash
    python3 docs/admin/add_glossary_links.py --dry-run
    ```
@@ -138,11 +138,13 @@ Suppose you add a new term "Metatheory" to the glossary with anchor `#metatheory
 3. Review the output to see where "Metatheory" would be linked
 
 4. Apply the changes:
+
    ```bash
    python3 docs/admin/add_glossary_links.py
    ```
 
 5. Review the changes:
+
    ```bash
    git diff
    ```
@@ -150,6 +152,7 @@ Suppose you add a new term "Metatheory" to the glossary with anchor `#metatheory
 6. Fix any nested links or formatting issues manually
 
 7. Commit:
+
    ```bash
    git add .
    git commit -m "Add glossary links for new term 'Metatheory'"

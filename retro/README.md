@@ -14,8 +14,8 @@ for example ProofPower or possibly Clean, will be necessary or desitable.
 ## Subdirectory `np`
 
 In the first instance the materials found in the np directory come from
-research conducted by me using ProofPower over a 30 year period, and will
-contribute in the first instance to the formal specification of the
+research conducted by me using ProofPower over a 30 year period, and may
+contribute to the formal specification of the
 proposed logical kernel and the facilities for defining inductive
 datatypes, which, though not part of the kernel are necessary for the
 reflexive reasoning which will be essential to the self-extension of the

@@ -19,18 +19,24 @@ High level and project wide documentation will be in the [docs](../README.md) di
 
 ## File Naming Convention
 
-The eneral policy on naming of documents is that they should be in numerical series prefixed by short identifiers for the subsystem, and for the kind of document as follows.
+The general policy on naming of documents is that they should be in numerical series prefixed by short identifiers for the subsystem or subdirectory, and for the kind of document as follows.
+This seems to be morphing to using the subsystem codes for directories, whether or not they are subsystems, so that the README.doc indexes all the documents with the same subsystem code.
+
+This needs to be made sufficiently systematic for all contributors (including copilot) to be able to choose filenames and maintain README.md files consistently.
 
 Subsystem codes:
 
-- **tl** top level, system wide
-- **kr** knowledge repository
-- **dk** deductive kernel
-- **di** deductive intelligence
-- **mc** MCP server
-- **rv** review reports e.g. from copilot
-- **am** administration and management
-- **co** low level common materials
+- **am** docs/admin - administration and management
+- **co** common -low level common materials
+- **di** di - deductive intelligence
+- **dk** dk - deductive kernel
+- **do** docs - philosophy and architecture
+- **gh** .github - github workflows and actions etc.
+- **kr** kr - knowledge repository
+- **mcp** mcp - MCP server and A2A protocol
+- **rv** reviews - review reports e.g. from copilot
+- **tl** ? - top level, system wide (may be phased out)
+
 Document kinds:
 
 - **ph** Philosophical materials

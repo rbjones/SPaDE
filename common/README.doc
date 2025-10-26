@@ -1,0 +1,13 @@
+# Low level Common materials
+
+This directory is likely to be a hotpotch.
+
+The kinds of material in it are as follows:
+
+- [**Source files**](source files)
+
+## Source files
+
+- [test-spade-integration.py](test-spade-integration.py) Script for integration testing in workflow automation.
+- [list_na.sml](list_na.sml) Script for ProofPower to inhibit use of aliases in theory listings 
+- [list_wa.sml](list_wa.sml) Script for ProofPower to enable use of aliases in theory listings 
