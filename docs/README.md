@@ -22,7 +22,7 @@ Philosophy and architecure are intertwined and therefore begin together with:
 
 ## Project Structure and Processes
 
-- [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) - Repository organisation overview
+- [tlad003.md](./tlad003.md) - Repository organisation overview
 
 ## [**Admin Directory**](admin/README.md)
 

@@ -18,7 +18,7 @@ The fundamental insights upon which the [SPaDE](docs/tlad001.md#spade) architect
 
 Further elaboration of the '[synthetic philosophy](docs/tlad001.md#synthetic-philosophy)' which underpins the project, and the architecture for proliferation which emerges from it, appears in the [docs](docs/README.md) directory:
 
-[**[SPaDE](docs/tlad001.md#spade) Project Philosophy, Architecture, and Administration**](./docs/README.md)
+[**SPaDE Project Philosophy, Architecture, and Administration (docs directory)**](./docs/README.md)
 
 together with all other project documentation not specific to the three subsystems of special concern, which are:
 
