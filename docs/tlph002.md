@@ -1,7 +1,23 @@
 # Synthetic Philosophy
 
+In the SPaDE project, philosophy and engineering are cheek by jowl, and the distinction between them is not clearly made.
+A central point of engagement is throught the emphasis in deductive engineering on the exploitation of knowledge in the solution of real world problems, and the importance of epistemology as a fundamental approach to knowledge and the design of infrastructure for the management and exploitation of knowledge.
+Once philosophy is thought of as synthesis rather than an observation, it becomes a necessary prelude to the architecture of knowledge repositories and application of deductive methods to engineering problems.
+
 Logical Positivism was that manifestation of positivism created in the wake of the great advances in the logical foundations of mathematics which took place around the turn of the 20th century.
 In the philosophy of Rudolf Carnap, inspired by the work of Bertrand Russell on the formalisation of mathematics and his ideas for "scientific philosophy", it promoted and facilitated the application of formal deductive systems to the advancement of logical rigour in philosophy and science.
+[Synthetic Philosophy](tlad001.md#synthetic-philosophy) is intended as a successor to Logical Positivism, oriented more broadly to Science, Technology Engineering and Mathematics (STEM) and to all applications in which deduction may play a role.
+
+The structure of this exposition is a bit like a roller coaster.
+In various ways I think of SPaDE and its philosophy as a stack with certain things at the top and others below.
+There are multiple presentations having that kind of structure, some more philosophically oriented, in particular the [epistemological stack](tlph003.md), and some more engineering oriented, notably the [focal tower](tlph004.md).
+From the philosophical perspective, at the bottom are the foundations: metaphysics, philosophy of language, epistemology, logic and *a priori* or analytic truth, in the middle empirical knowledge the STE of STEM, and at the top the third of the Humean trichotomy values, ethics and *purpose*.
+
+We begin at the top, so that the whole may be considered in the light of the supervening purpose which it is intended to serve, and then look down to the foundations which underpin it, concluding rather more briefly in the middle ground, which for present purposes I characterise as *concrete philosophy*.
+
+- [**Superstructure**](#superstructure)
+- [**Foundations**](#)
+- [**Concrete Philosophy**](#concrete-philosophy)
 
 ## Superstructure
 
@@ -9,7 +25,6 @@ Probably the parts of this *philosophy* which are closest to academic analytic p
 But these ideas are unlikely to be well understood in isolation from the broader context of the *engineering* and *ethical* purpose which motivates them, and determines the synthetic character of the philosophy.
 
 In this document I shall try to address the foundational elements of synthetic philosophy, but feel the need to place those ideas in the context they serve by saying a litle about the superstructure which they are intended to support.
-
 
 ### Purpose
 
@@ -37,19 +52,14 @@ The normative layer at the top of the stack is concerned with values and ethics,
 The focal tower reflects the importance of specialisations to the effectiveness of constructive endeavours, and the focus required to address difficult problems in each domain.
 It recognises a variety of ways in which focus is enabled and exploited, the most basic of which corresponds to the layers of the epistemological stack,
 
-
-
  in which abstract deductive reasoning underpins concrete knowledge of the world, which in turn underpins normative knowledge of values and ethics.
 in which abstract deductive reasoning underpins concrete knowledge of the world, which in turn underpins normative knowledge of values and ethics.
-
-
-
 
 A feature of the [SPaDE](tlad001.md#spade) project is its emphasis on *[focal](tlad001.md#focal) methods*, which involves the clarification of purpose and the concentration of effort on those aspects of knowledge engineering which are most relevant to the achievement of that purpose.
 
 The [SPaDE](tlad001.md#spade) project is an engineering manifestation of that philosophy, and this presentation of [synthetic philosophy](tlad001.md#synthetic-philosophy) is intended to show the main features of the philosophical system in alignment with the goals and structure of the project.
 
-[Synthetic Philosophy](tlad001.md#synthetic-philosophy) is primarily *epistemological*, which is to say the it is intended to underpin the acquisition and application of knowledge.
+[Synthetic Philosophy](tlad001.md#synthetic-philosophy) is primarily *epistemological*, which is to say that it is intended to underpin the acquisition and application of knowledge.
 It is presented here as falling into three parts, distinguished by the epistemological status of the propositions which concern them, and the domains of knowledge to which they relate.
 
 1. [*Abstract Philosophy*](#abstract-philosophy) underpins the whole enterprise, and does so by addressing *a priori* knowledge in abstract domainsand its relation to [declarative knowledge](tlad001.md#declarative-knowledge) generally.
@@ -59,8 +69,9 @@ It is presented here as falling into three parts, distinguished by the epistemol
 These three parts of [synthetic philosophy](tlad001.md#synthetic-philosophy) are interrelated.
 Each is prerequisite to its successors, and a motivator for its predecessors.
 This relationship is discussed in greater detail as constituting an [Epistemological Stack](tlph003.md) which influences the architecture of the [SPaDE](tlad001.md#spade) project.
+This epistemological stack of synthetic philosophyis complemented by a parallel structure in the [Focal Tower](tlph004.md) of stages in *deductive engineering* supporting evolution of information processing to a deductive paradigm.
 
-## Abstract Philosophy
+## Foundations
 
 Though practically, and ethically oriented, [synthetic philosophy](tlad001.md#synthetic-philosophy) includes and is constructed upon foundations belonging to what is here labelled *abstract philosophy* by which I mean:
 - [epistemology](#epistemology) - on [declarative knowledge](tlad001.md#declarative-knowledge) and its applications
@@ -112,12 +123,29 @@ But [deduction](tlad001.md#deduction) is a feature of declarative language, and 
 
 ### Logic
 
+The propositions of declarative language express through their truth conditions constraints on how their subject matter may be, which is to say what things the various names in the language may denote.
+These constraints give rise to a relationship of entailment, which obtains when the constraints imposed by some set of declarative sentences encompass those imposed by another sentence.
+In such cases we may infer the latter sentence from the former set.
+This is the essence of deductive reasoning, which is the method by which scientific theories can be applied to predict and control phenomena in the world.
 
+In order to determine when such entailments obtain, we seek an effective method for establishing entailments.
+For languages of sufficient expressiveness for many practical applications, it is known that no such effective method exists, but practically useful semi-decision procedures are available which suffice for practical applications.
+
+These semi-decision procedures are the subject matter of [logic](tlad001.md#logic) as it relates to [declarative knowledge](tlad001.md#declarative-knowledge), and the design of such procedures is a key part of the [SPaDE](tlad001.md#spade) project, in which some innovation is anticipated.
+The procedures are normally defined as the closure of a set of axioms under a set of 'primitive' inference rules, and the most rigorous automated support for formal reasoning found in interactive theorem provers (ITPs) are often implemented in accordance with the 'LCF paradigm', in which all theorems must be proven by reduction to the primitive inference rules.
+Increasingly however, ITPs support some kind of 'reflexive' metatheoretic extension to the primitive rules in which more efficient forms of reasoning may be shown to be consistent with the primitive rules and may then be applied directly without reduction to the primitive rules.
+
+Such metatheoretic extension is part of a broader application of reflexion forming a key part of the focal engineering methods pervasive in the [SPaDE](tlad001.md#spade) project.
+A significant instance of this comes in the idea of *singular focus*, where reflexive methods incorporated into the realisation of some capability enable that capability to improve its own design and implementation.
 
 ## Concrete Philosophy
 
+Concrete philosophy is the domain of empirical truth and physical engineering.
+In the SPaDE project, concrete philosophy is addressed through the construction and application of abstract models of physical systems, expressed in declarative language and subject to deductive reasoning.
+We may think of these models as isomorphic to aspects of the material world and given semantically by a bijection between the abstract entities of the model and the concrete entities of the physical system being modelled.
 
 
 ## Normative Philosophy
 
 The normative part of [synthetic philosophy](tlad001.md#synthetic-philosophy) is concerned with purpose, values and ethics.
+
