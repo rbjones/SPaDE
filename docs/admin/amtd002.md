@@ -20,12 +20,13 @@ This task supports both **initial comprehensive reviews** and **incremental revi
 
 1. **Scan the glossary** in [tlad001.md](../tlad001.md) to extract all defined terms and their variations
 2. **Identify scope** for this review:
-   - **Full review**: Process all eligible markdown files 
+   - **Full review**: Process all eligible markdown files
    - **Incremental review**: Process only files modified since the last glossary linking review, plus check all files for any new glossary terms added since the last review
 
 ### Glossary Term Extraction
 
 Before processing files, automatically extract all terms from the glossary by:
+
 - Parsing section headers (### level) as primary terms
 - Extracting bold phrases (**text**) as term variations  
 - Building a comprehensive term list with anchor links
@@ -45,6 +46,7 @@ The review should cover all markdown (.md) files in the SPaDE project directory 
 - The glossary file itself (docs/tlad001.md) and any other files which might later be created to document the glossary.
 
 The following special cases should be noted:
+
 - If a term is used in a context where it has a different meaning from that given in the glossary, do not insert a hyperlink.
 - If a term is part of a compound term (e.g., "Focal Intelligence"), only link the part of the term which is in the glossary (e.g., "Focal").
 If both a part and a whole are in the glossary, link only the whole (e.g., link "Focal Intelligence" but not "Focal" in that phrase).
