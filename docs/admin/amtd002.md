@@ -17,9 +17,30 @@ There will not always be a suitable link destination, in which case the glossary
 Before undertaking this task, familiarise yourself with the contents of the glossary in [tlad001.md](../tlad001.md).
 There will already have been a review of the documentation to repair any broken hyperlinks, so repair of broken links is not part of this task, but any encountered should be reported.
 
-The task involves scanning the project documentation for terms which are included in the glossary, and inserting hyperlinks from each occurrence of the term to the corresponding entry in the glossary.
+The task involves scanning the project documentation for terms which are included in the glossary, and inserting hyperlinks from each occurrence of such terms to the corresponding entry in the glossary.
 The term itself should be unchanged in the documentation, with only the addition of the hyperlink.
 Where a term occurs multiple times in a document, all occurrences should be linked to the glossary entry.
+
+The review should cover all markdown (.md) files in the SPaDE project directory and subdirectories, excluding:
+
+- The `reviews/` directory
+- The `retro/` directory  
+- Any directory whose name begins with `.`
+- The glossary file itself (docs/tlad001.md) and any other files which might later be created to document the glossary.
+
+The following special cases should be noted:
+- If a term is used in a context where it has a different meaning from that given in the glossary, do not insert a hyperlink.
+- If a term is part of a compound term (e.g., "Focal Intelligence"), only link the part of the term which is in the glossary (e.g., "Focal").
+If both a part and a whole are in the glossary, link only the whole (e.g., link "Focal Intelligence" but not "Focal" in that phrase).
+
+- Avoid linking terms that are:
+  - Already inside existing markdown links
+  - Inside code blocks (inline or fenced)
+  - In headings (to preserve heading structure)
+  - In URLs or other special contexts
+
+There is a python script available to assist with this task, which can be found in the `docs/admin/amcd001.py` of the SPaDE project repository.
+This script should be reviewed against these instructions and if necessary modifications to it and or this task description to reconciliate the two should be proposed.
 
 ## Deliverables
 

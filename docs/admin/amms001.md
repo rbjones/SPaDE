@@ -2,13 +2,6 @@
 
 The project is organised into subsystems each with its own top-level directory, in addition to which there is a docs directory for materials not specific to any single subsystem.
 
-The subsystems are at present:
-
-- kr - Knowledge Repository
-- dk - Deductive Kernel
-- di - Deductive Intelligence
-- mcp - MCP Server and use of A2A protocol
-
 ## Documentation
 
 Where there is no compelling reason to do otherwise, documents will be written in github markdown, and will be organised in such a way as to provide a transparent and complete view of the project from the project web site on rbjones.github.io/[SPaDE](../tlad001.md#spade)
@@ -103,6 +96,10 @@ These will form the main part of the technical output during the early stages of
 ### Code Documentation
 
 The reflexive nature of the project architecture means that from the earliest possible stage the abstract representation of algorithms will be in the HOL abstract syntax, and concrete syntax will be supplied as required by LLM like general intelligence in an outer shell. The implications of this for the documentation is not yet clear, but the preference will continue to be to address the needs through descriptions in github markdown documents. First prototyping of the logical kernel are likely to be by transcription from HOL to SML.
+
+## Reviews
+
+- Reviews of documents and code are to be placed in the reviews directory with filenames indicating date, time, reviewer and subject.
 
 ## Evolution
 
