@@ -26,4 +26,4 @@ While undertaking these transformations a report should be compiled in which any
 
 ## Deliverables
 
-The resulting edits and the report should be included in a pull request. The report should be entered into the reviews directory of [SPaDE](../tlad001.md#spade) with a name conforming to the document naming conventions specific to reviews in [amms001.md](amms001.md). Reference any specific GitHub workflow for submission if applicable.
+The resulting edits and the report should be included in a pull request. The report should be entered into the reviews directory of [SPaDE](../tlad001.md#spade) with a filename following the pattern `YYYYMMDD-HHMM-author-topic.md` (e.g., `20250101-1430-copilot-link-review.md`). Reference any specific GitHub workflow for submission if applicable.

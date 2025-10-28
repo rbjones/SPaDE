@@ -14,8 +14,24 @@ There will not always be a suitable link destination, in which case the glossary
 
 ## Task Description
 
-Before undertaking this task, familiarise yourself with the contents of the glossary in [tlad001.md](../tlad001.md).
-There will already have been a review of the documentation to repair any broken hyperlinks, so repair of broken links is not part of this task, but any encountered should be reported.
+This task supports both **initial comprehensive reviews** and **incremental reviews** for glossary linking.
+
+### Preparation Phase
+
+1. **Scan the glossary** in [tlad001.md](../tlad001.md) to extract all defined terms and their variations
+2. **Identify scope** for this review:
+   - **Full review**: Process all eligible markdown files 
+   - **Incremental review**: Process only files modified since the last glossary linking review, plus check all files for any new glossary terms added since the last review
+
+### Glossary Term Extraction
+
+Before processing files, automatically extract all terms from the glossary by:
+- Parsing section headers (### level) as primary terms
+- Extracting bold phrases (**text**) as term variations  
+- Building a comprehensive term list with anchor links
+- Noting compound terms (e.g., "Terran Diasporic Repository" vs "Terran")
+
+### Core Task
 
 The task involves scanning the project documentation for terms which are included in the glossary, and inserting hyperlinks from each occurrence of such terms to the corresponding entry in the glossary.
 The term itself should be unchanged in the documentation, with only the addition of the hyperlink.
@@ -39,10 +55,32 @@ If both a part and a whole are in the glossary, link only the whole (e.g., link 
   - In headings (to preserve heading structure)
   - In URLs or other special contexts
 
-There is a python script available to assist with this task, which can be found in the `docs/admin/amcd001.py` of the SPaDE project repository.
-This script should be reviewed against these instructions and if necessary modifications to it and or this task description to reconciliate the two should be proposed.
+## Incremental Review Procedure
+
+For efficient incremental reviews, determine:
+
+1. **Files changed since last review**: Use git to identify files modified since the timestamp of the last glossary review report
+2. **New glossary terms**: Compare current glossary content with the term list from the previous review report to identify newly added terms
+3. **Processing strategy**:
+   - **Changed files**: Check for ALL glossary terms (existing + new)  
+   - **Unchanged files**: Check only for NEW glossary terms
+   - **New files**: Check for ALL glossary terms
+
+This approach ensures comprehensive coverage while minimizing unnecessary work.
+
+## Automation Support
+
+There is a python script available to assist with this task, which can be found at `docs/admin/amcd001.py` in the SPaDE project repository.
+
+**Current limitations**: The script uses a hard-coded term list and should be enhanced to:
+
+1. **Dynamically extract** terms from the glossary file
+2. **Support incremental mode** by accepting file lists and term lists as parameters
+3. **Generate reports** comparing current vs previous glossary coverage
+
+The script processes longer phrases first to handle compound terms correctly, and avoids linking terms in code blocks, existing links, and headings.
 
 ## Deliverables
 
 The resulting edits should be included in a pull request.
-A report should be entered into the reviews directory of [SPaDE](../tlad001.md#spade) with a name conforming to the document naming conventions specific to reviews in [amms001.md](amms001.md), this should be included in the pull request.
+A report should be entered into the reviews directory of [SPaDE](../tlad001.md#spade) with a filename following the pattern `YYYYMMDD-HHMM-author-topic.md` (e.g., `20250101-1430-copilot-glossary-links.md`), this should be included in the pull request.
