@@ -37,6 +37,8 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 - [amms003.md](amms003.md) Workflows
 - [amms004.md](amms004.md) Collaborative Guidelines
 - [amms005.md](amms005.md) Guidance for AI Contributions
+- [amms006.md](amms006.md) Glossary Link Maintenance
+- [amms007.md](amms007.md) Glossary Augmentation Procedure
 
 ## Plans and strategies (ampl)
 
