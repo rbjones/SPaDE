@@ -1,5 +1,5 @@
 ---
-title: Contributing to SPaDE
+title: Contributing
 ---
 
 Information for contributors to the [SPaDE](docs/tlad001.md#spade) project is at present somewhat disorganized and incomplete.
@@ -7,7 +7,7 @@ Information for contributors to the [SPaDE](docs/tlad001.md#spade) project is at
 Initially the project is a collaboration between the repository owner (Roger Jones) and AI tools, primarily github copilot-pro.
 The existing documentation is at present oriented towards guidance for Copilot and consists of:
 
-- [Instructions for Copilot](.github/copilot-instructions.md)
+- [Instructions for Copilot](./.github/copilot-instructions.md)
 - [Guidance for AI Contributions](docs/admin/amms005.md)
 - [Collaboration Guidelines](docs/admin/amms004.md)
 

@@ -2,7 +2,7 @@
 
 Note that in this glossary, many terms are given special meanings for SPaDE which may differ from their general usage.
 
-[D](#d)[E](#e)[F](#f)[S](#s)[T](#t)
+[D](#d) [E](#e) [F](#f) [S](#s) [T](#t)
 
 ## D
 
@@ -23,7 +23,8 @@ Design methods are implemented as derived inference rules which prove compliance
 
 Concerning the entire cosmic reach of the progeny of a single origin of intelligence, such as Planet Earth.
 
-- **Diasporic Repository**: A distributed repository spanning the knowledge of an  intelligent diaspora.
+- **Diasporic Repository**: A distributed repository spanning the knowledge of an intelligent diaspora.
+A maximal connected component of the pansophic repository.
 
 ## E
 
@@ -41,17 +42,20 @@ A conceptual framework for understanding how abstract deductive reasoning contri
 
 Giving particular attention to parts of a whole.
 
-### Focal Intelligence or Focal AI
+- **Focal Intelligence or Focal AI**: AI systems specialising in narrow domains enemcumbered by the support of broader capabilities.
+These will often be *perfect information spaces* in which competence can be achieved by exploration of the space without need of training data, as exemplified by Deepmind's AlphaZero.
 
-AI systems specialising in specific perfect information spaces, producing formally verified solutions to problems within those spaces.
-
-### [Focal Engineering](tlph004.md)
-
+- **[Focal Engineering](tlph004.md)**
 The application of focal intelligence to engineering design problems (broadly construed).
 
-### [Focal Tower](tlph004.md/#a-focal-tower)
+- **[Focal Tower](tlph004.md/#a-focal-tower)**
+A conceptual framework for understanding how focal engineering (including singular foci) can be applied to problems in various domains, by identifying the perfect information spaces within those domains and applying appropriate focal AI techniques to solve problems within those spaces.
 
-A conceptual framework for understanding how focal engineering can be applied to problems in various domains, by identifying the perfect information spaces within those domains and applying appropriate focal AI techniques to solve problems within those spaces.
+## P
+
+### Pansophic
+
+Concerning all knowledge in the cosmos.
 
 ## S
 
@@ -62,21 +66,23 @@ Often associated with the acceleration of AI development expected when AI is abl
 
 ### Singular Focus
 
-The use of focal intelligence to approach [*The Singularity*](#the-singularity), by giving priority to the capabilities which enable AI to improve its own design and implementation.
-There are multiple levels at which focus on reflexive capabilities can be beneficial, and this is a special kind of [focal engineering](#focal-engineering) which influences the development strategy for SPaDE.
+The use of focal intelligence to accelerate progress, by giving priority to the capabilities which enable AI to improve its own design and implementation.
+There are multiple levels at which focus on reflexive capabilities can be beneficial, and this is a special kind of *focal engineering* incorporated into the development strategy for SPaDE.
 
 ### SPaDE
 
 An acronym for *Synthetic Philosophy and Deductive Engineering*.
 The name of an open source knowledge engineering project with a repository at [github.com/rbjones/SPaDE](https://github.com/rbjones/SPaDE).
 
-### Synthetic Epistemology
+### Synthetic
 
-Those part of [synthetic philosophy](#synthetic-philosophy) seeking to understand knowledge by designing the epistemic engines of the future.
+Constructed rather than discovered.
 
-### [Synthetic Philosophy](tlph002.md)
+- **Synthetic Epistemology**
+Those part of *synthetic philosophy* seeking to understand knowledge by designing the epistemic engines of the future.
 
-A constructive philosophy seeking to understand the future by shaping it, primarily through deductive engineering including [synthetic epistemology](#synthetic-epistemology).
+- **[Synthetic Philosophy](tlph002.md)**
+A constructive philosophy seeking to understand the future by shaping it, primarily through deductive engineering including *synthetic epistemology*.
 
 ## T
 

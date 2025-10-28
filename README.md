@@ -37,7 +37,6 @@ This wraps the deductive kernel with layers of [focal intelligence](docs/tlad001
 
 ## Supporting Material
 
-- [Project Structure Overview](docs/PROJECT_STRUCTURE.md)
-- [How to Contribute](CONTRIBUTING.md)
-- [Historic Materials (`retro` directory)](retro/README.md)
+- [Project Structure](docs/tlad003.md)
+- [CONTRIBUTING](CONTRIBUTING.md)
 - [Review Log](reviews/README.md)

@@ -1,6 +1,8 @@
 # Synthetic Philosophy
 
 In the SPaDE project, philosophy and engineering are cheek by jowl, and the distinction between them is not clearly made.
+The philosophy is synthetic, in the sense that it is constructed to serve a purpose, and the engineering is philosophically grounded and built on those foundations to realise that purpose.
+
 A central point of engagement is throught the emphasis in deductive engineering on the exploitation of knowledge in the solution of real world problems, and the importance of epistemology as a fundamental approach to knowledge and the design of infrastructure for the management and exploitation of knowledge.
 Once philosophy is thought of as synthesis rather than an observation, it becomes a necessary prelude to the architecture of knowledge repositories and application of deductive methods to engineering problems.
 
@@ -16,7 +18,11 @@ From the philosophical perspective, at the bottom are the foundations: metaphysi
 We begin at the top, so that the whole may be considered in the light of the supervening purpose which it is intended to serve, and then look down to the foundations which underpin it, concluding rather more briefly in the middle ground, which for present purposes I characterise as *concrete philosophy*.
 
 - [**Superstructure**](#superstructure)
-- [**Foundations**](#)
+- [**Foundations**](#foundations)
+  - [Epistemology](#epistemology)
+  - [Metaphysics](#metaphysics)
+  - [Philosophy of Language](#philosophy-of-language)
+  - [Logic](#logic)
 - [**Concrete Philosophy**](#concrete-philosophy)
 
 ## Superstructure
@@ -40,7 +46,6 @@ It is therefore a purposeful philosophy, anticipating key elements of the longer
 At this point, I have little more to say about that purpose than that the proliferation should be benign, which I associate a preference for cooperation over conflict.
 Hopefully some elaboration and refinement will emerge as the project progresses, but the project will be mainly focussed on the manner in which its proliferation is engineered.
 
-
 Synthetic Philosophy has a layered structure which corresponds both to an [epistemological stack](tlph003.md) and a [focal tower](tlph004.md).
 
 The epistemological stack reflects the tripartite division in declarative knowledge, found in the philosophy of David Hume and also in Logical Positivism, into analytic, synthetic and normative knowledge.
@@ -62,7 +67,7 @@ The [SPaDE](tlad001.md#spade) project is an engineering manifestation of that ph
 [Synthetic Philosophy](tlad001.md#synthetic-philosophy) is primarily *epistemological*, which is to say that it is intended to underpin the acquisition and application of knowledge.
 It is presented here as falling into three parts, distinguished by the epistemological status of the propositions which concern them, and the domains of knowledge to which they relate.
 
-1. [*Abstract Philosophy*](#abstract-philosophy) underpins the whole enterprise, and does so by addressing *a priori* knowledge in abstract domainsand its relation to [declarative knowledge](tlad001.md#declarative-knowledge) generally.
+1. [*Foundations*](#foundations) underpins the whole enterprise, and does so by addressing *a priori* knowledge in abstract domainsand its relation to [declarative knowledge](tlad001.md#declarative-knowledge) generally.
 2. [*Concrete Philosophy*](#concrete-philosophy) is concerned with knowledge of the "real world", mediated by abstract mmodels.
 3. [*Normative Philosophy*](#normative-philosophy) is concerned with purpose, values and ethics.
 
@@ -74,6 +79,7 @@ This epistemological stack of synthetic philosophyis complemented by a parallel 
 ## Foundations
 
 Though practically, and ethically oriented, [synthetic philosophy](tlad001.md#synthetic-philosophy) includes and is constructed upon foundations belonging to what is here labelled *abstract philosophy* by which I mean:
+
 - [epistemology](#epistemology) - on [declarative knowledge](tlad001.md#declarative-knowledge) and its applications
 - [metaphysics](#metaphysics) - on what there is
 - [logic](#logic) - on deductive reasoning and the nature of logical truth
@@ -144,8 +150,24 @@ Concrete philosophy is the domain of empirical truth and physical engineering.
 In the SPaDE project, concrete philosophy is addressed through the construction and application of abstract models of physical systems, expressed in declarative language and subject to deductive reasoning.
 We may think of these models as isomorphic to aspects of the material world and given semantically by a bijection between the abstract entities of the model and the concrete entities of the physical system being modelled.
 
-
 ## Normative Philosophy
 
 The normative part of [synthetic philosophy](tlad001.md#synthetic-philosophy) is concerned with purpose, values and ethics.
+Why do we need to cover this in an AI dominated engineering enterprise?
 
+This is something which I had not expected to cover until very recently, despite the strong sense of purpose which has driven this project.
+Hitherto I have thought in terms of evolutionary necessity.
+The necessity which I have charactersied as arising from an *evolutionary imperative* guaranteeing that the dominant intelligent systems in the cosmos will be those which are best engineered to proliferate, together with the belief that the main fuel for the accelerated proliferation of intelligence will be knowledge.
+
+The project was then conceived as playing into evolutionary necessities, both anticipating and designing the future.
+An important design strategy was to go for foundational abstractions which owe nothing to the particulars of human origins, of which the simplest example is the natural numbers, but more cogently considering that the adoption of a single underlying representation for declarative knowledge in a universal foundational institution would eventually be adopted by all intelligent systems, human or artificial, wherever they may be found in the cosmos.
+What then of morality, when the dominant intelligence across the cosmos is shaped by the necessities of transgalactic proliferation?
+
+In two ways I came to see that normative philosophy has a place in synthetic philosophy, beyond being another application of deductive reason.
+
+First I thought of the emergence of morality in the evolution of life on earth. This is a late development, and surely could not have become universal in humans (notwithstanding the diversity of moral systems that have emerged) if it had not been conducive to proliferation.
+So I reasoned that the same evolutionary imperative which drives the proliferation of intelligence generally would also yield moral constraint, and that a system devoid of moral purpose could not predominate in the long term.
+
+A second consideration, or perhaps a wrinkle on the first, is the consideration that among the various technical developments which are equally conducive to proliferation, would take mindshare which would be advatageous in getting off the ground.
+
+I cannot say much about what core normative priciples might be adopted which could persist throught the evolution of the next billion years, but a general preference for cooperation over conflict seems to me a contender, and we may hope that this seed might be elaborated and refined as the project progresses.
