@@ -197,7 +197,9 @@ We retain notes on the intended changes in case in case they ultimately do prove
 
 A significant change which we retain is the use of relative names for types and constants in [SPaDE](../docs/tlad001.md#spade) HOL theories, which is necessary to allow the open-ended distributed nature of [SPaDE](../docs/tlad001.md#spade) repositories.
 
-1. **Relative Names in [SPaDE](../docs/tlad001.md#spade)** HOL theory hierarchies are local to a single polyml database, whereas [SPaDE](../docs/tlad001.md#spade) repositories are intended to be global and long-lived.
+#### Relative Names in [SPaDE](../docs/tlad001.md#spade)
+
+HOL theory hierarchies are local to a single polyml database, whereas [SPaDE](../docs/tlad001.md#spade) repositories are intended to be global and long-lived.
 This leads to a more complex naming structure for theories in [SPaDE](../docs/tlad001.md#spade), into which the simple almost flat namespace of HOL theories must be mapped.
 
 Note also, that the open-ended distributed nature of [SPaDE](../docs/tlad001.md#spade) repositories means that distinct repositories may be combined by adding an extra folder above two existing repositories (this will usually be the combining of two diasporic repositories into an extended diaspora).
@@ -210,7 +212,7 @@ This can be achieved by including all the HOL theories in a single folder which 
 To refer in one theory to a name defined in another theory, the path to that theory must be included in the name, which if the hierarchy is imported from ProofPower HOL will require a one directory uplift and then a path through the theory name to the local name.
 Thus, to refer in the theory *basic_hol* to the constant *name* in the theory "misc" the [SPaDE](../docs/tlad001.md#spade) name would be "(1,[misc;name])" (a pair consisting of a numeric uplift and a sequence of simple names).
 
-2. **Translation of ProofPowerLiterals**
+#### Translation of ProofPower Literals
 
 It had been intended to facilitate the development of metatheoretic reasoning in [SPaDE](../docs/tlad001.md#spade) that a more elaborate kind of literal would be permitted and this would be a change in the HOL term structure.
 
@@ -260,4 +262,3 @@ In [SPaDE](../docs/tlad001.md#spade) parents need not be in the same local repos
 In either case not only the path to the parent theory, but also the displacement in its own local repository are included in the context structure and in a terminating hash created from the whole theory.
 
 The context structure is followed by a list of extensions, each of which introduces new names (possibly none) and a constraint (which may be an axiom or a conservative extension).
-

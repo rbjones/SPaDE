@@ -15,7 +15,6 @@ For the earliest prototyping the requirement is for SML procedures to write [SPa
 - [Context](#context)
 - [Modules](#modules)
 
-
 ## Context
 
 The following documents provide important context for understanding the procedures described here:

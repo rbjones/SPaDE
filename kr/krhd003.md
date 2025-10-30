@@ -1,6 +1,8 @@
 # Scraping ProofPower HOL Theories into a SPaDE Repository
 
-The ProofPower HOL system has a large and well structured library of theories, which is a good candidate for initial population of a [SPaDE](../docs/tlad001.md#spade) repository, and will serve as a basis for early prototyping of the [SPaDE](../docs/tlad001.md#spade) knowledge repository and deductive intelligence subsystems.
+The ProofPower HOL system has a library of theories, which is a good first candidate for initial population of a [SPaDE](../docs/tlad001.md#spade) repository, and will serve as a basis for early prototyping of the [SPaDE](../docs/tlad001.md#spade) knowledge repository and the SPaDE MCP server.
+Even larger libraries exist for other ITP systems, such as HOL4 and Lean, and these may be considered for import into SPaDE as the project progresses.
+
 This document describes the process of extracting the content of the ProofPower HOL library into a [SPaDE](../docs/tlad001.md#spade) native repository.
 
 The ProofPower HOL system is implemented in Standard ML.

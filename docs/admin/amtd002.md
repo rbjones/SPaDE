@@ -29,6 +29,7 @@ The review should cover all markdown (.md) files in the SPaDE project directory 
 - The glossary file itself (docs/tlad001.md) and any other files which might later be created to document the glossary.
 
 The following special cases should be noted:
+
 - If a term is used in a context where it has a different meaning from that given in the glossary, do not insert a hyperlink.
 - If a term is part of a compound term (e.g., "Focal Intelligence"), only link the part of the term which is in the glossary (e.g., "Focal").
 If both a part and a whole are in the glossary, link only the whole (e.g., link "Focal Intelligence" but not "Focal" in that phrase).

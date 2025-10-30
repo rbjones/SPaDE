@@ -2,7 +2,7 @@
 
 Note that in this glossary, many terms are given special meanings for SPaDE which may differ from their general usage.
 
-[D](#d) [E](#e) [F](#f) [S](#s) [T](#t)
+[D](#d) [E](#e) [F](#f) [I](#i) [M](#m)  [P](#p)  [S](#s) [T](#t)
 
 ## D
 
@@ -73,8 +73,9 @@ A conceptual framework for understanding how focal engineering (including singul
 
 ### Institution
 
-- An organised society or establishment founded for a specific purpose.
-- A category of related logical systems sharing common syntax and semantics, such as first order logic or higher order logic.
+1. An organised society or establishment founded for a specific purpose.
+
+2. A category of related logical systems sharing common syntax and semantics, such as first order logic or higher order logic.
 
 ### Foundational Institution
 
@@ -134,10 +135,10 @@ The name of an open source knowledge engineering project with a repository at [g
 
 Constructed rather than discovered.
 
-- **Synthetic Epistemology**
-Those part of *synthetic philosophy* seeking to understand knowledge by designing the epistemic engines of the future.
-
-- **[Synthetic Philosophy](tlph002.md)**
+- **[Synthetic Epistemology](tlph002.md#epistemology)(SPaDE)**
+Those part of *synthetic philosophy* (SPaDE) seeking to understand knowledge by designing the epistemic engines of the future.
+- **Synthetic Philosophy(1)**: A philosophical approach that seeks to integrate and unify knowledge from diverse fields and disciplines into a coherent, comprehensive worldview or system of understanding.
+- **[Synthetic Philosophy](tlph002.md)(SPaDE)**
 A constructive philosophy seeking to understand the future by shaping it, primarily through deductive engineering including *synthetic epistemology*.
 
 ## T
