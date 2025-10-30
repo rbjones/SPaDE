@@ -2,7 +2,21 @@
 
 Note that in this glossary, many terms are given special meanings for SPaDE which may differ from their general usage.
 
-[D](#d) [E](#e) [F](#f) [I](#i) [M](#m)  [P](#p)  [S](#s) [T](#t)
+[A](#a) [D](#d) [E](#e) [F](#f) [I](#i) [M](#m) [P](#p) [S](#s) [T](#t)
+
+## A
+
+### Analytic
+
+See also: synthetic.
+
+Obtained by breaking something complex down into its constituent parts or elements.
+
+- **Analytic (Kant)**: A judgement or proposition where the predicate is contained in the concept of the subject.
+- **Analytic (Positivism)**: A proposition which is true in virtue of its meaning without need of empirical confirmation.  Sometimes called a *tautology*.
+- **Analytic Proof (ancient Greece)**: A proof which proceeds by analysis from the conclusion to be proved back to axioms and premises.
+- **Analytic Philosophy**
+A philosophical tradition that emphasizes clarity and logical rigor, often through the analysis of language and concepts.
 
 ## D
 
@@ -133,11 +147,17 @@ The name of an open source knowledge engineering project with a repository at [g
 
 ### Synthetic
 
+See also: analytic.
+
 Constructed rather than discovered.
 
+- **Synthetic (Kant)**: A judgement or proposition where the predicate adds new information not already contained in the concept of the subject.
+- **Synthetic (Positivism)**: Pertaining to knowledge that is derived from empirical observation and experience, as opposed to being innate or purely logical.
+- **Synthetic Proof (ancient Greece)**
+A proof which proceeds from axioms and premises to a conclusion by direct logical inference.
 - **[Synthetic Epistemology](tlph002.md#epistemology)(SPaDE)**
 Those part of *synthetic philosophy* (SPaDE) seeking to understand knowledge by designing the epistemic engines of the future.
-- **Synthetic Philosophy(1)**: A philosophical approach that seeks to integrate and unify knowledge from diverse fields and disciplines into a coherent, comprehensive worldview or system of understanding.
+- **Synthetic Philosophy**: An approach to  philosophy which seeks to integrate and unify knowledge from diverse fields and disciplines into a coherent, comprehensive worldview or system of understanding.
 - **[Synthetic Philosophy](tlph002.md)(SPaDE)**
 A constructive philosophy seeking to understand the future by shaping it, primarily through deductive engineering including *synthetic epistemology*.
 
