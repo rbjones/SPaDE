@@ -3,6 +3,10 @@
 This file contains the details of the SML functions needed to scrape a ProofPower HOL theory database for [SPaDE](../docs/tlad001.md#spade).
 It is a mix of informal description of the process and a list of the SML functions needed to implement it.
 
+- [An informal account of the process](#an-informal-account-of-the-process)
+- [SML Functions For Accessing ProofPower HOL Theories](#sml-functions-for-accessing-proofpower-hol-theories)
+- [Writing to a SPaDE Native Repository](#writing-to-a-spade-native-repository)
+
 ## An informal account of the process
 
 The process of scraping a ProofPower HOL theory database into a [SPaDE](../docs/tlad001.md#spade) repository involves traversing the theory hierarchy, extracting the relevant components of each theory, and writing them into a [SPaDE](../docs/tlad001.md#spade) native repository in a different format.
@@ -53,6 +57,7 @@ Some words may follow.
 
 Note that these are functions already implemented in ProofPower HOL, and are not part of the [SPaDE](../docs/tlad001.md#spade) code base.
 They are fully documented in the ProofPower HOL manual (usr029.pdf), this extract is for convenience of reference since that manual is large.
+These functions are for use in accessing a ProofPower HOL database from SML code running in PolyML on that database so that the content of the theories can be extracted for writing to a [SPaDE](../docs/tlad001.md#spade) native repository.
 
 Probably not needed:
 
@@ -185,7 +190,7 @@ It will then terminate the list will a CONS to NIL and create a top-level folder
 
 The differences between the structure of a ProofPower HOL theory and a [SPaDE](../docs/tlad001.md#spade) theory are not confined to the lower level representation for storage in persistent media.
 
-Someimportant differences arose from strategic decisions made early in the design of [SPaDE](../docs/tlad001.md#spade), but review of these has cast doubt on their necessity or desirability.
+Some important differences arose from strategic decisions made early in the design of [SPaDE](../docs/tlad001.md#spade), but review of these has cast doubt on their necessity or desirability.
 In particular, two additional constructors for terms had been introduced which are now thought to be unnecessary.
 
 We retain notes on the intended changes in case in case they ultimately do prove necessary, but for the time being we will proceed without these modifications to the structure of HOL theories.

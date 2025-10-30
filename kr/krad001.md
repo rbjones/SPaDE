@@ -7,6 +7,25 @@ This is made more precise as a HOL4 formal specification in [krcd006.sml](krcd00
 
 Part of the motivation for this structure is given in [Philosophical Background for the Knowledge Repository](krph003.md).
 
+The exposition is structured as follows:
+
+- [Abstract and Concrete Structures](#abstract-and-concrete-structures)
+- [S-Expressions](#s-expressions)
+- [Names](#names)
+- [Hashes](#hashes)
+- [Types](#types)
+- [Terms](#terms)
+- [Sequents](#sequents)
+- [Signatures](#signatures)
+- [Extensions](#extensions)
+- [Theories](#theories)
+- [Folders](#folders)
+- [Trees](#trees)
+- [The Structure of Local Repositories](#the-structure-of-local-repositories)
+- [Diasporic and Pansophic Repositories](#diasporic-and-pansophic-repositories)
+- [Contexts and Views](#contexts-and-views)
+
+
 ## Abstract and Concrete Structures
 
 ### Concrete Representations
@@ -92,12 +111,12 @@ Its structure is therefore:
 - [diasporic](../docs/tlad001.md#diasporic) repositories
 - the pansophic repository
 
-In that structure, earlier parts are the components which form the later, the latter defining very large name spaces encaspulating the abstract structures underlying the ddclarative knowledge of entire diaspora and ultimately the cosmos.
+In that structure, earlier parts are the components from which the later are formed, the latest defining very large name spaces encapsulating the abstract structures underlying the declarative knowledge of entire diaspora and ultimately the cosmos.
 
 Reasoning and its products do not take place in these large structures, but in contexts associated with theories and determined by the ancestry of theories.
-The contect associated with a theory is formed by the union of the signatures and constraints of that theory and all its ancestors.
+The context associated with a theory is formed by the union of the signatures and constraints of that theory and all its ancestors.
 
-The concept of a universe acknowledges the likelihood that there are multiple sources of intelligence proliferating within the cosmos which are unknown to each other, or have not yet reached the point of systematically sharing knowledge.
+The concept of a pansophic universe acknowledges the likelihood that there are multiple sources of intelligence proliferating within the cosmos which are unknown to each other, or have not yet reached the point of systematically sharing knowledge.
 Thus the universe is a collection of complexes of repositories, each complex being self contained and not sharing names with any other complex.
 All that is needed to combine distinct complexes is agreement on a common addressing scheme, which may be achieved by the addition of a further layer to the hierarchy of folders, or the inclusion of one complex at some point in the hierarchy of another complex.
 It may be noted that stability in these naming structures is important to the integrity of knowledge, since otherwise cross repository references may be broken.
@@ -192,7 +211,7 @@ val _ = Datatype
       `hsequent = Sg (hterm list) hterm`;
 ```
 
-## Signature
+## Signatures
 
 ```sml
 Datatype: hsig =
@@ -202,7 +221,7 @@ Datatype: hsig =
 End
 ```
 
-## Extension
+## Extensions
 
 ```sml
 Datatype: hext =

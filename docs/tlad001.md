@@ -10,6 +10,10 @@ Note that in this glossary, many terms are given special meanings for SPaDE whic
 
 Knowledge captured in propositions expressed by sentences in a well defined declarative language.
 
+### Declarative Language
+
+Languages having sentences with *truth conditions*, the assertion of which affirms that those conditions hold.
+
 ### Deduction
 
 The process of deriving logical conclusions from premises known or assumed to be true.
@@ -28,6 +32,18 @@ A maximal connected component of the pansophic repository.
 
 ## E
 
+### Embedding
+
+- The placement or incorporation of one thing within another.
+- **Language Embedding**: A mapping of one language into another (possibly defined in a third language).
+- **Semantic Embedding**: A language embedding that preserves meaning.
+- **Shallow Embedding**: A semantic embedding which is not deep, and therefore does not require a target more expressive than the source language.
+- **Deep Embedding**: A mapping (in a target- or meta-language) that represents the semantics of a source- or object-language, in a manner which supports metatheoretic reasoning about the language, typically as a function defined over the abstract syntax of that language.
+
+### Epistemic
+
+Concerning knowledge.
+
 ### Epistemology
 
 The philosophical study of knowledge
@@ -35,6 +51,8 @@ The philosophical study of knowledge
 ### [Epistemological Stack](tlph003.md)
 
 A conceptual framework for understanding how abstract deductive reasoning contributes to deduction in all domains of declarative knowledge.
+
+### Evolution
 
 ## F
 
@@ -51,6 +69,28 @@ The application of focal intelligence to engineering design problems (broadly co
 - **[Focal Tower](tlph004.md/#a-focal-tower)**
 A conceptual framework for understanding how focal engineering (including singular foci) can be applied to problems in various domains, by identifying the perfect information spaces within those domains and applying appropriate focal AI techniques to solve problems within those spaces.
 
+## I
+
+### Institution
+
+- An organised society or establishment founded for a specific purpose.
+- A category of related logical systems sharing common syntax and semantics, such as first order logic or higher order logic.
+
+### Foundational Institution
+
+An ordinally indexed family of logical systems sharing common syntax but with semantics defined by increasingly strong notions of model, such that for any member of the family there exists a subsequent member in which the semantics of the former can be rendered as a deep embedding.
+
+### Universal Foundational Institution
+
+A maximally expressive foundational institution.
+
+## M
+
+### Metaphysics
+
+The philosophical (as opposed to scientific, and hence *a priori*) study of the nature of reality, including the relationship between mind and matter, substance and attribute, and potentiality and actuality.
+In [Synthetic Philosophy](tlph002.md), which follows logical positivism in rejecting the synthetic *a priori*, the residual metaphysics is ontological and conventional.
+
 ## P
 
 ### Pansophic
@@ -58,6 +98,22 @@ A conceptual framework for understanding how focal engineering (including singul
 Concerning all knowledge in the cosmos.
 
 ## S
+
+### Semantics
+
+- The study of meaning in language, including the relationship between signifiers and what they signify.
+- A systematic assignment of meanings to the symbols and expressions of a formal language.
+
+### Semantic Embedding
+
+- A mapping of one formal language into another that preserves meaning, allowing expressions from the source language to be represented in the target language without loss of semantic content.
+
+### Semantic Expressiveness
+
+- The ability of a formal language to represent a wide range of meanings, concepts and propositions.
+- A measure of the richness of the semantics of a logical system, often related to the variety and complexity of models that can be represented within that system.
+- The pre-ordering of logical systems induced by the existence of semantic embeddings between them.
+- The pre-ordering of foundational institutions induced by the existence of semantic embeddings between their members.
 
 ### The Singularity
 

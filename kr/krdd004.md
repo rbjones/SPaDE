@@ -12,12 +12,20 @@ Python may also to be used in due course for export of theories from Lean.
 
 For the earliest prototyping the requirement is for SML procedures to write [SPaDE](../docs/tlad001.md#spade) repositories from scratch, and Python procedures to read such repositories into suitable structured representations.
 
+- [Context](#context)
+- [Modules](#modules)
+
+
 ## Context
 
 The following documents provide important context for understanding the procedures described here:
 The [SPaDE](../docs/tlad001.md#spade) native repository format is described in [krdd002.md](krdd002.md).
 
 ## Modules
+
+- [Low Level I/O Module](#low-level-io-module)
+- [Encoding/Decoding Module](#encodingdecoding-module)
+- [S-Expressions](#s-expressions)
 
 ### Low Level I/O Module
 
