@@ -25,8 +25,16 @@ This task performs **incremental glossary linking** - adding links for terms tha
 
 ### Processing Strategy
 
+<<<<<<< HEAD
 #### Changed or New Files
 Process files modified or created since the last review, checking for ALL glossary terms (both existing and newly added).
+=======
+The following special cases should be noted:
+
+- If a term is used in a context where it has a different meaning from that given in the glossary, do not insert a hyperlink.
+- If a term is part of a compound term (e.g., "Focal Intelligence"), only link the part of the term which is in the glossary (e.g., "Focal").
+If both a part and a whole are in the glossary, link only the whole (e.g., link "Focal Intelligence" but not "Focal" in that phrase).
+>>>>>>> origin/main
 
 #### Unchanged Files  
 Process all unchanged files, but check ONLY for newly added glossary terms.
