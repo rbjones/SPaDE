@@ -12,6 +12,7 @@ This documentation falls into the following categories:
 - **[Plans and strategies]**(#plans-and-strategies-(ampl))(ampl)
 - **[Testing and evaluation]**(#testing-and-evaluation-(amte))(amte)
 - **[Task descriptions]**(#task-descriptions-(amtd))(amtd)
+- **[Code and scripts]**(#code-and-scripts-(amcd))(amcd)
 
 ## Methods, Processes and Standards (amms)
 
@@ -53,3 +54,7 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 - [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
+
+## Code and Scripts (amcd)
+
+- [amcd001.py](amcd001.py) Script for adding glossary links to documentation

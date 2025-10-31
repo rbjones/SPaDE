@@ -17,7 +17,9 @@ These procedures require automation support that does not yet exist or needs enh
 
 ## Required Scripts
 
-### 1. Create: `extract_glossary_terms.py`
+Scripts must follow project naming conventions (subsystem **am** + document kind **cd** + number).
+
+### 1. Create: `amcd002.py`
 
 **Purpose**: Parse the glossary file to dynamically extract all terms and their anchor links.
 
@@ -37,13 +39,13 @@ These procedures require automation support that does not yet exist or needs enh
 **Current State**: Works for full reviews with hard-coded term list.
 
 **Required Enhancements** (per [amtd002.md](amtd002.md)):
-- Replace hard-coded TERMS list with dynamic term loading from `extract_glossary_terms.py`
+- Replace hard-coded TERMS list with dynamic term loading from `amcd002.py`
 - Add command-line parameter to process only files modified since a specified date (using git)
 - Add mode to check only new terms in unchanged files
-- Generate review report in markdown format per specification in [amtd002.md](amtd002.md)
+- Generate review report in markdown format per specification in [amtd002.md](amtd002.md) following review naming convention: `reviews/YYYYMMDD-HHMM-author-glossary-links.md`
 - Support file filtering to process specific file lists
 
-### 3. Create: `find_candidate_terms.py`
+### 3. Create: `amcd003.py`
 
 **Purpose**: Identify potential terms for glossary augmentation.
 
@@ -55,10 +57,11 @@ These procedures require automation support that does not yet exist or needs enh
 
 ## Deliverables
 
-1. **New script**: `docs/admin/extract_glossary_terms.py`
+1. **New script**: `docs/admin/amcd002.py` (glossary term extraction)
 2. **Enhanced script**: `docs/admin/amcd001.py` with incremental capabilities
-3. **New script**: `docs/admin/find_candidate_terms.py`
-4. **Testing**: Verification that scripts work correctly with the procedures in [amtd002.md](amtd002.md) and [amtd003.md](amtd003.md)
+3. **New script**: `docs/admin/amcd003.py` (candidate term discovery)
+4. **Updated**: `docs/admin/README.md` to include new scripts in appropriate section
+5. **Testing**: Verification that scripts work correctly with the procedures in [amtd002.md](amtd002.md) and [amtd003.md](amtd003.md)
 
 ## Success Criteria
 
