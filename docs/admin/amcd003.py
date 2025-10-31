@@ -31,6 +31,7 @@ Term Discovery Patterns:
 
 import re
 import os
+import sys
 import json
 from pathlib import Path
 from collections import defaultdict
@@ -120,14 +121,17 @@ def extract_candidate_terms(content, filepath):
     
     # Pattern 2: Technical compounds with common technical words
     # Example: "logical system", "semantic model"
-    # Exclude patterns starting with "the", "a", "an"
+    # This pattern matches technical terms (like "logical", "semantic", etc.)
+    # followed by a noun, or a noun followed by a technical term.
+    # The negative lookbehind (?<!\bthe\s) prevents matching phrases starting with "the"
     technical_words = r'(?:logical|semantic|syntactic|abstract|concrete|formal|informal|' \
                      r'meta|object|type|proof|theorem|axiom|inference|model|system|' \
                      r'language|theory|framework|architecture|structure|component|' \
                      r'interface|implementation|specification|definition|representation|' \
                      r'kernel|repository|engine|mechanism|protocol|methodology)'
     
-    # Only match technical compounds that don't start with articles
+    # Build pattern: technical_word + space + noun OR noun + space + technical_word
+    # Exclude patterns starting with articles (the, a, an)
     pattern2 = re.compile(
         r'(?<!\bthe\s)(?<!\ba\s)(?<!\ban\s)\b(' + 
         technical_words + r'\s+(?:[a-z]+|[A-Z][a-z]+)|(?:[a-z]+|[A-Z][a-z]+)\s+' + 
@@ -344,5 +348,4 @@ def main():
 
 
 if __name__ == '__main__':
-    import sys
     main()

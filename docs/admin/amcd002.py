@@ -31,7 +31,7 @@ import re
 import json
 from pathlib import Path
 
-GLOSSARY_PATH = Path(__file__).parent.parent.parent / "docs" / "tlad001.md"
+GLOSSARY_PATH = Path(__file__).parent.parent / "tlad001.md"
 
 
 def generate_anchor(text):
