@@ -52,3 +52,4 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 - [amtd001.md](amtd001.md) Task Description for Review of Hyperlinks in Project Documentation
 - [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
+- [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
