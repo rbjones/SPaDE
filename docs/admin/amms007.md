@@ -7,6 +7,7 @@ This document describes the procedure for systematically expanding the SPaDE glo
 ## Scope
 
 This procedure applies to all markdown (.md) files in the SPaDE repository, excluding:
+
 - The `reviews/` directory
 - The `retro/` directory  
 - Any directory whose name begins with `.`
@@ -17,6 +18,7 @@ This procedure applies to all markdown (.md) files in the SPaDE repository, excl
 ### Phase 1: Term Discovery
 
 #### 1.1 Automated Term Extraction
+
 1. **Scan all eligible markdown files** for potential technical terms
 2. **Extract candidate terms** using linguistic patterns:
    - Capitalized phrases (2-4 words)
@@ -25,6 +27,7 @@ This procedure applies to all markdown (.md) files in the SPaDE repository, excl
    - Project-specific concepts and methodologies
 
 #### 1.2 Term Filtering
+
 1. **Remove common words** and general language
 2. **Exclude existing glossary terms** by comparing against current `docs/tlad001.md`
 3. **Filter by frequency** - terms appearing in multiple files or contexts
@@ -37,14 +40,18 @@ This procedure applies to all markdown (.md) files in the SPaDE repository, excl
 ### Phase 2: Term Analysis
 
 #### 2.1 Contextual Review
+
 For each candidate term:
+
 1. **Identify all occurrences** across the documentation
 2. **Analyze usage contexts** to understand meaning and scope
 3. **Check for consistency** in how the term is used
 4. **Assess definitional need** - does the term require clarification?
 
 #### 2.2 Categorization
+
 Group candidate terms by:
+
 - **Domain**: Architecture, Philosophy, Engineering, AI/ML, etc.
 - **Type**: Concept, Process, Component, Methodology, etc.
 - **Priority**: Critical, Important, Nice-to-have
@@ -53,6 +60,7 @@ Group candidate terms by:
 ### Phase 3: Glossary Entry Drafting
 
 #### 3.1 Entry Structure
+
 For each selected term, draft entries following the existing glossary format:
 
 ```markdown
@@ -71,6 +79,7 @@ Additional explanation if needed, including:
 ```
 
 #### 3.2 Content Guidelines
+
 - **Concise but complete** - capture essential meaning without excessive detail
 - **SPaDE-specific** - focus on how terms are used within this project
 - **Cross-referenced** - link to related existing glossary entries
@@ -80,12 +89,14 @@ Additional explanation if needed, including:
 ### Phase 4: Integration Process
 
 #### 4.1 Review and Validation
+
 1. **Technical accuracy** - verify definitions are correct
 2. **Consistency check** - ensure alignment with existing glossary
 3. **Completeness assessment** - confirm all important aspects covered
 4. **Style conformance** - match existing glossary formatting and tone
 
 #### 4.2 Glossary Integration
+
 1. **Propose additions** through standard review process
 2. **Organize alphabetically** within appropriate sections
 3. **Update cross-references** in existing entries as needed
@@ -96,6 +107,7 @@ Additional explanation if needed, including:
 ### Automated Term Discovery
 
 #### Text Processing Pipeline
+
 1. **Extract markdown content** excluding code blocks, links, and headers
 2. **Identify noun phrases** using natural language processing
 3. **Filter by linguistic patterns**:
@@ -108,7 +120,9 @@ Additional explanation if needed, including:
    - Structural importance (appears in headings, key sections)
 
 #### Example Candidate Terms
+
 Based on current documentation, candidate terms might include:
+
 - "Pansophic Repository"
 - "Reflexive Capabilities"
 - "Perfect Information Spaces"
@@ -120,7 +134,9 @@ Based on current documentation, candidate terms might include:
 ### Manual Review Process
 
 #### Priority Assessment Matrix
+
 Rate each candidate term on:
+
 - **Usage Frequency**: How often does it appear? (1-5)
 - **Conceptual Importance**: How central to SPaDE? (1-5)  
 - **Definitional Need**: How likely to confuse readers? (1-5)
@@ -129,7 +145,9 @@ Rate each candidate term on:
 Priority Score = (Usage + Importance + Need) - Clarity
 
 #### Review Documentation
+
 For each glossary augmentation cycle, create a review report documenting:
+
 - Terms discovered and analysis process
 - Rationale for inclusion/exclusion decisions
 - Draft definitions for review
@@ -138,6 +156,7 @@ For each glossary augmentation cycle, create a review report documenting:
 ## Quality Assurance
 
 ### Definition Quality Criteria
+
 - **Accuracy**: Technically correct within SPaDE context
 - **Clarity**: Understandable to intended audience
 - **Completeness**: Covers essential aspects without excess
@@ -145,6 +164,7 @@ For each glossary augmentation cycle, create a review report documenting:
 - **Utility**: Actually helps readers understand the concept
 
 ### Validation Process
+
 1. **Technical review** by domain experts
 2. **Usage verification** against actual documentation contexts
 3. **Cross-reference validation** with existing glossary entries
@@ -153,11 +173,13 @@ For each glossary augmentation cycle, create a review report documenting:
 ## Integration with Existing Procedures
 
 ### Relationship to Glossary Linking (amtd002.md)
+
 - Glossary augmentation **precedes** linking reviews
 - New terms discovered here become candidates for linking procedures
 - Linking reviews may identify gaps that feed back to augmentation
 
 ### Coordination with Documentation Updates
+
 - Major documentation changes trigger glossary review
 - New subsystems or major features require glossary assessment
 - Regular quarterly reviews to catch incremental term evolution
@@ -165,12 +187,14 @@ For each glossary augmentation cycle, create a review report documenting:
 ## Tools and Automation
 
 ### Recommended Implementation
+
 1. **Term extraction script** to identify candidates automatically
 2. **Frequency analysis** to prioritize terms by usage patterns
 3. **Context extraction** to gather usage examples for definition drafting
 4. **Integration validation** to check proposed entries against existing content
 
 ### Output Formats
+
 - **Candidate term list** with frequency and context data
 - **Draft glossary entries** in standard markdown format
 - **Integration report** documenting rationale and recommendations
