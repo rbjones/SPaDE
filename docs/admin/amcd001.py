@@ -76,33 +76,45 @@ def is_in_code_block(content, position):
 def is_in_link(content, position):
     """Check if position is inside an existing markdown link."""
     # Look backwards and forwards for link syntax
-    start = max(0, position - 200)
-    end = min(len(content), position + 200)
+    start = max(0, position - 300)
+    end = min(len(content), position + 300)
     
     # Get the context
     before = content[start:position]
     after = content[position:end]
     
     # Check for various link patterns
-    # [text](url)
-    if '](' in before[-50:] and ')' in after[:50]:
-        # Find the opening [
-        bracket_count = 0
-        for i in range(len(before) - 1, -1, -1):
-            if before[i] == ']':
-                bracket_count += 1
-            elif before[i] == '[':
-                bracket_count -= 1
-                if bracket_count < 0:
-                    return True
+    # [text](url) - check if we're inside the [text] or (url) part
     
-    # Inside [text] part
-    if '[' in before[-50:] and ']' not in before[-50:]:
-        return True
+    # Find last '[' and ']' before position
+    last_bracket_open = before.rfind('[')
+    last_bracket_close = before.rfind(']')
     
-    # Inside (url) part  
-    if '(' in before[-50:] and ')' not in before[-50:]:
-        return True
+    # Find first '(' and ')' after last ']' before position
+    if last_bracket_close != -1:
+        paren_open = before.find('(', last_bracket_close)
+        if paren_open != -1:
+            # We have ]( before position, check if ) is after position
+            paren_close = content.find(')', position)
+            if paren_close != -1 and paren_close < end:
+                # We're inside a link (url) part
+                return True
+    
+    # Check if we're inside [text] part
+    if last_bracket_open != -1 and (last_bracket_close == -1 or last_bracket_open > last_bracket_close):
+        # There's an unclosed [ before us
+        next_bracket_close = after.find(']')
+        if next_bracket_close != -1:
+            # And a ] after us - we're inside [text]
+            return True
+    
+    # Check if we're between ]( and )
+    if last_bracket_close != -1:
+        text_after_bracket = content[position - len(before) + last_bracket_close:]
+        if text_after_bracket.startswith(']('):
+            paren_close = after.find(')')
+            if paren_close != -1:
+                return True
         
     return False
 
