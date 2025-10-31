@@ -2,31 +2,92 @@
 
 ## Purpose and Scope
 
-The purpose of this task is to maintain the [SPaDE](../tlad001.md#spade) project glossary by drafting additional entries relating to terminology used in the project documentation but omitted from the glossary.
+The purpose of this task is to incrementally augment the [SPaDE](../tlad001.md#spade) project glossary by identifying and drafting entries for important technical terms used in the project documentation that are not yet in the glossary.
+
+The project documentation in scope consists of .md files in the SPaDE repository, excluding the `reviews/` and `retro/` directories and any directory whose name begins with `.`.
 
 ## Background
 
-The [SPaDE](../tlad001.md#spade) project glossary is contained in [tlad001.md](../tlad001.md).
-It is intended to provide definitions and explanations of special terminology and abuse of language used in the [SPaDE](../tlad001.md#spade) project documentation.
-Entries in the glossary are ideally linked to the most appropriate first account of the terminology in the project documentation, either as a document or a section within a document, which provides the best available account of its meaning and usage.
-Otherwise a phrase, sentence or short paragraph in the glossary must suffice.
+The [SPaDE](../tlad001.md#spade) project glossary is in [tlad001.md](../tlad001.md).
+It provides definitions and explanations of special terminology used in the project.
 
-The project documentation in the scope of this review consists in the .md files in the docs directory and its subdirectories, excluding the `reviews/` and `retro/` directories and any directory whose name begins with `.`.
+Glossary entries should ideally link to detailed accounts elsewhere in the documentation. If a suitable explanation exists in the documentation, the glossary heading should link to it and the glossary text may be a contracted version. Otherwise, the glossary entry must provide a complete definition.
 
 ## Task Description
 
-Before undertaking this task, familiarise yourself with the contents of the glossary in [tlad001.md](../tlad001.md) and the relevant parts of the project documentation.
-There will already have been a review of the documentation to repair any broken hyperlinks, so repair of broken links is not part of this task, but any encoutered should be reported.
+### Prerequisites
 
-The next stage is to review the project documentation against the glossary to identify any terminology used in the documentation which is not included in the glossary.
-Priority should be given to terminology which is specific to the [SPaDE](../tlad001.md#spade) project, or which has a special meaning or usage in the context of the project.
-For each such terms, identify the most appropriate document or section within a document which provides the best available account of its meaning and usage.
-Draft a proposed entry for the glossary including the term, its definition or explanation, and a link to the relevant document or section.
-In default of a suitable link destination, a phrase, sentence or short paragraph in the glossary should be prepared giving your best effort at a definition or explanation.
+1. **Familiarize with the glossary**: Review [tlad001.md](../tlad001.md) to understand existing terms
+2. **Review project documentation**: Focus on recent additions or areas lacking glossary coverage  
+3. **Identify last augmentation**: Check reviews directory for most recent glossary augmentation report (filename pattern `YYYYMMDD-HHMM-*-glossary-augmentation.md`)
 
-This task is concerned only with the drafting of proposed new entries for the glossary linked to relevant parts of the project documentation.
-It does not cover the linking of usage of the term in the project documentation to the glossary entry, which is a separate task.
+### Step 1: Identify Candidate Terms
+
+Scan documentation for technical terminology not in the glossary, prioritizing:
+
+- Terms specific to the [SPaDE](../tlad001.md#spade) project
+- Terms with special meanings in this project context
+- Terms appearing frequently or in multiple contexts
+- Terms that would benefit readers if defined
+
+Exclude general terminology and common words.
+
+### Step 2: Check for Existing Documentation
+
+For each candidate term, search the project documentation for a suitable detailed explanation:
+
+1. **Identify detailed accounts**: Look for sections that explain the term comprehensively
+2. **Assess suitability**: Is the explanation stable, authoritative, and accessible?
+3. **Note the location**: Record document path and section heading for linking
+
+### Step 3: Draft Glossary Entries
+
+For each selected term, draft an entry following the existing glossary format:
+
+```markdown
+### [Term Name](path/to/doc.md#section-anchor)
+
+Brief definition, possibly contracted from the linked documentation.
+
+Additional explanation if needed.
+
+#### Related Terms
+- **Variation 1**: Brief note
+```
+
+**If no suitable link exists**, provide a complete standalone definition:
+
+```markdown
+### Term Name
+
+Complete definition of the term as used in SPaDE context.
+
+Explanation of key characteristics, relationships to other concepts, etc.
+```
+
+**Content guidelines**:
+- Be concise but complete
+- Match the tone and style of existing entries
+- Link to related glossary terms where applicable
+- Focus on SPaDE-specific usage
+
+### Step 4: Organize and Integrate
+
+1. **Place entries alphabetically** within the appropriate letter section
+2. **Add to index** if creating a new letter section
+3. **Update cross-references** if related terms need links to the new entries
+4. **Verify formatting** matches existing glossary style
 
 ## Deliverables
 
-The end product should be a new draft of the project glossary in a pull request including the proposed new entries, and a report should be entered into the reviews directory of [SPaDE](../tlad001.md#spade) with a name conforming to the document naming conventions specific to reviews in [amms001.md](amms001.md).
+1. **Updated glossary file** (`docs/tlad001.md`) with new entries in a pull request
+2. **Augmentation report** in reviews directory with filename `YYYYMMDD-HHMM-author-glossary-augmentation.md` containing:
+   - Date of last glossary augmentation (for future reference)
+   - Number of candidate terms considered
+   - Terms added with brief rationale
+   - Terms deferred with explanation
+   - Links found to existing documentation
+
+## Next Steps
+
+After glossary augmentation is complete, run the incremental glossary linking task (amtd002.md) to add links from the documentation to the new glossary entries.
