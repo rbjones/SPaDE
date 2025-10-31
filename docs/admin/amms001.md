@@ -28,6 +28,7 @@ Subsystem codes:
 - **kr** kr - knowledge repository
 - **mcp** mcp - MCP server and A2A protocol
 - **rv** reviews - review reports e.g. from copilot
+  - **Exception**: Review files use temporal naming: `YYYYMMDD-HHMM-author-topic.md`
 - **tl** ? - top level, system wide (may be phased out)
 
 Document kinds:

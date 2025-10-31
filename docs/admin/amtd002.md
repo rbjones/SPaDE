@@ -1,49 +1,98 @@
-# Task Description for Linking Project Documentation to the SPaDE Glossary
+# Task Description for Incremental Glossary Linking
 
 ## Purpose and Scope
 
-The purpose of this task is to maintain and progress access to the [SPaDE](../tlad001.md#spade) project glossary by linking to it appropriately.
-The project documentation in the scope of this review consists of all the .md files in the [SPaDE](../tlad001.md#spade) project directory and its subdirectories, excluding the `reviews/` and `retro/` directories and any directory whose name begins with `.`.
+The purpose of this task is to maintain access to the [SPaDE](../tlad001.md#spade) project glossary by incrementally adding links from documentation to glossary entries as changes occur.
+The project documentation in scope consists of all .md files in the [SPaDE](../tlad001.md#spade) project directory and its subdirectories, excluding the `reviews/` and `retro/` directories and any directory whose name begins with `.`.
 
 ## Background
 
 The [SPaDE](../tlad001.md#spade) project glossary is contained in [tlad001.md](../tlad001.md).
-It is intended to provide definitions and explanations of special terminology and important concepts used in the [SPaDE](../tlad001.md#spade) project documentation.
-Entries in the glossary are linked to the most appropriate first account of the terminology in the project documentation, either as a document or a section within a document which provides the best available account of its meaning and usage.
-There will not always be a suitable link destination, in which case the glossary entry itself must suffice.
+Entries in the glossary define special terminology and important concepts used in the project documentation.
 
 ## Task Description
 
-Before undertaking this task, familiarise yourself with the contents of the glossary in [tlad001.md](../tlad001.md).
-There will already have been a review of the documentation to repair any broken hyperlinks, so repair of broken links is not part of this task, but any encountered should be reported.
+This task performs **incremental glossary linking** - adding links for terms that have been recently added to the glossary or appear in recently modified documentation.
 
-The task involves scanning the project documentation for terms which are included in the glossary, and inserting hyperlinks from each occurrence of such terms to the corresponding entry in the glossary.
-The term itself should be unchanged in the documentation, with only the addition of the hyperlink.
-Where a term occurs multiple times in a document, all occurrences should be linked to the glossary entry.
+### Determining Review Scope
 
-The review should cover all markdown (.md) files in the SPaDE project directory and subdirectories, excluding:
+1. **Identify last review date**: Check the reviews directory for the most recent glossary linking review report (filename pattern `YYYYMMDD-HHMM-*-glossary-links.md`)
+2. **Extract terms from glossary**: Dynamically scan [tlad001.md](../tlad001.md) to get current term list
+3. **Determine what changed**:
+   - Files modified since last review date (using git)
+   - New glossary terms added since last review
+   - New files created since last review
 
-- The `reviews/` directory
-- The `retro/` directory  
-- Any directory whose name begins with `.`
-- The glossary file itself (docs/tlad001.md) and any other files which might later be created to document the glossary.
+### Processing Strategy
 
+<<<<<<< HEAD
+#### Changed or New Files
+Process files modified or created since the last review, checking for ALL glossary terms (both existing and newly added).
+=======
 The following special cases should be noted:
 
 - If a term is used in a context where it has a different meaning from that given in the glossary, do not insert a hyperlink.
 - If a term is part of a compound term (e.g., "Focal Intelligence"), only link the part of the term which is in the glossary (e.g., "Focal").
 If both a part and a whole are in the glossary, link only the whole (e.g., link "Focal Intelligence" but not "Focal" in that phrase).
+>>>>>>> origin/main
 
-- Avoid linking terms that are:
-  - Already inside existing markdown links
-  - Inside code blocks (inline or fenced)
-  - In headings (to preserve heading structure)
-  - In URLs or other special contexts
+#### Unchanged Files  
+Process all unchanged files, but check ONLY for newly added glossary terms.
 
-There is a python script available to assist with this task, which can be found in the `docs/admin/amcd001.py` of the SPaDE project repository.
-This script should be reviewed against these instructions and if necessary modifications to it and or this task description to reconciliate the two should be proposed.
+**Note**: Although files are unchanged, they must all be checked when new terms are added to catch occurrences of those new terms throughout the documentation.
+
+### Glossary Term Extraction
+
+Automatically extract all terms from the glossary by:
+
+- Parsing section headers (### level) as primary terms
+- Extracting variations from list items starting with `- **Term**:` or `- **[Term](...)**`
+- If #### headers are used for term variations (per linting guidelines), extract those as well
+- Building a comprehensive term list with anchor links
+- Noting compound terms to ensure longer phrases are processed before shorter ones
+
+**Note**: Glossary formatting should follow markdown linting guidelines. If lint recommends using #### headers instead of **bold text** for subheadings, term extraction logic must accommodate both formats.
+
+### Linking Rules
+
+Insert hyperlinks from term occurrences to the corresponding glossary entry, following these rules:
+
+- Term text remains unchanged, only add the hyperlink
+- Link all occurrences of a term within a document
+- For compound terms, link the longest matching phrase (e.g., "Focal Intelligence" not "Focal" within that phrase)
+- Skip terms in contexts where the meaning differs from the glossary definition
+
+Avoid linking terms that are:
+- Already inside existing markdown links
+- Inside code blocks (inline or fenced)
+- In headings (to preserve heading structure)
+- In URLs or other special contexts
+
+## Automation Support
+
+A Python script is available at `docs/admin/amcd001.py` to assist with this task.
+
+**Required enhancements for incremental operation**:
+
+1. **Dynamic term extraction**: Parse glossary file to extract all terms automatically
+   - Extract ### headers as primary terms
+   - Extract variations from `- **Term**:` list items  
+   - Extract #### headers if used for term variations (per linting guidelines)
+   - Handle compound terms by processing longer phrases first
+2. **File filtering**: Accept list of files to process based on git change detection
+3. **Term filtering**: Accept list of new terms to check in unchanged files
+4. **Reporting**: Generate comparison report showing links added vs previous review
+
+The script should avoid linking terms in code blocks, existing links, and headings.
 
 ## Deliverables
 
-The resulting edits should be included in a pull request.
-A report should be entered into the reviews directory of [SPaDE](../tlad001.md#spade) with a name conforming to the document naming conventions specific to reviews in [amms001.md](amms001.md), this should be included in the pull request.
+1. **Updated documentation files** with new glossary links added
+2. **Review report** in the reviews directory with filename `YYYYMMDD-HHMM-author-glossary-links.md` containing:
+   - Last review date used for change detection
+   - Number of files processed (changed vs unchanged)
+   - Number of new terms checked
+   - Total links added
+   - Any issues or edge cases encountered
+
+Include both the file changes and report in a pull request.

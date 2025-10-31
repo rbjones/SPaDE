@@ -12,6 +12,7 @@ This documentation falls into the following categories:
 - **[Plans and strategies]**(#plans-and-strategies-(ampl))(ampl)
 - **[Testing and evaluation]**(#testing-and-evaluation-(amte))(amte)
 - **[Task descriptions]**(#task-descriptions-(amtd))(amtd)
+- **[Code and scripts]**(#code-and-scripts-(amcd))(amcd)
 
 ## Methods, Processes and Standards (amms)
 
@@ -37,6 +38,8 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 - [amms003.md](amms003.md) Workflows
 - [amms004.md](amms004.md) Collaborative Guidelines
 - [amms005.md](amms005.md) Guidance for AI Contributions
+- [amms006.md](amms006.md) Glossary Link Maintenance
+- [amms007.md](amms007.md) Glossary Augmentation Procedure
 
 ## Plans and strategies (ampl)
 
@@ -50,3 +53,8 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 - [amtd001.md](amtd001.md) Task Description for Review of Hyperlinks in Project Documentation
 - [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
+- [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
+
+## Code and Scripts (amcd)
+
+- [amcd001.py](amcd001.py) Script for adding glossary links to documentation
