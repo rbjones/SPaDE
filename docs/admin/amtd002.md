@@ -38,9 +38,12 @@ Process all unchanged files, but check ONLY for newly added glossary terms.
 Automatically extract all terms from the glossary by:
 
 - Parsing section headers (### level) as primary terms
-- Extracting variations from list items starting with `- **Term**:` 
+- Extracting variations from list items starting with `- **Term**:` or `- **[Term](...)**`
+- If #### headers are used for term variations (per linting guidelines), extract those as well
 - Building a comprehensive term list with anchor links
 - Noting compound terms to ensure longer phrases are processed before shorter ones
+
+**Note**: Glossary formatting should follow markdown linting guidelines. If lint recommends using #### headers instead of **bold text** for subheadings, term extraction logic must accommodate both formats.
 
 ### Linking Rules
 
@@ -64,11 +67,15 @@ A Python script is available at `docs/admin/amcd001.py` to assist with this task
 **Required enhancements for incremental operation**:
 
 1. **Dynamic term extraction**: Parse glossary file to extract all terms automatically
+   - Extract ### headers as primary terms
+   - Extract variations from `- **Term**:` list items  
+   - Extract #### headers if used for term variations (per linting guidelines)
+   - Handle compound terms by processing longer phrases first
 2. **File filtering**: Accept list of files to process based on git change detection
 3. **Term filtering**: Accept list of new terms to check in unchanged files
 4. **Reporting**: Generate comparison report showing links added vs previous review
 
-The script should process longer phrases before shorter ones to handle compound terms correctly, and avoid linking terms in code blocks, existing links, and headings.
+The script should avoid linking terms in code blocks, existing links, and headings.
 
 ## Deliverables
 
