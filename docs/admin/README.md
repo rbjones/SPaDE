@@ -57,4 +57,18 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 
 ## Code and Scripts (amcd)
 
-- [amcd001.py](amcd001.py) Script for adding glossary links to documentation
+- [amcd001.py](amcd001.py) - Script for adding glossary links to documentation
+  - Dynamically loads terms from glossary
+  - Supports incremental operation with `--since` parameter
+  - Generates review reports
+  - Handles file filtering and dry-run mode
+- [amcd002.py](amcd002.py) - Script for extracting terms from glossary
+  - Parses glossary file to extract all terms and anchors
+  - Outputs in multiple formats (python, json, text)
+  - Handles term variations and compound terms
+  - Used by amcd001.py for dynamic term loading
+- [amcd003.py](amcd003.py) - Script for discovering potential glossary terms
+  - Scans documentation for technical terminology
+  - Filters by frequency and importance
+  - Outputs candidate terms with usage contexts
+  - Supports glossary augmentation workflow
