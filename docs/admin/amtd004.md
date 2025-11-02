@@ -9,6 +9,7 @@ The scope includes creating new scripts and enhancing existing scripts in the `d
 ## Background
 
 The glossary procedures have been defined and documented:
+
 - [amms007.md](amms007.md) - Method for glossary augmentation
 - [amtd002.md](amtd002.md) - Task description for incremental glossary linking
 - [amtd003.md](amtd003.md) - Task description for glossary augmentation
@@ -24,6 +25,7 @@ Scripts must follow project naming conventions (subsystem **am** + document kind
 **Purpose**: Parse the glossary file to dynamically extract all terms and their anchor links.
 
 **Requirements** (per [amtd002.md](amtd002.md)):
+
 - Parse `docs/tlad001.md` structure
 - Extract primary terms from `### Term Name` headers
 - Extract variations from `- **Term**:` list items and `- **[Term](...)**` patterns
@@ -39,6 +41,7 @@ Scripts must follow project naming conventions (subsystem **am** + document kind
 **Current State**: Works for full reviews with hard-coded term list.
 
 **Required Enhancements** (per [amtd002.md](amtd002.md)):
+
 - Replace hard-coded TERMS list with dynamic term loading from `amcd002.py`
 - Add command-line parameter to process only files modified since a specified date (using git)
 - Add mode to check only new terms in unchanged files
@@ -50,6 +53,7 @@ Scripts must follow project naming conventions (subsystem **am** + document kind
 **Purpose**: Identify potential terms for glossary augmentation.
 
 **Requirements** (per [amtd003.md](amtd003.md) and [amms007.md](amms007.md)):
+
 - Scan documentation for technical terminology not in the glossary
 - Filter by frequency and importance
 - Output candidate list with usage contexts
@@ -66,6 +70,7 @@ Scripts must follow project naming conventions (subsystem **am** + document kind
 ## Success Criteria
 
 Scripts are complete when:
+
 - A test run of the glossary linking task ([amtd002.md](amtd002.md)) can be successfully executed by copilot
 - A test run of the glossary augmentation task ([amtd003.md](amtd003.md)) can be successfully executed by copilot
 - All scripts follow project coding standards and include appropriate documentation

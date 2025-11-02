@@ -84,13 +84,15 @@ def extract_glossary_terms(glossary_path=None):
             link_match = re.match(r'\[([^\]]+)\]\(([^\)]+)\)', term_text)
             if link_match:
                 term = link_match.group(1)
-                # For linked headings, use the heading text but generate anchor
+                external_link = link_match.group(2)
+                # For linked headings, store both the glossary anchor and the external link
                 anchor = generate_anchor(term)
+                terms.append((term, anchor, external_link))
             else:
                 term = term_text
                 anchor = generate_anchor(term)
+                terms.append((term, anchor, None))
             
-            terms.append((term, anchor))
             current_section = anchor
         
         # Term variations from #### headers
@@ -101,12 +103,13 @@ def extract_glossary_terms(glossary_path=None):
             link_match = re.match(r'\[([^\]]+)\]\(([^\)]+)\)', term_text)
             if link_match:
                 term = link_match.group(1)
+                external_link = link_match.group(2)
                 anchor = generate_anchor(term)
+                terms.append((term, anchor, external_link))
             else:
                 term = term_text
                 anchor = generate_anchor(term)
-            
-            terms.append((term, anchor))
+                terms.append((term, anchor, None))
         
         # Variations from list items: - **Term**: or - **[Term](...)**: or - **[Term](...)**
         elif line.strip().startswith('- **'):
@@ -116,30 +119,31 @@ def extract_glossary_terms(glossary_path=None):
                 term = match1.group(1)
                 # For list items, use the current section anchor
                 if current_section:
-                    terms.append((term, current_section))
+                    terms.append((term, current_section, None))
                     # Also extract parts if it's a compound "X or Y" term
                     if ' or ' in term:
                         parts = [p.strip() for p in term.split(' or ')]
                         for part in parts:
-                            terms.append((part, current_section))
+                            terms.append((part, current_section, None))
             else:
                 # Pattern: - **[Term](...)**:  or - **[Term](...)**
-                match2 = re.match(r'-\s+\*\*\[([^\]]+)\]\([^\)]+\)\*\*:?', line.strip())
+                match2 = re.match(r'-\s+\*\*\[([^\]]+)\]\(([^\)]+)\)\*\*:?', line.strip())
                 if match2:
                     term = match2.group(1)
+                    external_link = match2.group(2)
                     if current_section:
-                        terms.append((term, current_section))
+                        terms.append((term, current_section, external_link))
         
         i += 1
     
     # Remove duplicates while preserving order
     seen = set()
     unique_terms = []
-    for term, anchor in terms:
-        key = (term.lower(), anchor)
+    for term, anchor, external_link in terms:
+        key = (term.lower(), anchor, external_link)
         if key not in seen:
             seen.add(key)
-            unique_terms.append((term, anchor))
+            unique_terms.append((term, anchor, external_link))
     
     # Sort by term length (longest first) to handle compound terms correctly
     unique_terms.sort(key=lambda x: len(x[0]), reverse=True)
@@ -150,25 +154,31 @@ def extract_glossary_terms(glossary_path=None):
 def format_output(terms, format='python'):
     """Format terms for output in specified format."""
     if format == 'python':
-        # Python list of tuples format
+        # Python list of tuples format - maintain backward compatibility
         output = "TERMS = [\n"
-        for term, anchor in terms:
+        for term, anchor, external_link in terms:
             # Escape quotes in term
             term_escaped = term.replace('"', '\\"')
-            output += f'    ("{term_escaped}", "{anchor}"),\n'
+            if external_link:
+                output += f'    ("{term_escaped}", "{anchor}", "{external_link}"),\n'
+            else:
+                output += f'    ("{term_escaped}", "{anchor}", None),\n'
         output += "]\n"
         return output
     
     elif format == 'json':
         # JSON format
-        terms_list = [{"term": term, "anchor": anchor} for term, anchor in terms]
+        terms_list = [{"term": term, "anchor": anchor, "external_link": external_link} for term, anchor, external_link in terms]
         return json.dumps(terms_list, indent=2)
     
     elif format == 'text':
         # Plain text format
         output = []
-        for term, anchor in terms:
-            output.append(f"{term}\t{anchor}")
+        for term, anchor, external_link in terms:
+            if external_link:
+                output.append(f"{term}\t{anchor}\t{external_link}")
+            else:
+                output.append(f"{term}\t{anchor}\t")
         return '\n'.join(output)
     
     else:

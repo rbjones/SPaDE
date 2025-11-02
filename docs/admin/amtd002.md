@@ -63,10 +63,15 @@ Insert hyperlinks from term occurrences to the corresponding glossary entry, fol
 - Skip terms in contexts where the meaning differs from the glossary definition
 
 Avoid linking terms that are:
+
 - Already inside existing markdown links
 - Inside code blocks (inline or fenced)
 - In headings (to preserve heading structure)
 - In URLs or other special contexts
+
+Special cases:
+
+- Occurrences of terms in the document to which the glossary entry for the term refers should be linked to the same place as the glossary entry, not to the glossary itself.
 
 ## Automation Support
 

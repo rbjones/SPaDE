@@ -75,47 +75,18 @@ def is_in_code_block(content, position):
 
 def is_in_link(content, position):
     """Check if position is inside an existing markdown link."""
-    # Look backwards and forwards for link syntax
-    start = max(0, position - 300)
-    end = min(len(content), position + 300)
+    # More precise approach: find all markdown links first, then check if position is within any
     
-    # Get the context
-    before = content[start:position]
-    after = content[position:end]
+    # Pattern for markdown links: [text](url)
+    link_pattern = r'\[([^\]]*)\]\(([^\)]*)\)'
     
-    # Check for various link patterns
-    # [text](url) - check if we're inside the [text] or (url) part
-    
-    # Find last '[' and ']' before position
-    last_bracket_open = before.rfind('[')
-    last_bracket_close = before.rfind(']')
-    
-    # Find first '(' and ')' after last ']' before position
-    if last_bracket_close != -1:
-        paren_open = before.find('(', last_bracket_close)
-        if paren_open != -1:
-            # We have ]( before position, check if ) is after position
-            paren_close = content.find(')', position)
-            if paren_close != -1 and paren_close < end:
-                # We're inside a link (url) part
-                return True
-    
-    # Check if we're inside [text] part
-    if last_bracket_open != -1 and (last_bracket_close == -1 or last_bracket_open > last_bracket_close):
-        # There's an unclosed [ before us
-        next_bracket_close = after.find(']')
-        if next_bracket_close != -1:
-            # And a ] after us - we're inside [text]
+    for match in re.finditer(link_pattern, content):
+        link_start = match.start()
+        link_end = match.end()
+        
+        if link_start <= position < link_end:
             return True
     
-    # Check if we're between ]( and )
-    if last_bracket_close != -1:
-        text_after_bracket = content[position - len(before) + last_bracket_close:]
-        if text_after_bracket.startswith(']('):
-            paren_close = after.find(')')
-            if paren_close != -1:
-                return True
-        
     return False
 
 def is_in_heading(content, position):
@@ -129,6 +100,70 @@ def is_in_heading(content, position):
     line = content[line_start:line_end]
     # Check if line starts with #
     return line.lstrip().startswith('#')
+
+def resolve_link_target(filepath, term_name, anchor, external_link, rel_glossary_path):
+    """
+    Determine the correct link target based on the new requirement:
+    If a term has an external link and we're in that target file,
+    link to the local anchor instead of back to the glossary.
+    """
+    if not external_link:
+        # No external link, use glossary
+        return f"{rel_glossary_path}{anchor}"
+    
+    # Parse the external link to extract file path and anchor
+    if '#' in external_link:
+        target_file, target_anchor = external_link.split('#', 1)
+        target_anchor = '#' + target_anchor
+    else:
+        target_file = external_link
+        # For external links without anchors, we should generate an anchor 
+        # based on the term name, not the section anchor from glossary
+        # The anchor should be based on the term itself
+        target_anchor = None  # Will be determined below
+    
+    # Get the absolute path of current file and target file
+    current_file_abs = Path(filepath).resolve()
+    
+    # Handle relative path from glossary
+    glossary_dir = Path(GLOSSARY_PATH).parent
+    target_file_abs = (glossary_dir / target_file).resolve()
+    
+    # If we're in the target file, link locally
+    if current_file_abs == target_file_abs:
+        if target_anchor is None:
+            # For links like [Focal Engineering](tlph004.md), when we're in tlph004.md,
+            # we need to generate a local anchor based on the term name itself
+            # This should be #focal-engineering for "Focal Engineering"
+            target_anchor = generate_anchor_from_term_name(term_name)
+        return target_anchor
+    else:
+        # Link to glossary as usual
+        return f"{rel_glossary_path}{anchor}"
+
+def generate_anchor_from_term_name(term_name):
+    """
+    Generate a local anchor based on the term name itself.
+    This is used when we're in the target document and need to link locally.
+    """
+    return generate_anchor(term_name)
+
+def generate_anchor(text):
+    """Generate GitHub-compatible anchor from text (copied from amcd002)."""
+    # Remove markdown links but keep the text
+    text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', text)
+    
+    # Convert to lowercase
+    anchor = text.lower()
+    
+    # Replace spaces and special characters with hyphens
+    anchor = re.sub(r'[^\w\s-]', '', anchor)
+    anchor = re.sub(r'[-\s]+', '-', anchor)
+    
+    # Remove leading/trailing hyphens
+    anchor = anchor.strip('-')
+    
+    return '#' + anchor
 
 def add_links_to_file(filepath, terms, dry_run=False):
     """Add glossary links to a file using specified terms."""
@@ -144,7 +179,14 @@ def add_links_to_file(filepath, terms, dry_run=False):
     linked_positions = set()
     
     # Process terms in order (longest first to avoid partial matches)
-    for term, anchor in terms:
+    for term_data in terms:
+        # Handle both old (term, anchor) and new (term, anchor, external_link) formats
+        if len(term_data) == 2:
+            term, anchor = term_data
+            external_link = None
+        else:
+            term, anchor, external_link = term_data
+        
         # Case-insensitive search
         pattern = re.compile(re.escape(term), re.IGNORECASE)
         
@@ -168,8 +210,11 @@ def add_links_to_file(filepath, terms, dry_run=False):
             # Get the actual matched text (preserving case)
             matched_text = match.group()
             
+            # Determine the correct link target based on the new requirement
+            link_target = resolve_link_target(filepath, term, anchor, external_link, rel_glossary_path)
+            
             # Create the link
-            link = f"[{matched_text}]({rel_glossary_path}{anchor})"
+            link = f"[{matched_text}]({link_target})"
             
             # Replace
             content = content[:pos] + link + content[pos + len(matched_text):]
