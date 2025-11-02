@@ -4,6 +4,8 @@
 
 The purpose of this task is to incrementally augment the [SPaDE](../tlad001.md#spade) project glossary by identifying and drafting entries for important technical terms used in the project documentation that are not yet in the glossary.
 
+The procedure for glossary augmentation is defined in [amms007.md](amms007.md).
+
 The project documentation in scope consists of .md files in the SPaDE repository, excluding the `reviews/` and `retro/` directories and any directory whose name begins with `.`.
 
 ## Background
@@ -20,6 +22,7 @@ Glossary entries should ideally link to detailed accounts elsewhere in the docum
 1. **Familiarize with the glossary**: Review [tlad001.md](../tlad001.md) to understand existing terms
 2. **Review project documentation**: Focus on recent additions or areas lacking glossary coverage  
 3. **Identify last augmentation**: Check reviews directory for most recent glossary augmentation report (filename pattern `YYYYMMDD-HHMM-*-glossary-augmentation.md`)
+This date will enable identification of which files have been changed since the last augmentation.
 
 ### Step 1: Identify Candidate Terms
 
@@ -52,6 +55,7 @@ Brief definition, possibly contracted from the linked documentation.
 Additional explanation if needed.
 
 #### Related Terms
+
 - **Variation 1**: Brief note
 ```
 
@@ -66,6 +70,7 @@ Explanation of key characteristics, relationships to other concepts, etc.
 ```
 
 **Content guidelines**:
+
 - Be concise but complete
 - Match the tone and style of existing entries
 - Link to related glossary terms where applicable
@@ -90,4 +95,6 @@ Explanation of key characteristics, relationships to other concepts, etc.
 
 ## Next Steps
 
-After glossary augmentation is complete, run the incremental glossary linking task (amtd002.md) to add links from the documentation to the new glossary entries.
+When glossary augmentation is complete, the next step will generally be to review the proposed new glossary entries.
+Once the glossary augmentation is complete then it will be necessary to run the incremental glossary linking task (amtd002.md) to add links from the documentation to the new glossary entries.
+None of this is in the scope of this task.

@@ -15,102 +15,51 @@ This procedure applies to all markdown (.md) files in the SPaDE repository, excl
 
 ## Procedure Overview
 
-### Step 1: Link Identification
+### Step 1: Preparation
 
-For each candidate term, first check if there is a suitable detailed account of the term's meaning elsewhere in the project documentation:
+1. **Establish baseline**: identify the most recent glossary augmentation report (`reviews/YYYYMMDD-HHMM-*-glossary-augmentation.md`). Note that date for future reporting.
+2. **Load current glossary terms**: run `python3 docs/admin/amcd002.py --output json > /tmp/glossary_terms.json` (optional but useful when cross-checking candidates). This script reflects the canonical list of headings and anchors in `docs/tlad001.md`.
 
-1. **Search documentation** for sections that explain the term in detail
-2. **Assess suitability** - Is the explanation comprehensive and stable?
-3. **If suitable account exists**: Note the document/section for linking from the glossary entry
-4. **If no suitable account exists**: The glossary entry will need to provide the full definition
+### Step 2: Discover Candidate Terms (amcd003.py)
 
-This ensures glossary entries link to authoritative explanations where available, with the glossary providing contracted or standalone definitions as needed.
+1. Execute `python3 docs/admin/amcd003.py --output markdown --min-frequency 2 --min-files 2 > reviews/latest-glossary-candidates.md`.
+2. Review the generated candidate list. Each entry includes frequency, files, and example contexts to speed evaluation.
+3. Remove obvious false positives (generic words, duplicates of existing glossary terms, concepts out of scope).
 
-### Step 2: Term Discovery
+### Step 3: Evaluate Documentation Coverage
 
-#### Automated Scanning
+For each shortlisted candidate:
 
-1. **Scan eligible markdown files** for potential technical terms
-2. **Extract candidates** using linguistic patterns:
-   - Capitalized phrases (2-4 words)
-   - Technical compounds (e.g., "knowledge repository", "deductive kernel")  
-   - Domain-specific terminology (AI, logic, philosophy terms)
-   - Project-specific concepts and methodologies
+1. Use the file/line contexts in the amcd003 output to locate the authoritative explanation. Confirm it is stable, substantial, and appropriate to link.
+2. If a strong explanation exists, record the document path and section anchor for reuse in the glossary heading.
+3. If no adequate explanation exists, plan to provide a standalone definition within the glossary entry.
 
-#### Filtering
+### Step 4: Draft Glossary Entries
 
-1. **Exclude existing glossary terms** by comparing against current `docs/tlad001.md`
-2. **Filter by frequency** - terms appearing in multiple contexts
-3. **Prioritize by importance**:
-   - Usage frequency across files
-   - Centrality to project architecture
-   - Technical complexity requiring definition
-   - Potential for confusion or ambiguity
+1. Follow the established structure:
 
-### Step 3: Term Analysis
+   ```markdown
+   ### [Term Name](relative/path.md#anchor)
 
-For each candidate term:
+   Concise SPaDE-specific definition.
 
-1. **Identify all occurrences** across the documentation  
-2. **Analyze usage contexts** to understand meaning and scope
-3. **Check for consistency** in how the term is used
-4. **Assess definitional need** - would readers benefit from a glossary entry?
+   Optional supporting paragraph(s) clarifying usage, relationships, or key attributes.
+   ```
 
-### Step 4: Glossary Entry Drafting
+   Omit the link wrapper only when no authoritative source exists.
 
-#### Entry Structure
+2. Maintain tone, formatting, and cross-linking conventions used elsewhere in `docs/tlad001.md`. Link related glossary terms inline where helpful.
 
-Follow the existing glossary format:
+### Step 5: Integrate Entries into the Glossary
 
-```markdown
-### Term Name
+1. Insert each new entry alphabetically within the appropriate letter section and update the letter index when introducing a new initial.
+2. Re-run `python3 docs/admin/amcd002.py --output text` (optional) to spot-check that the new headings are parsed correctly and anchors resolve.
+3. Save changes to `docs/tlad001.md` and prepare the augmentation report (see Deliverables in [amtd003.md](amtd003.md)).
 
-Brief, clear definition of the term as used in the SPaDE context.
+### Step 6: Post-Augmentation Follow-up (amcd001.py)
 
-Additional explanation if needed, including:
-- Relationship to other glossary terms
-- Project-specific usage or meaning
-- Key characteristics or properties
-
-#### Variations or Related Terms
-- **Related Term 1**: Brief explanation
-- **Related Term 2**: Brief explanation
-```
-
-#### Content Guidelines
-
-- **Concise but complete** - capture essential meaning without excessive detail
-- **SPaDE-specific** - focus on how terms are used within this project
-- **Cross-referenced** - link to related existing glossary entries
-- **Accessible** - avoid circular definitions or overly technical language
-- **Consistent** - match tone and style of existing entries
-- **Link to source** - when suitable documentation exists, link the term heading to it
-
-### Step 5: Integration Process
-
-1. **Technical accuracy** - verify definitions are correct
-2. **Consistency check** - ensure alignment with existing glossary
-3. **Completeness assessment** - confirm all important aspects covered
-4. **Style conformance** - match existing glossary formatting and tone
-5. **Propose additions** through standard review process
-6. **Organize alphabetically** within appropriate sections
-7. **Update cross-references** in existing entries as needed
-8. **Run glossary linking** (amtd002.md) to add links to new terms throughout documentation
-
-## Tools and Automation
-
-### Recommended Tooling
-
-1. **Term extraction script** to identify candidates automatically
-2. **Frequency analysis** to prioritize terms by usage patterns
-3. **Context extraction** to gather usage examples for definition drafting
-4. **Integration validation** to check proposed entries against existing content
-
-### Output Formats
-
-- **Candidate term list** with frequency and context data
-- **Draft glossary entries** in standard markdown format
-- **Integration report** documenting rationale and recommendations
+1. Queue the incremental linking task ([amtd002.md](amtd002.md)). When ready, run `python3 docs/admin/amcd001.py --since <last-review-date>` or `--files <list>` to add links to the new terms across the documentation.
+2. Capture the resulting glossary-link maintenance report produced by amcd001.py and store it in `reviews/` as part of the follow-up task.
 
 ## See Also
 

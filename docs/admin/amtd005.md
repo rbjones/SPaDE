@@ -146,7 +146,6 @@ The glossary augmentation system consists of:
    - Script improvements or fixes needed
    - Procedure clarifications required  
    - Documentation updates necessary
-   - Training materials for contributors
 
 ## Post-Testing Actions
 
@@ -159,6 +158,7 @@ Upon successful completion:
 
 ## See Also
 
+- [amms001.md](amms001.md) - Project Structure and Naming Conventions
 - [amms007.md](amms007.md) - Glossary Augmentation Procedure (primary reference)
 - [amtd004.md](amtd004.md) - Script Implementation Task (predecessor)
 - [amtd002.md](amtd002.md) - Incremental Glossary Linking Task
