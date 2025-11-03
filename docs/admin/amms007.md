@@ -15,51 +15,68 @@ This procedure applies to all markdown (.md) files in the SPaDE repository, excl
 
 ## Procedure Overview
 
-### Step 1: Preparation
+The workflow is split into two explicit stages. Copilot executes Stage 1 and opens a draft pull request. Stage 2 happens only after the maintainer has reviewed and edited the Stage 1 artefacts.
 
-1. **Establish baseline**: identify the most recent glossary augmentation report (`reviews/YYYYMMDD-HHMM-*-glossary-augmentation.md`). Note that date for future reporting.
-2. **Load current glossary terms**: run `python3 docs/admin/amcd002.py --output json > /tmp/glossary_terms.json` (optional but useful when cross-checking candidates). This script reflects the canonical list of headings and anchors in `docs/tlad001.md`.
+### Stage 1 — Candidate Proposal (Draft PR)
 
-### Step 2: Discover Candidate Terms (amcd003.py)
+1. **Establish baseline**
+   - Locate the most recent glossary augmentation report (`reviews/YYYYMMDD-HHMM-*-glossary-augmentation.md`) and note the date for reference.
+   - Optionally export the current glossary anchors for cross-checking with `python3 docs/admin/amcd002.py --output json > /tmp/glossary_terms.json`.
 
-1. Execute `python3 docs/admin/amcd003.py --output markdown --min-frequency 2 --min-files 2 > reviews/latest-glossary-candidates.md`.
-2. Review the generated candidate list. Each entry includes frequency, files, and example contexts to speed evaluation.
-3. Remove obvious false positives (generic words, duplicates of existing glossary terms, concepts out of scope).
+2. **Discover candidates with automation**
+   - Run `python3 docs/admin/amcd003.py --output json --min-frequency 2 --min-files 2 > /tmp/glossary_candidates.json`.
+   - Review the JSON and shortlist only project-relevant terms. Exclude existing glossary entries, generic vocabulary, and artefacts unique to tooling.
 
-### Step 3: Evaluate Documentation Coverage
+3. **Prepare the maintainer-facing candidate list**
+   - Create `reviews/YYYYMMDD-HHMM-copilot-glossary-candidates.yaml` (use UTC timestamp).
+   - Record one term per line in YAML sequence form for easy editing, e.g.:
 
-For each shortlisted candidate:
+     ```yaml
+     candidates:
+       - Knowledge Repository
+       - Native Repository
+       - Deductive Kernel
+     ```
 
-1. Use the file/line contexts in the amcd003 output to locate the authoritative explanation. Confirm it is stable, substantial, and appropriate to link.
-2. If a strong explanation exists, record the document path and section anchor for reuse in the glossary heading.
-3. If no adequate explanation exists, plan to provide a standalone definition within the glossary entry.
+   - Keep the document limited to the proposed term names; omit tables, statistics, or inline commentary.
 
-### Step 4: Draft Glossary Entries
+4. **Open a draft pull request**
+   - Create a feature branch containing only the YAML candidate list (and any optional supporting notes).
+   - Open a draft PR titled “Glossary candidates YYYY-MM-DD” and request maintainer review. No glossary edits are made at this stage.
 
-1. Follow the established structure:
+5. **Await maintainer curation**
+   - The maintainer may remove, reorder, or add terms directly in the YAML file. Copilot pauses here until explicit approval to proceed with Stage 2.
 
-   ```markdown
-   ### [Term Name](relative/path.md#anchor)
+### Stage 2 — Glossary Integration (Maintainer Approved)
 
-   Concise SPaDE-specific definition.
+1. **Confirm scope**
+   - Sync the branch with the maintainer’s revisions to the YAML list. Treat the edited list as the authoritative scope for the iteration.
 
-   Optional supporting paragraph(s) clarifying usage, relationships, or key attributes.
-   ```
+2. **Draft glossary entries**
+   - For each term, determine whether an existing document offers a canonical explanation. Capture the relative path and anchor if one exists.
+   - Add entries to `docs/tlad001.md`, maintaining alphabetical order and letter headings. When a target section is missing, extend the index accordingly.
+   - Follow the established entry pattern:
 
-   Omit the link wrapper only when no authoritative source exists.
+     ```markdown
+     ### [Term Name](relative/path.md#anchor)
 
-2. Maintain tone, formatting, and cross-linking conventions used elsewhere in `docs/tlad001.md`. Link related glossary terms inline where helpful.
+     Concise SPaDE-specific definition (expand in full when no external reference is available).
+     ```
 
-### Step 5: Integrate Entries into the Glossary
+3. **Run incremental linking (amcd001.py)**
+   - Execute `python3 docs/admin/amcd001.py --since <last-review-date>` or `--files …` to insert links pointing to the new glossary entries.
+   - Review the diff for over-linking or unintended edits and adjust filters if needed.
 
-1. Insert each new entry alphabetically within the appropriate letter section and update the letter index when introducing a new initial.
-2. Re-run `python3 docs/admin/amcd002.py --output text` (optional) to spot-check that the new headings are parsed correctly and anchors resolve.
-3. Save changes to `docs/tlad001.md` and prepare the augmentation report (see Deliverables in [amtd003.md](amtd003.md)).
+4. **Regenerate reports**
+   - Produce an updated candidate summary if helpful (`amcd003.py --output json`) and archive any supporting artefacts under `/tmp` or the PR description.
+   - Author the augmentation report described in [amtd003.md](amtd003.md) (filename `reviews/YYYYMMDD-HHMM-copilot-glossary-augmentation.md`). Reference the YAML candidate list and note any deviations.
 
-### Step 6: Post-Augmentation Follow-up (amcd001.py)
+5. **Finalize the pull request**
+   - Include all Stage 2 changes (glossary edits, automated links, augmentation report) in the existing PR.
+   - Provide a concise summary of actions taken and any follow-up required. Await maintainer review before merging.
 
-1. Queue the incremental linking task ([amtd002.md](amtd002.md)). When ready, run `python3 docs/admin/amcd001.py --since <last-review-date>` or `--files <list>` to add links to the new terms across the documentation.
-2. Capture the resulting glossary-link maintenance report produced by amcd001.py and store it in `reviews/` as part of the follow-up task.
+6. **Post-merge follow-up**
+   - After merge, archive or delete temporary analysis files. If additional linking is required, raise a new task referencing the augmentation report.
 
 ## See Also
 

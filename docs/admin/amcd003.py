@@ -62,7 +62,11 @@ def get_markdown_files():
     md_files = []
     for root, dirs, files in os.walk('.'):
         # Skip excluded directories
-        dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['reviews', 'retro']]
+        dirs[:] = [
+            d for d in dirs
+            if not d.startswith('.')
+            and d not in ['reviews', 'retro', 'node_modules']
+        ]
         
         for file in files:
             if file.endswith('.md'):
@@ -178,8 +182,8 @@ def extract_candidate_terms(content, filepath):
 
 def filter_candidates(candidates, existing_terms, min_frequency=2, min_files=2, exclude_common=True):
     """Filter and aggregate candidate terms."""
-    # Normalize existing terms for comparison
-    existing_lower = set(t.lower() for t, _ in existing_terms)
+    # Normalize existing terms for comparison (supports tuples of length 2 or 3)
+    existing_lower = set(t[0].lower() for t in existing_terms)
     
     # Aggregate by normalized term
     term_data = defaultdict(lambda: {
