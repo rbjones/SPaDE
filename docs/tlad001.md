@@ -12,10 +12,20 @@ See also: synthetic.
 
 Obtained by breaking something complex down into its constituent parts or elements.
 
-- **Analytic (Kant)**: A judgement or proposition where the predicate is contained in the concept of the subject.
-- **Analytic (Positivism)**: A proposition which is true in virtue of its meaning without need of empirical confirmation.  Sometimes called a *tautology*.
-- **Analytic Proof (ancient Greece)**: A proof which proceeds by analysis from the conclusion to be proved back to axioms and premises.
-- **Analytic Philosophy**
+#### Analytic (Kant)
+
+A judgement or proposition where the predicate is contained in the concept of the subject.
+
+#### Analytic (Positivism)
+
+A proposition which is true in virtue of its meaning without need of empirical confirmation. Sometimes called a *tautology*.
+
+#### Analytic Proof (ancient Greece)
+
+A proof which proceeds by analysis from the conclusion to be proved back to axioms and premises.
+
+#### Analytic Philosophy
+
 A philosophical tradition that emphasizes clarity and logical rigor, often through the analysis of language and concepts.
 
 ## D
@@ -41,18 +51,32 @@ Design methods are implemented as derived inference rules which prove compliance
 
 Concerning the entire cosmic reach of the progeny of a single origin of intelligence, such as Planet Earth.
 
-- **Diasporic Repository**: A distributed repository spanning the knowledge of an intelligent diaspora.
+#### Diasporic Repository
+
+A distributed repository spanning the knowledge of an intelligent diaspora.
 A maximal connected component of the pansophic repository.
 
 ## E
 
 ### Embedding
 
-- The placement or incorporation of one thing within another.
-- **Language Embedding**: A mapping of one language into another (possibly defined in a third language).
-- **Semantic Embedding**: A language embedding that preserves meaning.
-- **Shallow Embedding**: A semantic embedding which is not deep, and therefore does not require a target more expressive than the source language.
-- **Deep Embedding**: A mapping (in a target- or meta-language) that represents the semantics of a source- or object-language, in a manner which supports metatheoretic reasoning about the language, typically as a function defined over the abstract syntax of that language.
+The placement or incorporation of one thing within another.
+
+#### Embedding: Language
+
+A mapping of one language into another (possibly defined in a third language).
+
+#### Embedding: Semantic
+
+A language embedding that preserves meaning.
+
+#### Embedding: Shallow
+
+A semantic embedding which is not deep, and therefore does not require a target more expressive than the source language.
+
+#### Embedding: Deep
+
+A mapping (in a target- or meta-language) that represents the semantics of a source- or object-language, in a manner which supports metatheoretic reasoning about the language, typically as a function defined over the abstract syntax of that language.
 
 ### Epistemic
 
@@ -74,13 +98,17 @@ A conceptual framework for understanding how abstract deductive reasoning contri
 
 Giving particular attention to parts of a whole.
 
-- **Focal Intelligence or Focal AI**: AI systems specialising in narrow domains enemcumbered by the support of broader capabilities.
-These will often be *perfect information spaces* in which competence can be achieved by exploration of the space without need of training data, as exemplified by Deepmind's AlphaZero.
+#### Focal Intelligence or Focal AI
 
-- **[Focal Engineering](tlph004.md)**
+AI systems specialising in narrow domains unencumbered by the support of broader capabilities.
+These will often be *perfect information spaces* in which competence can be achieved by exploration of the space without need of training data, as exemplified by DeepMind's AlphaZero.
+
+#### [Focal Engineering](tlph004.md)
+
 The application of focal intelligence to engineering design problems (broadly construed).
 
-- **[Focal Tower](tlph004.md/#a-focal-tower)**
+#### [Focal Tower](tlph004.md/#a-focal-tower)
+
 A conceptual framework for understanding how focal engineering (including singular foci) can be applied to problems in various domains, by identifying the perfect information spaces within those domains and applying appropriate focal AI techniques to solve problems within those spaces.
 
 ## I
@@ -151,14 +179,28 @@ See also: analytic.
 
 Constructed rather than discovered.
 
-- **Synthetic (Kant)**: A judgement or proposition where the predicate adds new information not already contained in the concept of the subject.
-- **Synthetic (Positivism)**: Pertaining to knowledge that is derived from empirical observation and experience, as opposed to being innate or purely logical.
-- **Synthetic Proof (ancient Greece)**
+#### Synthetic (Kant)
+
+A judgement or proposition where the predicate adds new information not already contained in the concept of the subject.
+
+#### Synthetic (Positivism)
+
+Pertaining to knowledge that is derived from empirical observation and experience, as opposed to being innate or purely logical.
+
+#### Synthetic Proof (ancient Greece)
+
 A proof which proceeds from axioms and premises to a conclusion by direct logical inference.
-- **[Synthetic Epistemology](tlph002.md#epistemology)(SPaDE)**
-Those part of *synthetic philosophy* (SPaDE) seeking to understand knowledge by designing the epistemic engines of the future.
-- **Synthetic Philosophy**: An approach to  philosophy which seeks to integrate and unify knowledge from diverse fields and disciplines into a coherent, comprehensive worldview or system of understanding.
-- **[Synthetic Philosophy](tlph002.md)(SPaDE)**
+
+#### [Synthetic Epistemology](tlph002.md#epistemology) (SPaDE)
+
+Those parts of *synthetic philosophy* (SPaDE) seeking to understand knowledge by designing the epistemic engines of the future.
+
+#### Synthetic Philosophy
+
+An approach to philosophy which seeks to integrate and unify knowledge from diverse fields and disciplines into a coherent, comprehensive worldview or system of understanding.
+
+#### [Synthetic Philosophy](tlph002.md) (SPaDE)
+
 A constructive philosophy seeking to understand the future by shaping it, primarily through deductive engineering including *synthetic epistemology*.
 
 ## T
@@ -167,6 +209,10 @@ A constructive philosophy seeking to understand the future by shaping it, primar
 
 Concerning Planet Earth.
 
-- **Terran Diaspora**: The intelligent progeny of *homo sapiens*.
+#### Terran Diaspora
 
-- **Terran Diasporic Repository**: The distributed repository encompassing the declarative knowledge of the terran diaspora.
+The intelligent progeny of *homo sapiens*.
+
+#### Terran Diasporic Repository
+
+The distributed repository encompassing the declarative knowledge of the terran diaspora.
