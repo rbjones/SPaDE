@@ -14,11 +14,14 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlph006.md](./tlph006.md) - Philosophy and Architecture
 - [tlph007.md](./tlph007.md) - Universality in the Representation of [Declarative Knowledge](tlad001.md#declarative-knowledge)
 - [tlph008.md](./tlph008.md) - On the Expressiveness of Declarative Languages
+- [tlph009.md](./tlph009.md) - SPaDE Seminal Insights
 
 ## Architecture
 
 - [tlad001.md](./tlad001.md) - The [SPaDE](tlad001.md#spade) glossary
-- [tlad002.md](./tlad002.md) - [SPaDE](tlad001.md#spade) Project Architecture
+- [tlad002.md](./tlad002.md) - [SPaDE](tlad001.md#spade) Project Aims and Ambitions
+- [tlad003.md](./tlad003.md) - [SPaDE](tlad001.md#spade) Project Structure
+- [tlad004.md](./tlad004.md) - [SPaDE](tlad001.md#spade) Perspectives on SPaDE
 
 ## Project Structure and Processes
 
