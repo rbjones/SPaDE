@@ -44,6 +44,9 @@ from amcd002 import extract_glossary_terms
 # Define the glossary path
 GLOSSARY_PATH = "docs/tlad001.md"
 
+
+EMPHASIS_PATTERN = re.compile(r'(?<!\\)(\*\*|__|\*|_)(?!\s)(.+?)(?<!\s)\1', re.DOTALL)
+
 def get_relative_path_to_glossary(from_file):
     """Calculate relative path from a file to the glossary."""
     from_dir = Path(from_file).parent
@@ -56,6 +59,27 @@ def get_relative_path_to_glossary(from_file):
     except ValueError:
         # If on different drives on Windows
         return GLOSSARY_PATH
+
+
+def find_emphasis_spans(content):
+    """Locate spans of emphasised text (italic/bold) without delimiters."""
+    spans = []
+    for match in EMPHASIS_PATTERN.finditer(content):
+        delimiter_len = len(match.group(1))
+        inner_start = match.start() + delimiter_len
+        inner_end = match.end() - delimiter_len
+        spans.append((inner_start, inner_end))
+    return spans
+
+
+def is_partial_emphasis(match_start, match_end, spans):
+    """Return True when a match covers only part of an emphasised span."""
+    for span_start, span_end in spans:
+        if span_start <= match_start and match_end <= span_end:
+            if match_start == span_start and match_end == span_end:
+                return False
+            return True
+    return False
 
 def is_in_code_block(content, position):
     """Check if position is inside a code block."""
@@ -122,31 +146,17 @@ def resolve_link_target(filepath, term_name, anchor, external_link, rel_glossary
         # The anchor should be based on the term itself
         target_anchor = None  # Will be determined below
     
-    # Get the absolute path of current file and target file
     current_file_abs = Path(filepath).resolve()
-    
-    # Handle relative path from glossary
     glossary_dir = Path(GLOSSARY_PATH).parent
     target_file_abs = (glossary_dir / target_file).resolve()
-    
-    # If we're in the target file, link locally
+
+    # If we're in the target file, link back to the glossary instead of self-linking
     if current_file_abs == target_file_abs:
-        if target_anchor is None:
-            # For links like [Focal Engineering](tlph004.md), when we're in tlph004.md,
-            # we need to generate a local anchor based on the term name itself
-            # This should be #focal-engineering for "Focal Engineering"
-            target_anchor = generate_anchor_from_term_name(term_name)
-        return target_anchor
+        # Prefer glossary anchors to avoid self-links in the source document.
+        return f"{rel_glossary_path}{anchor}"
     else:
         # Link to glossary as usual
         return f"{rel_glossary_path}{anchor}"
-
-def generate_anchor_from_term_name(term_name):
-    """
-    Generate a local anchor based on the term name itself.
-    This is used when we're in the target document and need to link locally.
-    """
-    return generate_anchor(term_name)
 
 def generate_anchor(text):
     """Generate GitHub-compatible anchor from text (copied from amcd002)."""
@@ -187,6 +197,8 @@ def add_links_to_file(filepath, terms, dry_run=False):
         else:
             term, anchor, external_link = term_data
         
+        emphasis_spans = find_emphasis_spans(content)
+
         # Case-insensitive search
         pattern = re.compile(re.escape(term), re.IGNORECASE)
         
@@ -194,9 +206,11 @@ def add_links_to_file(filepath, terms, dry_run=False):
         
         for match in reversed(matches):  # Process from end to start to maintain positions
             pos = match.start()
+            matched_text = match.group()
+            match_end = pos + len(matched_text)
             
             # Skip if we've already processed overlapping content
-            if any(pos <= p < pos + len(term) for p in linked_positions):
+            if any(pos <= p < match_end for p in linked_positions):
                 continue
             
             # Skip if in code block, existing link, or heading
@@ -206,9 +220,8 @@ def add_links_to_file(filepath, terms, dry_run=False):
                 continue
             if is_in_heading(content, pos):
                 continue
-            
-            # Get the actual matched text (preserving case)
-            matched_text = match.group()
+            if is_partial_emphasis(pos, match_end, emphasis_spans):
+                continue
             
             # Determine the correct link target based on the new requirement
             link_target = resolve_link_target(filepath, term, anchor, external_link, rel_glossary_path)
@@ -220,11 +233,11 @@ def add_links_to_file(filepath, terms, dry_run=False):
             content = content[:pos] + link + content[pos + len(matched_text):]
             
             # Mark this position range as linked
-            for i in range(pos, pos + len(matched_text)):
+            for i in range(pos, match_end):
                 linked_positions.add(i)
             
             changes_made += 1
-    
+
     if changes_made > 0 and not dry_run:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)

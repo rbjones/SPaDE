@@ -65,7 +65,10 @@ The workflow is split into two explicit stages. Copilot executes Stage 1 and op
 
 3. **Run incremental linking (amcd001.py)**
    - Execute `python3 docs/admin/amcd001.py --since <last-review-date>` or `--files …` to insert links pointing to the new glossary entries.
+   - Ensure the glossary provides dedicated headings for any subtopics that should receive links (e.g. convert bulleted glosses into `####` subsections before running the script).
    - Review the diff for over-linking or unintended edits and adjust filters if needed.
+   - Pay special attention to emphasised text: the script should treat emphasised spans as atomic; avoid linking single words inside highlighted phrases unless the whole span is the glossary term.
+   - Links that would resolve to anchors within the same document should default back to the glossary entry; flag any self-links for manual review.
 
 4. **Regenerate reports**
    - Produce an updated candidate summary if helpful (`amcd003.py --output json`) and archive any supporting artefacts under `/tmp` or the PR description.
