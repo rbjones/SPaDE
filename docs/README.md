@@ -15,6 +15,7 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlph007.md](./tlph007.md) - Universality in the Representation of [Declarative Knowledge](tlad001.md#declarative-knowledge)
 - [tlph008.md](./tlph008.md) - On the Expressiveness of Declarative Languages
 - [tlph009.md](./tlph009.md) - SPaDE Seminal Insights
+- [tlph010.md](./tlph010.md) - Universal Foundational Institutions
 
 ## Architecture
 
