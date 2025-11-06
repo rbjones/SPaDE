@@ -56,5 +56,6 @@ venv/
 # MCP Inspector cache
 inspector/
 
-# Exclude VS Code workspace files (temporary)
+# Exclude VS Code workspace files and tools(temporary)
 *.code-workspace
+tools/

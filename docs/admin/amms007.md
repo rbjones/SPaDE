@@ -2,20 +2,31 @@
 
 ## Purpose
 
-This document describes the method for systematically identifying new technical terms in the SPaDE project documentation that should be added to the glossary.
+This document describes a method for systematically identifying new technical terms in the SPaDE project documentation that should be added to the glossary, and for integrating those terms into the glossary and linking them throughout the documentation.
 
 ## Scope
 
 This procedure applies to all markdown (.md) files in the SPaDE repository, excluding:
 
 - The `reviews/` directory
-- The `retro/` directory  
+- The `retro/` directory
+- The `tools/` directory
 - Any directory whose name begins with `.`
 - The glossary file itself (`docs/tlad001.md`)
 
 ## Procedure Overview
 
-The workflow is split into two explicit stages. Copilot executes Stage 1 and opens a draft pull request. Stage 2 happens only after the maintainer has reviewed and edited the Stage 1 artefacts.
+The workflow is split into two stages, with Stage 1 focusing on candidate proposal and Stage 2 on glossary integration.
+In Stage 1, Copilot opens a draft pull request, which delivers a curated list of candidate terms for review.
+The review may then lead to modifications of the candidate list.
+Stage 2 then integrates the approved terms into the glossary, links them throughout the documentation and generates an augmentation report.
+After a final review the results are merged into the main branch.
+
+To assist in undertaking this procedure, several supporting scripts are provided in the `docs/admin/` directory as follows:
+
+- `amcd001.py` — Incremental glossary linking script
+- `amcd002.py` — Glossary term frequency and occurrence extractor
+- `amcd003.py` — Glossary candidate identification script
 
 ### Stage 1 — Candidate Proposal (Draft PR)
 
@@ -27,7 +38,7 @@ The workflow is split into two explicit stages. Copilot executes Stage 1 and op
    - Run `python3 docs/admin/amcd003.py --output json --min-frequency 2 --min-files 2 > /tmp/glossary_candidates.json`.
    - Review the JSON and shortlist only project-relevant terms. Exclude existing glossary entries, generic vocabulary, and artefacts unique to tooling.
 
-3. **Prepare the maintainer-facing candidate list**
+3. **Prepare candidate list for review**
    - Create `reviews/YYYYMMDD-HHMM-copilot-glossary-candidates.yaml` (use UTC timestamp).
    - Record one term per line in YAML sequence form for easy editing, e.g.:
 
@@ -42,10 +53,12 @@ The workflow is split into two explicit stages. Copilot executes Stage 1 and op
 
 4. **Open a draft pull request**
    - Create a feature branch containing only the YAML candidate list (and any optional supporting notes).
-   - Open a draft PR titled “Glossary candidates YYYY-MM-DD” and request maintainer review. No glossary edits are made at this stage.
+   - Open a draft PR titled “Glossary candidates YYYY-MM-DD” and request maintainer review.
+   No glossary edits are made at this stage.
 
 5. **Await maintainer curation**
-   - The maintainer may remove, reorder, or add terms directly in the YAML file. Copilot pauses here until explicit approval to proceed with Stage 2.
+   - The reviewer may remove or add terms in the candidate list.
+   Work pauses until approval is given to proceed with Stage 2.
 
 ### Stage 2 — Glossary Integration (Maintainer Approved)
 
@@ -53,8 +66,8 @@ The workflow is split into two explicit stages. Copilot executes Stage 1 and op
    - Sync the branch with the maintainer’s revisions to the YAML list. Treat the edited list as the authoritative scope for the iteration.
 
 2. **Draft glossary entries**
-   - For each term, determine whether an existing document offers a canonical explanation. Capture the relative path and anchor if one exists.
-   - Add entries to `docs/tlad001.md`, maintaining alphabetical order and letter headings. When a target section is missing, extend the index accordingly.
+   - For each term, determine whether an existing document offers a suitable explanation. Capture the relative path and anchor if one exists.
+   - Add entries to `docs/tlad001.md`, maintaining alphabetical order and letter headings. When a target letter heading is missing, add the heading and extend the index accordingly.
    - Follow the established entry pattern:
 
      ```markdown
@@ -65,7 +78,6 @@ The workflow is split into two explicit stages. Copilot executes Stage 1 and op
 
 3. **Run incremental linking (amcd001.py)**
    - Execute `python3 docs/admin/amcd001.py --since <last-review-date>` or `--files …` to insert links pointing to the new glossary entries.
-   - Ensure the glossary provides dedicated headings for any subtopics that should receive links (e.g. convert bulleted glosses into `####` subsections before running the script).
    - Review the diff for over-linking or unintended edits and adjust filters if needed.
    - Pay special attention to emphasised text: the script should treat emphasised spans as atomic; avoid linking single words inside highlighted phrases unless the whole span is the glossary term.
    - Links that would resolve to anchors within the same document should default back to the glossary entry; flag any self-links for manual review.
