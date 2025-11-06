@@ -40,3 +40,4 @@ This wraps the deductive kernel with layers of [focal intelligence](docs/tlad001
 - [Project Structure](docs/tlad003.md)
 - [CONTRIBUTING](CONTRIBUTING.md)
 - [Review Log](reviews/README.md)
+- [glossary](docs/tlad001.md)

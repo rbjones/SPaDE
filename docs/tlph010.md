@@ -53,5 +53,4 @@ We must therefore go into more detail about semantics, which begins with *abstra
 
 #### Abstract Syntax
 
-
 The abstract syntax of a declarative language is a set of syntactic categories, and a collection of rules for forming objects in these categories from members of other syntactic categories.
