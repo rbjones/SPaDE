@@ -65,9 +65,7 @@ jobs:
           WORKDIR /workspace
           
           # Set up ProofPower environment
-          ENV PPDIR=/proofpower
-          ENV PATH="/proofpower/bin:$PATH"
-          
+          ENV PPDIR=/proofpower-source          
           CMD ["/bin/bash"]
           EOF
       

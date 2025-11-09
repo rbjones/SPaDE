@@ -20,12 +20,8 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Verify ProofPower environment
-        run: |
-          echo "Checking ProofPower installation..."
-          which pp || echo "ProofPower not in PATH"
-          
-          # Test basic HOL access
-          echo "print_theory \"basic_hol\"; quit();" | pp -d hol || true
+        run:
+          make test
       
       - name: Install Python dependencies
         run: |

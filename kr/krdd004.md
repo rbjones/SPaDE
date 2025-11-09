@@ -7,6 +7,7 @@ In first drafts of this document the procedures defined are those necessary to w
 Some of the detail will depend upon the language in which the procedures are implemented.
 Where possible pertinent differences will be highlighted.
 Only two languages are currently under consideration, SML (for HOL4 and ProofPower HOL implementations) and Python (for MCP server implementations).
+The Python implementation is now intended to come first.
 The former are only intended for the export of theory heirarchies from existing HOL ITP systems into [SPaDE](../docs/tlad001.md#spade) repositories, while the latter are intended for use in delivering the broader functionality of [SPaDE](../docs/tlad001.md#spade) through the logical kernel, deductive intelligence and MCP server subsystems.
 Python may also to be used in due course for export of theories from Lean.
 

@@ -55,9 +55,11 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd004.json](krcd004.json) - JSON schema for the HOL datatype hterm
 - [krcd005.sml](krcd005.sml) - ProofPower HOL Database Export
 - [krcd006.sml](krcd006.sml) - HOL4 specification of [SPaDE](../docs/tlad001.md#spade) repository
+- [krcd007.py](krcd007.py) - Low-level SPaDE repository I/O in Python, implementing krdd004.md
 
 ## Testing and Evaluation
 
 This section includes documents that describe the testing and evaluation process for the Knowledge Repository.
 
 - [krte001.md](krte001.md) - Knowledge repository prototyping test notes
+- [krte002.py](krte002.py) - Knowledge repository module test script

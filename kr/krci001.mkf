@@ -8,14 +8,12 @@
 current: test
 
 # MD files containing formal text
-# 
-
 
 # File classified by build method
 
 PPHOLSMLFILES = krcd001.sml krcd005.sml 
 HOL4SMLFILES = krcd006.sml 
-PYTHONFILES = krcd002.py krcd003.py krcd006.py krcd007.py
+PYFILES = krcd002.py krcd003.py krcd006.py krcd007.py
 
 PPHOLSMLLDD = $(PPHOLSMLFILES:.sml=.ldd)
 HOL4SMLLDD = $(HOL4SMLFILES:.sml=.ldd)
@@ -41,7 +39,11 @@ $(PPHOLSMLLDD): %.ldd: %.sml
 	@echo "+++ Compiled $<: OK (Compilation Run Complete) +++" >> $*.err
 	@mv $*.err $@
 
-test: $(PPHOLSMLLDD)
+build: # $(PPHOLSMLLDD)
+	@echo "Nothing to build"
+
+test: build
+	@echo "No tests yet"
 
 clean:
 	rm -f $(LDDS)
