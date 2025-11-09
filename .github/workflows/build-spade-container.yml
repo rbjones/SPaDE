@@ -1,0 +1,88 @@
+name: Build SPaDE Container
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Container tag (default: latest)'
+        required: false
+        default: 'latest'
+
+env:
+  REGISTRY: ghcr.io
+  BASE_IMAGE: ghcr.io/rbjones/pp/proofpower:latest
+  IMAGE_NAME: rbjones/spade
+
+jobs:
+  build-container:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ github.event.inputs.tag || 'latest' }}
+            type=sha,prefix={{branch}}-
+      
+      - name: Create Dockerfile
+        run: |
+          cat > Dockerfile << 'EOF'
+          # Start from ProofPower container
+          FROM ${{ env.BASE_IMAGE }}
+          
+          # Install SPaDE-specific dependencies
+          RUN apt-get update && apt-get install -y \
+            python3 \
+            python3-pip \
+            python3-venv \
+            git \
+            && rm -rf /var/lib/apt/lists/*
+          
+          # Install Python packages if requirements exist
+          COPY requirements.txt* /tmp/
+          RUN if [ -f /tmp/requirements.txt ]; then \
+                pip3 install --no-cache-dir -r /tmp/requirements.txt; \
+              fi
+          
+          # Copy SPaDE workspace
+          COPY . /workspace
+          WORKDIR /workspace
+          
+          # Set up ProofPower environment
+          ENV PPDIR=/proofpower
+          ENV PATH="/proofpower/bin:$PATH"
+          
+          CMD ["/bin/bash"]
+          EOF
+      
+      - name: Build and push container image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      
+      - name: Output image details
+        run: |
+          echo "SPaDE container image built and pushed:"
+          echo "${{ steps.meta.outputs.tags }}"
+          echo ""
+          echo "To use this image:"
+          echo "  docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag || 'latest' }}"

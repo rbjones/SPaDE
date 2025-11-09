@@ -1,17 +1,21 @@
 # SPaDE kr Makefile
 # Knowledge Repository
 
-.PHONY: all clean current dk kr docs test help
+.PHONY: all clean current kr docs test help
 
 # Default target
 
 current: test
 
+# MD files containing formal text
+# 
+
+
 # File classified by build method
 
-PPHOLSMLFILES = krcd005.sml 
+PPHOLSMLFILES = krcd001.sml krcd005.sml 
 HOL4SMLFILES = krcd006.sml 
-PYTHONFILES = krcd001.sml krcd002.py krcd003.py krcd006.py krcd007.py
+PYTHONFILES = krcd002.py krcd003.py krcd006.py krcd007.py
 
 PPHOLSMLLDD = $(PPHOLSMLFILES:.sml=.ldd)
 HOL4SMLLDD = $(HOL4SMLFILES:.sml=.ldd)

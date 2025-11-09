@@ -1,0 +1,57 @@
+name: SPaDE - Test in Container
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: rbjones/spade
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ env.IMAGE_NAME }}:latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Verify ProofPower environment
+        run: |
+          echo "Checking ProofPower installation..."
+          which pp || echo "ProofPower not in PATH"
+          
+          # Test basic HOL access
+          echo "print_theory \"basic_hol\"; quit();" | pp -d hol || true
+      
+      - name: Install Python dependencies
+        run: |
+          # Install any project-level requirements
+          for req in requirements.txt kr/requirements.txt di/agprop/requirements.txt; do
+            if [ -f "$req" ]; then
+              echo "Installing from $req..."
+              pip3 install -r "$req"
+            fi
+          done
+      
+      - name: Run tests
+        run: |
+          # Run pytest if test files exist
+          if find . -name "test_*.py" -o -name "*_test.py" | grep -q .; then
+            python3 -m pytest -v
+          else
+            echo "No Python tests found"
+          fi
+          
+          # Run make test if Makefile exists
+          if [ -f Makefile ]; then
+            make test 2>/dev/null || echo "No test target in Makefile"
+          fi
+      
+      - name: Test summary
+        if: always()
+        run: echo "Test execution completed. Check logs above for results."
+

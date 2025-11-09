@@ -2,6 +2,8 @@
 
 # test-spade-integration.sh - Test SPaDE integration with ProofPower HOL
 # This script can be run inside the ProofPower container to test SPaDE scraping functionality
+# Written by copilot, but unlikely to be used since the tentative policy is to invoke the top level makefile and no script is needed.
+# Will be deleted once the policy is confirmed.
 
 set -e
 

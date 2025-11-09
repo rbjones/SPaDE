@@ -1,12 +1,12 @@
 # SPaDE Project Makefile
 # Synthetic Philosophy and Deductive Engineering
 
-.PHONY: all clean current dk kr docs test help
+.PHONY: all build clean current di dk kr test help
 
 # Default target
 current: kr-test
 
-all: docs di dk kr
+all: di dk kr
 
 # Component targets with argument passthrough
 di-%:
@@ -18,37 +18,21 @@ dk-%:
 kr-%:
 	$(MAKE) -C kr -f krci001.mkf $*
 
-docs-%:
-	$(MAKE) -C docs $*
-
 # Shorthand targets
 di: di-all
 dk: dk-all
 kr: kr-all
-docs: docs-all
+
+# Build
+build: di-build dk-build kr-build
 
 # Testing
-test: test-di test-dk test-kr
-test-di: di-test
-test-dk: dk-test
-test-kr: kr-test
+test: di-test dk-test kr-test
+
+%-test: %-build
 
 # Cleanup
-clean: clean-di clean-dk clean-kr clean-docs
-clean-dk: di-clean
-clean-dk: dk-clean
-clean-kr: kr-clean
-clean-docs: docs-clean
-
-# Documentation
-build-docs: docs-build
-serve-docs: docs-serve
-
-# Development
-dev: dev-di dev-dk dev-kr
-dev-dk: di-dev
-dev-dk: dk-dev
-dev-kr: kr-dev
+clean: di-clean dk-clean kr-clean
 
 # Help
 help:
@@ -59,22 +43,17 @@ help:
 	@echo "  di            - Build deductive intelligence"
 	@echo "  dk            - Build deductive kernel"
 	@echo "  kr            - Build knowledge repository"
-	@echo "  docs          - Build documentation"
 	@echo ""
 	@echo "Component-specific targets:"
 	@echo "  di-<target>   - Run <target> in di directory"
 	@echo "  dk-<target>   - Run <target> in dk directory"
 	@echo "  kr-<target>   - Run <target> in kr directory"
-	@echo "  docs-<target> - Run <target> in docs directory"
 	@echo ""
 	@echo "Common operations:"
+	@echo "  build         - Run all tests"
 	@echo "  test          - Run all tests"
 	@echo "  clean         - Clean all builds"
-	@echo "  build-docs    - Build documentation"
-	@echo "  serve-docs    - Serve documentation locally"
-	@echo "  dev           - Start development mode"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make dk-test    # Run tests in dk directory"
 	@echo "  make kr-clean   # Clean kr directory"
-	@echo "  make docs-serve # Serve docs locally"

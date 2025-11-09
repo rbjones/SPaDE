@@ -41,6 +41,10 @@ Meanwhile I have a top level planning rumination [ampl001.md](ampl001.md) which 
 - [amms006.md](amms006.md) Glossary Link Maintenance
 - [amms007.md](amms007.md) Glossary Augmentation Procedure
 
+## Process or procedure descriptions (ampd)
+
+- [ampd001.md](ampd001.md) Using GitHub Copilot Agent with SPaDE - Process for assigning code-and-test tasks to Copilot agents
+
 ## Plans and strategies (ampl)
 
 - [SPaDE](../tlad001.md#spade) Project Action Plan [ampl001.md](ampl001.md)

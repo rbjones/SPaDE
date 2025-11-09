@@ -38,7 +38,7 @@
   // Post-create command to set up the environment
   "postCreateCommand": [
     "bash", "-c", 
-    "source /proofpower/dev_env && echo 'ProofPower environment ready'"
+    "source /proofpower-source/dev_env && echo 'ProofPower environment ready'"
   ],
 
   // Forward ports if needed

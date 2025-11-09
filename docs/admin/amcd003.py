@@ -17,7 +17,7 @@ Options:
     --exclude-common     Exclude common English words (default: True)
 
 The script:
-1. Scans all markdown files (excluding reviews/, retro/, and glossary)
+1. Scans all markdown files (excluding reviews/, retro/, tools/ and glossary)
 2. Extracts potential technical terms using linguistic patterns
 3. Filters by frequency and importance
 4. Outputs candidate list with usage contexts
@@ -65,7 +65,7 @@ def get_markdown_files():
         dirs[:] = [
             d for d in dirs
             if not d.startswith('.')
-            and d not in ['reviews', 'retro', 'node_modules']
+            and d not in ['reviews', 'retro', 'tools', 'node_modules']
         ]
         
         for file in files:

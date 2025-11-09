@@ -15,10 +15,7 @@ Obtained by breaking something complex down into its constituent parts or elemen
 #### Analytic (Kant)
 
 A judgement or proposition where the predicate is contained in the concept of the subject.
-
-#### Analytic (Positivism)
-
-A proposition which is true in virtue of its meaning without need of empirical confirmation. Sometimes called a *tautology*.
+A proposition which is derivable from the principle of non-contradiction alone.
 
 #### Analytic Proof (ancient Greece)
 
@@ -27,6 +24,11 @@ A proof which proceeds by analysis from the conclusion to be proved back to axio
 #### Analytic Philosophy
 
 A philosophical tradition that emphasizes clarity and logical rigor, often through the analysis of language and concepts.
+
+#### Analytic Sentence
+
+A sentence that is true in virtue of its meaning alone, independent of empirical verification.
+A tautology. A sentence of which the truth conditions are satisfied in all possible circumstances. 
 
 ## D
 
@@ -183,10 +185,6 @@ Constructed rather than discovered.
 
 A judgement or proposition where the predicate adds new information not already contained in the concept of the subject.
 
-#### Synthetic (Positivism)
-
-Pertaining to knowledge that is derived from empirical observation and experience, as opposed to being innate or purely logical.
-
 #### Synthetic Proof (ancient Greece)
 
 A proof which proceeds from axioms and premises to a conclusion by direct logical inference.
@@ -202,6 +200,10 @@ An approach to philosophy which seeks to integrate and unify knowledge from dive
 #### [Synthetic Philosophy](tlph002.md) (SPaDE)
 
 A constructive philosophy seeking to understand the future by shaping it, primarily through deductive engineering including *synthetic epistemology*.
+
+#### Synthetic Sentence
+
+A sentence that is not analytically true; its truth conditions are non-trivial.  A sentence expressing a contingent proposition.
 
 ## T
 

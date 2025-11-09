@@ -40,9 +40,9 @@ Document kinds:
 - **cd** Detailed formal specifications and code
 - **ci** Continuous integration, release and deployment
 - **ms** Methods and standards
+- **pd** Process or procedure descriptions
 - **pl** Plans and strategies
 - **td** Task descriptions
-- **pd** Process or procedure descriptions
 - **te** Testing and evaluation
 - **ep** Papers intended for external publication
 
