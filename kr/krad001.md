@@ -292,7 +292,7 @@ val _ = Datatype
 ## The Structure of Local Repositories
 
 A local repository is the concrete structure stored in a single SPaDE native repository file.
-It has the distinctive feature that it is the level at which branches and versions are managed.
+It has the distinctive feature that it is the level at which branches and versions are likely to be managed.
 This is done through the top level folder of the local repository in which the tags associated with subfolders are labelled by ordered pairs constituting branch names and version numbers.
 This however has no effect on the abstract structure of the repository, which remains as a tree of folders and theories.
 
@@ -303,9 +303,9 @@ val _ = Datatype `hrepo = Hrepo ((htheory folder) rtree)`;
 ## Diasporic and Pansophic Repositories
 
 The whole point of [SPaDE](../docs/tlad001.md#spade)s more elaborate namespace is to support a single repository within which any parts can be selected to provide a context for reasoning and further extension.
-The combination of all local repositories which are reachable from each other forms a [diasporic repository](../docs/tlad001.md#diasporic), which think of as constituting the entire knowledge reachable by the progeny of life on earth or some other point of origin.
+The combination of all local repositories which are reachable from each other forms a [diasporic repository](../docs/tlad001.md#diasporic), which we think of as constituting the entire knowledge reachable by the progeny of life on earth or some other point of origin.
 Since there may be more than one such origin, we may think of the collection of all [diasporic](../docs/tlad001.md#diasporic) repositories as constituting the pansophic repository, which encompasses all knowledge in the cosmos.
-The point of discussing a whole thus composed is to enaure that when previously disconnected diaspora encouter each other, we have a clear model of how their repositories may be logically combined.
+The point of discussing a whole thus composed is to ensure that when previously disconnected diaspora encounter each other, we have a clear model of how their repositories may be logically combined.
 
 The way in which this has been addressed has been through the heirarchic structure of relative names, open ended at the top, so that any two [diasporic](../docs/tlad001.md#diasporic) repositories may be combined by adding a further layer to the hierarchy if necessary to ensure uniqueness of names.
 I don't think there is any urgency to formal modelling at this level.
