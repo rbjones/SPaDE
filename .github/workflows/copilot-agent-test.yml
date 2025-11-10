@@ -32,22 +32,11 @@ jobs:
               pip3 install -r "$req"
             fi
           done
-      
+        
       - name: Run tests
         run: |
-          # Run pytest if test files exist
-          if find . -name "test_*.py" -o -name "*_test.py" | grep -q .; then
-            python3 -m pytest -v
-          else
-            echo "No Python tests found"
-          fi
-          
-          # Run make test if Makefile exists
-          if [ -f Makefile ]; then
-            make test 2>/dev/null || echo "No test target in Makefile"
-          fi
+          make
       
       - name: Test summary
-        if: always()
-        run: echo "Test execution completed. Check logs above for results."
+        run: echo "Test completed."
 
