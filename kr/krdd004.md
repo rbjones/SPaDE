@@ -142,13 +142,14 @@ A module will be provided for reading and writing S-expressions using the low le
 These S-Expressions are represented using null terminated byte sequences as follows:
 
 Each S-expression is either Nil, an atoms (a null terminated byte sequence) or a CONS cell (pairs of pointers to S-expressions).
-Each such S-expression will be represented in the linear file as a single null terminated by sequence, which when decoded by elimination of escapes would yield a sequence of one two or three null terminated byte sequences, of which the first indicates the type of S-expression represented, and the remainder give the content of the S-expression.
+Each such S-expression will be represented in the linear file as a single null terminated byte sequence, which when decoded by elimination of escapes would yield a sequence of one two or three null terminated byte sequences.
+The first sequence indicates the type of S-expression represented, and the remainder give the content of the S-expression.
 The first byte sequence is a single byte, with value 0, 1 or 2, which indicates whether the S-expression is Nil, an atom, or a CONS cell respectively, and also inducates how many further byte sequences follow it in the representation of the S-expression.
 
-After decoding first sequence would be a single byte giving the type of S-expression it represents.
+After decoding the first sequence will be a single byte giving the type of S-expression it represents.
 If the first byte is 0, the S-expression is Nil, and there are no further byte sequences in the representation.
-If the first byte is 1, the S-expression is an atom, and the remainder of the byte sequence represents the atom itself.
-If that byte is 2, the S-expression is a CONS cell, and the two subsequent null terminated byte sequences are the sequence numbers of the two S-expressions which are the CAR and CDR of the CONS cell.
+If the first byte is 1, the S-expression is an atom, and the following null terminatedbyte sequence represents the atom itself.
+If the first byte is 2, the S-expression is a CONS cell, and the two subsequent null terminated byte sequences are the sequence numbers of the two S-expressions which are the CAR and CDR of the CONS cell.
 
 Pointers to S-expressions are represented by the sequence number of the null terminated byte sequence representing the expression in the repository.
 The module will provide procedures for reading and writing S-expressions to and from the repository file, using the low level I/O and encoding/decoding modules.
@@ -159,6 +160,18 @@ The procedures required are:
 2. [Write atom S-expression](#write-atom-s-expression)
 3. [Write CONS cell S-expression](#write-cons-cell-s-expression)
 4. [Read S-expression](#read-s-expression)
+
+As a further convenience, the S-expression module will operate a stack for writing S-expressions in the following way:
+
+- the stack is a pointer stack on which sequence numbers of S-expressions written to the repository are held.
+- a push operation is provided for Nil and one for Atoms which write to the file (if necessary) and push the sequence number to the stack.
+- a cons operation writes to the file a Cons cell whose pointers are the top two elements off the stack, and replaces those two elements with a single pointer which is the sequence number of the Cons cell.
+
+So we have:
+
+5. [Push Nil](#push-nil)
+6. [Push Atom](#push-atom)
+7. [Stack Cons](#stack-cons)
 
 #### Write Nil S-expression
 
@@ -184,3 +197,15 @@ The S-expression is represented as either:
 - Nil
 - An atom byte sequence
 - A pair of sequence numbers representing the CAR and CDR of a CONS cell
+
+#### Push Nil
+
+Write Nil, then push the sequence number to the stack.
+
+#### Push Atom
+
+Write Atom, then push the sequence number to the stack.
+
+#### Stack CONS
+
+Write CONS of top two stack items and replace them with the resulting sequence number.
