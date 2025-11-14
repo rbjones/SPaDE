@@ -1,5 +1,6 @@
 # Repository read and write
 
+
 class Cons:
     def __init__(self, car, cdr):
         self.car = car
@@ -13,25 +14,33 @@ class Cons:
                 return str(lst)
             if lst.cdr == "":
                 return f"({lst.car})" if first else str(lst.car)
-            return f"({' ' if first else ''}{print_list(lst.car, True)} . {print_list(lst.cdr, False)})"
+            part1 = print_list(lst.car, True)
+            part2 = print_list(lst.cdr, False)
+            return f"({' ' if first else ''}{part1} . {part2})"
 
         return print_list(self)
+
 
 # Helper functions for LISP-like operations
 def cons(car, cdr):
     return Cons(car, cdr)
 
+
 def car(lst):
     return lst.car if isinstance(lst, Cons) else None
+
 
 def cdr(lst):
     return lst.cdr if isinstance(lst, Cons) else None
 
+
 def is_atom(x):
     return x is not None and x != "" and not isinstance(x, Cons)
 
+
 def is_list(x):
     return x == "" or isinstance(x, Cons)
+
 
 def write_to_file(lst, filename, debug=False):
     """
@@ -60,6 +69,7 @@ def write_to_file(lst, filename, debug=False):
                 raise ValueError(f"Invalid list element: {lst}")
 
         traverse(lst)
+
 
 def read_from_file(filename, debug=False):
     """
@@ -103,8 +113,10 @@ def read_from_file(filename, debug=False):
                 buffer += byte
 
     if len(stack) != 1:
-        raise ValueError(f"Invalid file format: stack should have one element, got {len(stack)}")
+        raise ValueError(f"Invalid file format: "
+                         f"stack should have one element, got {len(stack)}")
     return stack[0]
+
 
 # Example usage
 if __name__ == "__main__":

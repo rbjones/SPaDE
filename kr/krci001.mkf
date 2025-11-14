@@ -2,48 +2,47 @@
 # Knowledge Repository
 
 .PHONY: all clean current kr docs test help
-
-# Default target
-
-current: test
+# Variables used by rules.mkf come before it is included.
 
 # MD files containing formal text
 
+MDWITHSML=krdd001.md krad001.md krte001.md
+
 # File classified by build method
 
-PPHOLSMLFILES = krcd001.sml krcd005.sml 
-HOL4SMLFILES = krcd006.sml 
-PYFILES = krcd002.py krcd003.py krcd006.py krcd007.py
+PPSML = krcd005.sml
+# krcd001.sml 
+HOL4SML = krcd006.sml 
+PYMODULES = krcd002.py krcd003.py krcd006.py krcd007.py krcd008.py
 
-PPHOLSMLLDD = $(PPHOLSMLFILES:.sml=.ldd)
-HOL4SMLLDD = $(HOL4SMLFILES:.sml=.ldd)
+PPDBBASE = daz
+PPDBNAME = spade
 
-LDDS = $(PPHOLSMLLDD) $(HOL4SMLLDD)
+include ../common/rules.mkf
 
-HEAPSUFFIX = polydb
-PPDBNAME = daz
-PPPOLYDB = $(PPDIR)/bld/db/$(PPDBNAME).$(HEAPSUFFIX)
-PPDBLDD = $(PPDBNAME).ldd
-PPMLDBPFX = ""
-PPRUNML = pp-ml
+LDDS=$(SMLLDD) $(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(H4LDD)
 
-# Rules
 
-$(PPHOLSMLLDD): %.ldd: %.sml
-	@rm -f $@ $*.err 2>/dev/null
-	. $(PPDIR)/dev_env
-	which pp-ml
-	@echo "Compiling (code) using $(PPRUNML)" $<
-	@echo "PPBuild.pp'load \"$<\";"\
-		| $(PPRUNML) $(PPMLDBPFX)$(PPPOLYDB) > $*.err
-	@echo "+++ Compiled $<: OK (Compilation Run Complete) +++" >> $*.err
-	@mv $*.err $@
+# Default target
 
-build: # $(PPHOLSMLLDD)
-	@echo "Nothing to build"
+default: test
+
+# Dependencies as necessary to get right build sequence
+
+# Targets
+
+check: $(PYCHECKLDD)
+
+build: check $(PPDBNAME).ldd $(PPLDD)
 
 test: build
-	@echo "No tests yet"
 
 clean:
-	rm -f $(LDDS)
+	rm -f $(LDDS) $(SMLINMD) *.err
+	rm -f **/__pycache__/*.pyc 2>/dev/null || true
+	rm -rf **/__pycache__ 2>/dev/null || true
+
+$(PPDBNAME).ldd:
+	pp_make_database -f -p $(PPDBBASE) $(PPDBNAME)
+	touch $(PPDBNAME).ldd
+

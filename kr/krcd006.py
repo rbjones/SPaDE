@@ -1,6 +1,7 @@
 import os
 from typing import Tuple, Optional, Union, List
 
+
 class SPADEIORepository:
     """
     Low-level I/O module for SPaDE native repositories.

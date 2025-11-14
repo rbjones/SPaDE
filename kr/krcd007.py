@@ -1,3 +1,5 @@
+from krcd006 import SPADEIORepository
+
 # Writing a new repo from scratch (e.g., SML export simulation)
 repo = SPADEIORepository('example.spade')
 repo.open_write()

@@ -1,26 +1,11 @@
 {
-  "name": "ProofPower HOL Development",
-  "image": "ghcr.io/rbjones/pp/proofpower:latest",
+  "name": "SPaDE Development (Prebuilt)",
+  "image": "ghcr.io/rbjones/spade:latest",
   
-  // Features to add to the dev container
-  "features": {
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "installZsh": true,
-      "configureZshAsDefaultShell": true,
-      "installOhMyZsh": true
-    },
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.11"
-    },
-    "ghcr.io/devcontainers/features/git:1": {}
-  },
-
-  // Set environment variables
   "containerEnv": {
     "PPDIR": "/proofpower"
   },
 
-  // Configure tool-specific properties
   "customizations": {
     "vscode": {
       "extensions": [
@@ -35,22 +20,14 @@
     }
   },
 
-  // Post-create command to set up the environment
-  "postCreateCommand": [
-    "bash", "-c", 
-    "source /proofpower-source/dev_env && echo 'ProofPower environment ready'"
-  ],
+  "postCreateCommand": "echo 'SPaDE prebuilt environment ready'",
 
-  // Forward ports if needed
   "forwardPorts": [],
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "portsAttributes": {},
 
-  // Use 'postCreateCommand' to run commands after the container is created.
   "remoteUser": "root",
   
-  // Mount the workspace
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace"
 }
