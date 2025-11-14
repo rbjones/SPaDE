@@ -10,6 +10,8 @@ The files in this directory are organized as follows:
 - **[Detailed Design](#detailed-design)** (krdd) - Low-level design and implementation details.
 - **[Code](#code)** (krcd)- Detailed formal specifications and code.
 - **[Testing and Evaluation](#testing-and-evaluation)** (krte) - Prototyping strategies and implementations for the knowledge repository.
+- **[Task Descriptions](#task-descriptions)** (krtd) - Task descriptions for implementing knowledge repository components.
+- **[Build Configuration](#build-configuration)** (krci) - Makefiles and build configuration.
 
 ## Philosophical Background
 
@@ -54,6 +56,7 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd003.py](krcd003.py) - Repository read and write
 - [krcd004.json](krcd004.json) - JSON schema for the HOL datatype hterm
 - [krcd005.sml](krcd005.sml) - ProofPower HOL Database Export
+- [krcd006.py](krcd006.py) - Python implementation tests
 - [krcd006.sml](krcd006.sml) - HOL4 specification of [SPaDE](../docs/tlad001.md#spade) repository
 - [krcd007.py](krcd007.py) - Low-level SPaDE repository I/O in Python, implementing krdd004.md
 
@@ -62,4 +65,16 @@ This section includes documents that provide detailed formal specifications or c
 This section includes documents that describe the testing and evaluation process for the Knowledge Repository.
 
 - [krte001.md](krte001.md) - Knowledge repository prototyping test notes
-- [krte002.py](krte002.py) - Knowledge repository module test script
+
+## Task Descriptions
+
+This section includes task descriptions for implementing knowledge repository components.
+
+- [krtd001.md](krtd001.md) - Python ABC for SPaDE Native Repository I/O
+- [krtd003.md](krtd003.md) - SML Signatures for SPaDE Native Repository I/O (ProofPower)
+
+## Build Configuration
+
+This section includes makefiles and build configuration.
+
+- [krci001.mkf](krci001.mkf) - Knowledge Repository Makefile
