@@ -33,7 +33,7 @@ Create `kr/krcd008.py` containing:
   - Error handling strategy (exceptions to raise)
   - Edge case behavior (empty files, invalid input)
   - Type constraints (integer sizes, string encoding)
-- **Suggestions** for where to document resolved details (design doc vs ABC docstrings)
+- **Suggestions** for answers to the questions raised and for where to document those details (design doc vs ABC docstrings)
 
 Submit Phase 1 deliverable for review before proceeding to Phase 2.
 
