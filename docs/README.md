@@ -20,9 +20,10 @@ Philosophy and architecure are intertwined and therefore begin together with:
 ## Architecture
 
 - [tlad001.md](./tlad001.md) - The [SPaDE](tlad001.md#spade) glossary
-- [tlad002.md](./tlad002.md) - [SPaDE](tlad001.md#spade) Project Aims and Ambitions
-- [tlad003.md](./tlad003.md) - [SPaDE](tlad001.md#spade) Project Structure
+- [tlad002.md](./tlad002.md) - [SPaDE](tlad001.md#spade) SPaDEProject Aims and Ambitions
+- [tlad003.md](./tlad003.md) - [SPaDE](tlad001.md#spade) SPaDEProject Structure
 - [tlad004.md](./tlad004.md) - [SPaDE](tlad001.md#spade) Perspectives on SPaDE
+- [tlad005.md](./tlad005.md) - [Perfect Information Spaces](tlad001.md#perfect-information-space) and [Focal Methods](tlad001.md#focal-engineering)
 
 ## Project Structure and Processes
 

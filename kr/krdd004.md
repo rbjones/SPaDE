@@ -13,24 +13,24 @@ Python may also to be used in due course for export of theories from Lean.
 
 For the earliest prototyping the requirement is for SML procedures to write [SPaDE](../docs/tlad001.md#spade) repositories from scratch, and Python procedures to read such repositories into suitable structured representations.
 
-- [Context](#context)
-- [Modules](#modules)
-
-## Context
-
 The following documents provide context for understanding the procedures described here:
 The [SPaDE](../docs/tlad001.md#spade) native repository format is described in [krdd002.md](krdd002.md).
 
-## Modules
+The following sections describe the modules to be implemented, and the procedures within those modules.
+The facilities will need to be provided in more than one language, to enable export from various sources of declarative knowledge into SPaDE repositories.
 
-Exactly what these are depends on the language.
+This affects how the requirements are typically described.
 In SML they will be SML modules, viz signatures, structures, or functors, while in Python they will be abstract base classes and then the class implementation.
+
+THe modules required are as follows:
 
 - [Encoding/Decoding](#encodingdecoding)
 - [Low Level I/O](#low-level-io)
 - [S-Expressions](#s-expressions)
+- [HOL Terms](#hol-terms)
+- [Theories and Folders](#theories-and-folders)
 
-### Encoding/Decoding
+## Encoding/Decoding
 
 The SPaDE native repository is a sequence of null terminated byte sequences.
 It is necessary to have procedures for encoding arbitrary byte sequences as null terminated byte sequences, and for decoding such sequences back into arbitrary byte sequences.
@@ -62,7 +62,7 @@ If the byte following a byte 1 is another byte 1, then a byte 1 is included in t
 If the byte following a byte 1 is any other byte, then both the byte 1 and the following byte are included in the byte sequence.
 All other bytes are included in the byte sequence until an unescaped byte 0 is reached
 
-### Low Level I/O
+## Low Level I/O
 
 This module provides low level procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories as sequences of null terminated byte sequences held in linear binary files.
 It also operates a byte sequence cache, which is an array of byte sequences in the order in which they occur in the file, complemented by and efficient means of retrieving the sequence number of a byte sequence already in the cache.
@@ -87,7 +87,7 @@ The operations required are:
 7. Retrieve byte sequence from cache by sequence number
 8. Retrieve sequence number from cache by byte sequence
 
-#### Open new repository for writing
+### Open new repository for writing
 
 The file should be opened in append mode, so that new byte sequences written to the repositoryare added to the end of the file (which will be empty when creating a new repository).
 
@@ -99,35 +99,35 @@ The current version number is 1 and is written as a null terminated byte sequenc
 
 This will also be the first entry in the byte sequence cache, and will be elegible for use whenever the version number is required in the repository for whatever purpose.
 
-#### Open existing repository for reading
+### Open existing repository for reading
 
 The cache should cleared first if it is not already empty.
 The file should then be opened for reading, and the entire repository read and cached using the procedure described below.
 It should then be closed again.
 
-#### Open existing repository for appending
+### Open existing repository for appending
 
 The file must first be opened for reading to read and cache the entire repository, unless it has already been opened for reading and the cache has not been cleared since then.
 The file should then be closed and opened in append mode, so that new byte sequences written to the repository are added to the end of the file.
 
-#### Close repository
+### Close repository
 
 This would only be called after writing or appending to a repository, or in the prelude to opening an existing repository for appending.
 The file should be closed.
 The cache should remain available for further use, as is required after reading an existing repository preparatory to appending new byte sequences to it.
 
-#### Read byte sequence from repository
+### Read byte sequence from repository
 
 This procedure reads the next null terminated byte sequence from the repository file, decodes it into a byte sequence, adds it to the cache, and returns both the byte sequence and its sequence number (index into the cache).
 
-#### Write byte sequence to repository
+### Write byte sequence to repository
 
 This procedure takes as argument a byte sequence to be written to the repository file.
 It first checks whether the byte sequence is already present in the cache.
 If it is present, its sequence number (index into the cache) is returned without writing anything to the file.
 If it is not present, it is added to the cache at the next available index, written to the end of the file in null terminated form, and its sequence number is returned.
 
-#### Retrieve sequence number from cache by byte sequence
+### Retrieve sequence number from cache by byte sequence
 
 This procedure takes as argument a byte sequence and returns its sequence number (index into the cache) if it is present in the cache, and an indication that it is not present if that is the case.
 It is for use prior to writing a byte sequence to the repository, to determine whether it is already present and need not therefore be written again.
@@ -136,7 +136,7 @@ The values of these two forms are to be returned after each read or write operat
 
 In order to support these functions, open append will only be allowed when a file has already been opened for reading, and is positioned at the end of the file, so that file position and sequence count are properly maintained.
 
-### S-Expressions
+## S-Expressions
 
 A module will be provided for reading and writing S-expressions using the low level I/O and encoding/decoding modules.
 These S-Expressions are represented using null terminated byte sequences as follows:
@@ -173,22 +173,22 @@ So we have:
 6. [Push Atom](#push-atom)
 7. [Stack Cons](#stack-cons)
 
-#### Write Nil S-expression
+### Write Nil S-expression
 
 This procedure writes a Nil S-expression to the repository file.
 It creates a null terminated byte sequence representing the S-expression and writes it to the file.
 
-#### Write atom S-expression
+### Write atom S-expression
 
 This procedure writes an atom S-expression to the repository file.
 It takes a byte sequence which is the value of the atom, creates a null terminated byte sequence representing it as an S-expression and writes it to the file (unless already in the cache) returning its sequence number.
 
-#### Write CONS cell S-expression
+### Write CONS cell S-expression
 
 This procedure writes a CONS cell S-expression to the repository file.
 It takes two byte sequences numbers which are the CAR and CDR of the CONS cell and must already be in the cache, and creates a null terminated byte sequence representing the S-expression and if new writes it to the file, otherwise retrieves its sequence number from the cache.
 
-#### Read S-expression
+### Read S-expression
 
 This procedure extracts a S-expression from the cache.
 It decodes a byte sequence in the cache given its sequence number into an S-expression and returns it.
@@ -198,14 +198,18 @@ The S-expression is represented as either:
 - An atom byte sequence
 - A pair of sequence numbers representing the CAR and CDR of a CONS cell
 
-#### Push Nil
+### Push Nil
 
 Write Nil, then push the sequence number to the stack.
 
-#### Push Atom
+### Push Atom
 
 Write Atom, then push the sequence number to the stack.
 
-#### Stack CONS
+### Stack CONS
 
 Write CONS of top two stack items and replace them with the resulting sequence number.
+
+## HOL Terms
+
+## Theories and Folders

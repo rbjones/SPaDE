@@ -21,8 +21,7 @@ Further elaboration of the '[synthetic philosophy](docs/tlad001.md#synthetic-phi
 [**SPaDE Project Philosophy, Architecture, and Administration (docs directory)**](./docs/README.md)
 
 together with all other project documentation not specific to the three subsystems of special concern, which are:
-
-[**The Knowledge Repository (kr directory)**](./kr/README.md)
+**[The Knowledge Repository (kr directory)](./kr/README.md)**
 
 containing those parts of the project contributing to the architecture of the distributed repository of [declarative knowledge](docs/tlad001.md#declarative-knowledge).
 

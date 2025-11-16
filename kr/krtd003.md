@@ -70,7 +70,7 @@ end;
 
 ### ProofPower Environment
 
-- Target: ProofPower HOL (pp-ml)
+- Target: ProofPower HOL
 - Use ProofPower standard libraries where appropriate
 - Follow ProofPower coding conventions
 - Consider ProofPower's exception handling (MESSAGE type)

@@ -142,6 +142,13 @@ In [Synthetic Philosophy](tlph002.md), which follows logical positivism in rejec
 
 Concerning all knowledge in the cosmos.
 
+### Perfect Information Space
+
+A domain characterized by complete observability, well-defined rules, deterministic or known stochastic behavior, finite and discrete state/action spaces, objective evaluation criteria, and self-contained specification.
+Examples include chess, Go, and formal proof systems.
+Perfect information spaces are precisely coextensive with formal deductive theories and define the scope of [focal methods](#focal-engineering).
+See [Perfect Information Spaces and Focal Methods](tlad005.md) for detailed treatment.
+
 ## S
 
 ### Semantics

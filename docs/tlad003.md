@@ -1,4 +1,4 @@
-# Project Structure
+# SPaDE Project Structure
 
 The [SPaDE](tlad001.md#spade) project is organized into a small number of subsystems, each serving a distinct purpose within the overall architecture. Understanding this structure is crucial for effective development and collaboration.
 
@@ -21,13 +21,25 @@ It is believed that knowledge expressed in any concrete syntax can be rendered f
 
 ## Deductive Kernel [(dk)](../dk/README.md)
 
-The dk subsystem is responsible for the core reasoning capabilities of the system. This includes the implementation of logical inference mechanisms and other deductive reasoning techniques.
+In speaking of a *deductive kernel* for SPaDE it is important to distinguish SPaDE from a pure LCF style theorem prover.
 
-The functionality supplied here is core deductive capability encompassing the primitive rules of the HOL logic, and a variety of capabilities falling short of the methods of artificial intelligence.
+It breaches that model in the usual ways, which include mechanisms for efficient evaluation of executable expressions, the admission of "oracles", and support for efficient proof algorithms validated by reflexive reasoning.
 
-Though the deductive kernel supports the primitive rules of the HOL logic, it also provides access also to efficient evaluation of executable HOL expressions, the application of proven derived rules (efficiently evaulated), and the use of external oracles.
-Assurance of correctness does not depend upon forcing all derivations through the pimitive rules (as in the pure LCF paradigm) but is adaptable to meet the requirements of the application domain, and achieved by the use of digital signatures in the context of a hierarchy of trust among those signatories.
-The kernel ensures that signatures on theorems are propagated through proofs ensuring that the integrity of theorems is explicit.
+These extensions are admitted in SPaDE through the adoption of a quite different approach to integrity and trust, in which all theorems are digitally signed as true in a specific context by some authority in whom more or less trust may be placed.
+
+The aggregation of risk as theorems are progressively derived with the help of a variety of such authorities gives rise to a theory structure in which theorems are tagged by expressions forming a lattice of trust, and each viewer of the repository selects the level of trust they require for the theorems they use and is presented with an appropriately filtered view of the repository.
+The assurance metrics associated with each theorem are boolean expressions over the atomic trust levels represented by the keys used in signing theorems.
+
+A complementary filtering is also envisaged to provide security, so that the view of any user of the repository is filtered to exclude theorems which they are not authorised to see, and also those in whose authority they do not place sufficient trust.
+
+The deductive kernel provides a number of proof capabilities associated with distinct authorities, but is not the sole source of proof capabilities in the system.
+Any person or system may sign theorems independently of the deductive kernel and sign them with any digital signature for which they have a private key.
+These may then used in continuing inference or be stored in a SPaDE repository, associated with the logical context in which they are alleged to be true as endorsed by the signatory.
+
+The deductive kernel will be capable of deriving theorems using the primitive rules of the HOL logic, and signing theorems so derived with its own key.
+But it will also provide a variety of other ways in which theorems may be established, using a variety of 
+
+
 
 ## Deductive Intelligence [(di)](../di/README.md)
 
