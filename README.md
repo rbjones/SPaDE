@@ -16,9 +16,10 @@ The fundamental insights upon which the [SPaDE](docs/tlad001.md#spade) architect
 
 2. That all deductive reasoning takes place in *perfect information spaces*, which are domains in which intelligence can most effectively be applied by *[focal](docs/tlad001.md#focal)* methods rather than by large language models.
 
-Further elaboration of the '[synthetic philosophy](docs/tlad001.md#synthetic-philosophy)' which underpins the project, and the architecture for proliferation which emerges from it, appears in the [docs](docs/README.md) directory:
 
-[**SPaDE Project Philosophy, Architecture, and Administration (docs directory)**](./docs/README.md)
+Further elaboration of the '[synthetic philosophy](docs/tlad001.md#synthetic-philosophy)' which underpins the project, and the architecture for proliferation which emerges from it, appears in the *[docs](docs/README.md)* directory:
+
+**[SPaDE Project Philosophy, Architecture, and Administration (docs directory)](./docs/README.md)**
 
 together with all other project documentation not specific to the three subsystems of special concern, which are:
 **[The Knowledge Repository (kr directory)](./kr/README.md)**
