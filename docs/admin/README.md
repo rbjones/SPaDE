@@ -13,10 +13,10 @@ This documentation falls into the following categories:
 - **[Plans and strategies]**(#plans-and-strategies-(ampl))(ampl)
 - **[Testing and evaluation]**(#testing-and-evaluation-(amte))(amte)
 - **[Task descriptions]**(#task-descriptions-(amtd))(amtd)
+- **[Chat logs]**(#chat-logs-(amcl))(amcl)
 - **[Code and scripts]**(#code-and-scripts-(amcd))(amcd)
 
 ## Methods, Processes and Standards (amms)
-
 
 - [amms001.md](amms001.md) Project Structure and Documentation Policy
 - [amms002.md](amms002.md) Roles, Responsibilities, Tasks
@@ -30,11 +30,12 @@ This documentation falls into the following categories:
 
 - [ampd001.md](ampd001.md) Using GitHub Copilot Agent with SPaDE - Process for assigning code-and-test tasks to Copilot agents
 - [ampd002.md](ampd002.md) Using GitHub Copilot Agent with SPaDE - Process for Copilot in completing code and test assignments.
+- [ampd003.md](ampd003.md) Conversational Documentation Development Procedure
 
 ## Plans and strategies (ampl)
 
-- [[ampl001.md](ampl001.md) SPaDE](../tlad001.md#spade) Project Action Plan 
-- [ampl002.md](ampl002.md) Prototyping Strategy 
+- [[ampl001.md](ampl001.md) SPaDE](../tlad001.md#spade) Project Action Plan
+- [ampl002.md](ampl002.md) Prototyping Strategy
 - [ampl003.md](ampl003.md) Project Management
 
 ## Testing and evaluation (amte)
@@ -45,6 +46,10 @@ This documentation falls into the following categories:
 - [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
+
+## Chat Logs (amcl)
+
+- [amcl001.md](amcl001.md) Chat Log: Conversational Documentation Development Procedure
 
 ## Code and Scripts (amcd)
 

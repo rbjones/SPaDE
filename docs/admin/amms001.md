@@ -23,13 +23,12 @@ Subsystem codes:
 - **co** common -low level common materials
 - **di** di - deductive intelligence
 - **dk** dk - deductive kernel
-- **do** docs - philosophy and architecture
 - **gh** .github - github workflows and actions etc.
 - **kr** kr - knowledge repository
 - **mcp** mcp - MCP server and A2A protocol
 - **rv** reviews - review reports e.g. from copilot
   - **Exception**: Review files use temporal naming: `YYYYMMDD-HHMM-author-topic.md`
-- **tl** ? - top level, system wide (may be phased out)
+- **tl** tl - top level, system wide.  This includes files in the docs directory but not those in the admin subdirectory. The documentation at this level should all be in the docs directory rather than the top level directory, and mainly consists of high level system wide philosophy and architecture documents.
 
 Document kinds:
 
@@ -39,6 +38,7 @@ Document kinds:
 - **dd** Detailed design
 - **cd** Detailed formal specifications and code
 - **ci** Continuous integration, release and deployment
+- **cl** Chat logs and conversation transcripts
 - **ms** Methods and standards
 - **pd** Process or procedure descriptions
 - **pl** Plans and strategies
@@ -71,6 +71,7 @@ This includes:
 - All collaboration methods and workflows are documented in `admin/` (apart from one in the .github directory)
 - Human/AI collaboration framework is essential to project success
 - Regular review and refinement of collaboration methods
+- Discussions preparatory to high-level documentation (e.g. philosophy and architecture) may be recorded in chat logs in the `admin/` directory and will be referred to in the relevant high-level documents
 - Clear roles and responsibilities for human and AI contributors
 
 ## Exceptions to Markdown Policy
@@ -92,7 +93,10 @@ It is likely that a compendium of project documentation as a PDF reference manua
 
 ### Formal Specifications
 
-These will form the main part of the technical output during the early stages of the project, and will be in ProofPower HOL. Provided that no insuperable technical obstacles appear, these specifications will be incorporated into .md files.
+These will form the main part of the technical output during the early stages of the project, and will be in ProofPower HOL. They will normally be in literate scripts either as .pp files or as .md files.
+
+It is policy to progress all informal documentation into formal models at all levels.
+At the lower levels this is part of the reflexive reasoning required to approach the first singular foci and is therefore of high priority.  At the higher levels it is probably less urgent.
 
 ### Code Documentation
 
