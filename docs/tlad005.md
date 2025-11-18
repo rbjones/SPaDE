@@ -14,15 +14,15 @@ The key insight originates from Google DeepMind's AlphaZero, which demonstrated 
 
 ### Definition
 
-A **perfect information space** (PIS) is a domain characterized by the following properties:
+Building on Google DeepMind's usage in systems like AlphaZero (where perfect information refers to games with complete state visibility and no hidden information), a **perfect information space** (PIS) in SPaDE is a domain characterized by the following properties:
 
 1. **Complete Observability** - All relevant state information is visible to all participants; there is no hidden information
 
 2. **Well-Defined Rules** - The dynamics governing state transitions are completely and formally specified
 
-3. **Deterministic or Known Stochastic Behavior** - Outcomes are either deterministic or follow explicitly defined probability distributions
+3. **Deterministic Behavior** - Outcomes follow predictable rules without hidden randomness
 
-4. **Countable and Semi-Decidable** - The space of possible states and legal actions is at most countable, and there exists an algorithm that can recognize valid states and transitions (though it may not halt on invalid inputs)
+4. **Countable and Semi-Decidable** - Individual trajectories (e.g., game-plays or proofs) are finite; the overall space of states and actions is at most countable; validity/recognition of states, transitions, and outcomes is semi-decidable (verifiable if found, but search may not terminate)
 
 5. **Objective Evaluation** - Terminal states have unambiguous outcomes; success and failure are clearly defined
 

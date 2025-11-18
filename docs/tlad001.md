@@ -8,7 +8,7 @@ Note that in this glossary, many terms are given special meanings for SPaDE whic
 
 ### Analytic
 
-See also: synthetic.
+See also: *[synthetic](#synthetic)*.
 
 Obtained by breaking something complex down into its constituent parts or elements.
 
@@ -86,11 +86,11 @@ Concerning knowledge.
 
 ### Epistemology
 
-The philosophical study of knowledge
+The philosophical study of knowledge.
 
 ### [Epistemological Stack](tlph003.md)
 
-A conceptual framework for understanding how abstract deductive reasoning contributes to deduction in all domains of declarative knowledge.
+A conceptual framework for understanding how abstract deductive reasoning contributes to deduction in all domains of declarative knowledge. Also contributing to the understanding of the *[focal tower](#focal-tower)*.
 
 ### Evolution
 
@@ -184,7 +184,7 @@ The name of an open source knowledge engineering project with a repository at [g
 
 ### Synthetic
 
-See also: analytic.
+See also: [analytic](#analytic).
 
 Constructed rather than discovered.
 

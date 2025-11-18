@@ -29,6 +29,6 @@ Philosophy and architecure are intertwined and therefore begin together with:
 
 - [tlad003.md](./tlad003.md) - Repository organisation overview
 
-## [**Admin Directory**](admin/README.md)
+## [Admin Directory](admin/README.md)
 
 This section includes administrative documents related to the [SPaDE](tlad001.md#spade) project, including project strategy, plans, processes, methods, standards, task descriptions and guidelines for contributors.

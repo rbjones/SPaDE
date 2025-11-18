@@ -34,7 +34,7 @@ This documentation falls into the following categories:
 
 ## Plans and strategies (ampl)
 
-- [[ampl001.md](ampl001.md) SPaDE](../tlad001.md#spade) Project Action Plan
+- [ampl001.md](ampl001.md) [SPaDE](../tlad001.md#spade) Project Action Plan
 - [ampl002.md](ampl002.md) Prototyping Strategy
 - [ampl003.md](ampl003.md) Project Management
 
