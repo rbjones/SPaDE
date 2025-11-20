@@ -56,40 +56,40 @@ All aspects of SPaDE which are specific to the distinct layers of the epistemolo
     </tr>
     <tr>
       <td colspan="2" style="font-weight:bold; padding:4px; text-align:center;">
-        <a href="./tlad003.md" style="color:inherit; text-decoration:underline;">SPaDE</a>
+        <a href="./tlad003.html" style="color:inherit; text-decoration:underline;">SPaDE</a>
       </td>
     </tr>
     <tr>
       <td style="border-right:1px solid #ccc; font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph002.md" style="color:inherit; text-decoration:underline;">Synthetic Philosophy</a>
+        <a href="./tlph002.html" style="color:inherit; text-decoration:underline;">Synthetic Philosophy</a>
       </td>
       <td style="font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph005.md" style="color:inherit; text-decoration:underline;">Deductive Engineering</a>
+        <a href="./tlph005.html" style="color:inherit; text-decoration:underline;">Deductive Engineering</a>
       </td>
     </tr>
     <tr>
-      <td style="border-right:1px solid #ccc; padding:4px 0; text-align:center; vertical-align:middle; height:140px;">
-        <span style="display:inline-block; transform: rotate(-90deg); -webkit-transform: rotate(-90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:24px; margin-bottom:24px;">
-          <a href="./tlph003.md" style="color:inherit; text-decoration:none;">Epistemological Stack</a>
+      <td style="border-right:1px solid #ccc; padding:4px 0; text-align:center; vertical-align:middle; height:240px;">
+        <span style="display:inline-block; transform: rotate(-90deg); -webkit-transform: rotate(-90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:60px; margin-bottom:60px;">
+          <a href="./tlph003.html" style="color:inherit; text-decoration:none;">Epistemological Stack</a>
         </span>
       </td>
-      <td style="padding:4px 0; text-align:center; vertical-align:middle; height:140px;">
-        <span style="display:inline-block; transform: rotate(90deg); -webkit-transform: rotate(90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:24px; margin-bottom:24px;">
-          <a href="./tlph004.md" style="color:inherit; text-decoration:none;">Focal Tower</a>
+      <td style="padding:4px 0; text-align:center; vertical-align:middle; height:240px;">
+        <span style="display:inline-block; transform: rotate(90deg); -webkit-transform: rotate(90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:60px; margin-bottom:60px;">
+          <a href="./tlph004.html" style="color:inherit; text-decoration:none;">Focal Tower</a>
         </span>
       </td>
     </tr>
     <tr>
       <td style="border-right:1px solid #ccc; padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph003.md" style="color:inherit; text-decoration:underline;">Logical Foundations</a>
+        <a href="./tlph003.html" style="color:inherit; text-decoration:underline;">Logical Foundations</a>
       </td>
       <td style="padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph004.md" style="color:inherit; text-decoration:underline;">Architectural Foundations</a>
+        <a href="./tlph004.html" style="color:inherit; text-decoration:underline;">Architectural Foundations</a>
       </td>
     </tr>
     <tr>
       <td colspan="2" style="border-top:2px solid #333; font-style:italic; background:#f8f8f8; padding:6px 20px; text-align:center;">
-        <a href="./tlad001.md" style="color:inherit; text-decoration:underline;">Glossary</a>
+        <a href="./tlad001.html" style="color:inherit; text-decoration:underline;">Glossary</a>
       </td>
     </tr>
   </table>
