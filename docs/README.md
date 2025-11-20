@@ -17,12 +17,20 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlph009.md](./tlph009.md) - SPaDE Seminal Insights
 - [tlph010.md](./tlph010.md) - Universal Foundational Institutions
 
+## Plans and Strategy
+
+- [tlpl001.md](./tlpl001.md) - Strategy and Plan for Top-Level Philosophy and Architecture Documentation
+
+## Chat Logs
+
+- [tlcl001.md](./tlcl001.md) - Chat Log: Strategy and Plan for Top-Level Philosophy and Architecture Documentation
+
 ## Architecture
 
 - [tlad001.md](./tlad001.md) - The [SPaDE](tlad001.md#spade) glossary
-- [tlad002.md](./tlad002.md) - [SPaDE](tlad001.md#spade) SPaDEProject Aims and Ambitions
-- [tlad003.md](./tlad003.md) - [SPaDE](tlad001.md#spade) SPaDEProject Structure
-- [tlad004.md](./tlad004.md) - [SPaDE](tlad001.md#spade) Perspectives on SPaDE
+- [tlad002.md](./tlad002.md) - [SPaDE](tlad001.md#spade) Project Aims and Ambitions
+- [tlad003.md](./tlad003.md) - [SPaDE](tlad001.md#spade) Project Structure
+- [tlad004.md](./tlad004.md) -  Perspectives on [SPaDE](tlad001.md#spade)
 - [tlad005.md](./tlad005.md) - [Perfect Information Spaces](tlad001.md#perfect-information-space) and [Focal Methods](tlad001.md#focal-engineering)
 
 ## Project Structure and Processes
