@@ -31,12 +31,12 @@ This procedure is applicable to:
 
 The client initiates a new chat session with the following information:
 
+0. "Hi *agent name* this is *client name*" this gives the short names to be used in the transcript. Full names should only be used in the header of the transcript including the model name for copilot.
 1. Reference to this procedure document (ampd003)
 2. Target directory (e.g., `docs/`, `kr/`, `dk/`)
 3. Subsystem code (e.g., `tl` for docs, `kr` for knowledge repository)
 4. Document type code (e.g., `ph` for philosophical, `ad` for architectural design)
 5. Provisional title for the document
-6. Client's name
 
 The agent should identify itself including the underlying model name (e.g., "GitHub Copilot (Claude Sonnet 4.5)").
 
@@ -53,14 +53,7 @@ The agent performs the following setup tasks:
    - Construct filename (e.g., `tlph011.md`)
 
 2. **Create target document**:
-   - Create file with header only
-   - Include:
-     - Document ID
-     - Status: "Draft"
-     - Author: Agent name (including model, e.g., "GitHub Copilot (Claude Sonnet 4.5)")
-     - Date
-     - Provisional title
-     - Link to chat log (to be created)
+   - Create file with title but no header. A footer will be created later.
    - Update directory README.md index
 
 3. **Create chat log**:
@@ -70,9 +63,8 @@ The agent performs the following setup tasks:
    - Create file with header only
    - Include:
      - Document ID
-     - Client name
+     - Full client name
      - Agent name (including model, e.g., "GitHub Copilot (Claude Sonnet 4.5)")
-     - Date
      - Link to target document(s)
      - Purpose/topic
    - Update directory README.md index
@@ -105,6 +97,11 @@ The agent performs the following setup tasks:
 - Written incrementally by agent
 - No client request needed for log updates
 - Maintains currency throughout session
+- Agent reformats client contributions for readability:
+  - Add markdown structure (headings, lists, paragraphs)
+  - Break long blocks into logical paragraphs
+  - Preserve meaning while improving presentation
+  - Match formatting style of agent's own contributions
 
 ### 4. Drafting Phase
 
@@ -153,10 +150,11 @@ The agent performs the following setup tasks:
 
 **Status Updates**:
 
-- Documents initially created with Status: "Draft"
-- Client requests status changes explicitly
-- Agent updates document header as directed
-- Typical status values: Draft, Review, Final, Superseded
+- After completion of the document content a footer should be added. The footer should include:
+  - Document ID
+  - Author: Agent name (including model, e.g., "GitHub Copilot (Claude Sonnet 4.5)")
+  - Link to chat log (to be created)
+  - Status is either "Stable" (when the client closes the conversation) or "In progress" before that, or after the client reopens it.  If requested by the client on closing a conversation the status may be set to some other word or phrase as requested.
 
 **Traceability**:
 
@@ -192,6 +190,7 @@ This procedure can be used to create or modify multiple related documents in a s
 - Confirm understanding of requirements before implementing
 - Maintain cross-references between logs and documents
 - Preserve full conversational context in logs
+- In conversation keep the interchanges brief, if there is much to discuss, list the items first and then go through them one by one in separate exchanges.  Concision is always important, padding obscures the key issues, if needed clarification can be sought.
 
 ## Notes
 

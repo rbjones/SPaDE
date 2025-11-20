@@ -55,6 +55,11 @@ The date and time should be rendered in a formal which collates the files in tem
 A further component of the filename may be a brief indication of the subject matter, e.g. 20241001-1530-copilot-KRreview.md
 Avoid using colons (:) in filenames as they cause issues with Jekyll/GitHub Pages processing.
 
+## Document Headers and Footers
+
+Document headers should be avoided because of the impact on web page readability and presentation.  A footer is more acceptable. 
+Dates need not be included, history can be traced through git logs.  The primary author should be indicated, which in the case of copilot should include the model name.  Where a document results from conversation with an AI agent a link to the chat log should be included.
+
 ## The Admin Directory
 
 This includes:
