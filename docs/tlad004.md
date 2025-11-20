@@ -50,27 +50,31 @@ All aspects of SPaDE which are specific to the distinct layers of the epistemolo
 ## HTML Rendition of the SPaDE Arch
 
 <div style="text-align:center; margin: 2em 0;">
-  <table style="margin: 0 auto; border-collapse: collapse;">
+  <table style="margin: 0 auto; border-collapse: collapse; width: 100%; max-width: 600px; text-align: center;">
     <tr>
-      <td colspan="2" style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px; background:#f8f8f8;">SPaDE OverArching Documentation</td>
+      <td colspan="2" style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px; background:#f8f8f8; text-align:center;">SPaDE OverArching Documentation</td>
     </tr>
     <tr>
-      <td colspan="2" style="font-weight:bold; padding:4px;">SPaDE</td>
+      <td colspan="2" style="font-weight:bold; padding:4px; text-align:center;">SPaDE</td>
     </tr>
     <tr>
-      <td style="border-right:1px solid #ccc; font-style:italic; padding:4px 16px;">Synthetic Philosophy</td>
-      <td style="font-style:italic; padding:4px 16px;">Deductive Engineering</td>
+      <td style="border-right:1px solid #ccc; font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">Synthetic Philosophy</td>
+      <td style="font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">Deductive Engineering</td>
     </tr>
     <tr>
-      <td style="border-right:1px solid #ccc; padding:4px 16px;">Epistemological Stack</td>
-      <td style="padding:4px 16px;">Focal Tower</td>
+      <td style="border-right:1px solid #ccc; padding:4px 0; text-align:center; vertical-align:middle; height:120px;">
+        <span style="display:inline-block; transform: rotate(-90deg); -webkit-transform: rotate(-90deg); white-space:nowrap;">Epistemological Stack</span>
+      </td>
+      <td style="padding:4px 0; text-align:center; vertical-align:middle; height:120px;">
+        <span style="display:inline-block; transform: rotate(90deg); -webkit-transform: rotate(90deg); white-space:nowrap;">Focal Tower</span>
+      </td>
     </tr>
     <tr>
-      <td style="border-right:1px solid #ccc; padding:4px 16px;">Logical Foundations</td>
-      <td style="padding:4px 16px;">Architectural Foundations</td>
+      <td style="border-right:1px solid #ccc; padding:4px 16px; text-align:center; vertical-align:middle;">Logical Foundations</td>
+      <td style="padding:4px 16px; text-align:center; vertical-align:middle;">Architectural Foundations</td>
     </tr>
     <tr>
-      <td colspan="2" style="border-top:2px solid #333; font-style:italic; background:#f8f8f8; padding:6px 20px;">Glossary</td>
+      <td colspan="2" style="border-top:2px solid #333; font-style:italic; background:#f8f8f8; padding:6px 20px; text-align:center;">Glossary</td>
     </tr>
   </table>
 </div>
