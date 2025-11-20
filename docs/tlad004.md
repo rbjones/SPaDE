@@ -44,4 +44,33 @@ Below, there may be documents which belong in the base of each column or those w
           Logical Foundations           Architectural Foundations
                     -----------Glossary-----------
 ```
+
 All aspects of SPaDE which are specific to the distinct layers of the epistemological stack and focal tower will be linked to from the key documents describing those structures and another access route spanning the whole through its special terminology will be through the SPaDE glossary.
+
+## HTML Rendition of the SPaDE Arch
+
+<div style="text-align:center; margin: 2em 0;">
+  <table style="margin: 0 auto; border-collapse: collapse;">
+    <tr>
+      <td colspan="2" style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px; background:#f8f8f8;">SPaDE OverArching Documentation</td>
+    </tr>
+    <tr>
+      <td colspan="2" style="font-weight:bold; padding:4px;">SPaDE</td>
+    </tr>
+    <tr>
+      <td style="border-right:1px solid #ccc; font-style:italic; padding:4px 16px;">Synthetic Philosophy</td>
+      <td style="font-style:italic; padding:4px 16px;">Deductive Engineering</td>
+    </tr>
+    <tr>
+      <td style="border-right:1px solid #ccc; padding:4px 16px;">Epistemological Stack</td>
+      <td style="padding:4px 16px;">Focal Tower</td>
+    </tr>
+    <tr>
+      <td style="border-right:1px solid #ccc; padding:4px 16px;">Logical Foundations</td>
+      <td style="padding:4px 16px;">Architectural Foundations</td>
+    </tr>
+    <tr>
+      <td colspan="2" style="border-top:2px solid #333; font-style:italic; background:#f8f8f8; padding:6px 20px;">Glossary</td>
+    </tr>
+  </table>
+</div>
