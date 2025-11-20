@@ -17,14 +17,6 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlph009.md](./tlph009.md) - SPaDE Seminal Insights
 - [tlph010.md](./tlph010.md) - Universal Foundational Institutions
 
-## Plans and Strategy
-
-- [tlpl001.md](./tlpl001.md) - Strategy and Plan for Top-Level Philosophy and Architecture Documentation
-
-## Chat Logs
-
-- [tlcl001.md](./tlcl001.md) - Chat Log: Strategy and Plan for Top-Level Philosophy and Architecture Documentation
-
 ## Architecture
 
 - [tlad001.md](./tlad001.md) - The [SPaDE](tlad001.md#spade) glossary
@@ -33,9 +25,13 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlad004.md](./tlad004.md) -  Perspectives on [SPaDE](tlad001.md#spade)
 - [tlad005.md](./tlad005.md) - [Perfect Information Spaces](tlad001.md#perfect-information-space) and [Focal Methods](tlad001.md#focal-engineering)
 
-## Project Structure and Processes
+## Chat Logs
 
-- [tlad003.md](./tlad003.md) - Repository organisation overview
+- [tlcl001.md](./tlcl001.md) - Chat Log: Strategy and Plan for Top-Level Philosophy and Architecture Documentation
+
+## Plans and Strategy
+
+- [tlpl001.md](./tlpl001.md) - Strategy and Plan for Top-Level Philosophy and Architecture Documentation
 
 ## [Admin Directory](admin/README.md)
 
