@@ -31,24 +31,6 @@ The base on the left is concerned with logical foundations, and that on the righ
 There may be more levels above the architrave which provide context and motivation for SPaDE as a whole constituting the frienze and perhaps cornice of the arch.
 Below, there may be documents which belong in the base of each column or those which span the two as the crepidoma, all of which approach more closely the implementation level of SPaDE itself.
 
-```       ---------SPaDE OverArching Documentation-----------
-
-                      --------SPaDE------------
-                     /                         \
-        Synthetic Philosophy         Deductive Engineering
-                  |                                |  
-           Epistemological                       Focal
-                  |                                |
-                Stack                            Tower
-                  |                                |
-          Logical Foundations           Architectural Foundations
-                    -----------Glossary-----------
-```
-
-All aspects of SPaDE which are specific to the distinct layers of the epistemological stack and focal tower will be linked to from the key documents describing those structures and another access route spanning the whole through its special terminology will be through the SPaDE glossary.
-
-## HTML Rendition of the SPaDE Arch
-
 <div style="text-align:center; margin: 2em 0;">
   <table style="margin: 0 auto; border-collapse: collapse; width: 100%; max-width: 600px; text-align: center;">
     <tr>
@@ -94,3 +76,5 @@ All aspects of SPaDE which are specific to the distinct layers of the epistemolo
     </tr>
   </table>
 </div>
+
+All aspects of SPaDE which are specific to the distinct layers of the epistemological stack and focal tower will be linked to from the key documents describing those structures and another access route spanning the whole through its special terminology will be through the SPaDE glossary.

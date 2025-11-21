@@ -24,6 +24,7 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlad003.md](./tlad003.md) - [SPaDE](tlad001.md#spade) Project Structure
 - [tlad004.md](./tlad004.md) -  Perspectives on [SPaDE](tlad001.md#spade)
 - [tlad005.md](./tlad005.md) - [Perfect Information Spaces](tlad001.md#perfect-information-space) and [Focal Methods](tlad001.md#focal-engineering)
+- [tlad006.md](./tlad006.md) - Views of [SPaDE](tlad001.md#spade) Repositories
 
 ## Chat Logs
 
