@@ -44,7 +44,7 @@ Languages having sentences with *truth conditions*, the assertion of which affir
 
 The process of deriving logical conclusions from premises known or assumed to be true.
 
-### Deductive Engineering
+### [Deductive Engineering](tlad007.md)
 
 An approach to engineering design and construction in which the formal modelling of requirements is progressed concurrently with automated deductively verified design and implementation.
 Design methods are implemented as derived inference rules which prove compliance of designs with system specifications from premises about the characteristics of components and subsystems, thus progressively refining specifications into designs and implementations.
@@ -105,11 +105,7 @@ Giving particular attention to parts of a whole.
 AI systems specialising in narrow domains unencumbered by the support of broader capabilities.
 These will often be *perfect information spaces* in which competence can be achieved by exploration of the space without need of training data, as exemplified by DeepMind's AlphaZero.
 
-#### [Focal Engineering](tlph004.md)
-
-The application of focal intelligence to engineering design problems (broadly construed).
-
-#### [Focal Tower](tlph004.md/#a-focal-tower)
+#### [Focal Tower](tlad008.md)
 
 A conceptual framework for understanding how focal engineering (including singular foci) can be applied to problems in various domains, by identifying the perfect information spaces within those domains and applying appropriate focal AI techniques to solve problems within those spaces.
 

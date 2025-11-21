@@ -9,7 +9,6 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlph001.md](./tlph001.md) - A STEM Fantasy and Ethical Consequence
 - [tlph002.md](./tlph002.md) - [Synthetic Philosophy](tlad001.md#synthetic-philosophy)
 - [tlph003.md](./tlph003.md) - An [Epistemological Stack](tlad001.md#epistemological-stack)
-- [tlph004.md](./tlph004.md) - [Focal Engineering](tlad001.md#focal-engineering)
 - [tlph005.md](./tlph005.md) - The [Deductive](tlad001.md#deduction) Paradigm Shift
 - [tlph006.md](./tlph006.md) - Philosophy and Architecture
 - [tlph007.md](./tlph007.md) - Universality in the Representation of [Declarative Knowledge](tlad001.md#declarative-knowledge)
@@ -25,6 +24,8 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlad004.md](./tlad004.md) -  Perspectives on [SPaDE](tlad001.md#spade)
 - [tlad005.md](./tlad005.md) - [Perfect Information Spaces](tlad001.md#perfect-information-space) and [Focal Methods](tlad001.md#focal-engineering)
 - [tlad006.md](./tlad006.md) - Views of [SPaDE](tlad001.md#spade) Repositories
+- [tlad007.md](./tlad007.md) - [Deductive Engineering](tlad001.md#deductive-engineering)
+- [tlad008.md](./tlad008.md) - The [Focal Stack](tlad001.md#focal-stack)
 
 ## Chat Logs
 
