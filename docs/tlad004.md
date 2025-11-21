@@ -35,8 +35,8 @@ Below, there may be documents which belong in the base of each column or those w
   <table style="margin: 0 auto; border-collapse: collapse; width: 100%; max-width: 600px; text-align: center;">
     <tr>
     <td></td>
-      <td style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px; background:#f8f8f8; text-align:center;">SPaDE OverArching Documentation</td>
-      <td></td>
+      <td style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px;width:500px;  background:#f8f8f8; text-align:center;">SPaDE OverArching Documentation</td>
+    <td></td>
     </tr>
     <tr>
       <td colspan="3" style="font-weight:bold; padding:4px; text-align:center;">
@@ -68,12 +68,12 @@ Below, there may be documents which belong in the base of each column or those w
       </td>
     </tr>
     <tr>
-      <td style="border-right:1px solid #ccc; padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph003.html" style="color:inherit; text-decoration:underline;">Logical<br> Foundations</a>
+      <td style="border-left:2px solid #333; border-right:2px solid #333; padding:4px 16px; text-align:center; vertical-align:middle;">
+        <a href="./tlph003.html" style="color:inherit; text-decoration:underline;">Logical<br>Foundations</a>
       </td>
       <td></td>
-      <td style="padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph004.html" style="color:inherit; text-decoration:underline;">Architectural<br> Foundations</a>
+      <td style="border-left:2px solid #333; border-right:2px solid #333; padding:4px 16px; text-align:center; vertical-align:middle;">
+        <a href="./tlph004.html" style="color:inherit; text-decoration:underline;">Architectural<br>Foundations</a>
       </td>
     </tr>
     <tr>
