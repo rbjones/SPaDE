@@ -43,11 +43,11 @@ Below, there may be documents which belong in the base of each column or those w
     </tr>
     <tr>
       <td style="border-right:1px solid #ccc; font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph002.html" style="color:inherit; text-decoration:underline;">Synthetic Philosophy</a>
+        <a href="./tlph002.html" style="color:inherit; text-decoration:underline;">Synthetic<br>Philosophy</a>
       </td>
       <td></td>
       <td style="font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph005.html" style="color:inherit; text-decoration:underline;">Deductive Engineering</a>
+        <a href="./tlph005.html" style="color:inherit; text-decoration:underline;">Deductive<br>Engineering</a>
       </td>
     </tr>
     <tr>
@@ -67,11 +67,11 @@ Below, there may be documents which belong in the base of each column or those w
     </tr>
     <tr>
       <td style="border-right:1px solid #ccc; padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph003.html" style="color:inherit; text-decoration:underline;">Logical Foundations</a>
+        <a href="./tlph003.html" style="color:inherit; text-decoration:underline;">Logical<br> Foundations</a>
       </td>
       <td></td>
       <td style="padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph004.html" style="color:inherit; text-decoration:underline;">Architectural Foundations</a>
+        <a href="./tlph004.html" style="color:inherit; text-decoration:underline;">Architectural<br> Foundations</a>
       </td>
     </tr>
     <tr>
