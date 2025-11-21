@@ -8,13 +8,13 @@ Because of the shifting balance between human and AI contributions, it is intend
 
 This documentation falls into the following categories:
 
-- **[Methods, processes and standards]**(#methods-processes-and-standards-(amms))(amms)
-- **[Process or procedure descriptions]**(#process-or-procedure-descriptions-(ampd))
-- **[Plans and strategies]**(#plans-and-strategies-(ampl))(ampl)
-- **[Testing and evaluation]**(#testing-and-evaluation-(amte))(amte)
-- **[Task descriptions]**(#task-descriptions-(amtd))(amtd)
-- **[Chat logs]**(#chat-logs-(amcl))(amcl)
-- **[Code and scripts]**(#code-and-scripts-(amcd))(amcd)
+- **[Methods, processes and standards](#methods-processes-and-standards-(amms))**(amms)
+- **[Process or procedure descriptions](#process-or-procedure-descriptions-(ampd))**(ampd)
+- **[Plans and strategies](#plans-and-strategies-(ampl))**(ampl)
+- **[Testing and evaluation](#testing-and-evaluation-(amte))**(amte)
+- **[Task descriptions](#task-descriptions-(amtd))**(amtd)
+- **[Chat logs](#chat-logs-(amcl))**(amcl)
+- **[Code and scripts](#code-and-scripts-(amcd))**(amcd)
 
 ## Methods, Processes and Standards (amms)
 

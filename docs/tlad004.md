@@ -47,7 +47,7 @@ Below, there may be documents which belong in the base of each column or those w
       </td>
       <td></td>
       <td style="font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">
-        <a href="./tlph005.html" style="color:inherit; text-decoration:underline;">Deductive<br>Engineering</a>
+        <a href="./tlad007.html" style="color:inherit; text-decoration:underline;">Deductive<br>Engineering</a>
       </td>
     </tr>
     <tr>

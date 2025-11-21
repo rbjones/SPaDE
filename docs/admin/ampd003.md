@@ -98,11 +98,12 @@ The agent performs the following setup tasks:
 - No client request needed for log updates
 - Maintains currency throughout session
 - Agent reformats client contributions for readability:
-  - Add markdown structure (headings, lists, paragraphs)
+  - head each contribution with the short name of the contributor as given in the opening of the session, in bold rather than sections heading, and omitting the role.
+  - Add markdown structure (lists, paragraphs, appropriate emphasis)
   - Break long blocks into logical paragraphs
-  - Preserve meaning while improving presentation
-  - Match formatting style of agent's own contributions
-
+  - Preserve meaning and literal text, while improving presentation
+  - Match formatting style of agent's own contributions where appropriate
+  
 ### 4. Drafting Phase
 
 **Initiation**:
