@@ -34,7 +34,9 @@ Below, there may be documents which belong in the base of each column or those w
 <div style="text-align:center; margin: 2em 0;">
   <table style="margin: 0 auto; border-collapse: collapse; width: 100%; max-width: 600px; text-align: center;">
     <tr>
-      <td colspan="3" style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px; background:#f8f8f8; text-align:center;">SPaDE OverArching Documentation</td>
+    <td></td>
+      <td style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px; background:#f8f8f8; text-align:center;">SPaDE OverArching Documentation</td>
+      <td></td>
     </tr>
     <tr>
       <td colspan="3" style="font-weight:bold; padding:4px; text-align:center;">
