@@ -50,16 +50,19 @@ Below, there may be documents which belong in the base of each column or those w
       </td>
     </tr>
     <tr>
-        <td style="border-right:2px solid #333; border-left:2px solid #333; padding:4px 0; text-align:center; vertical-align:middle; height:240px;">
-          <span style="display:inline-block; transform: rotate(-90deg); -webkit-transform: rotate(-90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:60px; margin-bottom:60px;">
-            <a href="./tlph003.html" style="color:inherit; text-decoration:none;">Epistemological Stack</a>
-          </span>
-        </td>
-        <td style="border-left:2px solid #333; border-right:2px solid #333; padding:4px 0; text-align:center; vertical-align:middle; height:240px;">
-          <span style="display:inline-block; transform: rotate(90deg); -webkit-transform: rotate(90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:60px; margin-bottom:60px;">
-            <a href="./tlad008.html" style="color:inherit; text-decoration:none;">Focal Tower</a>
-          </span>
-        </td>
+      <td style="border-right:2px solid #333; border-left:2px solid #333; width:60px; padding:4px 0; text-align:center; vertical-align:middle; height:240px;">
+        <span style="display:inline-block; transform: rotate(-90deg); -webkit-transform: rotate(-90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:60px; margin-bottom:60px;">
+          <a href="./tlph003.html" style="color:inherit; text-decoration:none;">Epistemological Stack</a>
+        </span>
+      </td>
+      <td style="width:400px; padding:4px 0; text-align:center; vertical-align:middle; height:240px;">
+        <!-- Passageway / arch space; you can add a faint arch graphic or leave empty -->
+      </td>
+      <td style="border-left:2px solid #333; border-right:2px solid #333; width:60px; padding:4px 0; text-align:center; vertical-align:middle; height:240px;">
+        <span style="display:inline-block; transform: rotate(90deg); -webkit-transform: rotate(90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:60px; margin-bottom:60px;">
+          <a href="./tlad008.html" style="color:inherit; text-decoration:none;">Focal Tower</a>
+        </span>
+      </td>
     </tr>
     <tr>
       <td style="border-right:1px solid #ccc; padding:4px 16px; text-align:center; vertical-align:middle;">
