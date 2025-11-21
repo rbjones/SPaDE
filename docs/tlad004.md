@@ -34,10 +34,10 @@ Below, there may be documents which belong in the base of each column or those w
 <div style="text-align:center; margin: 2em 0;">
   <table style="margin: 0 auto; border-collapse: collapse; width: 100%; max-width: 600px; text-align: center;">
     <tr>
-      <td colspan="2" style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px; background:#f8f8f8; text-align:center;">SPaDE OverArching Documentation</td>
+      <td colspan="3" style="border-bottom:2px solid #333; font-weight:bold; padding:6px 20px; background:#f8f8f8; text-align:center;">SPaDE OverArching Documentation</td>
     </tr>
     <tr>
-      <td colspan="2" style="font-weight:bold; padding:4px; text-align:center;">
+      <td colspan="3" style="font-weight:bold; padding:4px; text-align:center;">
         <a href="./tlad003.html" style="color:inherit; text-decoration:underline;">SPaDE</a>
       </td>
     </tr>
@@ -45,6 +45,7 @@ Below, there may be documents which belong in the base of each column or those w
       <td style="border-right:1px solid #ccc; font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">
         <a href="./tlph002.html" style="color:inherit; text-decoration:underline;">Synthetic Philosophy</a>
       </td>
+      <td></td>
       <td style="font-style:italic; padding:4px 16px; text-align:center; vertical-align:middle;">
         <a href="./tlph005.html" style="color:inherit; text-decoration:underline;">Deductive Engineering</a>
       </td>
@@ -68,12 +69,13 @@ Below, there may be documents which belong in the base of each column or those w
       <td style="border-right:1px solid #ccc; padding:4px 16px; text-align:center; vertical-align:middle;">
         <a href="./tlph003.html" style="color:inherit; text-decoration:underline;">Logical Foundations</a>
       </td>
+      <td></td>
       <td style="padding:4px 16px; text-align:center; vertical-align:middle;">
         <a href="./tlph004.html" style="color:inherit; text-decoration:underline;">Architectural Foundations</a>
       </td>
     </tr>
     <tr>
-      <td colspan="2" style="border-top:2px solid #333; font-style:italic; background:#f8f8f8; padding:6px 20px; text-align:center;">
+      <td colspan="3" style="border-top:2px solid #333; font-style:italic; background:#f8f8f8; padding:6px 20px; text-align:center;">
         <a href="./tlad001.html" style="color:inherit; text-decoration:underline;">Glossary</a>
       </td>
     </tr>
