@@ -20,6 +20,7 @@ But pro-tem, to help me do that I'll just list them here,
   - The *subsystem plane*: The three subsystems of SPaDE: knowledge representation, deductive kernel, deductive intelligence.
 - **Network Structures**
   - The specialists of *deductive intelligence*: The network of specialist intelligent agents cooperating to solve problems which span multiple contexts.
+  This network has relationships with some of the other structures, for example the hierarchical structure of contexts determines the layering of specialists, each specialist subcontracting to specialists in its ancestors in the theory heirarchy for subproblems which are confined to those ancestor contexts.
 
 ## The SPaDE Arch
 
@@ -53,7 +54,7 @@ Below, there may be documents which belong in the base of each column or those w
     <tr>
       <td style="width:30px; padding:4px 0; text-align:center; vertical-align:middle; height:240px;">
         <span style="display:inline-block; transform: rotate(-90deg); -webkit-transform: rotate(-90deg); white-space:nowrap; font-size:1.2em; font-weight:bold; margin-top:60px; margin-bottom:60px;">
-          <a href="./tlph003.html" style="color:inherit; text-decoration:none;">Epistemological Stack</a>
+          <a href="./tlph003.html" style="color:inherit; text-decoration:none;">Epistemic Stack</a>
         </span>
       </td>
       <td style="width:420px; padding:4px 0; text-align:center; vertical-align:middle; height:240px;">

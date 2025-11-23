@@ -16,7 +16,7 @@ The [seminal insights](tlph009.md) upon which the [SPaDE](docs/tlad001.md#spade)
 
 2. That all deductive reasoning takes place in *[perfect information spaces](docs/tlad001.md#perfect-information-space)*, which are domains in which intelligence can most effectively be delivered by *[focal](docs/tlad001.md#focal)* methods rather than by large language models.
 
-Further elaboration of the '[synthetic philosophy](docs/tlad001.md#synthetic-philosophy)' which underpins the project, and the architecture for proliferation which emerges from it, appears in the *[docs](docs/README.md)* directory:
+Further elaboration of the '[synthetic philosophy](docs/tlad001.md#synthetic-philosophy-(spade))' which underpins the project, and the architecture for proliferation which emerges from it, appears in the *[docs](docs/README.md)* directory:
 
 ## [SPaDE Project Philosophy, Architecture, and Administration (docs directory)](./docs/README.md)
 
