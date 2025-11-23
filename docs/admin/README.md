@@ -8,15 +8,15 @@ Because of the shifting balance between human and AI contributions, it is intend
 
 This documentation falls into the following categories:
 
-- **[Methods, processes and standards](#methods-processes-and-standards-(amms))**(amms)
-- **[Process or procedure descriptions](#process-or-procedure-descriptions-(ampd))**(ampd)
-- **[Plans and strategies](#plans-and-strategies-(ampl))**(ampl)
-- **[Testing and evaluation](#testing-and-evaluation-(amte))**(amte)
-- **[Task descriptions](#task-descriptions-(amtd))**(amtd)
-- **[Chat logs](#chat-logs-(amcl))**(amcl)
-- **[Code and scripts](#code-and-scripts-(amcd))**(amcd)
+- **[Methods, processes and standards](#methods-processes-and-standards)**
+- **[Process or procedure descriptions](#process-or-procedure-descriptions)**
+- **[Plans and strategies](#plans-and-strategies)**
+- **[Testing and evaluation](#testing-and-evaluation)**
+- **[Task descriptions](#task-descriptions)**
+- **[Chat logs](#chat-logs)**
+- **[Code and scripts](#code-and-scripts)**
 
-## Methods, Processes and Standards (amms)
+## Methods, Processes and Standards
 
 - [amms001.md](amms001.md) Project Structure and Documentation Policy
 - [amms002.md](amms002.md) Roles, Responsibilities, Tasks
@@ -26,32 +26,32 @@ This documentation falls into the following categories:
 - [amms006.md](amms006.md) Glossary Link Maintenance
 - [amms007.md](amms007.md) Glossary Augmentation Procedure
 
-## Process or procedure descriptions (ampd)
+## Process or procedure descriptions
 
 - [ampd001.md](ampd001.md) Using GitHub Copilot Agent with SPaDE - Process for assigning code-and-test tasks to Copilot agents
 - [ampd002.md](ampd002.md) Using GitHub Copilot Agent with SPaDE - Process for Copilot in completing code and test assignments.
 - [ampd003.md](ampd003.md) Conversational Documentation Development Procedure
 
-## Plans and strategies (ampl)
+## Plans and strategies
 
 - [ampl001.md](ampl001.md) [SPaDE](../tlad001.md#spade) Project Action Plan
 - [ampl002.md](ampl002.md) Prototyping Strategy
 - [ampl003.md](ampl003.md) Project Management
 
-## Testing and evaluation (amte)
+## Testing and evaluation
 
-## Task Descriptions (amtd)
+## Task Descriptions
 
 - [amtd001.md](amtd001.md) Task Description for Review of Hyperlinks in Project Documentation
 - [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
 
-## Chat Logs (amcl)
+## Chat Logs
 
 - [amcl001.md](amcl001.md) Chat Log: Conversational Documentation Development Procedure
 
-## Code and Scripts (amcd)
+## Code and Scripts
 
 - [amcd001.py](amcd001.py) - Script for adding glossary links to documentation
   - Dynamically loads terms from glossary

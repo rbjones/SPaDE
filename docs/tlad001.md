@@ -27,8 +27,11 @@ A philosophical tradition that emphasizes clarity and logical rigor, often throu
 
 #### Analytic Sentence
 
-A sentence that is true in virtue of its meaning alone, independent of empirical verification.
-A tautology. A sentence of which the truth conditions are satisfied in all possible circumstances. 
+A sentence that is true in virtue of its meaning alone, independent of empirical verification (though not independent of the logic required to establish that meaning?).
+A tautology. A sentence of which the truth conditions are satisfied in all possible circumstances.
+
+[The truth of the sentence in fact depends only on that part of the meaning which consists in its truth conditions, and to say that it depends only on those conditions is to say that the truth conditions are the constant function yielding true (and it is therefore what we call a logically necessary proposition).  Hence once its meaning is established (in this formal sense) not even logic is required to establish its truth.
+Of course this formal stance may not be convincing when considering natural languages, but the difficulty is primarily in establishing the meaning, or even deciding what meaning is.]
 
 ## D
 
@@ -64,19 +67,19 @@ A maximal connected component of the pansophic repository.
 
 The placement or incorporation of one thing within another.
 
-#### Embedding: Language
+#### Language Embedding
 
 A mapping of one language into another (possibly defined in a third language).
 
-#### Embedding: Semantic
+#### Embedding (Semantic)
 
-A language embedding that preserves meaning.
+A language embedding that preserves meaning, see: [Semantic Embedding](tlad001.md#semantic-embedding).
 
-#### Embedding: Shallow
+#### Shallow Embedding
 
 A semantic embedding which is not deep, and therefore does not require a target more expressive than the source language.
 
-#### Embedding: Deep
+#### Deep Embedding
 
 A mapping (in a target- or meta-language) that represents the semantics of a source- or object-language, in a manner which supports metatheoretic reasoning about the language, typically as a function defined over the abstract syntax of that language.
 
@@ -86,7 +89,7 @@ Concerning knowledge.
 
 ### Epistemology
 
-The philosophical study of knowledge.
+The philosophical study of knowledge or philosophical theories about knowledge.
 
 ### [Epistemological Stack](tlph003.md)
 
@@ -119,7 +122,7 @@ A conceptual framework for understanding how focal engineering (including singul
 
 ### Foundational Institution
 
-An ordinally indexed family of logical systems sharing common syntax but with semantics defined by increasingly strong notions of model, such that for any member of the family there exists a subsequent member in which the semantics of the former can be rendered as a deep embedding.
+An ordinally indexed family of logical systems, sharing common syntax but with semantics defined by increasingly strong notions of model, such that for any member of the family there exists a subsequent member in which the semantics of the former can be rendered as a *[deep embedding](tlad001.md#deep-embedding)* (and is therefore strictly more expressive).
 
 ### Universal Foundational Institution
 
@@ -138,11 +141,11 @@ In [Synthetic Philosophy](tlph002.md), which follows logical positivism in rejec
 
 Concerning all knowledge in the cosmos.
 
-### Perfect Information Space
+### [Perfect Information Space](./tlad005.md#perfect-information-spaces)
 
-A domain characterized by complete observability, well-defined rules, deterministic or known stochastic behavior, finite and discrete state/action spaces, objective evaluation criteria, and self-contained specification.
+A domain characterized by complete observability, well-defined rules, deterministic behavior, finite and discrete state/action spaces, objective evaluation criteria, and self-contained specification.
 Examples include chess, Go, and formal proof systems.
-Perfect information spaces are precisely coextensive with formal deductive theories and define the scope of [focal methods](#focal-engineering).
+Perfect information spaces are precisely coextensive with formal deductive theories and define the scope of focal methods.
 See [Perfect Information Spaces and Focal Methods](tlad005.md) for detailed treatment.
 
 ## S
@@ -161,7 +164,7 @@ See [Perfect Information Spaces and Focal Methods](tlad005.md) for detailed trea
 - The ability of a formal language to represent a wide range of meanings, concepts and propositions.
 - A measure of the richness of the semantics of a logical system, often related to the variety and complexity of models that can be represented within that system.
 - The pre-ordering of logical systems induced by the existence of semantic embeddings between them.
-- The pre-ordering of foundational institutions induced by the existence of semantic embeddings between their members.
+- The pre-ordering of *foundational institutions* induced by the existence of semantic embeddings between their members.
 
 ### The Singularity
 

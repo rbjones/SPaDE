@@ -15,7 +15,7 @@ It may be that the benefits of focus, and the possibility of [singular focus](tl
 There are two kinds of focal thinking which contribute to the proposed architecture.
 These come as a *[focal tower](tlad001.md#focal-tower)* and a *[focal](tlad001.md#focal) hierarchy* which are discussed in turn.
 
-### The Epistemological Connection
+## The Epistemological Connection
 
 The [focal tower](tlad001.md#focal-tower) as described above correlates with the [epistemological stack](tlph003.md) in the following way.
 
