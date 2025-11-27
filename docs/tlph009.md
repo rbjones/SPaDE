@@ -5,7 +5,7 @@ This document is an attempt to gather those insights together, in a very concise
 
 ## Universal Foundational Institutions
 
-The idea that there are certain *foundational institutions* which are universal for the representations of declarative knowledge.
+The idea that there are certain *foundational institutions* which are universal for the representation of declarative knowledge.
 
 ## The Dispensability of Concrete Syntax
 

@@ -15,10 +15,12 @@ This procedure describes the process for developing high-level documentation (pa
 This procedure is applicable to:
 
 - High-level philosophical and architectural documentation
+- Detailed design and implementation of code modules
 - Documents requiring conceptual exploration before drafting
 - Revision and refinement of existing documents
 - Creation of multiple interconnected documents
 - Any agentic task appropriately initiated and guided conversationally
+- Any task involving significant complexity or requiring extended discussion
 
 ## Roles
 
@@ -47,16 +49,20 @@ The agent should identify itself including the underlying model name (e.g., "Git
 
 The agent performs the following setup tasks:
 
-1. **Determine document number**:
+1. **Create/Checkout Branch**:
+   - Create a new feature branch for the task (e.g., `feature/native-repo-io`)
+   - Ensure all subsequent work is performed in this branch
+
+2. **Determine document number**:
    - Check target directory's README.md
    - Find next available number for specified document type
    - Construct filename (e.g., `tlph011.md`)
 
-2. **Create target document**:
+3. **Create target document**:
    - Create file with title but no header. A footer will be created later.
    - Update directory README.md index
 
-3. **Create chat log**:
+4. **Create chat log**:
    - Co-locate with target document
    - Find next available chat log number (type code `cl`)
    - Construct filename (e.g., `tlcl001.md` in same directory)
@@ -69,7 +75,7 @@ The agent performs the following setup tasks:
      - Purpose/topic
    - Update directory README.md index
 
-4. **Confirm setup**:
+5. **Confirm setup**:
    - Report created files and locations
    - Ready for discussion
 
@@ -147,7 +153,7 @@ The agent performs the following setup tasks:
 - Maintains complete history across sessions
 - Links discussion to corresponding document changes
 
-### 6. Completion
+### 6. Completion and Review
 
 **Status Updates**:
 
@@ -156,6 +162,12 @@ The agent performs the following setup tasks:
   - Author: Agent name (including model, e.g., "GitHub Copilot (Claude Sonnet 4.5)")
   - Link to chat log (to be created)
   - Status is either "Stable" (when the client closes the conversation) or "In progress" before that, or after the client reopens it.  If requested by the client on closing a conversation the status may be set to some other word or phrase as requested.
+
+**Pull Request**:
+
+- Upon completion of the drafting and refinement, the agent (or client) should create a Pull Request (PR) for the changes.
+- The PR serves as the venue for final review and approval before merging into the main branch.
+- The PR description should reference the chat log and the target document(s).
 
 **Traceability**:
 
