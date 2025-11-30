@@ -199,7 +199,7 @@ A proof which proceeds from axioms and premises to a conclusion by direct logica
 
 Those parts of *synthetic philosophy* (SPaDE) seeking to understand knowledge by designing the epistemic engines of the future.
 
-#### Synthetic Philosophy
+#### [Synthetic Philosophy](tlph002.md)
 
 An approach to philosophy which seeks to integrate and unify knowledge from diverse fields and disciplines into a coherent, comprehensive worldview or system of understanding.
 

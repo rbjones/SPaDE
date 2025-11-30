@@ -165,13 +165,13 @@ The procedures required are:
 3. [Write CONS cell S-expression](#write-cons-cell-s-expression)
 4. [Read S-expression](#read-s-expression)
 
-As a further convenience, the S-expression module will operate a stack for writing S-expressions in the following way:
+ As a further convenience, the S-expression module will operate a stack for writing S-expressions in the following way:
 
 - the stack is a pointer stack on which sequence numbers of S-expressions written to the repository are held.
 - a push operation is provided for Nil and one for Atoms which write to the file (if necessary) and push the sequence number to the stack.
 - a cons operation writes to the file a Cons cell whose pointers are the top two elements off the stack, and replaces those two elements with a single pointer which is the sequence number of the Cons cell.
 
-So we have:
+ So we have:
 
 5. [Push Nil](#push-nil)
 6. [Push Atom](#push-atom)
@@ -267,7 +267,7 @@ There are six manners:
 2. **Write Term Constant**: Takes Name and Type sequence numbers. Writes `(Term.Const, Name, Type)`.
 3. **Write Term Application**: Takes two Term sequence numbers. Writes `(Term.App, Term1, Term2)`.
 4. **Write Term Abstraction**: Takes Name, Type, and Term sequence numbers. Writes `(Term.Abs, Name, Type, Body)`.
-7. **Read Term**: Reads an S-expression. Dispatches based on Manner to return a Term object.
+5. **Read Term**: Reads an S-expression. Dispatches based on Manner to return a Term object.
 
 ## Repository Structure
 
