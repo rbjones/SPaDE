@@ -91,8 +91,6 @@ These are:
   2.2 Constant: Name x Type
   2.3 Application: Term x Term
   2.4 Abstraction: Name x Type x Term
-  2.5 Literal: S-expression
-  2.6 Relocation: Name x Term
 3. Parents: Theory list
 4. Signature: (sname x num)list x (sname x Type)list
 5. Extension: Signature x Term

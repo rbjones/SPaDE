@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "spade-repo": {
+      "command": "/Users/rbj/git/SPaDE/.venv/bin/python",
+      "args": [
+        "/Users/rbj/git/SPaDE/mcp/spade-mcp/src/spade_server.py"
+      ]
+    }
+  }
+}
