@@ -71,7 +71,7 @@ When reading a repository, the entire file is read and the byte sequences are st
 When writing a repository, byte sequences are first sought in the cache of sequences already in the file.
 If the sequence is found in the cache, it is not written to the file and its sequence number is returned.
 If the sequence is not found in the cache, it is allocated the next sequence number, written to the file and also stored in the cache.
-When appending to an existing repository, byte sequences are written to the end of the file (if not already present)and also stored in the cache.
+When appending to an existing repository, byte sequences are written to the end of the file (if not already present) and also stored in the cache.
 Links within the repository are represented as sequence numbers, which are indices into this array.
 
 It is necessary to be able to operate simultaneously on more than one repository file, so the procedures in this module will operate on a repository handle, which encapsulates the file handle and the byte sequence cache for that file.
@@ -101,14 +101,18 @@ This will also be the first entry in the byte sequence cache, and will be elegib
 
 ### Open existing repository for reading
 
-The cache should cleared first if it is not already empty.
+A new empty byte sequence cache should be created for this repository.
 The file should then be opened for reading, and the entire repository read and cached using the procedure described below.
-It should then be closed again.
 
 ### Open existing repository for appending
 
 The file must first be opened for reading to read and cache the entire repository, unless it has already been opened for reading and the cache has not been cleared since then.
 The file should then be closed and opened in append mode, so that new byte sequences written to the repository are added to the end of the file.
+
+Upon opening for append, the procedure must verify that the current file size matches the size of the file when it was last read (i.e., the end of the cached data).
+If the file size has changed, it indicates that the repository has been modified by another process, and the cache is stale.
+In this case, the repository should be closed re-opened in read mode and cached before re-opening in append mode.
+If it fails again, an error should be raised.
 
 ### Close repository
 
@@ -141,15 +145,15 @@ In order to support these functions, open append will only be allowed when a fil
 A module will be provided for reading and writing S-expressions using the low level I/O and encoding/decoding modules.
 These S-Expressions are represented using null terminated byte sequences as follows:
 
-Each S-expression is either Nil, an atoms (a null terminated byte sequence) or a CONS cell (pairs of pointers to S-expressions).
+Each S-expression is either Nil, an atom (a null terminated byte sequence) or a CONS cell (pairs of pointers to (sequence numbers of) S-expressions).
 Each such S-expression will be represented in the linear file as a single null terminated byte sequence, which when decoded by elimination of escapes would yield a sequence of one two or three null terminated byte sequences.
 The first sequence indicates the type of S-expression represented, and the remainder give the content of the S-expression.
-The first byte sequence is a single byte, with value 0, 1 or 2, which indicates whether the S-expression is Nil, an atom, or a CONS cell respectively, and also inducates how many further byte sequences follow it in the representation of the S-expression.
+The first byte sequence is a single byte (plus null terminator), (*t*), with value 2, 3 or 4, which indicates whether the S-expression is Nil, an atom, or a CONS cell respectively, and also inducates how many further byte sequences follow it in the representation of the S-expression (*t-2*).
 
-After decoding the first sequence will be a single byte giving the type of S-expression it represents.
-If the first byte is 0, the S-expression is Nil, and there are no further byte sequences in the representation.
-If the first byte is 1, the S-expression is an atom, and the following null terminatedbyte sequence represents the atom itself.
-If the first byte is 2, the S-expression is a CONS cell, and the two subsequent null terminated byte sequences are the sequence numbers of the two S-expressions which are the CAR and CDR of the CONS cell.
+After decoding, the first sequence will be a single byte giving the type of S-expression it represents.
+If the first byte is 2, the S-expression is Nil, and there are no further byte sequences in the representation.
+If the first byte is 3, the S-expression is an atom, and the following null terminated byte sequence represents the atom itself.
+If the first byte is 4, the S-expression is a CONS cell, and the two subsequent null terminated byte sequences are the sequence numbers of the two S-expressions which are the CAR and CDR of the CONS cell.
 
 Pointers to S-expressions are represented by the sequence number of the null terminated byte sequence representing the expression in the repository.
 The module will provide procedures for reading and writing S-expressions to and from the repository file, using the low level I/O and encoding/decoding modules.
@@ -176,7 +180,7 @@ So we have:
 ### Write Nil S-expression
 
 This procedure writes a Nil S-expression to the repository file.
-It creates a null terminated byte sequence representing the S-expression and writes it to the file.
+It creates a null terminated byte sequence representing the S-expression and writes it to the file, returning its sequence number
 
 ### Write atom S-expression
 
@@ -186,11 +190,12 @@ It takes a byte sequence which is the value of the atom, creates a null terminat
 ### Write CONS cell S-expression
 
 This procedure writes a CONS cell S-expression to the repository file.
-It takes two byte sequences numbers which are the CAR and CDR of the CONS cell and must already be in the cache, and creates a null terminated byte sequence representing the S-expression and if new writes it to the file, otherwise retrieves its sequence number from the cache.
+It takes two byte sequences numbers which are the CAR and CDR of the CONS cell and must already be in the cache, creates a null terminated byte sequence representing the S-expression and if new writes it to the file, otherwise retrieves its sequence number from the cache.
+The sequence number is then returned.
 
 ### Read S-expression
 
-This procedure extracts a S-expression from the cache.
+This procedure extracts an S-expression from the cache.
 It decodes a byte sequence in the cache given its sequence number into an S-expression and returns it.
 The S-expression is represented as either:
 
@@ -208,8 +213,110 @@ Write Atom, then push the sequence number to the stack.
 
 ### Stack CONS
 
-Write CONS of top two stack items and replace them with the resulting sequence number.
+Write CONS of top two stack items to the repo and replace them on the stack with the resulting sequence number.
+
+### Append List
+
+Take a list of S-expression sequence numbers and append them to the S-expression whose sequence number is at the top of the stack, replacing that item.
+Take the first element off the list, push it to the stack, then CONS the top two items.
+Repeat until the list is empty.
 
 ## HOL Terms
 
-## Theories and Folders
+This module provides procedures for reading and writing HOL types and terms as S-expressions, following the structure defined in [krdd002.md](krdd002.md).
+These structures are represented as lists (S-expressions) where the first element is a "Kind Atom" identifying the node type.
+The Kind Atom is a single atom containing two null-terminated byte sequences: the *Kind* and the *Manner*.
+
+### Names
+
+Names are represented as single atoms containing a sequence of null-terminated byte strings.
+The first byte string represents a numerical shift (up the hierarchy), and subsequent strings represent the path elements.
+
+**Procedures:**
+
+1. **Write Name**: Takes a shift integer and a list of path byte strings. Encodes them into a single atom and writes it. Returns sequence number.
+2. **Read Name**: Takes a sequence number. Decodes the atom into a shift integer and list of path strings.
+
+### Types
+
+Types are represented with Kind="Type".
+There are two manners:
+
+1. **Type Variable** (Manner="Var"): `Name x Arity`
+2. **Type Construction** (Manner="Cons"): `Name x Type list`
+
+**Procedures:**
+
+1. **Write Type Variable**: Takes sequence numbers for Name and Arity (integer). Writes `(Type.Var, Name, Arity)`.
+2. **Write Type Construction**: Takes sequence numbers for Name and a list of Types. Writes `(Type.Cons, Name, TypeList)`.
+3. **Read Type**: Reads an S-expression. Dispatches based on Manner to return a Type object.
+
+### Terms
+
+Terms are represented with Kind="Term".
+There are six manners:
+
+1. **Variable** (Manner="Var"): `Name x Type`
+2. **Constant** (Manner="Const"): `Name x Type`
+3. **Application** (Manner="App"): `Term x Term`
+4. **Abstraction** (Manner="Abs"): `Name x Type x Term`
+
+**Procedures:**
+
+1. **Write Term Variable**: Takes Name and Type sequence numbers. Writes `(Term.Var, Name, Type)`.
+2. **Write Term Constant**: Takes Name and Type sequence numbers. Writes `(Term.Const, Name, Type)`.
+3. **Write Term Application**: Takes two Term sequence numbers. Writes `(Term.App, Term1, Term2)`.
+4. **Write Term Abstraction**: Takes Name, Type, and Term sequence numbers. Writes `(Term.Abs, Name, Type, Body)`.
+7. **Read Term**: Reads an S-expression. Dispatches based on Manner to return a Term object.
+
+## Repository Structure
+
+This module handles the organizational structure of the repository, including Theories, Folders, and Commits.
+
+### Structures
+
+1. **Parents**: Kind="Parents". List of Theory sequence numbers.
+2. **Signature**: Kind="Signature". `(sname x num)list x (sname x Type)list`.
+3. **Extension**: Kind="Extension". `Signature x Term`.
+4. **Theory**: Kind="Theory". `Parents x Extension list x ContextHash`.
+5. **Folder**: Kind="Folder". `(sname x (Theory | Folder))list`.
+6. **Commit**: Kind="Commit". `RootFolder x Signature x Metadata`.
+
+**Procedures:**
+
+1. **Write Parents**: Takes list of Theory sequence numbers. Writes `(Parents, TheoryList)`.
+2. **Write Signature**: Takes list of (sname, num) and list of (sname, Type). Writes `(Signature, NameNumList, NameTypeList)`.
+3. **Write Extension**: Takes Signature and Term sequence numbers. Writes `(Extension, Signature, Term)`.
+4. **Write Theory**: Takes Parents, Extension List, and ContextHash sequence numbers. Writes `(Theory, Parents, ExtList, ContextHash)`.
+    - **ContextHash**: A byte sequence (Atom) representing the hash of the context defined by this theory.
+5. **Write Folder**: Takes list of (sname, Item) pairs. Writes `(Folder, ItemList)`.
+6. **Write Commit**: Takes RootFolder sequence number, Signature (Atom or Nil), and Metadata (Atom). Writes `(Commit, RootFolder, Signature, Metadata)`.
+    - **RootFolder**: The sequence number of the new top-level folder of the repository.
+    - **Signature**: An optional digital signature of the commit (e.g., signing the hash of the RootFolder and Metadata).
+    - **Metadata**: An atom containing commit information (e.g., author, timestamp, description).
+7. **Read Structure**: Generic reader or specific readers for each type.
+
+## Repository Updates
+
+This section describes the procedure for performing an "edit" to the repository.
+Since the repository is a WORM (Write Once Read Many) structure, existing nodes cannot be modified.
+An update is performed by appending new versions of modified nodes and propagating the changes up to the root.
+
+### The Update Cycle
+
+1. **Open for Append**: Open the repository in append mode (verifying cache integrity).
+2. **Write New Content**: Write the new or modified Theories/Items to the repository.
+3. **Bubble Up**:
+    - Identify the path from the modified item to the root.
+    - For each folder in the path (bottom-up):
+        - Create a new version of the folder containing the new sequence number of the modified child (and existing sequence numbers of unchanged children).
+        - Write the new folder to the repository.
+4. **Create Commit**:
+    - Create a `Commit` structure pointing to the new Root Folder sequence number.
+    - Include Metadata (author, message).
+    - (Optional) Generate a signature for the commit and include it.
+    - Write the `Commit` to the repository.
+5. **Update Version List**:
+    - The physical end of the repository file represents a list of versions.
+    - The new `Commit` is effectively consed onto the existing list of versions (or becomes the new head of the list).
+    - (Note: The specific mechanism for linking the new commit to the previous list depends on the top-level file structure defined in `krdd002.md`, typically ending with a Cons cell linking the new Commit to the previous list head).

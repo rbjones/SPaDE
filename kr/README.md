@@ -59,12 +59,15 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd006.py](krcd006.py) - Python implementation tests
 - [krcd006.sml](krcd006.sml) - HOL4 specification of [SPaDE](../docs/tlad001.md#spade) repository
 - [krcd007.py](krcd007.py) - Low-level SPaDE repository I/O in Python, implementing krdd004.md
+- [krcd008.py](krcd008.py) - Abstract Base Classes for SPaDE Native Repository I/O (following krdd004.md)
+- [krcd009.py](krcd009.py) - Concrete Python implementation of SPaDE Native Repository I/O (implements krcd008)
 
 ## Testing and Evaluation
 
 This section includes documents that describe the testing and evaluation process for the Knowledge Repository.
 
 - [krte001.md](krte001.md) - Knowledge repository prototyping test notes
+- [krte001.py](krte001.py) - Unit tests for krcd009.py (SPaDE Native Repository I/O)
 
 ## Task Descriptions
 
