@@ -15,9 +15,9 @@ except Exception:
     pass
 
 # Setup logging to debug startup issues
-log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../server.log")
+log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "server.log")
 try:
-    logging.basicConfig(filename=log_file, level=logging.DEBUG, 
+    logging.basicConfig(filename=log_file, level=logging.DEBUG,
                         format='%(asctime)s - %(levelname)s - %(message)s')
     logging.info("Server starting...")
 except Exception as e:
@@ -25,7 +25,6 @@ except Exception as e:
         f.write(f"Failed to setup logging: {e}\n")
 
 try:
-    from typing import Optional, Any
     from mcp.server.fastmcp import FastMCP
 
     # Import our SPaDE repo library
@@ -35,7 +34,7 @@ try:
 
     # Add the workspace root to sys.path to allow importing 'kr'
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    workspace_root = os.path.abspath(os.path.join(current_dir, "../../../"))
+    workspace_root = os.path.abspath(os.path.join(current_dir, "../"))
     logging.info(f"Current dir: {current_dir}")
     logging.info(f"Workspace root calculated as: {workspace_root}")
 
@@ -62,7 +61,7 @@ try:
     async def create_repository(filepath: str, version: int = 1) -> str:
         """
         Creates a new SPaDE repository at the specified filepath.
-        
+
         Args:
             filepath: Absolute path to the new repository file.
             version: Version number for the repository (default 1).
@@ -79,7 +78,7 @@ try:
     async def write_sexpression(filepath: str, sexp_json: str) -> str:
         """
         Writes an S-expression to an existing SPaDE repository.
-        
+
         Args:
             filepath: Absolute path to the repository file.
             sexp_json: JSON string representing the S-expression.
@@ -91,7 +90,7 @@ try:
         try:
             # Parse JSON input
             data = json.loads(sexp_json)
-            
+
             # Convert strings to bytes for the repo library
             def to_bytes_recursive(obj):
                 if isinstance(obj, str):
@@ -101,7 +100,7 @@ try:
                 elif obj is None:
                     return None
                 else:
-                    return obj # Let write_recursive handle error or other types
+                    return obj  # Let write_recursive handle error or other types
 
             data_bytes = to_bytes_recursive(data)
 
@@ -110,10 +109,10 @@ try:
             io.open_existing_repository_read(filepath)
             # Then open append
             io.open_existing_repository_append(filepath)
-            
+
             sexp = SExpressions(io)
             seq_num = sexp.write_recursive(data_bytes)
-            
+
             io.close_repository()
             return f"Successfully wrote S-expression. Sequence Number: {seq_num}"
         except StaleCacheError:
@@ -125,7 +124,7 @@ try:
     async def read_sexpression(filepath: str, seq_num: int) -> str:
         """
         Reads an S-expression from a SPaDE repository by sequence number.
-        
+
         Args:
             filepath: Absolute path to the repository file.
             seq_num: The sequence number to read.
@@ -133,12 +132,12 @@ try:
         try:
             io = LowLevelIO()
             io.open_existing_repository_read(filepath)
-            
+
             sexp = SExpressions(io)
             val = sexp.read_recursive(seq_num)
-            
+
             io.close_repository()
-            
+
             # Convert bytes back to strings for JSON output
             def from_bytes_recursive(obj):
                 if isinstance(obj, bytes):
@@ -166,4 +165,3 @@ except Exception as e:
         f.write(f"Fatal error: {e}\n")
         f.write(traceback.format_exc())
     sys.exit(1)
-
