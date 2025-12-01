@@ -1,3 +1,7 @@
+"""
+Low-level I/O module for SPaDE native repositories.
+Handles binary files of null-terminated byte sequences.
+"""
 import os
 from typing import Tuple, Optional, Union, List
 

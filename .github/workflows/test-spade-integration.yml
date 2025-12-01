@@ -11,7 +11,7 @@ jobs:
   test-spade:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/rbjones/pp/proofpower:latest
+      image: ghcr.io/rbjones/spade:latest
     
     steps:
       - name: Checkout code
@@ -22,9 +22,9 @@ jobs:
         run: |
           # Check environment
           echo "Current PATH: $PATH"
+          # PPDIR is set in the image, but ensuring it doesn't hurt
           export PPDIR=/proofpower-source
-          echo "workspace directory contents:"
-          ls -la /workspace
+          
           # Source the ProofPower development environment
           . /proofpower-source/dev_env
           
@@ -41,10 +41,9 @@ jobs:
         run: |
           # Check environment
           echo "Current PATH: $PATH"
-          export PPDIR=/proofpower-source
-          echo "workspace directory contents:"
-          ls -la /workspace
+          
           # Source the ProofPower development environment
           . /proofpower-source/dev_env
+          
           # Run default SPaDE tests
           make

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Tuple, Optional, Union
 
+
 class EncodingDecodingABC(ABC):
     """
     Abstract Base Class for Encoding/Decoding module.
@@ -52,6 +53,7 @@ class EncodingDecodingABC(ABC):
         null-terminated byte sequences.
         """
         pass
+
 
 class LowLevelIOABC(ABC):
     """
@@ -121,6 +123,7 @@ class LowLevelIOABC(ABC):
         Retrieves byte sequence from cache by sequence number.
         """
         pass
+
 
 class SExpressionsABC(ABC):
     """

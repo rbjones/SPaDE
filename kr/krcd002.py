@@ -89,4 +89,3 @@ Hterm = Union[Tmv, Tmc, Tapp, Tabs, Trel, Tloc]
 class Hsequent:
     hyps: List[Hterm]
     concl: Hterm
-

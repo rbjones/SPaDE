@@ -16,6 +16,8 @@
 *.idx
 *.inc
 *.ldd
+*.tldd
+*.err
 *.lof
 *.log
 *.lot

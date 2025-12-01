@@ -1,9 +1,11 @@
 import os
-from typing import List, Tuple, Optional, Union
+from typing import List, Tuple, Optional, Union, BinaryIO
 from kr.krcd008 import EncodingDecodingABC, LowLevelIOABC, SExpressionsABC
+
 
 class StaleCacheError(Exception):
     pass
+
 
 class EncodingDecoding(EncodingDecodingABC):
     def _escape(self, data: bytes) -> bytes:
@@ -19,7 +21,7 @@ class EncodingDecoding(EncodingDecodingABC):
             elif b == 1:
                 # Check next byte
                 if i + 1 < n:
-                    next_b = data[i+1]
+                    next_b = data[i + 1]
                     if next_b == 0 or next_b == 1:
                         out.extend(b'\x01\x01')
                     else:
@@ -50,7 +52,8 @@ class EncodingDecoding(EncodingDecodingABC):
                 elif next_b == 1:
                     out.append(1)
                 else:
-                    # "When preceding a byte other than 0 or 1, binary 1 does not function as an escape"
+                    # "When preceding a byte other than 0 or 1,
+                    # binary 1 does not function as an escape"
                     out.append(1)
                     out.append(next_b)
             else:
@@ -75,7 +78,8 @@ class EncodingDecoding(EncodingDecodingABC):
     def encode_integer(self, value: int) -> bytes:
         """
         Encodes a positive integer to bytes (Big Endian).
-        Note: The 'null-terminated' aspect is handled by the caller (LowLevelIO or encode_sequence_list).
+        Note: The 'null-terminated' aspect is handled by the caller
+        (LowLevelIO or encode_sequence_list).
         """
         # Calculate minimum bytes needed
         if value == 0:
@@ -108,7 +112,7 @@ class EncodingDecoding(EncodingDecodingABC):
         current_seq = bytearray()
         i = 0
         n = len(data)
-        
+
         while i < n:
             b = data[i]
             if b == 1:
@@ -125,7 +129,7 @@ class EncodingDecoding(EncodingDecodingABC):
             else:
                 current_seq.append(b)
             i += 1
-            
+
         # If data ended with 0, current_seq is empty and we successfully added the last item.
         # If data did NOT end with 0 (which shouldn't happen for valid NTBS concatenation),
         # we might have leftover bytes.
@@ -133,14 +137,14 @@ class EncodingDecoding(EncodingDecodingABC):
         # So valid data should end with \0.
         # If current_seq is not empty here, it means the last item was not terminated.
         if len(current_seq) > 0:
-             # This implies malformed data or missing terminator
-             # But for robustness, maybe we assume implicit termination?
-             # No, strict NTBS requires terminator.
-             # However, split() logic would have ignored trailing empty string.
-             # Let's raise error or ignore?
-             # Given the strict format, let's assume valid data ends in 0.
-             pass
-             
+            # This implies malformed data or missing terminator
+            # But for robustness, maybe we assume implicit termination?
+            # No, strict NTBS requires terminator.
+            # However, split() logic would have ignored trailing empty string.
+            # Let's raise error or ignore?
+            # Given the strict format, let's assume valid data ends in 0.
+            pass
+
         return sequences
 
 
@@ -148,9 +152,9 @@ class LowLevelIO(LowLevelIOABC):
     def __init__(self, encoding: Optional[EncodingDecodingABC] = None):
         self.encoding = encoding or EncodingDecoding()
         self.filepath: Optional[str] = None
-        self._file = None
+        self._file: Optional[BinaryIO] = None
         self._cache: List[bytes] = []
-        self._cache_map: dict = {} # Map bytes -> seq_num
+        self._cache_map: dict = {}  # Map bytes -> seq_num
         self._mode: Optional[str] = None
 
     def open_new_repository(self, filepath: str, version: int = 1) -> None:
@@ -159,7 +163,7 @@ class LowLevelIO(LowLevelIOABC):
         self._mode = 'w'
         self._cache = []
         self._cache_map = {}
-        
+
         # Write version
         ver_bytes = self.encoding.encode_integer(version)
         self.write_byte_sequence(ver_bytes)
@@ -168,19 +172,19 @@ class LowLevelIO(LowLevelIOABC):
         self.filepath = filepath
         if self._file:
             self.close_repository()
-        
+
         self._file = open(filepath, 'rb')
         self._mode = 'r'
         self._cache = []
         self._cache_map = {}
-        
+
         # Read all
         try:
             while True:
                 self.read_byte_sequence()
         except EOFError:
             pass
-        
+
         # Reset to start? Or leave at end?
         # Usually we read to cache.
         # If we want to read again, we can seek 0.
@@ -190,20 +194,21 @@ class LowLevelIO(LowLevelIOABC):
     def open_existing_repository_append(self, filepath: str) -> None:
         if self._mode != 'r':
             raise ValueError("Must open for read before append")
-        
+
+        assert self._file is not None
         # Check file size
         current_pos = self._file.tell()
         file_size = os.path.getsize(filepath)
-        
+
         if current_pos != file_size:
             raise StaleCacheError(f"File changed on disk. Read {current_pos}, Disk {file_size}")
-            
+
         self._file.close()
         self._file = open(filepath, 'ab')
         self._mode = 'a'
 
     def close_repository(self) -> None:
-        if self._file:
+        if self._file is not None:
             self._file.close()
             self._file = None
         self._mode = None
@@ -211,22 +216,23 @@ class LowLevelIO(LowLevelIOABC):
     def read_byte_sequence(self) -> Tuple[bytes, int]:
         if self._mode != 'r':
             raise ValueError("Not open for reading")
-            
+
+        assert self._file is not None
         # Read until unescaped 0
         buffer = bytearray()
         while True:
             b = self._file.read(1)
             if not b:
                 raise EOFError()
-            
+
             byte_val = b[0]
-            
+
             if byte_val == 1:
                 # Escape
                 next_b = self._file.read(1)
                 if not next_b:
                     raise ValueError("Unexpected EOF after escape")
-                
+
                 nb_val = next_b[0]
                 if nb_val == 0:
                     buffer.append(0)
@@ -240,7 +246,7 @@ class LowLevelIO(LowLevelIOABC):
                 break
             else:
                 buffer.append(byte_val)
-                
+
         seq = bytes(buffer)
         seq_num = len(self._cache)
         self._cache.append(seq)
@@ -250,14 +256,15 @@ class LowLevelIO(LowLevelIOABC):
     def write_byte_sequence(self, data: bytes) -> int:
         if self._mode not in ('w', 'a'):
             raise ValueError("Not open for writing/appending")
-            
+
         if data in self._cache_map:
             return self._cache_map[data]
-            
+
+        assert self._file is not None
         # Encode
         encoded = self.encoding.encode_bytes(data)
         self._file.write(encoded)
-        
+
         seq_num = len(self._cache)
         self._cache.append(data)
         self._cache_map[data] = seq_num
@@ -296,14 +303,14 @@ class SExpressions(SExpressionsABC):
     def read_sexpression(self, seq_num: int) -> Union[None, bytes, Tuple[int, int]]:
         raw_payload = self.io.get_byte_sequence(seq_num)
         parts = self.encoding.decode_sequence_list(raw_payload)
-        
+
         if not parts:
             raise ValueError("Empty S-expression payload")
-            
+
         type_byte = parts[0]
-        
+
         if type_byte == b'\x02':
-            return None # Nil
+            return None  # Nil
         elif type_byte == b'\x03':
             if len(parts) < 2:
                 raise ValueError("Atom missing value")
@@ -315,7 +322,7 @@ class SExpressions(SExpressionsABC):
             cdr = self.encoding.decode_integer(parts[2])
             return (car, cdr)
         else:
-            raise ValueError(f"Unknown S-expression type: {type_byte}")
+            raise ValueError(f"Unknown S-expression type: {type_byte!r}")
 
     def push_nil(self) -> None:
         seq = self.write_nil()
@@ -328,7 +335,8 @@ class SExpressions(SExpressionsABC):
     def stack_cons(self) -> None:
         if len(self.stack) < 2:
             raise IndexError("Stack underflow for cons")
-        cdr = self.stack.pop() # Top is CDR? Usually Cons(Car, Cdr). Stack: [..., Car, Cdr] -> Top is Cdr.
+        # Top is CDR? Usually Cons(Car, Cdr). Stack: [..., Car, Cdr] -> Top is Cdr.
+        cdr = self.stack.pop()
         car = self.stack.pop()
         seq = self.write_cons(car, cdr)
         self.stack.append(seq)
@@ -381,4 +389,3 @@ class SExpressions(SExpressionsABC):
             return (self.read_recursive(car_seq), self.read_recursive(cdr_seq))
         else:
             raise ValueError("Unknown value type")
-

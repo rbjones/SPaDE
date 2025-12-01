@@ -29,7 +29,7 @@
 # The following variables used in the rules are derived from them.
 
 PYCHECKLDD=$(PYMODULES:.py=.ldd)
-PYTESTLDD=$(PYTESTS:.py=.ldd)
+PYTESTLDD=$(PYTESTS:.py=.tldd)
 
 PPLDD=$(PPSML:.sml=.ldd)
 H4LDD=$(H4SML:.sml=.ldd)
@@ -52,26 +52,23 @@ $(PYCHECKLDD): %.ldd: %.py
 	@echo "Checking $<"
 	@errfile=$*.err; \
 	rm -f $$errfile; \
-	{ \
-	  python3 -m py_compile $< 2>&1 || true; \
-	  flake8 --max-line-length=100 --ignore=E203,W503 $< 2>&1 || true; \
-	  mypy --ignore-missing-imports $< 2>&1 || true; \
-	} >$$errfile; \
-	if [ ! -s $$errfile ]; then \
-	  # no errors → create success marker .ldd; remove temporary .err \
+	failed=0; \
+	python3 -m py_compile $< >>$$errfile 2>&1 || failed=1; \
+	flake8 --max-line-length=100 --ignore=E203,W503 $< >>$$errfile 2>&1 || failed=1; \
+	mypy --ignore-missing-imports $< >>$$errfile 2>&1 || failed=1; \
+	if [ $$failed -eq 0 ]; then \
 	  touch $@; \
 	  rm -f $$errfile; \
 	  echo "  OK → $@"; \
 	else \
-	  # errors → leave .err, do not create .ldd \
 	  echo "  Issues found → $$errfile"; \
 	fi
 
 # Run Unit Tests
 
-$(PYTESTLDD): %.ldd: %.py%.ldd
+$(PYTESTLDD): %.tldd: %.py
 	@echo "Test" $<
-	@pytest @(PYTESTOPTIONS) $< >$*.err
+	@pytest $(PYTESTOPTIONS) $< >$*.err
 	@mv $*.err $@
 
 # Standard ML
@@ -81,7 +78,7 @@ $(PYTESTLDD): %.ldd: %.py%.ldd
 # Candidates are ProofPower, HOL4 and Isabelle.
 # The manner of processing depends on the ITP.
 
-# First we provide a rule for stripping sml from a mardkown file
+# First we provide a rule for stripping sml from a markdown file
 
 $(SMLINMD):%.sml: $.md
 	extract_code.py < %.md > %.sml

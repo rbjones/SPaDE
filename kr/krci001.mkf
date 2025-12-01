@@ -13,7 +13,8 @@ MDWITHSML=krdd001.md krad001.md krte001.md
 PPSML = krcd005.sml
 # krcd001.sml 
 HOL4SML = krcd006.sml 
-PYMODULES = krcd002.py krcd003.py krcd006.py krcd007.py krcd008.py
+PYMODULES = krcd007.py krcd008.py krcd009.py krte001.py krte002.py
+PYTESTS = krte001.py krte002.py
 
 PPDBBASE = daz
 PPDBNAME = spade
@@ -35,7 +36,7 @@ check: $(PYCHECKLDD)
 
 build: check $(PPDBNAME).ldd $(PPLDD)
 
-test: build
+test: build $(PYTESTLDD)
 
 clean:
 	rm -f $(LDDS) $(SMLINMD) *.err
