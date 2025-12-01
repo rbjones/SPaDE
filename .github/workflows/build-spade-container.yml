@@ -67,7 +67,7 @@ jobs:
           # Install Python packages if requirements exist
           COPY requirements.txt* /tmp/
           RUN if [ -f /tmp/requirements.txt ]; then \
-                pip3 install --no-cache-dir -r /tmp/requirements.txt; \
+                pip3 install --break-system-packages --no-cache-dir -r /tmp/requirements.txt; \
               fi
           
           # Copy SPaDE workspace
