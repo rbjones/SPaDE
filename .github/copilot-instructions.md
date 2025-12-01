@@ -1,15 +1,19 @@
 # Copilot Instructions
 
-**Version** 1.1
-**Last Updated**: September 22 2025
+**Version** 1.2
+**Last Updated**: December 1 2025
 
-These instructions are for GitHub Copilot, but the may also be applicable to other agentic AI systems.
+These instructions are for GitHub Copilot, but are also applicable to other agentic AI systems and even to human contributors.
 
 Most of the information which github copilot needs to contribute to the project is equally relevant to other agentic AI and human collaborators, and is therefore included in the main project documentation.
 These instructions are therefore relatively brief, and are intended to be read in conjunction with the main project documentation.
 
 The main project documentation should all be accessible from the top level README.md file and the documents referred to from that file, which includes README.md files in most of the subdirectories of the repository.
-In the first instance the hierarchy of .md documents accessible from the top level README.md should be read, there is no code as yet other than some experiments. 
+In the first instance the hierarchy of .md documents accessible from the top level README.md should be read, there is no code as yet other than some experiments.
+
+Of particular importance are the documents in the docs/admin in which procedures, methods and standards for the project are described.
+It is important for all contributions to conform to the standards and procedures described in those documents, and for all contributors to check against them before making contributions, and to be aware that these are preliminary and likely to evolve as the project progresses.
+Comments on these documents, and suggestions for improvements are welcome.
 
 The contributions sought at this stage are primarily the reviewing of the existing materials, with particular focus on those parts which are critical to the understanding of the first prototypes, and the coding of those prototypes.
 
