@@ -16,7 +16,7 @@ HOL4SML = krcd006.sml
 PYMODULES = krcd007.py krcd008.py krcd009.py krte001.py krte002.py
 PYTESTS = krte001.py krte002.py
 
-PPDBBASE = daz
+PPDBBASE = rbjhol
 PPDBNAME = spade
 
 include ../common/rules.mkf
@@ -43,7 +43,17 @@ clean:
 	rm -f **/__pycache__/*.pyc 2>/dev/null || true
 	rm -rf **/__pycache__ 2>/dev/null || true
 
-$(PPDBNAME).ldd:
+maths_egs.ldd:
+	$(MAKE) -C ../pp-contrib/src/maths_egs -f maths_egs.mkf bld
+	cp ../pp-contrib/src/maths_egs/maths_egs.polydb $(PPDIR)/bld/db/
+	touch maths_egs.ldd
+
+rbjhol.ldd: maths_egs.ldd
+	$(MAKE) -C ../retro/np -f rbj.mkf bld
+	cp ../retro/np/rbjhol.polydb $(PPDIR)/bld/db/
+	touch rbjhol.ldd
+
+$(PPDBNAME).ldd: rbjhol.ldd
 	pp_make_database -f -p $(PPDBBASE) $(PPDBNAME)
 	touch $(PPDBNAME).ldd
 
