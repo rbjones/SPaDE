@@ -78,11 +78,9 @@ jobs:
           # Set up ProofPower environment
           ENV PPDIR=/proofpower-source
           
-          # Clone pp-contrib (upstream utf8 branch)
-          RUN git clone -b utf8 https://github.com/RobArthan/pp-contrib.git /pp-contrib
-          
+        
           # Build maths_egs and install to ProofPower DB
-          RUN cd /pp-contrib/src/maths_egs && \
+          RUN cd /workspace/retro/maths_egs && \
               export PPDIR=/proofpower-source && \
               . /proofpower-source/dev_env && \
               make -f maths_egs.mkf pdf && \

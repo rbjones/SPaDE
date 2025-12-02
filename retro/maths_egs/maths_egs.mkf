@@ -306,8 +306,8 @@ README.txt:
 %.pdf: %.dvi
 	dvipdf -sPAPERSIZE=a4 $*
 
-%.pp: %.doc
-	pp_file_conv -a <$*.doc >$*.pp
+#.pp: %.doc
+#	pp_file_conv -a <$*.doc >$*.pp
 
 ######################################################################
 #
