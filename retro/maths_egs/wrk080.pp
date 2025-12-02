@@ -1,0 +1,1161 @@
+=IGN
+********************************************************************************
+wrk080.doc: this file is supplementary material for the ProofPower system
+
+Copyright (c) 2004 Lemma 1 Ltd.
+
+This file is supplied under the GNU General Public Licence (GPL) version 2.
+
+See the file LICENSE supplied with ProofPower source for the terms of the GPL
+or visit the OpenSource web site at http:/www.opensource.org/
+
+Contact: Rob Arthan < rda@lemma-one.com >
+********************************************************************************
+wrk080.doc,v 1.29 2010/03/03 11:35:32 rda Exp
+********************************************************************************
+=IGN
+pp_make_database -f -p hol maths_egs
+docsml wrk080
+xpp wrk080.doc -d maths_egs -i wrk080 &
+doctex wrk080 wrk080.th; texdvi -b wrk080; texdvi wrk080; texdvi wrk080
+=TEX
+\documentclass[11pt,a4paper,leqno]{article}
+\usepackage{latexsym}
+\usepackage{ProofPower}
+\ftlinepenalty=9999
+\usepackage{A4}
+\usepackage{url}
+\def\N{\mathbb{N}}
+\def\D{\mathbb{D}}
+\def\B{\mathbb{B}}
+\def\R{\mathbb{R}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\Lim{\mbox{{\sf lim}}}
+\def\LimInf{\mbox{{\sf lim inf}}}
+\def\LimSup{\mbox{{\sf lim sup}}}
+
+\def\ExpName{\mbox{{\sf exp}}}
+\def\Exp#1{\ExpName(#1)}
+
+\def\LogName{\mbox{{\sf log}}}
+\def\Log#1{\LogName(#1)}
+
+\def\SinName{\mbox{{\sf sin}}}
+\def\Sin#1{\SinName(#1)}
+
+\def\CosName{\mbox{{\sf cos}}}
+\def\Cos#1{\CosName(#1)}
+
+\def\Abs#1{|#1|}
+
+\def\SizeName{\#}
+\def\Size#1{\#\left(#1\right)}
+
+\tabstop=0.4in
+\def\ThmsI#1{%
+{\vertbarfalse#1}}
+
+\def\ThmsII#1#2{%
+{\vertbarfalse
+\begin{minipage}[t]{0.48\hsize}
+#1
+\end{minipage}
+\begin{minipage}[t]{0.48\hsize}
+#2
+\end{minipage}}}
+
+\def\ThmsIII#1#2#3{%
+{\vertbarfalse
+\begin{minipage}[t]{0.32\hsize}
+#1
+\end{minipage}
+\begin{minipage}[t]{0.32\hsize}
+#2
+\end{minipage}
+\begin{minipage}[t]{0.32\hsize}
+#3
+\end{minipage}}}
+
+\def\Hide#1{\relax}
+
+\makeindex
+\title{Mathematical Case Studies: \\ --- \\ Universal Algebra\thanks{
+Added to repo 25 September 2010;
+for full changes history see: \protect\url{https://github.com/RobArthan/pp-contrib}.
+}}
+\author{Rob Arthan}
+\makeindex
+\author{R.D. Arthan \\ Lemma 1 Ltd. \\ rda@lemma-one.com}
+\date{\FormatDate{\VCDate}}
+
+\begin{document}
+\begin{titlepage}
+\maketitle
+\begin{abstract}
+This {\ProductHOL} script contains definitions and proofs concerning
+universal algebra.
+The aim is to provide a framework in which it is convenient to work with
+both specific algebras, e.g., the integers {\it qua} ring,
+and classes of algebras, e.g., abelian groups.
+
+\end{abstract}
+\vfill
+
+\begin{centering}
+
+\bf Copyright \copyright\ : Lemma 1 Ltd 2010--\number\year \\
+Reference: LEMMA1/HOL/WRK080; Current git revision: \VCVersion
+
+
+\end{centering}
+\thispagestyle{empty}
+\end{titlepage}
+\newpage
+\addtocounter{page}{1}
+%\section{DOCUMENT CONTROL}
+%\subsection{Contents list}
+\tableofcontents
+%\newpage
+%\subsection{Document cross references}
+
+\newpage
+\subsection*{To Do}
+A great deal of work remains.
+
+
+
+{\raggedright
+\bibliographystyle{fmu}
+\bibliography{fmu}
+} %\raggedright
+%%%%
+%%%%
+%%%%
+%%%%
+\newpage
+\section{INTRODUCTION}
+%%%%
+%%%%
+%%%%
+%%%%
+This document gives specifications and proofs providing a framework for universal algebra.
+This is part of a series of case studies in formalising some basic pure  mathematics in {\ProductHOL}.
+Other parts of the case study deal, for example, with real analysis \cite{LEMMA1/HOL/WRK066} and with topology \cite{LEMMA1/HOL/WRK067}.
+
+The universal algebra notions we develop are intended to be of practical use in building up a library
+of what one might call ``pure and applied'' abstract algebra.
+At the most concrete level one wants to apply abstract algebraic results to specific algebras: e.g., one might want to use a normal form for elements of an arbitrary group to a particular permutation group.
+At the most abstract level, one works entirely within a given abstract theory.
+Much of the most interesting algebraic work is carried out at the intermediate levels where
+results from several levels of abstraction are combined.
+Wedderburn's proof that finite division rings are fields is a typical example: finite group
+theory is applied to the multiplicative group of the field to conclude that it is actually abelian.
+Wedderburn's result is an abstract statement about finite division rings, but is proved by viewing
+the two groups that make up the division ring as special cases of abstract groups.
+
+An earlier experiment with abstract group theory in \cite{LEMMA1/HOL/WRK067} highlighted
+some difficulties with implementing the pleasant notations of informal mathematics in an abstract
+context. The problem is that the group itself becomes an additional parameter of the operations.
+Several approaches to this problem have been proposed, most notably the locale and type class
+mechanisms of Isabelle-HOL and the type class and canonical structure mechanisms of Coq.
+Perhaps the most striking feature of all these approaches is that none of them bear any resemblance
+to anything that is used by practicing pure mathematicians.
+
+It should be noted that while computation and reasoning often go hand-in-hand, in the present
+context they impose different requirements. Specifically, computationally it is not unnatural
+to take an object-oriented view of algebraic varieties, so that a ring, for example, is an
+abelian group with additional computational methods. However, in doing reasoning, actually removing
+the unwanted structure is often not necessary and would impose a burden, we therefore take the view
+that a group can have arbitrary additional finitary algebraic structure.
+
+
+
+This document is a {\Product} literate script. It contains all the metalanguage (ML) commands required to create several theories, populate them with the formal definitions and prove and record all the theorems.
+The descriptions include all the formal definitions in the Z-like concrete syntax for specification in {\ProductHOL}.
+and a discussion of the theorems that have been proved about the objects specified.
+There is an index to the formal definitions and the theory listings in section~\ref{index}.
+
+%%%%
+%%%%
+%%%%
+%%%%
+\subsection{Technical Prelude}
+
+First of all, we must give the the ML commands to  introduce the new theory ``algebras'' as a child of the theory `trees'' that defines a type of labelled trees that we will find very useful.
+
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+=SML
+force_delete_theory"algebras" handle Fail _ => ();
+open_theory"trees";
+new_theory"algebras";
+new_parent"fincomb";
+set_merge_pcs["'trees", "basic_hol1", "'sets_alg"];
+=TEX
+%%%%
+%%%%
+\newpage
+\section{ALGEBRAS}
+\subsection{Basic Definitions}
+We now define a type of algebras, comprising a carrier
+set, an indexed set of operators and a default element of the carrier set.
+Our algebras have a countably infinite set of operators
+of every arity, say $\mu_{pq}$ for all $(p, q) \in ℕ \times ℕ$,
+with $\mu_{pq}$ having arity $q$.
+So, for example, the $\mu_{p0}$ will, by this convention, be constants.
+We collect the $\mu_{pq}$ for fixed $p$ into a single operation on lists, $q$ being determined from the length of the supplied operand.
+The default element is needed when we come to define a notion of universal algebra.
+
+We form the type of such algebras, using the trivial
+algebra whose carrier set is a singleton as a witness to prove that
+the type is populated.
+=SML
+new_type_defn(["ALGEBRA", "algebra_def"], "ALGEBRA", ["'a"], (
+set_goal([], ⌜∃car_op_def⦁
+	let	(car : 'a SET,
+		 op : ℕ → 'a LIST → 'a,
+		 def : 'a) = car_op_def
+	in	(∀p a⦁ Elems a ⊆ car ⇒ op p a ∈ car)
+	∧	def ∈ car
+⌝);
+a(∃_tac ⌜({Arbitrary}, (λp a⦁ Arbitrary), Arbitrary)⌝
+	THEN rewrite_tac[let_def]
+	THEN PC_T1 "sets_ext1" prove_tac[]);
+pop_thm()));
+=TEX
+We define the constructor function and component projection functions for the type of algebras:
+
+ⓈHOLCONST
+│ ⦏MkAlgebra⦎	: 'a SET → (ℕ → 'a LIST → 'a) → 'a → 'a ALGEBRA;
+│ ⦏Car⦎ 		: 'a ALGEBRA → 'a SET;
+│ ⦏Op⦎			: 'a ALGEBRA → (ℕ → 'a LIST → 'a);
+│ ⦏Def⦎			: 'a ALGEBRA → 'a
+├──────
+│(∀K⦁
+│	MkAlgebra (Car K) (Op K) (Def K) = K
+│ ∧	(∀p a⦁ Elems a ⊆ Car K ⇒ Op K p a ∈ Car K)
+│ ∧	Def K ∈ Car K) ∧
+│(∀car op def⦁
+│ 	(∀p a⦁ Elems a ⊆ car ⇒ op p a ∈ car)
+│ ∧ 	def ∈ car
+│⇒	Car (MkAlgebra car op def) = car
+│ ∧	Op (MkAlgebra car op def) = op
+│ ∧	Def (MkAlgebra car op def) = def)
+■
+
+Given $z$, we have the unique algebra whose carrier set is $\{z\}$:
+
+ⓈHOLCONST
+│ ⦏TrivialAlgebra⦎ : 'a → 'a ALGEBRA
+├──────
+│ ∀z⦁	TrivialAlgebra z = MkAlgebra {z} (λp a⦁ z) z
+■
+
+
+The following function is used to give the retraction of the class of all algebras to the subclass satisfying some property.
+Typically the class will comprise the models of some set
+of axioms, e.g., equational laws.
+
+ⓈHOLCONST
+│ ⦏MkModel⦎ : 'a ALGEBRA SET → 'a ALGEBRA → 'a ALGEBRA
+├──────
+│ ∀C K⦁ MkModel C K = if K ∈ C then K else TrivialAlgebra (Def K)
+■
+
+The universal operation on a class of algebras.
+Note that for any $C$,
+=INLINEFT
+UnivOp C
+=TEX
+\ has the type of the set of operators of an algebra
+whose carrier type comprises functions from algebras to their elements, which we will think of as members of the
+product $\prod K$ of all algebras.
+The universal operation then acts pointwise on the product
+with the action for factors $K$ that do not belong to $C$ made trivial.
+
+ⓈHOLCONST
+│ ⦏UnivOp⦎ : 'a ALGEBRA SET → ℕ → ('a ALGEBRA → 'a) LIST → 'a ALGEBRA → 'a
+├──────
+│ ∀C p a⦁ UnivOp C p a = λK⦁ let L = MkModel C K in Op L p (Map (λf⦁ f K) a)
+■
+
+We can now define the derived operator corresponding to a term. Here we are thinking of terms formed from variables $v_1, v_2\ldots$ over the signature with function symbols $\mu_{pq}$ of arity $q$ for all
+$(p, q) \in ℕ \times ℕ$.
+The term is represented by a tree with arbitrary finite
+branching and with natural number labels on the nodes.
+A node with label $p$ and with $q$ children where $q > 0$ corresponds to
+an application of $\mu_{pq}$ to operands corresponding to the children.
+A node with no children and label $2p$ corresponds to the constant $\mu_{p0}$
+while a node with no children and label $2p+1$ corresponds to the variable $v_p$.
+Variables are represented by natural numbers, and the function $I$ interprets
+them as elements of the carrier type of the algebra.
+=SML
+declare_type_abbrev("TERM", [], ⓣℕ TREE⌝);
+=TEX
+ⓈHOLCONST
+│ ⦏DerivedOp⦎ : (ℕ → 'a LIST → 'a) → (ℕ → 'a) → TERM → 'a
+├──────
+│ ∀op I p ts⦁
+│	DerivedOp op I (MkTree (p, ts)) =
+│	let	xs = Map (DerivedOp op I) ts
+│	in	if	ts = []
+│		then	if	p Mod 2 = 0
+│			then	op (p Div 2) []
+│			else	I (p Div 2)
+│		else 	op p xs
+■
+
+
+We can now define the variety determined by a set of equational laws.
+Each law is represented by the pair of terms that the law equates.
+=SML
+declare_type_abbrev("EQUATION", [], ⓣTERM × TERM⌝);
+=TEX
+
+ⓈHOLCONST
+│ ⦏Variety⦎ : EQUATION SET → 'a ALGEBRA SET
+├──────
+│ ∀eqs K⦁
+│	K ∈ Variety eqs ⇔ (∀lhs rhs⦁ (lhs, rhs) ∈ eqs ⇒
+│		(∀I⦁ (∀v⦁I v ∈ Car K) ⇒ DerivedOp (Op K) I lhs = DerivedOp (Op K) I rhs))
+■
+
+=TEX
+
+We can then define what we shall call {\it the universal
+algebra} defined by a set of equational laws.
+This can be thought of the quotient $(\prod K)/{\sim}$ of the product $\prod K$ of all algebras by the congruence $\sim$ that identifies all elements
+of any factor $K$ that fails to satisfy the laws.
+This is where the default element is used: the default element in the universal variety needs to be the element of the product that projects onto the default elements of the factors.
+Let us say that a function
+=INLINEFT
+'a ALGEBRA → 'a
+=TEX
+\ is {\em safe} with respect to a set of equations if it maps every algebra
+to a member of its carrier set, and maps algebras
+that are not in the variety defined by the equations to their default elements:
+
+ⓈHOLCONST
+│ ⦏Safe⦎ : EQUATION SET → ('a ALGEBRA → 'a) SET
+├──────
+│∀eqs⦁
+│	Safe eqs = {f | ∀K⦁ if K ∈ Variety eqs then f K ∈ Car K else f K = Def K}
+■
+
+ⓈHOLCONST
+│ ⦏UnivAlgebra⦎ : (TERM × TERM) SET → ('a ALGEBRA → 'a) ALGEBRA
+├──────
+│∀eqs⦁
+│	UnivAlgebra eqs =
+│	MkAlgebra
+│	(Safe eqs)
+│	(UnivOp (Variety eqs))
+│	Def
+■
+
+Two fundamental facts are then the following:
+{\em(i)} the universal variety for a set of equational laws is a member
+of the variety defined by those laws:
+=SML
+new_conjecture(["univ_algebra_variety_thm"],
+	⌜∀eqs⦁ UnivAlgebra eqs ∈ Variety eqs⌝);
+=TEX
+{\em(ii)} an equation holds in the universal variety for a set of
+equational laws iff it holds in every algebra in which those laws hold:
+=SML
+new_conjecture(["univ_algebra_thm"],
+	⌜∀eqs eq⦁
+		(UnivAlgebra eqs : ('a ALGEBRA → 'a) ALGEBRA) ∈ Variety eq
+	⇔	(∀K : 'a ALGEBRA ⦁ K ∈ Variety eqs ⇒ K ∈ Variety eq)⌝);
+=TEX
+Note that it would be rather unnatural to work with what we call the universal algebra in set theory.
+To do it all would require universes {\'{a} la} Grothendieck. Instead, if one needed an algebra with the
+above properties one would construct a free algebra on a countably infinite set. Polymorphism is giving
+us what feels a little like impredicativity here, and saving us having to construct free algebras at this stage.
+
+\subsection{Some Utility Functions}
+Very many interesting algebras have finite
+signatures with operators of arity 0, 1 or 2.
+We here define some functions that are convenient for
+constructing such algebras.
+
+First of all we define functions that update a given operator set
+with lists of specific operators of low arity.
+First $DefCons$ to deal with constants:
+ⓈHOLCONST
+│ ⦏DefCons⦎ : (ℕ × 'a) LIST → (ℕ → 'a LIST → 'a) → (ℕ → 'a LIST → 'a)
+├──────
+│ (∀op⦁
+│	DefCons [] op = op)
+│ ∧ (∀op pc l⦁
+│	DefCons (Cons pc l) op =
+│	let	(p, c) = pc
+│	in	λn a⦁
+│		if	n = p ∧ a = []
+│		then	c
+│		else	DefCons l op n a)
+■
+
+Next, $DefUnOps$ to deal with unary operators:
+
+ⓈHOLCONST
+│ ⦏DefUnOps⦎ : (ℕ × ('a → 'a)) LIST → (ℕ → 'a LIST → 'a) → (ℕ → 'a LIST → 'a)
+├──────
+│ (∀op⦁
+│	DefUnOps [] op = op)
+│ ∧ (∀op pf l⦁
+│	DefUnOps (Cons pf l) op =
+│	let	(p, f) = pf
+│	in	λn a⦁
+│		if	n = p ∧ #a = 1
+│		then	f (Hd a)
+│		else	DefUnOps l op n a)
+■
+
+
+And finally $DefBinOps$ to deal binary operators.
+
+ⓈHOLCONST
+│ ⦏DefBinOps⦎ : (ℕ × ('a → 'a → 'a)) LIST → (ℕ → 'a LIST → 'a) → (ℕ → 'a LIST → 'a)
+├──────
+│ (∀op⦁
+│	DefBinOps [] op = op)
+│ ∧ (∀op pf l⦁
+│	DefBinOps (Cons pf l) op =
+│	let	(p, f) = pf
+│	in	λn a⦁
+│		if	n = p ∧ #a = 2
+│		then	f (Hd a) (Hd(Tl a))
+│		else	DefBinOps l op n a)
+■
+$DefAlgebra$ now lets us construct an algebra by giving the carrier set and
+the default element and listing the constants, unary operators and
+binary operators.
+All operators that are not listed are taken to be the constant operator
+whose value is the default element.
+ⓈHOLCONST
+│ ⦏DefAlgebra⦎ :
+│	'a SET → 'a → 
+│	(ℕ × 'a) LIST →
+│	(ℕ × ('a → 'a)) LIST  →
+│	(ℕ × ('a → 'a → 'a)) LIST →
+│	'a ALGEBRA
+├──────
+│ ∀car def cons uns bins⦁
+│	DefAlgebra car def cons uns bins =
+│	let	op0 = DefCons cons (λn a⦁ def)
+│	in let	op1 = DefUnOps uns op0
+│	in let	op2 = DefBinOps bins op1
+│	in	MkAlgebra car op2 def
+■
+
+We now give a way of changing the names (indices) of the operators in a set of equational laws. It is intended to be useful, for example, in specifying structures like rings and lattices that contain two distinct binary operators that,
+{\it mutatis mutandis}, both satisfy the monoid laws. First we define
+a function for renaming the operators in a term:
+
+ⓈHOLCONST
+│ ⦏RenameTerm⦎ : (ℕ × ℕ → ℕ) → TERM → TERM
+├──────
+│ ∀r p ts⦁	RenameTerm r (MkTree (p, ts)) =
+│	let	new_ts = Map (RenameTerm r) ts
+│	in	if	ts = []
+│		then	if	p Mod 2 = 0
+│			then	MkTree (2*r(p Div 2, 0), [])
+│			else	MkTree (p, [])
+│		else	MkTree (r(p, #ts), new_ts)
+■
+
+Using $RenameTerm$ we define $RenameLaws$. This deals with the general
+case, but typically the laws will be given as an explicit finite set.
+See the theory listing for the theorem {\em rename\_laws\_clauses} that makes
+rewriting work well in that case.
+ⓈHOLCONST
+│ ⦏RenameLaws⦎ : (ℕ × ℕ → ℕ) → EQUATION SET → EQUATION SET
+├──────
+│ ∀r eqs⦁	RenameLaws r eqs =
+│		{(new_lhs, new_rhs)
+│		| ∃lhs rhs⦁
+│			(lhs, rhs) ∈ eqs
+│		∧	new_lhs = RenameTerm r lhs
+│		∧	new_rhs = RenameTerm r rhs}
+■
+
+
+ 
+
+=TEX
+
+%%%%
+%%%%
+%%%%
+%%%%
+\appendix
+{\let\Section\section
+\newcounter{ThyNum}
+\def\section#1{\Section{#1}
+\addtocounter{ThyNum}{1}\label{Theory\arabic{ThyNum}}}
+{\makeatletter
+\def\UP@char#1{{{}\sp{#1}}}
+\makeatother
+\include{wrk080.th}}
+}  %\let
+
+\twocolumn[\section*{INDEX}\label{index}]
+\addcontentsline{toc}{section}{INDEX}
+{\small\printindex}
+
+\end{document}
+
+{\HOLindexOff
+%%%%
+%%%%
+%%%%
+%%%%
+\onecolumn
+\section{THEOREMS}\label{THEOREMS}
+
+%%%%
+%%%%
+\subsection{Theorems on Algebras}
+=TEX
+We begin by working through the definitions proving
+consistency as necessary.
+%%%%
+%%%%
+%%%%
+%%%%
+=SML
+=TEX
+=SML
+
+val ⦏algebra_def⦎ = get_defn "-" "ALGEBRA";
+
+=TEX
+=SML
+save_consistency_thm ⌜MkAlgebra⌝ (
+push_consistency_goal ⌜MkAlgebra⌝;
+a (strip_asm_tac (rewrite_rule[let_def](simple_⇒_match_mp_rule type_lemmas_thm algebra_def)));
+a (∃_tac ⌜
+	((λcar op def⦁ abs(car, op, def)),
+	 (λK⦁Fst(rep K)),
+	 (λK⦁Fst(Snd (rep K))),
+	 (λK⦁Snd(Snd (rep K))) )⌝
+	THEN asm_rewrite_tac[]
+	THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(DROP_NTH_ASM_T 3 (ante_tac o ∀_elim⌜(car, op, def)⌝));
+a(asm_rewrite_tac[] THEN taut_tac);
+(* *** Goal "2" *** *)
+a(DROP_NTH_ASM_T 3 (ante_tac o ∀_elim⌜(car, op, def)⌝));
+a(asm_rewrite_tac[] THEN prove_tac[]);
+(* *** Goal "3" *** *)
+a(DROP_NTH_ASM_T 3 (ante_tac o ∀_elim⌜(car, op, def)⌝));
+a(asm_rewrite_tac[] THEN prove_tac[]);
+pop_thm());
+
+=TEX
+=SML
+
+val ⦏mk_algebra_def⦎ = get_spec⌜MkAlgebra⌝;
+val ⦏car_def⦎ = get_spec⌜MkAlgebra⌝;
+val ⦏op_def⦎ = get_spec⌜MkAlgebra⌝;
+val ⦏def_def⦎ = get_spec⌜MkAlgebra⌝;
+
+=TEX
+The various clauses of the above definitions are useful:
+=SML
+
+val ⦏car_op_def_mk_algebra_thm⦎ = ∧_right_elim mk_algebra_def;
+val [⦏mk_algebra_car_op_thm⦎, ⦏op_car_thm⦎, ⦏def_car_thm⦎] =
+	map all_∀_intro(
+		strip_∧_rule(all_∀_elim (∧_left_elim mk_algebra_def)));
+
+
+val ⦏trivial_algebra_def⦎ = get_spec⌜TrivialAlgebra⌝;
+val ⦏mk_model_def⦎ = get_spec⌜MkModel⌝;
+val ⦏univ_op_def⦎ = get_spec⌜UnivOp⌝;
+
+=TEX
+=SML
+
+(*
+save_consistency_thm ⌜DerivedOp⌝ (
+push_consistency_goal ⌜DerivedOp⌝;
+a(prove_∃_tac);
+pop_thm());
+*)
+=TEX
+=SML
+
+val ⦏derived_op_def⦎ = get_spec ⌜DerivedOp⌝;
+val ⦏variety_def⦎ = get_spec⌜Variety⌝;
+val ⦏safe_def⦎ = get_spec⌜Safe⌝;
+val ⦏univ_algebra_def⦎ = get_spec⌜UnivAlgebra⌝;
+
+val ⦏def_cons_def⦎ = get_spec⌜DefCons⌝;
+val ⦏def_un_ops_def⦎ = get_spec⌜DefUnOps⌝;
+val ⦏def_bin_ops_def⦎ = get_spec⌜DefBinOps⌝;
+val ⦏def_algebra_def⦎ = get_spec⌜DefAlgebra⌝;
+val ⦏rename_term_def⦎ = get_spec⌜RenameTerm⌝;
+val ⦏rename_laws_def⦎ = get_spec⌜RenameLaws⌝;
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏car_op_def_trivial_algebra_thm⦎ = save_thm( "car_op_def_trivial_algebra_thm", (
+set_goal([], ⌜∀z⦁
+	Car (TrivialAlgebra z) = {z}
+∧	Op (TrivialAlgebra z) = (λn s⦁ z)
+∧	Def (TrivialAlgebra z) = z
+⌝);
+a(pure_rewrite_tac[trivial_algebra_def] THEN strip_tac);
+a(bc_thm_tac car_op_def_mk_algebra_thm);
+a(PC_T1 "sets_ext1" prove_tac[]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏map_map_thm⦎ = save_thm( "map_map_thm", (
+set_goal([], ⌜ ∀f g list⦁ Map f (Map g list) = Map (λx⦁f(g x)) list ⌝);
+a(REPEAT strip_tac);
+a(list_induction_tac ⌜list⌝ THEN asm_rewrite_tac[map_def]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏map_eq_map_thm⦎ = save_thm( "map_eq_map_thm", (
+set_goal([], ⌜ ∀list f g⦁ (∀x⦁ x ∈ Elems list ⇒ f x = g x) ⇒ Map f list = Map g list ⌝);
+a(strip_tac);
+a(list_induction_tac ⌜list⌝ THEN asm_rewrite_tac[map_def, elems_def]);
+a(REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(POP_ASM_T bc_thm_tac THEN PC_T1 "sets_ext1" rewrite_tac[]);
+(* *** Goal "2" *** *)
+a(DROP_NTH_ASM_T 2 bc_thm_tac THEN REPEAT strip_tac);
+a(DROP_NTH_ASM_T 2 bc_thm_tac THEN REPEAT strip_tac);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏car_op_def_mk_model_thm⦎ = save_thm( "car_op_def_mk_model_thm", (
+set_goal([], ⌜∀C K⦁
+	Car (MkModel C K) = (if K ∈ C then Car K else {Def K})
+∧	Op (MkModel C K) = (if K ∈ C then Op K else (λn s⦁ Def K))
+∧	Def (MkModel C K) = Def K
+⌝);
+a(REPEAT ∀_tac THEN pure_rewrite_tac[mk_model_def]);
+a(cases_tac ⌜K ∈ C⌝ THEN asm_rewrite_tac[car_op_def_trivial_algebra_thm]);
+pop_thm()));
+
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏car_op_def_univ_algebra_thm⦎ = save_thm( "car_op_def_univ_algebra_thm", (
+set_goal([], ⌜∀eqs⦁ 
+	Car (UnivAlgebra eqs: ('a ALGEBRA → 'a) ALGEBRA) =
+		Safe eqs
+∧	Op (UnivAlgebra eqs: ('a ALGEBRA → 'a) ALGEBRA) =
+		UnivOp (Variety eqs)
+∧	Def (UnivAlgebra eqs: ('a ALGEBRA → 'a) ALGEBRA) =
+		Def
+⌝);
+a(strip_tac THEN pure_rewrite_tac[univ_algebra_def]);
+a(bc_thm_tac car_op_def_mk_algebra_thm);
+a(rewrite_tac[safe_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(asm_rewrite_tac[univ_op_def, let_def, mk_model_def]);
+a(bc_thm_tac op_car_thm);
+a(DROP_NTH_ASM_T 2 ante_tac THEN intro_∀_tac1⌜K⌝);
+a(list_induction_tac⌜a⌝ THEN asm_rewrite_tac[elems_def, map_def]);
+a(rewrite_tac[pc_rule1"sets_ext1" prove_rule[]⌜
+	∀y B C⦁ {y} ∪ B ⊆ C ⇔ y ∈ C ∧ B ⊆ C ⌝]
+	THEN REPEAT strip_tac);
+(* *** Goal "1.1" *** *)
+a(DROP_NTH_ASM_T 2 (ante_tac o ∀_elim ⌜K'⌝));
+a(cases_tac ⌜K' ∈ Variety eqs⌝ THEN REPEAT strip_tac THEN asm_rewrite_tac[def_car_thm]);
+(* *** Goal "1.2" *** *)
+a(DROP_NTH_ASM_T 3 bc_thm_tac THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(asm_rewrite_tac[univ_op_def, let_def, mk_model_def, car_op_def_trivial_algebra_thm]);
+(* *** Goal "3" *** *)
+a(rewrite_tac[def_car_thm]);
+pop_thm()));
+
+
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏derived_op_trivial_algebra_thm⦎ = save_thm( "derived_op_trivial_algebra_thm", (
+set_goal([], ⌜∀t z I⦁
+	(∀v⦁ I v ∈ Car (TrivialAlgebra z))
+⇒	DerivedOp (Op(TrivialAlgebra z)) I t = z
+⌝);
+a(rewrite_tac[derived_op_def, car_op_def_trivial_algebra_thm, let_def]);
+a(strip_tac);
+a(tree_induction_tac ⌜t⌝);
+a(rewrite_tac[derived_op_def, let_def] THEN REPEAT strip_tac);
+a(cases_tac⌜ts = []⌝ THEN asm_rewrite_tac[]);
+a(cases_tac⌜l Mod 2 = 0⌝ THEN asm_rewrite_tac[]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏derived_op_car_thm⦎ = save_thm( "derived_op_car_thm", (
+set_goal([], ⌜∀K I t⦁
+	(∀v⦁ I v ∈ Car K)
+⇒	DerivedOp (Op K) I t ∈ Car K
+⌝);
+a(REPEAT strip_tac);
+a(tree_induction_tac ⌜t⌝);
+a(rewrite_tac[derived_op_def, let_def] THEN REPEAT strip_tac);
+a(cases_tac⌜ts = []⌝ THEN asm_rewrite_tac[]);
+(* *** Goal "1" *** *)
+a(cases_tac⌜l Mod 2 = 0⌝ THEN asm_rewrite_tac[]);
+a(bc_thm_tac op_car_thm THEN rewrite_tac[elems_def]);
+(* *** Goal "2" *** *)
+a(bc_thm_tac op_car_thm THEN rewrite_tac[elems_map_thm]);
+a(PC_T1 "sets_ext1" REPEAT strip_tac THEN all_var_elim_asm_tac1
+	THEN asm_prove_tac[]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏derived_op_variety_thm⦎ = save_thm( "derived_op_variety_thm", (
+set_goal([], ⌜∀K t I⦁
+	K ∈ Variety eqs
+∧	(∀v⦁ I v K ∈ Car K)
+⇒	DerivedOp (Op (UnivAlgebra eqs)) I t K =
+	DerivedOp (Op K) (λi⦁I i K) t
+⌝);
+a(REPEAT strip_tac);
+a(rewrite_tac[derived_op_def, car_op_def_univ_algebra_thm, safe_def]);
+a(tree_induction_tac ⌜t⌝);
+a(rewrite_tac[derived_op_def, let_def] THEN REPEAT strip_tac);
+a(cases_tac⌜ts = []⌝ THEN asm_rewrite_tac[]);
+(* *** Goal "1" *** *)
+a(cases_tac⌜l Mod 2 = 0⌝ THEN asm_rewrite_tac[]);
+a(asm_rewrite_tac[univ_op_def, mk_model_def, let_def, map_def]);
+(* *** Goal "2" *** *)
+a(asm_rewrite_tac[univ_op_def, let_def, mk_model_def, map_map_thm]);
+a(bc_thm_tac (prove_rule[] ⌜∀f x y⦁ x = y ⇒ f x = f y⌝));
+a(bc_thm_tac map_eq_map_thm THEN REPEAT strip_tac);
+a(LIST_DROP_NTH_ASM_T [3] (ALL_FC_T rewrite_tac));
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏derived_op_¬_variety_thm⦎ = save_thm( "derived_op_¬_variety_thm", (
+set_goal([], ⌜∀K t I⦁
+	¬K ∈ Variety eqs
+∧	(∀v⦁ I v K = Def K)
+⇒	DerivedOp (Op (UnivAlgebra eqs)) I t K = Def K
+⌝);
+a(REPEAT strip_tac);
+a(rewrite_tac[car_op_def_univ_algebra_thm, safe_def]);
+a(tree_induction_tac ⌜t⌝);
+a(rewrite_tac[derived_op_def, let_def] THEN REPEAT strip_tac);
+a(cases_tac⌜ts = []⌝ THEN asm_rewrite_tac[]);
+(* *** Goal "1" *** *)
+a(cases_tac⌜l Mod 2 = 0⌝ THEN asm_rewrite_tac[]);
+a(asm_rewrite_tac[univ_op_def, mk_model_def, let_def, map_def,
+	car_op_def_trivial_algebra_thm]);
+(* *** Goal "2" *** *)
+a(asm_rewrite_tac[univ_op_def, let_def, mk_model_def,
+	car_op_def_trivial_algebra_thm]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏if_⇒_thm⦎ = prove_rule [] ⌜
+	∀c p q⦁ (if c then p else q) ⇔
+		( (c ⇒ p) ∧ (¬c ⇒ q) ) ⌝;
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏car_univ_algebra_car_thm⦎ = save_thm( "car_univ_algebra_car_thm", (
+set_goal([], ⌜∀eqs K v⦁
+	(∀ v⦁ I v ∈ Car (UnivAlgebra eqs))
+⇒	I v K ∈ Car K
+⌝);
+a(rewrite_tac[car_op_def_univ_algebra_thm, safe_def, if_⇒_thm]
+	THEN REPEAT strip_tac);
+a(cases_tac⌜K ∈ Variety eqs⌝ THEN all_asm_fc_tac[]
+	THEN asm_rewrite_tac[car_def]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏car_univ_algebra_def_thm⦎ = save_thm( "car_univ_algebra_def_thm", (
+set_goal([], ⌜∀eqs K v⦁
+	(∀ v⦁ I v ∈ Car (UnivAlgebra eqs))
+∧	¬K ∈ Variety eqs
+⇒	I v K = Def K
+⌝);
+a(rewrite_tac[car_op_def_univ_algebra_thm, safe_def, if_⇒_thm]
+	THEN REPEAT strip_tac);
+a(ALL_ASM_FC_T rewrite_tac[]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏univ_algebra_variety_thm⦎ = save_thm( "univ_algebra_variety_thm", (
+set_goal([], get_conjecture "-" "univ_algebra_variety_thm");
+a(rewrite_tac[variety_def] THEN REPEAT strip_tac);
+a(cases_tac⌜x ∈ Variety eqs⌝);
+(* *** Goal "1" *** *)
+a(lemma_tac⌜∀ v⦁ I v x ∈ Car x⌝ THEN1
+	ALL_FC_T rewrite_tac[car_univ_algebra_car_thm]);
+a(ALL_FC_T rewrite_tac[derived_op_variety_thm]);
+a(DROP_NTH_ASM_T 2 (strip_asm_tac o list_∀_elim[⌜lhs⌝, ⌜rhs⌝]
+	o rewrite_rule [variety_def]));
+a(POP_ASM_T bc_thm_tac THEN asm_rewrite_tac[]);
+(* *** Goal "2" *** *)
+a(LEMMA_T ⌜∀t⦁ DerivedOp (Op (UnivAlgebra eqs)) I t x = Def x⌝
+	rewrite_thm_tac THEN strip_tac);
+a(bc_thm_tac derived_op_¬_variety_thm THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[car_univ_algebra_def_thm]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏univ_algebra_thm⦎ = save_thm( "univ_algebra_thm", (
+set_goal([], get_conjecture "-" "univ_algebra_thm");
+a(REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(DROP_NTH_ASM_T 2 ante_tac THEN rewrite_tac[variety_def]
+	THEN REPEAT strip_tac);
+a(lemma_tac⌜∃J⦁J = (λw⦁ λL⦁if L = K then I w else Def L)⌝
+	THEN1 prove_∃_tac);
+a(lemma_tac⌜∀v⦁J v ∈ Car (UnivAlgebra eqs)⌝);
+(* *** Goal "1.1" *** *)
+a(asm_rewrite_tac[car_op_def_univ_algebra_thm, safe_def] THEN REPEAT strip_tac);
+(* *** Goal "1.1.1" *** *)
+a(cases_tac⌜K' = K⌝ THEN asm_rewrite_tac[def_car_thm]);
+(* *** Goal "1.1.2" *** *)
+a(cases_tac⌜K' = K⌝ THEN1 all_var_elim_asm_tac1);
+a(asm_rewrite_tac[]);
+(* *** Goal "1.2" *** *)
+a(LIST_DROP_NTH_ASM_T [5] all_fc_tac);
+a(POP_ASM_T (ante_tac o ∀_elim⌜K⌝));
+a(lemma_tac⌜∀ v⦁ J v K ∈ Car K⌝ THEN1 asm_rewrite_tac[def_car_thm]);
+a(ALL_FC_T rewrite_tac[derived_op_variety_thm]);
+a(asm_rewrite_tac[η_axiom]);
+(* *** Goal "2" *** *)
+a(rewrite_tac[variety_def] THEN REPEAT strip_tac);
+a(cases_tac⌜x ∈ Variety eqs⌝);
+(* *** Goal "2.1" *** *)
+a(lemma_tac⌜∀v⦁I v x ∈ Car x⌝);
+(* *** Goal "2.1.1" *** *)
+a(DROP_NTH_ASM_T 2 ante_tac THEN rewrite_tac[car_op_def_univ_algebra_thm, safe_def]
+	THEN REPEAT strip_tac);
+a(POP_ASM_T (ante_tac o list_∀_elim[⌜v⌝, ⌜x⌝]));
+a(asm_rewrite_tac[]);
+(* *** Goal "2.1.2" *** *)
+a(ALL_FC_T rewrite_tac[derived_op_variety_thm]);
+a(LIST_DROP_NTH_ASM_T [5] fc_tac);
+a(POP_ASM_T ante_tac THEN rewrite_tac[variety_def] THEN REPEAT strip_tac);
+a(PC_T1 "predicates" lemma_tac⌜∃J⦁J = (λ i⦁ I i x)⌝ THEN1 prove_∃_tac);
+a(lemma_tac⌜∀ v⦁ J v ∈ Car x⌝ THEN1 asm_rewrite_tac[def_car_thm]);
+a(LIST_DROP_NTH_ASM_T [3] all_fc_tac);
+a(POP_ASM_T ante_tac THEN asm_rewrite_tac[]); 
+(* *** Goal "2.2" *** *)
+a(lemma_tac⌜∀v⦁I v x = Def x⌝ THEN1 REPEAT strip_tac);
+(* *** Goal "2.2.1" *** *)
+a(DROP_NTH_ASM_T 2 (ante_tac o ∀_elim⌜v⌝));
+a(rewrite_tac[car_op_def_univ_algebra_thm, safe_def]);
+a(STRIP_T (ante_tac o ∀_elim⌜x⌝) THEN asm_rewrite_tac[]);
+(* *** Goal "2.2.2" *** *)
+a(ALL_FC_T rewrite_tac[derived_op_¬_variety_thm]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏trivial_algebra_variety_thm⦎ = save_thm( "trivial_algebra_variety_thm", (
+set_goal([], ⌜∀z eqs⦁
+	TrivialAlgebra z ∈ Variety eqs
+⌝);
+a(REPEAT strip_tac);
+a(rewrite_tac[variety_def] THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[derived_op_trivial_algebra_thm]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏def_safe_thm⦎ = save_thm( "def_safe_thm", (
+set_goal([], ⌜∀eqs⦁
+	Def ∈ Safe eqs
+⌝);
+a(REPEAT strip_tac);
+a(rewrite_tac[safe_def] THEN REPEAT strip_tac THEN rewrite_tac[def_def]);
+pop_thm()));
+
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏variety_type_lemmas⦎ = save_thm( "variety_type_lemmas", (
+set_goal([], ⌜∀eqs⦁
+	(∃K⦁ K ∈ Variety eqs)
+∧	(∃f⦁ f ∈ Safe eqs)
+⌝);
+a(REPEAT strip_tac THEN_LIST [∃_tac⌜TrivialAlgebra Arbitrary⌝, ∃_tac⌜Def⌝]
+	THEN rewrite_tac[trivial_algebra_variety_thm, def_safe_thm]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏con_car_thm⦎ = save_thm( "con_car_thm", (
+set_goal([], ⌜∀K p⦁ Op K p [] ∈ Car K
+⌝);
+a(REPEAT strip_tac);
+a(LEMMA_T ⌜Elems [] ⊆ Car K ⇒ Op K p [] ∈ Car K⌝
+	bc_thm_tac THEN1 rewrite_tac[op_def]);
+a(rewrite_tac[elems_def]);
+pop_thm()));
+
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏car_universe_thm⦎ = save_thm( "car_universe_thm",
+	pc_rule1 "hol" rewrite_rule[]
+		(∀_elim⌜Universe⌝ (∧_right_elim car_def)));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏derived_op_safe_thm⦎ = save_thm( "derived_op_safe_thm", (
+set_goal([], ⌜∀eqs I ex⦁
+	(∀v⦁ I v ∈ Safe eqs)
+⇒	DerivedOp (Op(UnivAlgebra eqs)) I ex ∈ Safe eqs
+⌝);
+a(rewrite_tac[safe_def, if_⇒_thm] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(LIST_DROP_NTH_ASM_T [2] all_fc_tac);
+a(ALL_FC_T rewrite_tac [derived_op_variety_thm]);
+a(bc_thm_tac derived_op_car_thm);
+a(asm_rewrite_tac[]);
+(* *** Goal "2" *** *)
+a(LIST_DROP_NTH_ASM_T [2] all_fc_tac);
+a(ALL_FC_T rewrite_tac [derived_op_¬_variety_thm]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+
+The following is intended to deal with the situation when we have created
+a type $'s$ for the variety determined by a set of equations and a type $'e$
+for the safe sequences for that set of equations.
+Probably the right way to go about it is to think about isomporphisms.
+=SML
+
+set_merge_pcs [ "basic_hol", "'trees", "'sets_alg" ];
+
+val ⦏variety_laws_lemma⦎ = save_thm( "variety_laws_lemma", (
+set_goal([], ⌜∀eqs;
+	abs_e : ('a ALGEBRA → 'a) → 'e;
+	rep_e : 'e → ('a ALGEBRA → 'a);
+	abs_a : 'e ALGEBRA → 's;
+	rep_a : 's → 'e ALGEBRA⦁
+	(∀S⦁	abs_a(rep_a S) = S)
+∧	(∀K⦁	K ∈ Variety eqs ⇔ rep_a(abs_a K) = K)
+∧	(∀x⦁	abs_e(rep_e x) = x)
+∧	(∀f⦁	f ∈ Safe eqs ⇔ rep_e(abs_e f) = f)
+⇒	MkAlgebra
+		Universe
+		(λp a⦁ abs_e(Op(UnivAlgebra eqs) p (Map rep_e a)))
+		Arbitrary ∈ Variety eqs⌝);
+a(pure_rewrite_tac[variety_def,
+	pc_rule1 "basic_hol1" rewrite_rule[]car_universe_thm]
+		THEN REPEAT strip_tac);
+a(LEMMA_T⌜∀ex⦁
+	DerivedOp(Op (MkAlgebra
+		Universe
+		(λp a⦁ abs_e(Op(UnivAlgebra eqs) p (Map rep_e a)))
+		Arbitrary)) I ex =
+	abs_e(DerivedOp (Op(UnivAlgebra eqs)) (λi⦁rep_e(I i)) ex)⌝
+	rewrite_thm_tac);
+(* *** Goal "1" *** *)
+a(REPEAT strip_tac);
+a(tree_induction_tac ⌜ex⌝);
+a(rewrite_tac[derived_op_def, let_def]);
+a(cases_tac⌜exs = []⌝ THEN asm_rewrite_tac[]);
+(* *** Goal "1.1" *** *)
+a(cases_tac⌜l Mod 2 = 0⌝ THEN asm_rewrite_tac[]);
+a(rewrite_tac[car_op_def_univ_algebra_thm, safe_def,
+	univ_op_def, let_def, map_def,
+	pc_rule1 "basic_hol1" rewrite_rule[]car_universe_thm]);
+(* *** Goal "1.2" *** *)
+a(rewrite_tac[car_universe_thm]);
+a(bc_thm_tac (prove_rule[] ⌜∀f x y⦁ x = y ⇒ f x = f y⌝));
+a(bc_thm_tac (prove_rule[] ⌜∀f x y⦁ x = y ⇒ f x = f y⌝));
+a(rewrite_tac[map_map_thm]);
+a(bc_thm_tac map_eq_map_thm THEN rewrite_tac[]
+	THEN REPEAT strip_tac);
+a(LIST_DROP_NTH_ASM_T [3] all_fc_tac THEN POP_ASM_T ante_tac);
+a(rewrite_tac[
+	pc_rule1 "predicates" rewrite_rule[]
+	(pure_rewrite_rule[prove_rule[]⌜∀x⦁x ∈ Universe⌝](∀_elim⌜Universe⌝
+	(∧_right_elim car_def)))]);
+a(STRIP_T rewrite_thm_tac);
+a(GET_NTH_ASM_T 5 bc_thm_tac);
+a(bc_thm_tac derived_op_safe_thm);
+a(asm_rewrite_tac[]);
+a(bc_thm_tac (prove_rule[] ⌜∀f x y⦁ x = y ⇒ f x = f y⌝));
+a(ante_tac(list_∀_elim[⌜eqs⌝, ⌜lhs⌝, ⌜rhs⌝]
+	(rewrite_rule[variety_def] univ_algebra_variety_thm))
+	THEN asm_rewrite_tac[]);
+a(STRIP_T bc_thm_tac);
+a(asm_rewrite_tac[car_op_def_univ_algebra_thm]);
+pop_thm()));
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏car_op_def_def_algebra_universe_thm⦎ = save_thm( "car_op_def_def_algebra_universe_thm", (
+set_goal([], ⌜∀def cons uns bins⦁
+	Car(DefAlgebra Universe def cons uns bins) = Universe
+∧	Op(DefAlgebra Universe def cons uns bins) =
+	(let	op0 = DefCons cons (λn a⦁ def)
+	in let	op1 = DefUnOps uns op0
+	in let	op2 = DefBinOps bins op1
+	in	op2)
+∧	Def(DefAlgebra Universe def cons uns bins) = def
+⌝);
+a(REPEAT ∀_tac THEN PC_T1 "hol" rewrite_tac[def_algebra_def, let_def,
+	car_universe_thm]);
+pop_thm()));
+
+
+=TEX
+%%%%
+%%%%
+=SML
+
+val ⦏rename_laws_clauses⦎ = save_thm( "rename_laws_clauses", (
+set_goal([], ⌜∀r eq eqs eqs1 eqs2⦁
+	RenameLaws r {} = {}
+∧	RenameLaws r (Insert eq eqs) =
+	Insert(RenameTerm r (Fst eq), RenameTerm r (Snd eq)) (RenameLaws r eqs)
+∧	RenameLaws r (eqs1 ∪ eqs2) = RenameLaws r eqs1 ∪ RenameLaws r eqs2
+⌝);
+a(rewrite_tac[rename_laws_def, insert_def] THEN REPEAT strip_tac
+	THEN MERGE_PCS_T1 ["basic_hol1", "'sets_ext1"] prove_tac[]
+	THEN all_var_elim_asm_tac1);
+a(∃_tac⌜Fst eq⌝ THEN ∃_tac⌜Snd eq⌝ THEN REPEAT strip_tac);
+pop_thm()));
+
+
+=TEX
+%%%%
+%%%%
+
+We present the following lemma first using the $K$ combinator
+to explain the name.
+=SML
+
+val ⦏k_lemma1⦎ = save_thm( "k_lemma1", (
+set_goal([],⌜∀eqs p a K⦁
+	Op (UnivAlgebra eqs) p a K =
+	Op (UnivAlgebra eqs) p (Map (λf⦁ CombK (f K)) a) K
+⌝);
+a(REPEAT strip_tac);
+a(rewrite_tac[car_op_def_univ_algebra_thm, univ_op_def, let_def, mk_model_def]);
+a(cases_tac ⌜¬K ∈ Variety eqs⌝ THEN
+	asm_rewrite_tac[car_op_def_trivial_algebra_thm]);
+a(bc_thm_tac (prove_rule[] ⌜∀f x y⦁ x = y ⇒ f x = f y⌝));
+a(list_induction_tac⌜a⌝ THEN asm_rewrite_tac[map_def, comb_k_def]);
+pop_thm()));
+
+val ⦏k_lemma⦎ = save_thm( "k_lemma",
+	rewrite_rule[pc_rule1 "basic_hol1" prove_rule[comb_k_def]
+		⌜∀x⦁ CombK x = λL⦁ x⌝] k_lemma1);
+
+=TEX
+%%%%
+%%%%
+%%%%
+=SML
+=TEX
+%%%%
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+=TEX
+\subsection{Epilogue}\label{END}
+} % matches turning off of HOL index entries.
+=TEX
+%%%%
+%%%%
+=SML
+open_theory"algebras";
+output_theory{out_file="wrk080.th.doc", theory="algebras"};
+=TEX
+\end{document}
+=SML
+

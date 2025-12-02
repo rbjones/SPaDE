@@ -1,0 +1,3351 @@
+=IGN
+********************************************************************************
+wrk068.doc: this file is supplementary material for the ProofPower system
+
+Copyright (c) 2004 Lemma 1 Ltd.
+
+This file is supplied under the GNU General Public Licence (GPL) version 2.
+
+See the file LICENSE supplied with ProofPower source for the terms of the GPL
+or visit the OpenSource web site at http:/www.opensource.org/
+
+Contact: Rob Arthan < rda@lemma-one.com >
+********************************************************************************
+$Id: wrk068.doc,v 1.33 2012/03/30 19:31:40 rda Exp rda $
+********************************************************************************
+=IGN
+pp_make_database -f -p hol maths_egs
+docsml wrk068
+xpp wrk068.doc -d maths_egs -i wrk068 &
+doctex wrk068 wrk068.th; texdvi -b wrk068; texdvi wrk068; texdvi wrk068
+=TEX
+\documentclass[11pt,a4paper,leqno]{article}
+\usepackage{latexsym}
+\usepackage{ProofPower}
+\ftlinepenalty=9999
+\usepackage{A4}
+\usepackage{url}
+\def\N{\mathbb{N}}
+\def\D{\mathbb{D}}
+\def\B{\mathbb{B}}
+\def\R{\mathbb{R}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\Lim{\mbox{{\sf lim}}}
+\def\LimInf{\mbox{{\sf lim inf}}}
+\def\LimSup{\mbox{{\sf lim sup}}}
+
+\def\ExpName{\mbox{{\sf exp}}}
+\def\Exp#1{\ExpName(#1)}
+
+\def\LogName{\mbox{{\sf log}}}
+\def\Log#1{\LogName(#1)}
+
+\def\SinName{\mbox{{\sf sin}}}
+\def\Sin#1{\SinName(#1)}
+
+\def\CosName{\mbox{{\sf cos}}}
+\def\Cos#1{\CosName(#1)}
+
+\def\Abs#1{|#1|}
+
+\def\SizeName{\#}
+\def\Size#1{\#\left(#1\right)}
+
+\tabstop=0.4in
+\def\ThmsI#1{%
+{\vertbarfalse#1}}
+
+\def\ThmsII#1#2{%
+{\vertbarfalse
+\begin{minipage}[t]{0.48\hsize}
+#1
+\end{minipage}
+\begin{minipage}[t]{0.48\hsize}
+#2
+\end{minipage}}}
+
+\def\ThmsIII#1#2#3{%
+{\vertbarfalse
+\begin{minipage}[t]{0.32\hsize}
+#1
+\end{minipage}
+\begin{minipage}[t]{0.32\hsize}
+#2
+\end{minipage}
+\begin{minipage}[t]{0.32\hsize}
+#3
+\end{minipage}}}
+
+\def\Hide#1{\relax}
+
+\makeindex
+\title{Mathematical Case Studies: \\ --- \\ Some Group Theory\thanks{
+First posted 2 May 2004;
+for full changes history see: \protect\url{https://github.com/RobArthan/pp-contrib}.
+}}
+\author{Rob Arthan}
+\makeindex
+\author{R.D. Arthan \\ Lemma 1 Ltd. \\ rda@lemma-one.com}
+\date{\FormatDate{\VCDate}}
+
+\begin{document}
+\begin{titlepage}
+\maketitle
+\begin{abstract}
+This {\ProductHOL} script contains definitions and proofs concerning
+the elements of group theory.
+What is currently covered is what is covered in the first chapter of any good text on the subject:
+in preparation for the introduction of quotient groups, we begin with a purely set-theoretical study of equivalence relations and the quotient of a set with respect to an equivalence relation.
+This is followed by the definitions of the concepts of group, homomorphism between groups, subgroup, normal subgroup, kernel of a homomorphism, congruence modulo a subgroup, coset of a subgroup, and quotient group.
+Theorems proved included the three isomorphism theorems, the Cayley representation theorem and Lagrange's theorem.
+Several examples of groups are exhibited and used to show that the various abstract notions lead to the expected theorems: e.g., that the exponential function is an isomorphism between the additive group of real numbers and the multiplicative group of positive real numbers.
+
+\end{abstract}
+\vfill
+\begin{centering}
+
+\bf Copyright \copyright\ : Lemma 1 Ltd 2004--\number\year \\
+Reference: LEMMA1/HOL/WRK068; Current git revision: \VCVersion%
+
+
+\end{centering}
+\thispagestyle{empty}
+\end{titlepage}
+\newpage
+\addtocounter{page}{1}
+%\section{DOCUMENT CONTROL}
+%\subsection{Contents list}
+\tableofcontents
+%\newpage
+%\subsection{Document cross references}
+
+\newpage
+\subsection*{To Do}
+This version now uses labelled product types rather than type abbreviations for the signature of a group.
+
+\begin{itemize}
+
+\item
+Implement the proposed extension to the {\ProductHOL} concrete syntax to allow infix operators with a parameter and see how it works out.
+\item
+Prove a lot more results! 
+
+\item
+Extend the examples.
+
+\item
+Compare with other approaches (e.g., Elsa Gunter's).
+
+\end{itemize}
+
+{\raggedright
+\bibliographystyle{fmu}
+\bibliography{fmu}
+} %\raggedright
+%%%%
+%%%%
+%%%%
+%%%%
+\newpage
+\section{INTRODUCTION}
+%%%%
+%%%%
+%%%%
+%%%%
+This document gives specifications and proofs relating to group theory.
+It includes a theory of equivalence relations to support the construction of quotient groups.
+This is part of a series of case studies in formalising some basic pure  mathematics in {\ProductHOL}.
+Other parts of the case study deal with real analysis \cite{LEMMA1/HOL/WRK066} and with topology \cite{LEMMA1/HOL/WRK067}.
+
+While the mathematical content of this document is very elementary, it does raise some interesting points about how to formalise abstract algebraic theory in polymorphic simple type theory.
+We want the abstract theory to be readable, general and easy to develop, we also want it to be easy to apply to specific examples.
+
+Substructures and quotient structures in algebra are very important, so it is vital to deal smoothly with subgroups and quotient groups.
+Taken verbatim, the traditional explication of these concepts in set theory leads to significant notational and semantic difficulties.
+The problem is this: in doing the general theory, an expression like $x.y$ denoting the product of two elements of a group $G$ actually contains three variables: the group elements `$x$', `$y$', and the multiplication operator `$.$'.
+Syntactic tricks allow one to preserve something like the traditional infix notation for such expressions.
+But there is a semantic problem when we need to deal with subgroups: according to the traditional account, the `$.$', in $x.y$ will denote a different set-theoretic function in $H$ from what it does in $G$.  Coercing operations from subgroup to containing group or from one subgroup to another becomes an excessive burden.
+
+Our solution to this problem is to formulate all  definitions relative to some carrier set of interest in such a way that the behaviour of operators or properties outside the carrier set is irrelevant.
+We advocate this approach in general for dealing with algebraic structures.
+The apparent extra complication actually achieves an economy, because when you are working with substructures, the operators and properties can all be those of the containing structure: you have no need to restrict them to the substructures or to worry about coercing the operations of one substructure into the operations of another.
+{\it Pace} Quine \cite[article on ``Mathematosis'']{Quine87}, it is actually counter-productive to define the concept of a group so that the carrier set can be recovered from the set that represents the multiplication.
+
+As an example, we define the operations on a group $G$ to be total functions on the universe of the type of its elements whose behaviour outside the carrier set of $G$ is immaterial.
+We require the operations on a subgroup $H$ of $G$ to  be represented by the same total functions.
+This involves no loss of generality and removes a great deal of complexity in both specifications and proofs.
+It may be objected that this approach results in the wrong notion of equality between groups (since the same group can be represented using two different ways of totalising the operations).
+However, in normal algebraic practice, one almost never needs to assert equality between two groups that are not known to be subgroups of some other group, and in that case equality has the usual meaning.
+
+This document is a {\Product} literate script. It contains all the metalanguage (ML) commands required to create three theories, populate them with the formal definitions and prove and record all the theorems.
+The three theories,  ``equiv\_rel'', ``groups'' and ``group\_egs'' are described in sections~\ref{equivrel}, ~\ref{groups} and ~\ref{groupegs} respectively.
+The descriptions include all the formal definitions in the Z-like concrete syntax for specification in {\ProductHOL}.
+and a discussion of the theorems that have been proved about the objects specified.
+To keep our use of the {\Product} document preparation system simple, in this discussion we identify the theorems by name and refer the reader to the theory listings in sections~\ref{Theory1},~\ref{Theory2} and~\ref{Theory3} for the formal statements of the theorems.
+There is an index to the formal definitions and the theory listings in section~\ref{index}.
+
+%%%%
+%%%%
+%%%%
+%%%%
+\section{EQUIVALENCE RELATIONS}\label{equivrel}
+The construction of quotient groups is very important in group theory and so introductory texts on the subject often begin with a review of the set-theoretic notions that support this construction, {\it viz.} the notion of the quotient of a set by an equivalence relation.
+This section contains our formal development of this material.
+
+John Harrison \cite{Harrison96} and Peter Homeier \cite{Homeier01} have both produced powerful metalanguage tools for automating such constructions when a new HOL type is introduced as a quotient set.
+However, these tools do not fit the case in question: we will only wish to construct new types for specific quotient constructions: when we are doing general theory everything in view is a variable including the set of sets representing a quotient group.
+
+Larry Paulson \cite{Paulson04} has pointed out that there are advantages in providing a lemma library to support quotient constructions rather than metalanguage tools.
+In particular, Paulson notes that if we use a lemma library, ``we are not restricted to top-level  properties, but can reason about equivalence classes in a larger proof''.
+This is precisely what happens in our development of elementary group theory.
+This section presents the definitions and results that make up the lemma library.
+The mathematics is entirely trivial: the point in formulating the theorems is not for their intrinsic interest, but to provide templates for carrying out quotient constructions in larger proofs.
+
+\subsection{Technical Prelude}
+
+First of all, we must give the the ML commands to  introduce the new theory ``equiv\_rel'' as a child of the theory ``orders'' of ordered sets (whence comes our definition of transitivity,
+see \cite{LEMMA1/HOL/DTD115}).
+
+
+=SML
+force_delete_theory"equiv_rel" handle Fail _ => ();
+open_theory"orders";
+set_merge_pcs["basic_hol1", "'sets_alg"];
+new_theory"equiv_rel";
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+
+%%%%
+%%%%
+%%%%
+%%%%
+\subsection{The Definitions}
+We need to define the notion of an equivalence relation, i.e., a binary relation that is transitive, reflexive and symmetric.
+Transitivity is defined elsewhere, but we now need the notions of reflexivity and symmetry.
+We follow the theory of orders in making these notions properties of set-relation pairs.
+We will often use the infix symbol
+=INLINEFT
+≜
+=TEX
+\ as a variable ranging over binary relations, sometimes with a subscript if there are several relations involved.
+This symbol appears preceded by a `\$' where infix notation is not being used.
+(If we are not going to use infix notation, we use $R$ and $S$ as variables ranging over relations).
+=SML
+declare_infix(210, "≜");
+declare_infix(210, "≜⋎1");
+declare_infix(210, "≜⋎2");
+ⓈHOLCONST
+│ ⦏Refl⦎ : ('a SET × ('a → 'a → BOOL)) → BOOL
+├──────
+│ ∀ X $≜⦁ Refl(X, $≜) ⇔ ∀x⦁x ∈ X ⇒ x ≜  x
+■
+ⓈHOLCONST
+│ ⦏Sym⦎ : ('a SET × ('a → 'a → BOOL)) → BOOL
+├──────
+│ ∀ X $≜⦁ Sym(X, $≜) ⇔ ∀x y⦁x ∈ X ∧ y ∈ X ∧ x ≜  y ⇒ y ≜ x
+■
+An equivalence relation on a set $X$ is then one which is reflexive, symmetric and transitive on $X$.
+In the traditional explication of mathematics as set theory, one requires an equivalence relation on a set $X$ to be restricted to $X$. Instead, we prefer to ignore the behaviour of the relation outside $X$.
+
+This means that an equivalence relation on a set $X$ is, as it stands, an equivalence relation on any subset of $X$.
+This works well in the formal treatment and works well informally too.
+For example, the relation that holds between two numbers $x$ and $y$ when $x - y$ is an integer, is an equivalence relation on any subset of the real numbers.
+There seems to be no conceptual or practical gain in treating such a relation as having  a different set-theoretic representation for different subsets.
+
+ⓈHOLCONST
+│ ⦏Equiv⦎ : ('a SET × ('a → 'a → BOOL)) → BOOL
+├──────
+│ ∀ X $≜⦁ Equiv(X, $≜) ⇔ Refl(X, $≜) ∧ Sym(X, $≜) ∧ Trans(X, $≜)
+■
+Now we can define the notions of equivalence class and the quotient set (which is the set of all equivalence classes).
+There is no need to stipulate that the relations be equivalence relations in these definitions --- that is done in the  statements of the theorems about them.
+We arrange things so that if
+=INLINEFT
+≜
+=TEX
+\ is an equivalence relation on $X$, the function
+=INLINEFT
+EquivClass(X, $≜)
+=TEX
+\ is the projection of $X$ onto the quotient set.
+
+ⓈHOLCONST
+│ ⦏EquivClass⦎ : ('a SET × ('a → 'a → BOOL)) → 'a → 'a SET
+├──────
+│ ∀ X $≜ x⦁ EquivClass(X, $≜) x = {y | y ∈ X ∧ x ≜ y}
+■
+
+ⓈHOLCONST
+│ ⦏QuotientSet⦎ : 'a SET → ('a → 'a → BOOL) → 'a SET SET
+├──────
+│ ∀ X $≜⦁ QuotientSet X ($≜) = {A | ∃x⦁ x ∈ X ∧ A = EquivClass(X, $≜) x}
+■
+
+We introduce an alias to let us write
+=INLINEFT
+X / ≜
+=TEX
+\ for the quotient set.
+This overloads arithmetic division (and will be further overloaded later for the quotient group construction).
+
+=SML
+declare_infix(300, "/");
+declare_alias("/", ⌜QuotientSet⌝);
+=TEX
+We say a function $f$ respects an equivalence relation
+=INLINEFT
+≜
+=TEX
+\ on $X$, iff. the function does not distinguish between related values:
+
+=SML
+declare_infix(200, "Respects");
+=TEX
+ⓈHOLCONST
+│ ⦏$Respects⦎ : ('a → 'b) → ('a → 'a → BOOL) → 'a SET → BOOL
+├──────
+│ ∀ f $≜ X⦁ (f Respects $≜) X ⇔ ∀x y⦁x ∈ X ∧ y ∈ X ∧ x ≜ y ⇒ f x = f y
+■
+
+We say that a relation, $R$, refines another, $S$ iff. $R$-equivalence implies $S$-equivalence.
+In other words, iff. each $R$-equivalence class is contained in an $S$-equivalence class.
+=SML
+declare_infix(200, "Refines");
+=TEX
+ⓈHOLCONST
+│ ⦏$Refines⦎ :  ('a → 'a → BOOL) → ('a → 'a → BOOL) → 'a SET → BOOL
+├──────
+│ ∀ X $≜⋎1 $≜⋎2 ⦁ ($≜⋎1 Refines $≜⋎2) X ⇔ ∀x y⦁x ∈ X ∧ y ∈ X ∧ x ≜⋎1  y ⇒ x ≜⋎2 y
+■
+
+Following Paulson, we define a function
+=INLINEFT
+Contents
+=TEX
+\ whose value on a singleton set $\{x\}$ is $x$ (and whose value on any other kind of set is unspecified).
+The consistency of this definition is not proved automatically, and the development of the theorems begins with the easy proof that it is consistent.
+ⓈHOLCONST
+│ ⦏Contents⦎ : 'a SET → 'a
+├──────
+│ ∀ x⦁ Contents {x} = x
+■
+Given any function $f : X \rightarrow Y$, the relation, $R_f$, say, defined so that $x\,R_f\,y$ holds iff. $f(x) = f(y)$ is an equivalence relation.
+$f$ respects an equivalence relation $R$ iff. $R$ refines $R_f$.
+Given such an $R$, $f$ induces a function, $\overline{f}$, from the quotient of $X/R$ to $Y$.
+The following function comprises the union over all $R$ of the corresponding $\overline{f}$ extended to a total function in an unspecified way.
+We write it using the postfix notation
+=INLINEFT
+f ⋏-
+=TEX
+.
+=SML
+declare_postfix(330, "⋏-");
+=TEX
+ⓈHOLCONST
+│ ⦏$⋏-⦎ : ('a → 'b) → 'a  SET → 'b
+├──────
+│ ∀ f A⦁ (f ⋏-) A = Contents{y | ∃x⦁  x ∈ A ∧ y = f x}
+■
+Our lemma library begins with the consistency of the contents function and then a handful of simple facts about equivalence relations, equivalence classes and the contents function.
+This comprises the following theorems.
+
+\ThmsII{%
+=GFT
+Contents_consistent
+contents_def
+equiv_class_eq_thm
+equiv_class_∈_thm
+constant_img_thm
+respects_img_thm
+=TEX
+}{%
+=GFT
+respects_img_contents_thm
+quotient_map_onto_thm
+quotient_∈_thm
+quotient_rep_∃_thm
+equiv_mono_thm
+=TEX
+}
+
+The following theorem says that  if $f$ respects $S$ and $R$ refines $S$, then $f$ respects $R$.
+This theorem is quite trivial, but provides a useful pattern for proving that a function $f$ respects a relation $R$: find some coarser relation $S$ that $f$ is known to respect and apply this theorem.
+
+\ThmsI{%
+=GFT
+respects_refines_thm
+=TEX
+}
+
+The next block of theorems begins with two theorems which show, in effect, that given any function, $f:X \rightarrow Y$, and any relation
+=INLINEFT
+≜
+=TEX
+\ that $f$ respects on $X$,
+$f$ factors through the projection of $X$ onto
+=INLINEFT
+X / ≜
+=TEX
+, the induced function from
+=INLINEFT
+X / ≜
+=TEX
+\ to $Y$ being given by
+=INLINEFT
+f ⋏-
+=TEX
+.
+The first version states this in terms of equivalence classes and the second in terms of members of a quotient set.
+The third theorem in this block is our alternative to the treatment of dyadic functions suggested by Paulson.
+It shows that the operation
+=INLINEFT
+λf⦁ f ⋏-
+=TEX
+\ can be iterated to produced a curried version of the induced function theorem for functions of two arguments.
+
+\ThmsIII{%
+=GFT
+induced_fun_equiv_class_thm
+=TEX
+}{%
+=GFT
+induced_fun_thm
+=TEX
+}{%
+=GFT
+induced_fun_induced_fun_thm
+=TEX
+}
+
+Finally we list the theorems that act as the main ``external interface'' to the lemma library. These give the characterising properties of the quotient set construction as pure existence theorems for the one-argument and two-argument cases.
+
+The characterising properties are that the induced functions exist under the appropriate hypotheses and are unique.
+The uniqueness is trivial and is only stated formally for completeness.
+In applications of the lemma library, one will typically just prove instances of the hypotheses for a particular function and a particular equivalence relation (or relations) and forward chain with the existence theorems to give the induced function.
+In this sense, these theorems act as templates for constructing induced functions.
+
+
+\ThmsII{%
+=GFT
+induced_fun_∃_thm
+induced_fun_∃_unique_thm
+=TEX
+}{%
+=GFT
+dyadic_induced_fun_∃_thm
+dyadic_induced_fun_∃_unique_thm
+=TEX
+}
+
+In fact, while the two-argument version was used in an earlier treatment of quotient groups, it has since turned out to be better to use the group-theoretic product of two sets for this construction.
+In general in developing a typical algebraic theory (e.g., rings, modules over a ring, vector spaces over a field), the induced function existence theorem will typically be used to prove the version of the first isomorphism theorem that is appropriate to that theory.
+Thereafter, the first isomorphism theorem will generally replace uses of the induced function existence theorem, because it gives functions that are morphisms of the theory, not just set-theoretic functions.
+
+
+\section{GROUPS}\label{groups}
+
+\subsection{Technical Prelude}
+
+First of all, we must give the the ML commands to  introduce the new theory ``groups'' as a child of the theory ``equiv\_rel'' of equivalence relations.
+
+=SML
+force_delete_theory"groups" handle Fail _ => ();
+open_theory"equiv_rel";
+new_theory"groups";
+set_merge_pcs["basic_hol1", "'sets_alg"];
+new_parent "fincomb";
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+
+%%%%
+%%%%
+%%%%
+%%%%
+\subsection{The Signature of a Group}
+We will represent a group  as a quadruple comprising a carrier set, a two-argument multiplication function, a unit element and a one-argument inverse function.
+This signature is captured in the following labelled product type definition, parametrised by the type variable $'a$ giving the type of the elements of the group.
+ⓈHOLLABPROD ⦏GROUP⦎─────────────────
+│	⦏Car⋎G⦎			: 'a SET;
+│	⦏Times⋎G⦎		: 'a → 'a → 'a;
+│	⦏Unit⋎G⦎			: 'a;
+│	⦏Inverse⋎G⦎		: 'a → 'a
+■─────────────────────────────
+=TEX
+If $G$ is a structure with the above signature (i.e., a member of an instance of the above type), we write
+=INLINEFT
+Car G
+=TEX
+\ for the carrier set,
+=INLINEFT
+(x.y)G
+=TEX
+\ for the product of two elements, $x$ and $y$,
+=INLINEFT
+Unit G
+=TEX
+\ for the unit element and
+=INLINEFT
+(x ⋏~)G
+=TEX
+\ for the inverse of an element, $x$.
+This is achieved by the following fixity declarations and definition of access functions for the signature.
+
+=SML
+declare_infix(310, ".");
+declare_postfix(330, "⋏~");
+
+ⓈHOLCONST
+│ ⦏Car⦎ :  'a GROUP → 'a SET;
+│ ⦏$.⦎ :  'a → 'a → 'a GROUP → 'a;
+│ ⦏$⋏~⦎ :  'a → 'a GROUP → 'a;
+│ ⦏Unit⦎ :  'a GROUP → 'a
+├──────
+│ ∀ set times one inverse⦁
+│	Car (MkGROUP set times one inverse) = set
+│ ∧	(∀x y⦁ (x . y) (MkGROUP set times one inverse) = times x y)
+│ ∧	Unit (MkGROUP set times one inverse) = one
+│ ∧	(∀x⦁ (x ⋏~) (MkGROUP set times one inverse) = inverse x)
+■
+[{\bf Aside}: For the future: one may want the above with {\em Car} and {\em Unit} as aliases, but with the defining property as above proved as a theorem to give the general purpose rewrite rule to use in reasoning about these aliases and the defined constants for multiplication and inverse.]
+
+=TEX
+We prove one theorem about these which is just a convenience for proving that two structures for this signature are equal.
+
+\ThmsI{
+=GFT
+group_eq_group_thm
+=TEX
+}
+
+\subsection{The Group Laws and Equational Reasoning in a Group}
+We can now specify the group laws.
+The polymorphic set {\it Group} comprises all structures with the signature of a group that satisfy the group laws.
+The statement is entirely standard following our convention of relativising everything to the carrier set of the group.
+The first two conditions on $G$ say that the carrier set is closed under multiplication and that multiplication is associative, the next two conditions say that the unit is a member of $G$ and is indeed a two-sided unit for multiplication. The remaining conditions say that $G$ is closed under inverse and that the inverse does indeed give a two-sided inverse for the multiplication.
+
+ⓈHOLCONST
+│ ⦏Group⦎ : 'a GROUP SET
+├──────
+│ ∀ G⦁
+│	G ∈ Group
+│ ⇔	(∀x y⦁ x ∈ Car G ∧ y ∈ Car G ⇒ (x . y) G ∈ Car G)
+│ ∧	(∀x y z⦁ x ∈ Car G ∧ y ∈ Car G ∧ z ∈ Car G ⇒ ((x . y)G . z)G = (x . (y . z)G)G)
+│ ∧	Unit G ∈ Car G
+│ ∧	(∀x⦁ x ∈ Car G ⇒ (x . Unit G) G = x ∧ (Unit G . x)G = x)
+│ ∧	(∀x⦁ x ∈ Car G ⇒ (x ⋏~) G ∈ Car G)
+│ ∧	(∀x⦁ x ∈ Car G ⇒ (x . (x ⋏~)G)G = Unit G ∧ ((x ⋏~)G . x)G = Unit G)
+■
+The above definition shows that our approach to the syntax of the group operations is not unworkable.
+The syntax is certainly readable if one pretends not to notice all the ``$G$''s.
+When working with a specific group, the definitions can easily be expanded to give the familiar notations for the group (see examples in section~\ref{groupegs}).
+
+However, the syntax is not particular convenient to write for complex expressions, mainly because it forces the writer to write all the brackets in an expression explicitly.
+An extension to the concrete syntax of {\ProductHOL} is being considered which would remedy this.
+The extension would allow a form of ternary infix operator.
+What we are currently writing as  $(x.y)G$ would become $x\,{.G}\,y$.
+One would be allowed to write $x\,{.G}\,y{.G}\,z$ with no brackets.
+Brackets would only be required when they are significant.
+
+On the basis of this definition, we can prove the usual elementary consequences of these laws.
+These are presented as a set of four portmanteau theorems ({\em group\_clauses1} \ldots {\em group\_clauses4})
+together with some particular results such as a cancellation law that are needed to bootstrap the theory and prove the portmanteau theorems.
+
+\ThmsII{%
+=GFT
+group_clauses1
+group_clauses2
+group_eq_thm
+group_eq_thm1
+left_cancel_thm
+inverse_inverse_thm
+=TEX
+}{%
+=GFT
+group_clauses3
+times_inverse_thm
+inverse_unique_thm
+group_clauses4
+unit_unique_thm
+=TEX
+}
+
+Taken together, the portmanteau theorems provide the closure statements one needs to show that arbitrary combinations of the group operations applied to members of the group give members of the group and give the ``free group normal form'' for expressions over the signature of the group.
+This normal form is obtained by repeatedly rewriting with the following rules:
+
+\begin{eqnarray}
+(x.y)^{-1} &=& y^{-1}.x^{-1} \\
+(x^{-1})^{-1} &=& x \\
+x.x^{-1} &=& 1 \\
+x^{-1}.x &=& 1 \\
+x.(x^{-1}.z) &=& z \\
+x^{-1}.(x.z) &=& z \\
+(x.y).z &=& x.(y.z) \\
+x.1 &=& x \\
+1.x &=& x \\
+1^{-1} &=& 1
+\end{eqnarray}
+
+Now for us, these are conditional rewrite rules: they only hold if the operands of the expressions on the left are members of the carrier set of the group.
+At this point in the proof script, we use the portmanteau theorems to implement automated proof procedures for normalising expressions in the operations of a group and for membership of the carrier set of a group.
+The proof procedures for normalisation apply the above rewrite rules setting the necessary membership conditions as lemmas.
+The proof procedures for membership apply the closure conditions for the operations to simplify membership conditions on complex expressions into conditions on atomic subexpressions.
+These procedures deal automatically with all of the equational reasoning that will be needed later except for providing existential witnesses and identifying points at which the argument for a membership condition is non-trivial (i.e., does not follow just from membership conditions on atomic subexpressions).
+
+\subsection{Homomorphisms}
+The definition of homomorphism between two groups, $G$ and $H$, is completely standard
+For us, a homomorphism is given by a total function  whose behaviour outside the carrier set of $G$ is irrelevant.
+
+
+ⓈHOLCONST
+│ ⦏Homomorphism⦎ : 'a GROUP × 'b GROUP → ('a → 'b) SET
+├──────
+│ ∀ G H f⦁
+│	f ∈ Homomorphism(G, H)
+│ ⇔	(∀x ⦁ x ∈ Car G ⇒ f x ∈ Car H)
+│ ∧	(∀x y⦁ x ∈ Car G ∧ y ∈ Car G⇒ f((x . y) G) = (f x . f y)H)
+■
+
+One only needs to specify that a homomorphism preserves the multiplication, since a homomorphism in that sense will automatically preserve the unit element and inverses as shown by the first two theorems in the following block.
+The third and fourth present these facts and the properties in the definition in a convenient form.
+
+\ThmsII{%
+=GFT
+homomorphism_unit_thm
+homomorphism_inverse_thm
+=TEX
+}{%
+=GFT
+homomorphism_clauses
+homomorphism_∈_car_thm
+=TEX
+}
+
+\subsection{Subgroups}
+Our definition of a subgroup is standard except that we require the multiplication and the inverse function of the subgroup to be identical with those in the containing group.
+This is invaluable in simplifying later definitions and in stating and proving theorems.
+It guarantees that one can just use the operations of the containing group wherever appropriate.
+The reader who does not like this is cordially invited to replace the last two equations in the following by equations conditional on membership of the carrier set of $H$ and then to prove the theorems that follow.
+
+ⓈHOLCONST
+│ ⦏Subgroup⦎ : 'a GROUP  → 'a GROUP SET
+├──────
+│ ∀ G H⦁
+│	H ∈ Subgroup G
+│ ⇔	Car H ⊆ Car G
+│ ∧	H ∈ Group
+│ ∧	(∀x y⦁  (x.y)H = (x.y)G)
+│ ∧	(∀x⦁  (x ⋏~)H = (x ⋏~)G)
+■
+
+The following theorem extends the equations in the above definition to add the statement that the unit element of a subgroup is the same as that of the containing group.
+
+\ThmsI{%
+=GFT
+subgroup_clauses
+=TEX
+}
+
+The unit subgroup of a group is the subgroup whose carrier set comprises only the unit element.
+
+ⓈHOLCONST
+│ ⦏UnitSubgroup⦎ : 'a GROUP  → 'a GROUP
+├──────
+│ ∀ G⦁
+│	UnitSubgroup G = MkGROUP {Unit G} (λx y⦁(x.y)G) (Unit G) (λx⦁(x ⋏~)G)
+■
+
+If $G$ is a group then $G$ itself and its unit subgroup are both subgroups of $G$.
+The relation of being a subgroup is transitive.
+If $K$ and $H$ are subgroups of $G$ and the carrier set of $K$ is contained in that of $H$,
+then $K$ is subgroup of $H$.
+Two subgroups are equal iff. their carrier sets are equal.
+
+\ThmsII{%
+=GFT
+trivial_subgroups_thm
+subgroup_trans_thm
+=TEX
+}{%
+=GFT
+subgroup_⊆_subgroup_thm
+subgroup_eq_thm
+=TEX
+}
+
+The inclusion of a subgroup, $H$, of $G$, is a homomorphism from $H$ to $G$
+In particular, the identity function on $G$ is a homomorphism from $G$ to $G$.
+The function which map every element of some group to the unit of some other group
+is a homomorphism.
+The composite of two homomorphisms is a homomorphism.
+
+\ThmsII{%
+=GFT
+subgroup_homomorphism_thm
+id_homomorphism_thm
+=TEX
+}{%
+=GFT
+unit_homomorphism_thm
+comp_homomorphism_thm
+=TEX
+}
+
+If $A$ is a subset of the carrier set of a group $G$, we write $A \cap G$ for the structure with the same operations as $G$ and with carrier set the intersection of $A$ and the carrier set of $G$.
+In the narrative and in the names of theorems we refer to this as the restriction of $G$ to $A$.
+
+ⓈHOLCONST
+│ ⦏Restriction⦎ : 'a SET → 'a GROUP  → 'a GROUP
+├──────
+│ ∀ A G⦁ Restriction A G = MkGROUP (A ∩ Car G) (λx y⦁ (x.y)G) (Unit G) (λx⦁(x ⋏~)G)
+■
+=SML
+declare_alias("∩", ⌜Restriction⌝);
+=TEX
+$A \cap G$ is a group iff. $A$ contains the unit element and is closed under multiplication and inverse.
+\ThmsI{%
+=GFT
+restriction_subgroup_thm
+=TEX
+}
+
+\subsection{Normal Subgroups and Kernels of Homomorphisms}
+
+A normal subgroup is one that is closed under conjugation. (The conjugate of $x$ by $y$ is $y^{-1}.x.y$).
+
+ⓈHOLCONST
+│ ⦏NormalSubgroup⦎ : 'a GROUP  → 'a GROUP SET
+├──────
+│ ∀ G H⦁
+│	H ∈ NormalSubgroup G
+│ ⇔	H ∈ Subgroup G
+│ ∧	(∀x y⦁ x ∈ Car H ∧ y ∈ Car G ⇒ ((y ⋏~)G.(x.y)G)G ∈ Car H)
+■
+
+The kernel of a homomorphism from $G$ to $H$  has as its carrier set the pre-image of the unit element of $H$ and inherits the group operations from $G$:
+
+ⓈHOLCONST
+│ ⦏Ker⦎ : ('a → 'b) → 'a GROUP × 'b GROUP→ 'a GROUP
+├──────
+│ ∀ f G H⦁
+│	Ker f (G, H)
+│ =	MkGROUP {x | x ∈ Car G ∧ f x = Unit H} (λx y⦁ (x . y)G) (Unit G) (λx⦁(x ⋏~) G)
+■
+
+Kernels of homomorphisms are normal subgroups as stated in the following theorem.
+If a normal subgroup, $K$, of $G$ is a subgroup of a subgroup $H$, then it is normal in $H$.
+
+\ThmsII{%
+=GFT
+ker_normal_subgroup_thm
+=TEX
+}{%
+=GFT
+subgroup_normal_subgroup_thm
+=TEX
+}
+
+\subsection{Congruence modulo a Subgroup}
+Elements $x$ and $y$ are (right) congruent modulo a subgroup $H$ iff. $x^{-1}y$ is a member of $H$.
+Right congruence is equivalence modulo right translation by elements of $H$.
+
+ⓈHOLCONST
+│ ⦏RightCongruent⦎ :'a GROUP → 'a GROUP → 'a → 'a → BOOL
+├──────
+│ ∀ G H x y⦁ RightCongruent H G x y ⇔ ((x ⋏~) G . y) G ∈ Car H
+■
+
+The following theorems states that right congruence is an equivalence relation:
+
+\ThmsI{%
+=GFT
+right_congruent_equiv_thm
+=TEX
+}
+\subsection{Operations on Sets}
+If $A$ and $B$ are any subsets of the (universe of the) carrier set of a group, we will write $(A.B)G$ for the set of all $(a.b)G$ as $a$ ranges over $A$ and $b$ ranges over $B$.
+We will also write $(x.B)G$ and $(A.y)G$ for $(\{x\}.B)G$ and $(A.\{y\})G$ respectively.
+Similarly we will write
+=INLINEFT
+(A ⋏~)G
+=TEX
+\ for the set of all inverse of elements of $A$.
+This overloads `.', and `%
+=INLINEFT
+⋏~
+=TEX
+', so we define these operations using other names and then introduce aliases:
+ⓈHOLCONST
+│ ⦏SetTimesSet⦎ :'a SET → 'a SET → 'a GROUP→ 'a SET;
+│ ⦏ElemTimesSet⦎ :'a → 'a SET → 'a GROUP→ 'a SET;
+│ ⦏SetTimesElem⦎ :'a SET → 'a → 'a GROUP→ 'a SET;
+│ ⦏SetInverse⦎ :'a SET → 'a GROUP→ 'a SET
+├──────
+│ 	(∀G A B⦁ SetTimesSet A B G = {z | ∃a b⦁a ∈ A ∧ b ∈ B ∧ z = (a.b)G})
+│ ∧ 	(∀G x B⦁ ElemTimesSet x B G = {z | ∃b⦁b ∈ B ∧ z = (x.b)G})
+│ ∧ 	(∀G A y⦁ SetTimesElem A y G = {z | ∃a⦁a ∈ A ∧ z = (a.y)G})
+│ ∧ 	(∀G A⦁ SetInverse A G = {z | ∃a⦁a ∈ A ∧ z = (a ⋏~)G})
+■
+=SML
+declare_alias(".", ⌜SetTimesSet⌝);
+declare_alias(".", ⌜ElemTimesSet⌝);
+declare_alias(".", ⌜SetTimesElem⌝);
+declare_alias("⋏~", ⌜SetInverse⌝);
+=TEX
+If $H$ and $K$ are groups with elements of the same type, we will write $H.K$ for the structure with the set product of the carrier sets as its carrier set under the operations of $H$ (which will agree with those of $K$ under our conventions if they are both subgroups of some other group).
+ⓈHOLCONST
+│ ⦏GroupTimesGroup⦎ :'a GROUP → 'a GROUP → 'a GROUP
+├──────
+│ ∀H K⦁
+│	GroupTimesGroup H K =
+│	MkGROUP ((Car H.Car K)H) (λx y⦁(x.y)H) (Unit H) (λx⦁(x ⋏~)H)
+■
+
+=SML
+declare_alias(".", ⌜GroupTimesGroup⌝);
+=TEX
+
+The product of two subgroups can be expressed as a restriction.
+The product is itself a subgroup if either of the two subgroups is normal.
+We just prove this for the case when the second subgroup is normal.
+
+\ThmsII{%
+=GFT
+group_product_restriction_thm
+=TEX
+}{%
+=GFT
+group_product_subgroup_thm
+=TEX
+}
+
+\subsection{Cosets}
+
+If $H$ is a subgroup of $G$ and $x$ is an element of $G$, the right coset generated by $x$  is the set $x.H$ and the left coset generated by $x$ is $H.x$.
+I.e., perhaps confusingly, a right coset is a left translate of $H$. Some texts call these left cosets (and then, perhaps confusingly, left congruence is equivalence modulo right translation by elements of $H$).
+Our terminology follows \cite{Cohn74}.
+
+The following theorems state that the right cosets of a subgroup are the equivalence classes of its right congruence relation and that the right cosets generated by elements $x$ and $y$ are equal iff. $x$ and $y$ are right congruent.
+
+
+\ThmsI{%
+=GFT
+right_coset_equiv_class_thm
+right_coset_eq_thm
+=TEX
+}
+
+
+\subsection{The Quotient Group Construction}
+If $G$ is a group and $H$ is a normal subgroup, then the multiplication and inverse operations on $G$ induce a multiplication  and inverse operation on the set of right cosets of $H$ which make it into a group in such a way that the projection onto the set of right cosets is a homomorphism.
+Following our approach of embedding the operations of an algebraic structure in the most useful general extension to a total function, we make the following definition, which embeds the quotient group in the monoid of all subsets of $G$ under the multiplication of sets induced by the multiplication of $G$.
+This monoid contains all quotient groups of $G$ as submonoids (or, more precisely, it embeds it in the structure whose carrier set comprises all subsets of the universe of $G$ under the induced multiplication; this structure is not in general a monoid, but becomes one if its carrier set is restricted to subsets of $G$).
+
+
+ⓈHOLCONST
+│ ⦏QuotientGroup⦎ :'a GROUP → 'a GROUP→ 'a SET GROUP
+├──────
+│ ∀ G H⦁ QuotientGroup G H = MkGROUP
+│		{A | ∃x⦁x ∈ Car G ∧ A = (x.Car H)G}
+│		(λA B⦁(A.B)G)
+│		((Unit G.Car H)G)
+│		(λA⦁ (A ⋏~)G)
+■
+
+We write $G/H$ for the quotient of $G$ by $H$ by dint of the following alias declaration (overloading the alias for the quotient set operator).
+=SML
+declare_alias("/", ⌜QuotientGroup⌝);
+=TEX
+
+We show that if $H$ is a normal subgroup of $G$, then the product and inverse operations of the quotient group are represented by the product and inverse operations of the group, i.e.,
+that $(x.H).(y.H) = (xy.H)$ and $(x.H)^{-1} = (x^{-1}.H)$.
+From this it follows easily that the projection to the quotient of $G$ by a normal subgroup $H$ is surjective, that the quotient group is indeed a group under the induced operations and that the projection is a homomorphism with kernel $H$.
+
+\ThmsII{%
+=GFT
+quotient_group_times_thm
+quotient_group_inverse_thm
+quotient_group_rep_∃_thm
+=TEX
+}{%
+=GFT
+quotient_group_group_thm
+quotient_group_homomorphism_thm
+ker_right_coset_thm
+=TEX
+}
+
+\subsection{Images of Homomorphisms}
+
+The following image group construction is needed in the statement of the first isomorphism theorem.
+
+ⓈHOLCONST
+│ ⦏Img⦎ : ('a → 'b) → 'a SET → 'b GROUP  → 'b GROUP
+├──────
+│ ∀ f X G⦁
+│	Img f X G =
+│	MkGROUP {y | ∃x⦁x ∈ X ∧ y = f x} (λx y⦁ (x.y)G) (Unit G) (λx⦁ (x ⋏~)G)
+■
+
+The next theorem states that the image of a group homomorphism is a subgroup of the range of the homomorphism:
+
+\ThmsII{%
+=GFT
+img_subgroup_thm
+=TEX
+}{%
+\relax
+}
+
+\subsection{Isomorphisms}
+
+An isomorphism is a one-to-one onto homomorphism
+ⓈHOLCONST
+│ ⦏Isomorphism⦎ : 'a GROUP × 'b GROUP → ('a → 'b) SET
+├──────
+│ ∀ G H f⦁
+│	f ∈ Isomorphism(G, H)
+│ ⇔	f ∈ Homomorphism(G, H)
+│ ∧	(∀x y⦁ x ∈ Car G ∧ y ∈ Car G ∧ f x = f y ⇒ x = y)
+│ ∧	(∀z⦁ z ∈ Car H ⇒ ∃x⦁x ∈ Car G ∧ f x = z)
+■
+
+The following theorems lead up to the proof of the first isomorphism theorem (which says that if $f : G \rightarrow H$ is a homomorphism with kernel $K$, then $f$ factors through a homomorphism $H/K \rightarrow G$ which gives an isomorphism between $H/K$ and the image of $f$).
+The proofs of earlier results have made some use of the equivalence class lemma library, but this is where the result on induced functions is first used in anger.
+
+\ThmsII{%
+=GFT
+mage_subgroup_thm
+equiv_right_congruent_ker_thm
+homomorphism_respects_ker_thm
+car_quotient_group_thm
+=TEX
+}{%
+=GFT
+subgroup_refines_thm
+subgroup_ker_induced_thm
+isomorphism_ker_img_thm
+first_isomorphism_thm
+=TEX
+}
+
+The second isomorphism theorem says that if $H$ is a subgroup of $G$ and $K$ is a normal subgroup of $G$, then $H \cap K$ is  a normal subgroup of $H$ and the quotient $H/H \cap K$ is isomorphic to the quotient $H.K/K$.
+We prove this in a series of lemmas.
+
+\ThmsII{%
+=GFT
+second_isomorphism_lemma1
+second_isomorphism_lemma2
+second_isomorphism_lemma3
+=TEX
+}{%
+=GFT
+second_isomorphism_lemma4
+second_isomorphism_thm
+=TEX
+}
+
+We also prove the third isomorphism theorem, which says that if $H$ and $K$ are normal subgroups of a group $G$, and $K$ is a subgroup of $H$, then there is an isomorphism between $G / H$ and $(G/K)/(H/K)$.
+As with the second isomorphism theorem, we sneak up on this in a series of lemmas.
+
+\ThmsII{%
+=GFT
+third_isomorphism_lemma1
+third_isomorphism_lemma2
+third_isomorphism_lemma3
+=TEX
+}{%
+=GFT
+third_isomorphism_lemma4
+third_isomorphism_lemma5
+third_isomorphism_thm
+=TEX
+}
+
+\subsection{The Symmetric Group}
+
+The symmetric group on a set $X$ is the group of all one-to-one onto functions from $X$ to $X$.
+In a typed context, it is convenient to turn this round and say that it is the group of all functions from the universe of the type of the elements of $X$ to itself that are one-to-one and onto and that fix anything not in $X$.
+This has several technical advantages and involves no loss of generality.
+Before giving the definition, we need to define the notion of an inverse function.
+(This definition probably belongs elsewhere in the theory hierarchy.)
+
+ⓈHOLCONST
+│ ⦏Inverse⦎ : ('a → 'b) → ('b → 'a)
+├──────
+│ ∀ f⦁ OneOne f ∧ Onto f ⇒ (∀x⦁Inverse f (f x) = x) ∧ (∀y⦁f(Inverse f y) = y)
+■
+
+
+ⓈHOLCONST
+│ ⦏SymGroup⦎ : 'a SET → ('a → 'a) GROUP
+├──────
+│ ∀ X⦁	SymGroup X = MkGROUP
+│		{f | OneOne f ∧ Onto f ∧ ∀y⦁ ¬y ∈ X ⇒ f y = y}
+│		(λf g⦁λx⦁f(g x))
+│		(λx⦁ x)
+│		Inverse
+■
+
+The symmetric group on any set is indeed a group.
+Moreover, if $G$ is any group, $G$ is isomorphic to a subgroup of the symmetric group on its carrier set, which is the Cayley representation theorem.
+
+\ThmsII{%
+=GFT
+sym_group_group_thm
+=TEX
+}{%
+=GFT
+cayley_thm
+=TEX
+}
+\subsection{Finite Groups}
+If $G$ is a group (or any structure with the same signature as a group), we will write $\Size{G}$ for the number of elements of the carrier set of $G$.
+To allow this, we make \# an alias of the following function:
+
+
+ⓈHOLCONST
+│ ⦏Size⋎G⦎ : 'a GROUP → ℕ
+├──────
+│ ∀ G⦁ Size⋎G G = #(Car G)
+■
+
+=SML
+declare_alias("#", ⌜Size⋎G⌝);
+=TEX
+
+We prove the theorem of Lagrange that if $G$ is a finite group, and $H$ is a subgroup of $G$, then $H$ and the set of cosets $G/H$ are both finite and $\Size{G} = \Size{H} \times \Size{G/H}$.
+
+\ThmsIII{
+=GFT
+finite_subgroup_thm
+=TEX
+}{%
+=GFT
+finite_cosets_thm
+=TEX
+}{%
+=GFT
+lagrange_cosets_thm
+=TEX
+}
+\subsection{Cartesian Product}
+The Cartesian product of two groups is the standard pointwise construction:
+=SML
+declare_infix(290, "×⋎G");
+=TEX
+ⓈHOLCONST
+│ ⦏$×⋎G⦎ : 'a GROUP → 'b GROUP → ('a × 'b) GROUP
+├──────
+│ ∀G H⦁	(G ×⋎G H) =
+│	MkGROUP
+│		(Car G × Car H)
+│		(λ(a, b)(c, d)⦁ ((a.c)G, (b.d)H))
+│		(Unit G, Unit H)
+│		(λ(a, b)⦁((a ⋏~)G, (b ⋏~)H))
+■
+The Cartesian product of two groups is again a group;
+the projections onto the factors of the products are homomorphisms
+as is the lift of a pair of homomorphism into the product.
+
+\ThmsIII{
+=GFT
+product_group_thm
+product_homomorphism_thm
+=TEX
+}{%
+=GFT
+fst_homomorphism_thm
+=TEX
+}{%
+=GFT
+snd_homomorphism_thm
+=TEX
+}
+
+\newpage
+\section{Examples of Groups}\label{groupegs}
+
+In this section we give one or two examples of specific groups.
+We specialise some of the theorems from section~\ref{groups} to show how they look.
+
+\subsection{Technical Prelude}
+
+First of all, we must give the the ML commands to  introduce the new theory ``group\_egs'' as a child of the theory `groups'' of groups and the theory "analysis" of real analysis.
+
+=SML
+force_delete_theory"group_egs" handle Fail _ => ();
+open_theory"groups";
+new_theory"group_egs";
+new_parent"analysis";
+set_merge_pcs["basic_hol1", "'sets_alg", "'ℤ", "'ℝ"];
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+
+%%%%
+%%%%
+%%%%
+%%%%
+\subsection{The Examples}
+
+We define the group of integers under addition and the group of unit integers under multiplication:
+
+ⓈHOLCONST
+│ ⦏ℤ_plus⦎ :  ℤ GROUP;
+│ ⦏ℤ_units⦎ :  ℤ GROUP
+├──────
+│	ℤ_plus = MkGROUP Universe $+ (ℕℤ 0) ~
+│ ∧	ℤ_units = MkGROUP {~(ℕℤ 1); ℕℤ 1} $* (ℕℤ 1) (λx⦁x)
+■
+
+We prove that both of these are indeed groups.
+The notational devices of our treatment of abstract group theory convert easily into the familiar notation for specific groups.
+As an example of this, we show how the definition of a homomorphism specialises to the notion of a homomorphism from
+=INLINEFT
+ℤ_plus
+=TEX
+\ to
+=INLINEFT
+ℤ_units
+=TEX
+.
+
+\ThmsII{
+=GFT
+ℤ_plus_group_thm
+ℤ_units_group_thm
+ℤ_plus_ops_thm
+ℤ_units_ops_thm
+=TEX
+}{%
+=GFT
+ℤ_plus_ℤ_units_homomorphism_def
+ℤ_plus_ℤ_units_homomorphism_unit_thm
+ℤ_plus_ℤ_units_homomorphism_inverse_thm
+=TEX
+}
+
+We now define the group of reals under addition and the group of positive reals under multiplication:
+
+ⓈHOLCONST
+│ ⦏ℝ⋎+⦎ :  ℝ GROUP;
+│ ⦏ℝ_pos⦎ :  ℝ GROUP
+├──────
+│	ℝ⋎+ = MkGROUP Universe $+ (ℕℝ 0) ~
+│ ∧	ℝ_pos = MkGROUP {x | ℕℝ 0 < x} $* (ℕℝ 1) $⋏-⋏1
+■
+
+As with the groups of integers, we show that these are groups and instantiate various definitions to them.
+We can then show that the function $\ExpName$ provides an isomorphism between the two groups.
+We also show that a linear mapping is an additive homomorphism from ℝ to itself and that addition is an additive homomorphism from $ℝ \times ℝ$ to $ℝ$.
+
+\ThmsII{%
+=GFT
+ℝ_additive_group_thm
+ℝ_pos_group_thm
+ℝ_additive_ops_thm
+ℝ_pos_ops_thm
+ℝ_additive_ℝ_pos_homomorphism_def
+plus_ℝ_additive_homomorphism_thm
+=TEX
+}{%
+=GFT
+ℝ_additive_ℝ_pos_homomorphism_unit_thm
+ℝ_additive_ℝ_pos_homomorphism_inverse_thm
+ℝ_additive_ℝ_pos_isomorphism_def
+exp_isomorphism_thm
+linear_homomorphism_thm
+=TEX
+}
+
+%%%%
+%%%%
+%%%%
+%%%%
+\appendix
+{\let\Section\section
+\newcounter{ThyNum}
+\def\section#1{\Section{#1}
+\addtocounter{ThyNum}{1}\label{Theory\arabic{ThyNum}}}
+\include{wrk0681.th}
+{\makeatletter
+\def\UP@char#1{{{}\sp{#1}}}
+\makeatother
+\include{wrk0682.th}}
+\include{wrk0683.th}
+}  %\let
+
+\twocolumn[\section*{INDEX}\label{index}]
+\addcontentsline{toc}{section}{INDEX}
+{\small\printindex}
+
+\end{document}
+
+{\HOLindexOff
+%%%%
+%%%%
+%%%%
+%%%%
+\onecolumn
+\section{THEOREMS}\label{THEOREMS}
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+\subsection{The Definitions and Their Consistency}
+%%%%
+%%%%
+%%%%
+%%%%
+=SML
+open_theory"equiv_rel";
+set_merge_pcs["basic_hol1", "'sets_alg"];
+=TEX
+=SML
+val ⦏refl_def⦎ = get_spec⌜Refl⌝;
+val ⦏sym_def⦎ = get_spec⌜Sym⌝;
+val ⦏equiv_def⦎ = get_spec⌜Equiv⌝;
+val ⦏equiv_class_def⦎ = get_spec⌜EquivClass⌝;
+val ⦏quotient_set_def⦎ = get_spec⌜$/⌝;
+val ⦏respects_def⦎ = get_spec⌜$Respects⌝;
+val ⦏refines_def⦎ = get_spec⌜$Refines⌝;
+val ⦏induced_def⦎ = get_spec⌜$⋏-⌝;
+=SML
+push_consistency_goal ⌜Contents⌝;
+a(∃_tac⌜λA⦁εx⦁A = {x}⌝ THEN REPEAT strip_tac THEN rewrite_tac[]);
+a(all_ε_tac);
+(* *** Goal "1" *** *)
+a(∃_tac⌜x⌝ THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(POP_ASM_T ante_tac THEN PC_T1 "sets_ext" REPEAT strip_tac);
+a(POP_ASM_T (ante_tac o ∀_elim⌜x⌝));
+a(rewrite_tac[] THEN STRIP_T (rewrite_thm_tac o eq_sym_rule));
+val _ = save_consistency_thm ⌜Contents⌝ (pop_thm());
+val ⦏contents_def⦎ = save_thm("contents_def", get_spec⌜$Contents⌝);
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+\subsection{Equivalence Relations}
+%%%%
+%%%%
+%%%%
+%%%%
+=SML
+set_goal([], ⌜
+	∀X; $≜; x y⦁
+	Equiv(X, $≜) ∧ x ∈ X ∧ y ∈ X ⇒
+	(EquivClass(X, $≜)  x = EquivClass(X, $≜) y ⇔ x ≜ y)
+⌝);
+a(PC_T1 "sets_ext1" rewrite_tac[equiv_class_def, equiv_def, sym_def, refl_def, trans_def]
+	THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(DROP_NTH_ASM_T 5 bc_thm_tac THEN REPEAT strip_tac);
+a(DROP_NTH_ASM_T 1 (ante_tac o ∀_elim⌜x⌝));
+a(ALL_ASM_FC_T asm_rewrite_tac[]);
+(* *** Goal "2" *** *)
+a(REPEAT (all_asm_fc_tac[]));
+(* *** Goal "3" *** *)
+a(REPEAT (all_asm_fc_tac[]));
+val ⦏equiv_class_eq_thm⦎ = save_pop_thm "equiv_class_eq_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X; $≜; x y⦁
+	Equiv(X, $≜) ∧ x ∈ X ⇒ x ∈ EquivClass(X, $≜) x
+⌝);
+a(PC_T1 "sets_ext1" rewrite_tac[equiv_class_def, equiv_def, sym_def, refl_def, trans_def]
+	THEN REPEAT strip_tac);
+a(all_asm_fc_tac[]);
+val ⦏equiv_class_∈_thm⦎ = save_pop_thm "equiv_class_∈_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀A a c⦁
+		a ∈ A ∧ (∀x⦁x ∈ A ⇒ f x = c)
+	⇒	{y | ∃x⦁x ∈ A ∧ y = f x} = {c}
+⌝);
+a(PC_T1 "sets_ext1"  REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_asm_fc_tac[] THEN all_var_elim_asm_tac1);
+(* *** Goal "2" *** *)
+a(∃_tac⌜a⌝ THEN REPEAT strip_tac);
+a(ALL_ASM_FC_T asm_rewrite_tac[]);
+val ⦏constant_img_thm⦎ = save_pop_thm "constant_img_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X $≜ f x⦁
+		Equiv(X, $≜)
+	∧	(f Respects $≜) X
+	∧	x ∈ X
+	⇒	{y | ∃z⦁z ∈ EquivClass(X, $≜) x ∧ y = f z} = {f x}
+⌝);
+a(REPEAT strip_tac);
+a(bc_thm_tac constant_img_thm);
+a(∃_tac⌜x⌝ THEN all_asm_ante_tac);
+a(PC_T1 "sets_ext1" rewrite_tac[ respects_def,
+	equiv_class_def, equiv_def, sym_def, refl_def, trans_def]
+		THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(ALL_ASM_FC_T rewrite_tac[]);
+val ⦏respects_img_thm⦎ = save_pop_thm "respects_img_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X $≜ f x⦁
+		Equiv(X, $≜)
+	∧	(f Respects $≜) X
+	∧	x ∈ X
+	⇒	Contents {y | ∃z⦁z ∈ EquivClass(X, $≜) x ∧ y = f z} = f x
+⌝);
+a(REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[respects_img_thm]);
+a(rewrite_tac[contents_def]);
+val ⦏respects_img_contents_thm⦎ = save_pop_thm "respects_img_contents_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X $≜⦁
+		Equiv(X, $≜)
+	⇒	∀A⦁ A ∈ X / ($≜) ⇒ ∃x⦁ x ∈ X ∧ A = EquivClass(X, $≜) x
+
+⌝);
+a(rewrite_tac[ quotient_set_def]);
+val ⦏quotient_map_onto_thm⦎ = save_pop_thm "quotient_map_onto_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀A X $≜ x⦁ A ∈ X / ($≜) ∧ x ∈ A ⇒ x ∈ X
+⌝);
+a(rewrite_tac[ quotient_set_def, equiv_class_def] THEN REPEAT strip_tac);
+a(all_var_elim_asm_tac1);
+val ⦏quotient_∈_thm⦎ = save_pop_thm "quotient_∈_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X $≜⦁ Equiv(X, $≜) ∧ A ∈ X / ($≜) ⇒ ∃x⦁ x ∈ X ∧ x ∈ A
+⌝);
+a(rewrite_tac[ quotient_set_def, equiv_class_def, equiv_def, refl_def] THEN REPEAT strip_tac);
+a(all_var_elim_asm_tac1);
+a(∃_tac⌜x⌝ THEN REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏quotient_rep_∃_thm⦎ = save_pop_thm "quotient_rep_∃_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X f R S⦁
+		(f Respects S) X ∧ (R Refines S) X
+	⇒	(f Respects R) X
+⌝);
+a(rewrite_tac[ respects_def, refines_def] THEN REPEAT strip_tac);
+a(all_asm_fc_tac[] THEN all_asm_fc_tac[]);
+val ⦏respects_refines_thm⦎ = save_pop_thm "respects_refines_thm";
+=TEX
+%%%%
+%%%%
+
+=SML
+
+val ⦏equiv_mono_thm⦎ = save_thm ( "equiv_mono_thm", (
+set_goal([], ⌜∀X $≜ Y⦁
+	Equiv(X, $≜) ∧ Y ⊆ X ⇒ Equiv(Y, $≜)
+⌝);
+a(PC_T1 "sets_ext" rewrite_tac[equiv_def, refl_def, sym_def, trans_def] THEN REPEAT strip_tac
+	THEN REPEAT (all_asm_fc_tac[]));
+pop_thm()
+));
+
+=TEX
+=SML
+set_goal([], ⌜
+	∀X $≜ f x⦁
+		Equiv(X, $≜)
+	∧	(f Respects $≜) X
+	∧	x ∈ X
+	⇒	(f ⋏-) (EquivClass(X, $≜) x) = f x
+⌝);
+a(rewrite_tac[induced_def] THEN REPEAT strip_tac);
+a(bc_thm_tac respects_img_contents_thm THEN REPEAT strip_tac);
+val ⦏induced_fun_equiv_class_thm⦎ = save_pop_thm "induced_fun_equiv_class_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X $≜ f ⦁
+		Equiv(X, $≜)
+	∧	(f Respects $≜) X
+	⇒	∀A x⦁ A ∈ X / $≜ ∧ x ∈ A ⇒ (f ⋏-) A = f x
+⌝);
+a(rewrite_tac[quotient_set_def] THEN REPEAT strip_tac THEN all_var_elim_asm_tac1);
+a(TOP_ASM_T (strip_asm_tac o rewrite_rule[equiv_class_def]));
+a(ALL_FC_T  rewrite_tac[conv_rule(ONCE_MAP_C eq_sym_conv) equiv_class_eq_thm,
+	induced_fun_equiv_class_thm]);
+a(DROP_NTH_ASM_T 5 (strip_asm_tac o rewrite_rule[respects_def]));
+a(all_asm_fc_tac[]);
+val ⦏induced_fun_thm⦎ = save_pop_thm "induced_fun_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X R Y S f ⦁
+		Equiv(X, R)
+	∧	Equiv(Y, S)
+	∧	(∀y⦁ y ∈ Y ⇒ ((λx⦁f x y) Respects R) X)
+	∧	(∀x⦁ x ∈ X ⇒ ((λy⦁f x y) Respects S) Y)
+	⇒	∀A x B y⦁ A ∈ X / R ∧ x ∈ A ∧ B ∈ Y / S ∧ y ∈ B
+			⇒ ((λx⦁(f x ⋏-) B )⋏-) A = f x y
+⌝);
+a(conv_tac (ONCE_MAP_C η_conv) THEN REPEAT strip_tac);
+a(lemma_tac⌜∀x⦁x ∈ X ⇒ (f x ⋏-) B = f x y⌝ THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_asm_fc_tac[] THEN all_fc_tac[induced_fun_thm]);
+(* *** Goal "2" *** *)
+a(lemma_tac⌜((λ x⦁ (f x ⋏-) B) Respects R) X⌝);
+(* *** Goal "2.1" *** *)
+a(rewrite_tac[respects_def] THEN REPEAT strip_tac THEN ALL_ASM_FC_T rewrite_tac[]);
+a(lemma_tac⌜y ∈ Y⌝ THEN1 all_fc_tac[quotient_∈_thm]);
+a(DROP_NTH_ASM_T 11 (ante_tac o rewrite_rule[respects_def] o ∀_elim⌜y⌝));
+a(REPEAT strip_tac THEN all_asm_fc_tac[]);
+(* *** Goal "2.2" *** *)
+a(ALL_FC_T rewrite_tac[induced_fun_thm]);
+a(lemma_tac⌜x ∈ X⌝ THEN1 all_fc_tac[quotient_∈_thm]);
+a(ALL_ASM_FC_T rewrite_tac[]);
+val ⦏induced_fun_induced_fun_thm⦎ = save_pop_thm "induced_fun_induced_fun_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X $≜ f ⦁
+		Equiv(X, $≜)
+	∧	(f Respects $≜) X
+	⇒	∃g⦁ ∀A x⦁ A ∈ X / $≜ ∧ x ∈ A ⇒ g A = f x
+⌝);
+a(REPEAT strip_tac);
+a(∃_tac⌜f ⋏-⌝ THEN REPEAT strip_tac);
+a(all_fc_tac[induced_fun_thm]);
+val ⦏induced_fun_∃_thm⦎ = save_pop_thm "induced_fun_∃_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X $≜ f g h⦁
+		Equiv(X, $≜)
+	∧	(f Respects $≜) X
+	∧	(∀A x⦁ A ∈ X / $≜ ∧ x ∈ A ⇒ g A = f x)
+	∧	(∀A x⦁ A ∈ X / $≜ ∧ x ∈ A ⇒ h A = f x)
+	⇒	(∀A⦁ A ∈ X / $≜  ⇒ h A = g A)
+⌝);
+a(REPEAT strip_tac);
+a(all_fc_tac[quotient_rep_∃_thm]);
+a(ALL_ASM_FC_T rewrite_tac[]);
+val ⦏induced_fun_∃_unique_thm⦎ = save_pop_thm "induced_fun_∃_unique_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X R Y S f ⦁
+		Equiv(X, R)
+	∧	Equiv(Y, S)
+	∧	(∀y⦁ y ∈ Y ⇒ ((λx⦁f x y) Respects R) X)
+	∧	(∀x⦁ x ∈ X ⇒ ((λy⦁f x y) Respects S) Y)
+	⇒	∃g⦁ ∀A x B y⦁ A ∈ X / R ∧ x ∈ A ∧ B ∈ Y / S ∧ y ∈ B
+			⇒ g A B = f x y
+⌝);
+a(REPEAT strip_tac);
+a(∃_tac⌜ λA B⦁ ((λx⦁(f x ⋏-) B )⋏-) A⌝ THEN REPEAT strip_tac THEN rewrite_tac[]);
+a(all_fc_tac[ induced_fun_induced_fun_thm]);
+val ⦏dyadic_induced_fun_∃_thm⦎ = save_pop_thm "dyadic_induced_fun_∃_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X R Y S f g h⦁
+		Equiv(X, R)
+	∧	Equiv(Y, S)
+	∧	(∀y⦁ y ∈ Y ⇒ ((λx⦁f x y) Respects R) X)
+	∧	(∀x⦁ x ∈ X ⇒ ((λy⦁f x y) Respects S) Y)
+	∧	(∀A x B y⦁ A ∈ X / R ∧ x ∈ A ∧ B ∈ Y / S ∧ y ∈ B ⇒ g A B = f x y)
+	∧	(∀A x B y⦁ A ∈ X / R ∧ x ∈ A ∧ B ∈ Y / S ∧ y ∈ B ⇒ h A B = f x y)
+	⇒	(∀A B y⦁ A ∈ X / R ∧ B ∈ Y / S ⇒ h A B = g A B)
+⌝);
+a(REPEAT strip_tac);
+a(all_fc_tac[quotient_rep_∃_thm]);
+a(ALL_ASM_FC_T rewrite_tac[]);
+val ⦏dyadic_induced_fun_∃_unique_thm⦎ = save_pop_thm "dyadic_induced_fun_∃_unique_thm";
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+\subsection{Groups}
+%%%%
+%%%%
+%%%%
+%%%%
+=SML
+open_theory"groups";
+set_merge_pcs["basic_hol1", "'sets_alg"];
+=TEX
+=SML
+=TEX
+=SML
+val ⦏mk_group_def⦎ = get_spec⌜MkGROUP⌝;
+push_consistency_goal⌜Car⌝;
+a(∃_tac⌜ (
+	Car⋎G,
+	(λx y G⦁ Times⋎G G x y),
+	(λx G⦁ Inverse⋎G G x),
+	Unit⋎G) ⌝
+	THEN rewrite_tac[mk_group_def]);
+val _ = save_consistency_thm ⌜Car⌝ (pop_thm());
+val ⦏group_ops_def⦎ = save_thm("group_ops_def", get_spec⌜Car⌝);
+val ⦏group_def⦎ = get_spec⌜Group⌝;
+val ⦏homomorphism_def⦎ = get_spec⌜Homomorphism⌝;
+val ⦏subgroup_def⦎ = get_spec⌜Subgroup⌝;
+val ⦏subgroup_def1⦎ = pc_rule1 "sets_ext1" rewrite_rule[] (get_spec⌜Subgroup⌝);
+val ⦏unit_subgroup_def⦎ = get_spec⌜UnitSubgroup⌝;
+val ⦏restriction_def⦎ = get_spec⌜Restriction⌝;
+val ⦏normal_subgroup_def⦎ = get_spec⌜NormalSubgroup⌝;
+val ⦏ker_def⦎ = get_spec⌜Ker⌝;
+val ⦏right_congruent_def⦎ = get_spec⌜RightCongruent⌝;
+val ⦏group_set_ops_def⦎ = get_spec⌜SetTimesSet⌝;
+val ⦏group_product_def⦎ = get_spec⌜GroupTimesGroup⌝;
+val ⦏quotient_group_def⦎ = get_spec⌜QuotientGroup⌝;
+val ⦏img_def⦎ = get_spec⌜Img⌝;
+val ⦏isomorphism_def⦎ = get_spec⌜Isomorphism⌝;
+val ⦏size_group_def⦎ = get_spec⌜Size⋎G⌝;
+val ⦏×_group_def⦎ = get_spec⌜$×⋎G⌝;
+=TEX
+=SML
+push_consistency_goal⌜Inverse⌝;
+a(prove_∃_tac THEN REPEAT strip_tac);
+a(cases_tac ⌜OneOne f' ∧ Onto f'⌝ THEN asm_rewrite_tac[]);
+a(∃_tac⌜λy⦁εx⦁y = f' x⌝ THEN rewrite_tac[] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_ε_tac);
+(* *** Goal "1.1" *** *)
+a(POP_ASM_T (rewrite_thm_tac o rewrite_rule[onto_def]));
+(* *** Goal "1.2" *** *)
+a(DROP_NTH_ASM_T 3 (strip_asm_tac o rewrite_rule[one_one_def]));
+a(all_asm_fc_tac[]);
+a(POP_ASM_T (accept_tac o eq_sym_rule));
+(* *** Goal "2" *** *)
+a(all_ε_tac);
+(* *** Goal "1.1" *** *)
+a(POP_ASM_T (rewrite_thm_tac o rewrite_rule[onto_def]));
+(* *** Goal "1.2" *** *)
+a(POP_ASM_T (accept_tac o eq_sym_rule));
+val _ = save_consistency_thm ⌜Inverse⌝ (pop_thm());
+val ⦏inverse_def⦎ = save_thm("inverse_def", get_spec⌜Inverse⌝);
+val ⦏sym_group_def⦎ = get_spec⌜SymGroup⌝;
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP⦁
+		G = H
+	⇔	Car G = Car H
+	∧	(∀x y:'a⦁ (x.y)G = (x.y)H)
+	∧	Unit G = Unit H
+	∧	(∀x:'a⦁(x ⋏~) G = (x ⋏~)H)
+⌝);
+a(REPEAT strip_tac THEN_TRY asm_rewrite_tac[] THEN all_asm_ante_tac);
+a(lemma_tac⌜∃gc gm g1 gi hc hm h1 hi⦁ G  = MkGROUP gc gm g1 gi  ∧ H = MkGROUP hc hm h1 hi⌝ THEN1
+	( MAP_EVERY ∃_tac[
+		⌜Car⋎G G⌝, ⌜Times⋎G G⌝, ⌜Unit⋎G G⌝, ⌜Inverse⋎G G⌝,
+		⌜Car⋎G H⌝, ⌜Times⋎G H⌝, ⌜Unit⋎G H⌝, ⌜Inverse⋎G H⌝]
+	THEN rewrite_tac[mk_group_def]));
+a(DROP_ASMS_T rewrite_tac);
+a(rewrite_tac[group_ops_def, mk_group_def]);
+a(REPEAT strip_tac THEN asm_rewrite_tac[]);
+a(LEMMA_T ⌜gm = hm ∧ gi = hi⌝ rewrite_thm_tac);
+a(asm_rewrite_tac[]);
+val ⦏group_eq_group_thm⦎ = save_pop_thm "group_eq_group_thm";
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x : 'a⦁
+	G ∈ Group ∧ x ∈ Car G
+⇒	(x ⋏~)G ∈ Car G
+∧	(x.Unit G) G = x
+∧	(Unit G.x)G = x
+∧	((x ⋏~)G . x) G = Unit G
+∧	(x . (x ⋏~)G) G = Unit G
+⌝);
+a(rewrite_tac[group_def] THEN REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏group_clauses1⦎ = save_pop_thm"group_clauses1";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x y z :'a⦁
+	G ∈ Group ∧ x ∈ Car G ∧ y ∈ Car G
+⇒	(x.y)G ∈ Car G
+∧	∀z⦁ z ∈ Car G ⇒ ((x.y)G.z)G = (x. (y.z)G)G
+⌝);
+a(rewrite_tac[group_def] THEN REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏group_clauses2⦎ =  save_pop_thm"group_clauses2";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x y : 'a⦁
+	G ∈ Group ∧ x ∈ Car G ∧ y ∈ Car G
+⇒	(x = y ⇔ (x.(y ⋏~)G)G = Unit G)
+⌝);
+a(REPEAT strip_tac THEN1
+	(ALL_FC_T asm_rewrite_tac[group_clauses1]));
+a(LEMMA_T ⌜((x . (y ⋏~) G) G .y)G = (Unit G.y)G⌝ ante_tac THEN1 asm_rewrite_tac[]);
+a(lemma_tac⌜(y ⋏~)G  ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(ALL_FC_T rewrite_tac[group_clauses1, group_clauses2]);
+val ⦏group_eq_thm⦎ = save_pop_thm"group_eq_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x y : 'a⦁
+	G ∈ Group ∧ x ∈ Car G ∧ y ∈ Car G
+⇒	(x = y ⇔ ((x ⋏~)G.y)G = Unit G)
+⌝);
+a(REPEAT strip_tac THEN1
+	(ALL_FC_T asm_rewrite_tac[group_clauses1]));
+a(LEMMA_T ⌜(x.((x ⋏~) G . y) G)G = (x.Unit G)G⌝ ante_tac THEN1 asm_rewrite_tac[]);
+a(lemma_tac⌜(x ⋏~)G  ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(ALL_FC_T rewrite_tac[group_clauses1, 
+	conv_rule (ONCE_MAP_C eq_sym_conv) group_clauses2]);
+a(REPEAT strip_tac THEN asm_rewrite_tac[]);
+val ⦏group_eq_thm1⦎ = save_pop_thm"group_eq_thm1";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x y z : 'a⦁
+	G ∈ Group ∧ x ∈ Car G ∧ y ∈ Car G ∧ z ∈ Car G
+⇒	( (x.y) G = (x.z) G ⇔ y = z)
+⌝);
+a(REPEAT strip_tac THEN_LIST [id_tac, asm_rewrite_tac[]]);
+a(lemma_tac⌜ (x ⋏~) G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(LEMMA_T⌜(( (x ⋏~) G. x) G. y) G = (( (x ⋏~) G. x) G. z) G ⌝ ante_tac THEN1
+	ALL_FC_T asm_rewrite_tac[group_clauses2]);
+a(ALL_FC_T rewrite_tac[group_clauses1]);
+val ⦏left_cancel_thm⦎ = save_pop_thm"left_cancel_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x : 'a⦁
+	G ∈ Group ∧ x ∈ Car G
+⇒	((x ⋏~)G ⋏~)G = x
+⌝);
+a(REPEAT strip_tac);
+a(lemma_tac⌜ (x ⋏~) G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(lemma_tac⌜ ((x ⋏~) G. (((x ⋏~)G ⋏~)G)) G = ((x ⋏~) G. x)  G ⌝ THEN1
+	ALL_FC_T asm_rewrite_tac[group_clauses1]);
+a(lemma_tac⌜ ((x ⋏~) G ⋏~)G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(all_fc_tac[left_cancel_thm]);
+val ⦏inverse_inverse_thm⦎ = save_pop_thm"inverse_inverse_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x y⦁
+	G ∈ Group ∧ x ∈ Car G ∧ y ∈ Car G
+⇒	(x.((x ⋏~)G.y)G)G = y
+∧	((x ⋏~)G.(x.y)G)G = y
+⌝);
+a(REPEAT strip_tac THEN
+	(lemma_tac⌜((x:'a) ⋏~)G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]));
+(* *** Goal "1" *** *)
+a(LEMMA_T⌜(x.((x ⋏~)G.y)G)G = ((x.(x ⋏~)G)G.y)G⌝ rewrite_thm_tac THEN1
+	ALL_FC_T rewrite_tac[group_clauses2]);
+a(ALL_FC_T rewrite_tac[group_clauses1]);
+(* *** Goal "2" *** *)
+a(LEMMA_T⌜((x ⋏~)G.(x.y)G)G = (((x ⋏~)G.x)G.y)G⌝ rewrite_thm_tac THEN1
+	ALL_FC_T rewrite_tac[group_clauses2]);
+a(ALL_FC_T rewrite_tac[group_clauses1]);
+val ⦏group_clauses3⦎ = save_pop_thm"group_clauses3";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x y⦁
+	G ∈ Group ∧ x ∈ Car G ∧ y ∈ Car G
+⇒	((x.y)G ⋏~)G = ((y ⋏~)G. (x ⋏~)G)G
+⌝);
+a(REPEAT strip_tac);
+a(lemma_tac⌜(x.y)G ∈ Car G ∧  (x ⋏~) G ∈ Car G  ∧  (y ⋏~) G ∈ Car G⌝ THEN1 
+	(all_fc_tac[group_clauses1, group_clauses2] THEN REPEAT strip_tac));
+a(lemma_tac⌜((x.y)G.((x . y) G ⋏~) G)G = ((x.y)G.((y ⋏~) G . (x ⋏~) G) G)G⌝);
+(* *** Goal "1" *** *)
+a(ALL_FC_T rewrite_tac[group_clauses1]);
+a(lemma_tac⌜((y ⋏~) G . (x ⋏~) G) G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses2]);
+a(ALL_FC_T rewrite_tac[ group_clauses1, group_clauses2, group_clauses3]);
+(* *** Goal "2" *** *)
+a(lemma_tac⌜((x . y) G ⋏~) G ∈ Car G ∧  ((y ⋏~) G . (x ⋏~) G) G ∈ Car G ⌝ THEN1
+	(all_fc_tac[group_clauses1, group_clauses2] THEN REPEAT strip_tac));
+a(all_fc_tac[left_cancel_thm]);
+val ⦏times_inverse_thm⦎ = save_pop_thm"times_inverse_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G  : 'a GROUP; x y⦁
+	G ∈ Group ∧ x ∈ Car G ∧ y ∈ Car G
+⇒	((x.y)G = Unit G ⇔ y = (x ⋏~)G)
+⌝);
+a(REPEAT strip_tac THEN_LIST [id_tac,
+	all_var_elim_asm_tac1 THEN all_fc_tac[group_clauses1]]);
+a(lemma_tac⌜(x.y) G = (x.(x ⋏~)G)G⌝ THEN1
+	ALL_FC_T asm_rewrite_tac[group_clauses1]);
+a(lemma_tac⌜(x ⋏~)G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(all_fc_tac[left_cancel_thm]);
+val ⦏inverse_unique_thm⦎ = save_pop_thm"inverse_unique_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP⦁
+	G ∈ Group
+⇒	Unit G ∈ Car G
+⌝);
+a(rewrite_tac[group_def] THEN REPEAT strip_tac THEN asm_rewrite_tac[]);
+val ⦏unit_clauses_lemma⦎ = pop_thm();
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP⦁
+	G ∈ Group
+⇒	Unit G ∈ Car G
+∧	((Unit G) ⋏~)G = Unit G
+⌝);
+a(REPEAT strip_tac THEN all_fc_tac[unit_clauses_lemma]);
+a(lemma_tac⌜(Unit G.Unit G)G = Unit G⌝ THEN1 ALL_FC_T rewrite_tac[group_clauses1]);
+a(all_fc_tac[inverse_unique_thm]);
+a(conv_tac eq_sym_conv THEN REPEAT strip_tac);
+val ⦏group_clauses4⦎ = save_pop_thm"group_clauses4";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; x y⦁
+	G ∈ Group ∧ x ∈ Car G ∧ y ∈ Car G
+⇒	( (x.y)G = x ⇔ y = Unit G )
+⌝);
+a(REPEAT strip_tac THEN_LIST [id_tac,
+	all_var_elim_asm_tac1 THEN all_fc_tac[group_clauses1]]);
+a(lemma_tac ⌜(x . y) G = (x. Unit G) G⌝ THEN1
+	ALL_FC_T asm_rewrite_tac[group_clauses1]);
+a(all_fc_tac[group_clauses4] THEN all_fc_tac[left_cancel_thm]);
+val ⦏unit_unique_thm⦎ = save_pop_thm"unit_unique_thm";
+=TEX
+Some proof automation is now in order. A really good conditional rewriting tool could do
+most of this automatically. Given the tools to hand, we create a customised conditional
+rewriting tool.
+
+The following two rules are lifted from WRK066; they probably belong in ProofPower.
+=SML
+fun ⦏asm_∧_intro_rule⦎ (thm : THM) : THM = (
+	case asms thm of
+		(asm1::asm2::_) => (
+		let	val thm1 = asm_rule (mk_∧(asm1, asm2));
+			val thm2 = ∧_left_elim thm1;
+			val thm3 = ∧_right_elim thm1;
+			val thm4 = prove_asm_rule thm2 thm;
+			val thm5 = prove_asm_rule thm3 thm4;
+		in	asm_∧_intro_rule thm5
+		end
+	) | 	_ => thm
+);
+fun ⦏all_undisch_rule⦎ (thm : THM)  : THM = (
+	all_undisch_rule (undisch_rule thm) handle Fail _ =>  thm
+);
+=TEX
+Our customised rewriting tool will take terms constructed using the group operations (multiplication, inverse and unit) and put them in the ``free group normal form.
+
+First of all we extract the lemmas we need from the various portmanteau theorems:
+=SML
+val all_thms =
+	(fc_canon( list_∧_intro [
+	group_clauses1,
+	group_clauses2,
+	inverse_inverse_thm,
+	group_clauses3,
+	times_inverse_thm,
+	group_clauses4
+]));
+(*
+val all_thms = all_thms1 @
+	mapfilter (pure_rewrite_rule[group_ops_def])
+	all_thms1;\
+*)
+val eq_thms = map (all_undisch_rule o all_∀_elim o rewrite_rule[]) all_thms drop (not o is_eq o concl);
+val ∈_thms = map ⇔_t_intro (map (all_undisch_rule o all_∀_elim o rewrite_rule[])
+	all_thms drop (is_eq o concl));
+=TEX
+We derive equation contexts (efficient rewrite systems) from the two sets of lemmas:
+=SML
+val eq_eqn_cxt :EQN_CXT = map (fn th => (fst(dest_eq(concl th)), eq_match_conv th)) eq_thms;
+val ∈_eqn_cxt :EQN_CXT = map (fn th => (fst(dest_eq(concl th)), eq_match_conv th)) ∈_thms;
+=TEX
+The corresponding conversions do one step of the expression rewriting or side-condition simplification:
+=SML
+val eq_rw_conv = eqn_cxt_conv eq_eqn_cxt;
+val ∈_rw_conv = eqn_cxt_conv ∈_eqn_cxt;
+=TEX
+The following rule simplifies the assumptions by repeatedly looking for assumptions that can be simplified and simplifying them.
+=SML
+fun simplify_asm (thm : THM)  : THM = (
+	let	fun try [] = fail "simplify_asm" 7061 []
+		|   try (tm :: more) =(
+			⇔_t_elim (∈_rw_conv tm)
+			handle Fail _ => try more
+		);
+	in	prove_asm_rule (try (asms thm)) thm
+	end
+);
+=TEX
+That gives a general tactic for groups which is parametrised by a conversional to control how the the term structure is to be traversed:
+=SML
+fun ⦏gen_group_nf_tac⦎ (cnvl : CONV -> CONV) : TACTIC = (fn gl as (hyps, conc) =>
+	let	val thm1 = cnvl eq_rw_conv conc;
+		val thm2 = all_⇒_intro (asm_∧_intro_rule (iterate simplify_asm thm1));
+		val lemma_tm = fst(dest_⇒(concl thm2));
+		fun thm_tac lemma_thm = (
+			let	val thm3 = ⇒_elim thm2 lemma_thm;
+			in	conv_tac (simple_eq_match_conv thm3)
+			end
+		);
+	in	LEMMA_T lemma_tm thm_tac gl
+	end
+);
+=TEX
+Next, we define the form we will use most frequently which uses the standard top-down traversal doing as much as you can at each node before doing sub-nodes.
+=SML
+val ⦏group_nf_tac⦎ : TACTIC = gen_group_nf_tac TOP_MAP_C;
+=TEX
+We also derive a tactic which will simplify assertions that expressions are members of a group:
+=SML
+fun ⦏gen_group_∈_tac⦎ (cnvl : CONV -> CONV) : TACTIC = (fn gl as (hyps, conc) =>
+	let	val thm1 = cnvl ∈_rw_conv conc;
+		val thm2 = all_⇒_intro (asm_∧_intro_rule thm1);
+		val lemma_tm = fst(dest_⇒(concl thm2));
+		fun thm_tac lemma_thm = (
+			let	val thm3 = ⇒_elim thm2 lemma_thm;
+			in	conv_tac (simple_eq_match_conv thm3)
+			end
+		);
+	in	LEMMA_T lemma_tm thm_tac gl
+	end
+);
+val ⦏group_∈_tac⦎ : TACTIC = REPEAT (gen_group_∈_tac ONCE_MAP_C);
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H)
+⇒	f(Unit G) = Unit H
+⌝);
+a(rewrite_tac[homomorphism_def] THEN
+	REPEAT strip_tac);
+a(lemma_tac ⌜Unit G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses4]);
+a(LEMMA_T ⌜f( (Unit G.Unit G)G) = f(Unit G)⌝ ante_tac THEN1
+	(group_nf_tac THEN REPEAT strip_tac));
+a(ALL_ASM_FC_T rewrite_tac[]);
+a(REPEAT strip_tac);
+a(lemma_tac⌜f(Unit G) ∈ Car H⌝ THEN1 all_asm_fc_tac[]);
+a(all_fc_tac[unit_unique_thm]);
+val ⦏homomorphism_unit_thm⦎ = save_pop_thm "homomorphism_unit_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b; x : 'a⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H) ∧ x ∈ Car G
+⇒	f((x ⋏~)G) = ((f x) ⋏~) H
+⌝);
+a(REPEAT strip_tac THEN all_fc_tac[homomorphism_unit_thm] THEN all_asm_ante_tac THEN
+	rewrite_tac[homomorphism_def] THEN
+		REPEAT strip_tac);
+a(lemma_tac⌜(x ⋏~) G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(lemma_tac⌜f x ∈ Car H⌝ THEN1 all_asm_fc_tac[]);
+a(lemma_tac⌜f ((x ⋏~) G) ∈ Car H⌝ THEN1 all_asm_fc_tac[]);
+a(LEMMA_T ⌜f((x.(x ⋏~)G)G ) = Unit H⌝ ante_tac THEN1 (group_nf_tac THEN REPEAT strip_tac));
+a(ALL_ASM_FC_T rewrite_tac[]);
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[inverse_unique_thm]);
+val ⦏homomorphism_inverse_thm⦎ = save_pop_thm "homomorphism_inverse_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b ⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H) 
+⇒	f(Unit G) = Unit H
+∧	(∀x⦁ x ∈ Car G ⇒ f((x ⋏~)G) = ((f x) ⋏~) H)
+∧	(∀x y⦁x ∈ Car G ∧ y ∈ Car G ⇒  f ((x . y) G) = (f x . f y) H)
+⌝);
+a(REPEAT ∀_tac THEN ⇒_tac THEN TOP_ASM_T ante_tac THEN
+	rewrite_tac[homomorphism_def] THEN
+		REPEAT strip_tac THEN_TRY
+		ALL_ASM_FC_T rewrite_tac[homomorphism_unit_thm, homomorphism_inverse_thm]);
+val ⦏homomorphism_clauses⦎ = save_pop_thm "homomorphism_clauses";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b; x : 'a ⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H) ∧ x ∈ Car G
+⇒	f x ∈ Car H
+⌝);
+a(rewrite_tac[homomorphism_def] THEN REPEAT strip_tac);
+a(all_asm_fc_tac[]);
+val ⦏homomorphism_∈_car_thm⦎ = save_pop_thm "homomorphism_∈_car_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP; x y : 'a⦁
+	G ∈ Group ∧ H ∈ Subgroup G
+⇒	((x.y)H = (x.y)G)
+∧	Unit H = Unit G
+∧	 (x ⋏~)H = (x ⋏~)G
+⌝);
+a(rewrite_tac[subgroup_def1] THEN REPEAT ∀_tac THEN ⇒_tac);
+a(lemma_tac⌜Unit H ∈ Car H⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(lemma_tac⌜Unit H ∈ Car G⌝ THEN1 all_asm_fc_tac[]);
+a(LEMMA_T⌜(Unit H.Unit H)G = (Unit H.Unit H)H⌝ ante_tac THEN1 asm_rewrite_tac[]);
+a(group_nf_tac THEN1 strip_tac);
+a(ALL_FC_T1 fc_⇔_canon asm_rewrite_tac[unit_unique_thm]);
+val ⦏subgroup_clauses⦎ = save_pop_thm "subgroup_clauses";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP⦁ G ∈ Group
+⇒	G ∈ Subgroup G
+∧	UnitSubgroup G ∈ Subgroup G
+⌝);
+a(rewrite_tac[subgroup_def1, unit_subgroup_def,
+group_ops_def,
+	mk_group_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_var_elim_asm_tac1 THEN group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(rewrite_tac[group_def, group_ops_def, mk_group_def]);
+a(REPEAT strip_tac THEN_TRY all_var_elim_asm_tac1
+	THEN_TRY
+	group_nf_tac THEN REPEAT strip_tac);
+val ⦏trivial_subgroups_thm⦎ = save_pop_thm "trivial_subgroups_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ K ∈ Subgroup H ∧ H ∈ Subgroup G
+⇒	K ∈ Subgroup G
+⌝);
+a(rewrite_tac[subgroup_def1] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_asm_fc_tac[] THEN all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(asm_rewrite_tac[]);
+(* *** Goal "3" *** *)
+a(asm_rewrite_tac[]);
+val ⦏subgroup_trans_thm⦎ = save_pop_thm "subgroup_trans_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ Subgroup G ∧ Car K ⊆ Car H
+⇒	K ∈ Subgroup H
+⌝);
+a(PC_T1 "sets_ext1" rewrite_tac[subgroup_def1] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(asm_rewrite_tac[]);
+(* *** Goal "3" *** *)
+a(asm_rewrite_tac[]);
+val ⦏subgroup_⊆_subgroup_thm⦎ = save_pop_thm "subgroup_⊆_subgroup_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ Subgroup G
+⇒	(K = H ⇔ Car K = Car H)
+⌝);
+a(REPEAT strip_tac THEN1 asm_rewrite_tac[]);
+a(GET_NTH_ASM_T 3 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(GET_NTH_ASM_T 6 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_fc_tac[ subgroup_clauses]);
+a(asm_rewrite_tac[group_eq_group_thm]);
+val ⦏subgroup_eq_thm⦎ = save_pop_thm "subgroup_eq_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G
+⇒	(λx⦁ x) ∈ Homomorphism (H, G)
+⌝);
+a(rewrite_tac[homomorphism_def, subgroup_def1] THEN REPEAT strip_tac
+	THEN ALL_ASM_FC_T asm_rewrite_tac[]);
+val ⦏subgroup_homomorphism_thm⦎ = save_pop_thm "subgroup_homomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP⦁
+	G ∈ Group
+⇒	(λx⦁ x) ∈ Homomorphism (G, G)
+⌝);
+a(REPEAT strip_tac THEN all_fc_tac[trivial_subgroups_thm] THEN
+	all_fc_tac[subgroup_homomorphism_thm]);
+val ⦏id_homomorphism_thm⦎ = save_pop_thm "id_homomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP⦁
+	G ∈ Group ∧ H ∈ Group
+⇒	(λx⦁ Unit H) ∈ Homomorphism (G, H)
+⌝);
+a(rewrite_tac[homomorphism_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(group_nf_tac THEN REPEAT strip_tac);
+val ⦏unit_homomorphism_thm⦎ = save_pop_thm "unit_homomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; K : 'c GROUP; f : 'a → 'b; g : 'b → 'c⦁
+	G ∈ Group ∧ H ∈ Group ∧ K ∈ Group
+∧	f ∈ Homomorphism(G, H) ∧ g ∈ Homomorphism(H, K)
+⇒	(λx⦁ g(f x)) ∈ Homomorphism (G, K)
+⌝);
+a(rewrite_tac[homomorphism_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_asm_fc_tac[] THEN all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(all_asm_fc_tac[]);
+a(ALL_ASM_FC_T rewrite_tac[]);
+val ⦏comp_homomorphism_thm⦎ = save_pop_thm "comp_homomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀A : 'a SET; G : 'a GROUP⦁
+	G ∈ Group
+⇒	(	A ∩ G ∈ Subgroup G
+	⇔	(∀x y⦁x ∈ A ∧ x ∈ Car G ∧ y ∈ A ∧ y ∈ Car G ⇒ (x.y)G ∈ A)
+	∧	(∀x⦁x ∈ A ∧ x ∈ Car G ⇒ (x ⋏~)G ∈ A)
+	∧	Unit G ∈ A)
+⌝);
+a(rewrite_tac[restriction_def, group_def, group_ops_def, mk_group_def, subgroup_def1] THEN REPEAT strip_tac
+	THEN all_asm_fc_tac[]);
+val ⦏restriction_subgroup_thm⦎ = save_pop_thm "restriction_subgroup_thm";
+=TEX
+Without the custom tactics for groups, the first strip in the next theorem produces 13 subgoals rather than 4.
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H)
+⇒	Ker f (G, H) ∈ NormalSubgroup G
+⌝);
+a(rewrite_tac[ker_def, normal_subgroup_def, subgroup_def1, group_ops_def] THEN
+	REPEAT strip_tac THEN1
+	rewrite_tac[group_def, group_ops_def] THEN REPEAT strip_tac
+	THEN_TRY (SOLVED_T ((group_nf_tac ORELSE group_∈_tac)THEN REPEAT strip_tac)));
+(* *** Goal "1" *** *)
+a(ALL_FC_T asm_rewrite_tac[group_clauses1, homomorphism_clauses]);
+a(all_fc_tac[group_clauses4]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(all_fc_tac[homomorphism_unit_thm]);
+(* *** Goal "3" *** *)
+a(ALL_FC_T asm_rewrite_tac[homomorphism_inverse_thm, group_clauses4]);
+(* *** Goal "4" *** *)
+a(lemma_tac⌜(y ⋏~) G ∈ Car G ∧ (x.y) G ∈ Car G⌝ THEN1 
+	(group_∈_tac THEN REPEAT strip_tac));
+a(rename_tac[(⌜y⌝, "yy")] THEN  ALL_FC_T asm_rewrite_tac[homomorphism_clauses,
+	homomorphism_inverse_thm]);
+a(group_nf_tac THEN REPEAT strip_tac);
+a(all_fc_tac[homomorphism_∈_car_thm]);
+val ⦏ker_normal_subgroup_thm⦎ = save_pop_thm "ker_normal_subgroup_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP ⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ NormalSubgroup G ∧ K ∈ Subgroup H
+⇒	K∈ NormalSubgroup H
+⌝);
+a(rewrite_tac[normal_subgroup_def] THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 6 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(LIST_GET_NTH_ASM_T [4] all_fc_tac);
+a(asm_rewrite_tac[] THEN all_asm_fc_tac[]);
+val ⦏subgroup_normal_subgroup_thm⦎ = save_pop_thm "subgroup_normal_subgroup_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G
+⇒	Equiv(Car G, RightCongruent H G)
+⌝);
+a(rewrite_tac[equiv_def, refl_def, sym_def, trans_def, right_congruent_def] THEN REPEAT strip_tac 
+	THEN all_fc_tac[subgroup_def1]);
+(* *** Goal "1" *** *)
+a(ALL_FC_T rewrite_tac[group_clauses1]);
+a(LEMMA_T ⌜Unit G = Unit H⌝ rewrite_thm_tac THEN1 ALL_FC_T rewrite_tac[subgroup_clauses]);
+a(all_fc_tac [group_clauses4]);
+(* *** Goal "2" *** *)
+a(LEMMA_T ⌜((((x ⋏~) G . y) G)  ⋏~)H ∈ Car H⌝ ante_tac
+	THEN1 all_fc_tac[group_clauses1]);
+a(ALL_FC_T rewrite_tac[subgroup_clauses]);
+a(lemma_tac⌜(x ⋏~)G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(ALL_FC_T rewrite_tac[times_inverse_thm, inverse_inverse_thm]);
+(* *** Goal "3" *** *)
+a(LEMMA_T ⌜(((x ⋏~) G . y) G . ((y ⋏~) G . z) G) H ∈ Car H⌝ ante_tac
+	THEN1 all_fc_tac[group_clauses2]);
+a(ALL_FC_T rewrite_tac[subgroup_clauses]);
+a(lemma_tac⌜(x ⋏~)G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(lemma_tac⌜(y ⋏~)G ∈ Car G⌝ THEN1 all_fc_tac[group_clauses1]);
+a(ALL_FC_T rewrite_tac[group_clauses2, group_clauses3]);
+val ⦏right_congruent_equiv_thm⦎ = save_pop_thm "right_congruent_equiv_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP ⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ Subgroup G
+⇒	H.K = (Car H.Car K)G ∩ G
+⌝);
+a(rewrite_tac[group_product_def, restriction_def] THEN REPEAT ∀_tac THEN ⇒_tac);
+a(LIST_GET_NTH_ASM_T[1, 2] (MAP_EVERY (strip_asm_tac o rewrite_rule[subgroup_def1])));
+a(ALL_FC_T asm_rewrite_tac[subgroup_clauses]);
+a(asm_rewrite_tac[group_eq_group_thm,
+	group_set_ops_def, group_ops_def,
+	mk_group_def]);
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(∃_tac⌜a⌝ THEN ∃_tac⌜b⌝ THEN asm_rewrite_tac[]);
+(* *** Goal "2" *** *)
+a(all_var_elim_asm_tac1 THEN all_asm_fc_tac[] THEN group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "3" *** *)
+a(∃_tac⌜a⌝ THEN ∃_tac⌜b⌝ THEN asm_rewrite_tac[]);
+val ⦏group_product_restriction_thm⦎ = save_pop_thm "group_product_restriction_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP ⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ NormalSubgroup G
+⇒	H.K ∈ Subgroup G
+⌝);
+a(REPEAT strip_tac THEN POP_ASM_T (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(ALL_FC_T rewrite_tac[group_product_restriction_thm]);
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[restriction_subgroup_thm]);
+a(LIST_GET_NTH_ASM_T[2, 3] (MAP_EVERY (strip_asm_tac o rewrite_rule[subgroup_def1])));
+a(rewrite_tac[group_set_ops_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_var_elim_asm_tac1);
+a(∃_tac⌜(a.a')H⌝ THEN ∃_tac⌜(((a' ⋏~) G . (b . a') G) G.b')K⌝);
+a(REPEAT strip_tac);
+(* *** Goal "1.1" *** *)
+a(group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "1.2" *** *)
+a(group_∈_tac THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T  15 bc_thm_tac);
+a(REPEAT strip_tac THEN all_asm_fc_tac[]);
+(* *** Goal "1.3" *** *)
+a(asm_rewrite_tac[] THEN group_nf_tac THEN REPEAT strip_tac THEN all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(all_var_elim_asm_tac1);
+a(∃_tac⌜(a ⋏~)H⌝ THEN ∃_tac⌜(((a ⋏~) G ⋏~) G . ((b ⋏~)K . (a ⋏~)G) G) G⌝);
+a(REPEAT strip_tac);
+(* *** Goal "2.1" *** *)
+a(group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "2.2" *** *)
+a(GET_NTH_ASM_T  12 bc_thm_tac);
+a(group_∈_tac THEN REPEAT strip_tac THEN all_asm_fc_tac[]);
+(* *** Goal "2.3" *** *)
+a(asm_rewrite_tac[] THEN group_nf_tac THEN REPEAT strip_tac THEN all_asm_fc_tac[]);
+(* *** Goal "3" *** *)
+a(∃_tac⌜Unit H⌝ THEN ∃_tac⌜Unit K⌝);
+a(group_∈_tac THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[subgroup_clauses] THEN group_nf_tac THEN REPEAT strip_tac);
+val ⦏group_product_subgroup_thm⦎ = save_pop_thm "group_product_subgroup_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP; x : 'a⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ x ∈ Car G
+⇒	(x.Car H)G = EquivClass(Car G, RightCongruent H G) x
+⌝);
+a(rewrite_tac[respects_def, subgroup_def1, group_set_ops_def, right_congruent_def,
+	equiv_class_def]
+	THEN PC_T1 "sets_ext1" REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(asm_rewrite_tac[] THEN group_∈_tac THEN REPEAT strip_tac);
+a(all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(asm_rewrite_tac[] THEN group_nf_tac THEN REPEAT strip_tac);
+a(all_asm_fc_tac[]);
+(* *** Goal "3" *** *)
+a(∃_tac⌜((x ⋏~)G.x')G⌝ THEN REPEAT strip_tac);
+a(group_nf_tac THEN REPEAT strip_tac);
+val ⦏right_coset_equiv_class_thm⦎ = save_pop_thm "right_coset_equiv_class_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP; x : 'a⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ x ∈ Car G ∧ y ∈ Car G
+⇒	((x.Car H)G = (y.Car H)G ⇔ RightCongruent H G x y)
+⌝);
+a(REPEAT ∀_tac THEN ⇒_tac);
+a(ALL_FC_T rewrite_tac[right_coset_equiv_class_thm]);
+a(all_fc_tac[right_congruent_equiv_thm]);
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[equiv_class_eq_thm]);
+val ⦏right_coset_eq_thm⦎ = save_pop_thm "right_coset_eq_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP; x y⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G ∧ x ∈ Car G ∧  y ∈ Car G
+⇒	((x.Car H)G.(y.Car H)G)G = ((x.y)G.Car H)G
+⌝);
+a(rewrite_tac[group_set_ops_def] THEN PC_T1 "sets_ext1" REPEAT strip_tac
+	THEN all_var_elim_asm_tac1);
+(* *** Goal "1" *** *)
+a(∃_tac⌜(((y ⋏~) G . (b' . y) G) G.b'')H⌝);
+a(GET_NTH_ASM_T 5 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(REPEAT strip_tac );
+(* *** Goal "1.1" *** *)
+a(gen_group_∈_tac ONCE_MAP_C THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 5 bc_thm_tac THEN REPEAT strip_tac);
+(* *** Goal "1.2" *** *)
+a(LIST_GET_NTH_ASM_T[4] all_fc_tac THEN asm_rewrite_tac[]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(∃_tac⌜(x.(((y ⋏~) G ⋏~)G. (b . (y ⋏~)G) G) G)H⌝ THEN ∃_tac⌜y⌝ THEN REPEAT strip_tac);
+(* *** Goal "2.1" *** *)
+a(GET_NTH_ASM_T 4 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(∃_tac⌜(((y ⋏~) G ⋏~)G. (b . (y ⋏~)G)G)G⌝ );
+a(REPEAT strip_tac THEN1
+	(POP_ASM_T bc_thm_tac THEN group_∈_tac THEN REPEAT strip_tac));
+a(GET_NTH_ASM_T 2 (rewrite_thm_tac o rewrite_rule[subgroup_def1]));
+(* *** Goal "2.2" *** *)
+a(GET_NTH_ASM_T 4 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(∃_tac⌜Unit H⌝ THEN group_∈_tac THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[subgroup_clauses] THEN group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2.3" *** *)
+a(GET_NTH_ASM_T 4 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(asm_rewrite_tac[] THEN group_nf_tac THEN REPEAT strip_tac);
+a(all_asm_fc_tac[]);
+val ⦏quotient_group_times_thm⦎ = save_pop_thm "quotient_group_times_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP; x y⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G ∧ x ∈ Car G ∧  y ∈ Car G
+⇒	((x.Car H)G ⋏~)G = ((x ⋏~)G.Car H)G
+⌝);
+a(rewrite_tac[group_set_ops_def] THEN PC_T1 "sets_ext1" REPEAT strip_tac
+	THEN all_var_elim_asm_tac1);
+(* *** Goal "1" *** *)
+a(GET_NTH_ASM_T 4 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(∃_tac⌜(((x ⋏~) G ⋏~)G. ((b ⋏~)G . (x ⋏~)G) G) G⌝ THEN REPEAT strip_tac);
+(* *** Goal "1.1" *** *)
+a(DROP_NTH_ASM_T 5 bc_thm_tac THEN group_∈_tac THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[conv_rule(ONCE_MAP_C eq_sym_conv) subgroup_clauses]);
+a(group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "1.2" *** *)
+a(group_nf_tac THEN REPEAT strip_tac);
+a(all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(GET_NTH_ASM_T 4 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(∃_tac⌜(x.((x ⋏~)G. ((b ⋏~)G . x) G) G)G⌝ THEN REPEAT strip_tac);
+(* *** Goal "2.1" *** *)
+a(∃_tac⌜((x ⋏~) G . ((b ⋏~) G . x) G) G⌝ THEN REPEAT strip_tac
+	THEN1 (DROP_NTH_ASM_T 5 bc_thm_tac THEN group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T rewrite_tac[conv_rule(ONCE_MAP_C eq_sym_conv) subgroup_clauses]);
+a(group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "2.2" *** *)
+a(group_nf_tac THEN REPEAT strip_tac);
+a(all_asm_fc_tac[]);
+val ⦏quotient_group_inverse_thm⦎ = save_pop_thm "quotient_group_inverse_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP; C : 'a SET⦁
+	G ∈ Group ∧ C ∈ Car (G / H)
+⇒	∃x⦁x ∈ Car G ∧ C = (x.Car H)G
+⌝);
+a(rewrite_tac[quotient_group_def, group_ops_def] THEN taut_tac);
+val ⦏quotient_group_rep_∃_thm⦎ = save_pop_thm "quotient_group_rep_∃_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G
+⇒	G / H ∈ Group
+⌝);
+a(REPEAT strip_tac THEN rewrite_tac[group_def,
+	quotient_group_def, group_ops_def] THEN REPEAT strip_tac
+	THEN_TRY all_var_elim_asm_tac1);
+(* *** Goal "1" *** *)
+a(∃_tac⌜(x'.x'')G⌝ THEN1 group_∈_tac THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[quotient_group_times_thm]);
+(* *** Goal "2" *** *)
+a(lemma_tac⌜(x'.x'')G ∈ Car G ∧ (x''.x''')G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T rewrite_tac[quotient_group_times_thm]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "3" *** *)
+a(∃_tac⌜Unit G⌝ THEN group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "4" *** *)
+a(lemma_tac⌜Unit G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T rewrite_tac[quotient_group_times_thm]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "5" *** *)
+a(lemma_tac⌜Unit G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T rewrite_tac[quotient_group_times_thm]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "6" *** *)
+a(∃_tac⌜(x' ⋏~)G⌝ THEN1 group_∈_tac THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[quotient_group_inverse_thm]);
+(* *** Goal "7" *** *)
+a(lemma_tac⌜(x' ⋏~)G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T rewrite_tac[quotient_group_inverse_thm, quotient_group_times_thm]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "8" *** *)
+a(lemma_tac⌜(x' ⋏~)G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T rewrite_tac[quotient_group_inverse_thm, quotient_group_times_thm]);
+a(group_nf_tac THEN REPEAT strip_tac);
+val ⦏quotient_group_group_thm⦎ = save_pop_thm "quotient_group_group_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G
+⇒	(λx⦁(x.Car H)G) ∈ Homomorphism (G, G / H)
+⌝);
+a(rewrite_tac[homomorphism_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(rewrite_tac[quotient_group_def, group_ops_def]);
+a(∃_tac⌜x⌝ THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(rewrite_tac[quotient_group_def, group_ops_def]);
+a(ALL_FC_T rewrite_tac[quotient_group_times_thm]);
+val ⦏quotient_group_homomorphism_thm⦎ = save_pop_thm "quotient_group_homomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G
+⇒	Ker ((λx⦁(x.Car H)G))  (G, G / H) = H
+⌝);
+a(rewrite_tac[ker_def, group_eq_group_thm, group_ops_def] THEN REPEAT strip_tac
+	THEN TOP_ASM_T (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+(* *** Goal "1" *** *)
+a(rewrite_tac [quotient_group_def, group_ops_def]);
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "1.1" *** *)
+a(lemma_tac⌜Unit G ∈ Car G⌝ THEN1 group_∈_tac THEN REPEAT strip_tac);
+a(all_fc_tac[right_coset_eq_thm]);
+a(POP_ASM_T ante_tac THEN rewrite_tac[right_congruent_def]);
+a(group_nf_tac THEN REPEAT strip_tac);
+a(DROP_NTH_ASM_T  6 (strip_asm_tac o rewrite_rule[subgroup_def]));
+a(LEMMA_T ⌜x = ((x ⋏~)H ⋏~)H⌝ once_rewrite_thm_tac THEN1
+	(asm_rewrite_tac[] THEN group_nf_tac THEN REPEAT strip_tac));
+a(gen_group_∈_tac ONCE_MAP_C THEN asm_rewrite_tac[]);
+(* *** Goal "1.2" *** *)
+a(DROP_NTH_ASM_T  3 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_asm_fc_tac[]);
+(* *** Goal "1.3" *** *)
+a(lemma_tac⌜Unit G ∈ Car G⌝ THEN1 group_∈_tac THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T  4 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_asm_fc_tac[]);
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[right_coset_eq_thm]);
+a(rewrite_tac[right_congruent_def]);
+a(group_nf_tac THEN REPEAT strip_tac);
+a(LEMMA_T ⌜(x ⋏~) G = (x ⋏~) H⌝ rewrite_thm_tac THEN1 asm_rewrite_tac[]);
+a(group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(GET_NTH_ASM_T  2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(asm_rewrite_tac[]);
+(* *** Goal "3" *** *)
+a(ALL_FC_T rewrite_tac[subgroup_clauses]);
+(* *** Goal "4" *** *)
+a(GET_NTH_ASM_T  2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(asm_rewrite_tac[]);
+val ⦏ker_right_coset_thm⦎ = save_pop_thm "ker_right_coset_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H)
+⇒	Img f (Car G)  H ∈ Subgroup H
+⌝);
+a(REPEAT strip_tac THEN rewrite_tac[img_def, subgroup_def, group_ops_def]
+	THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(PC_T1 "sets_ext1" REPEAT strip_tac);
+a(all_var_elim_asm_tac1 THEN all_fc_tac[homomorphism_∈_car_thm]);
+(* *** Goal "2" *** *)
+a(LIST_GET_NTH_ASM_T [1, 2] (MAP_EVERY ante_tac));
+a(rewrite_tac[homomorphism_def, group_def, group_ops_def] THEN REPEAT strip_tac
+	THEN_TRY all_var_elim_asm_tac1);
+(* *** Goal "2.1" *** *)
+a(∃_tac⌜(x'.x'')G⌝);
+a(group_∈_tac THEN REPEAT strip_tac THEN ALL_ASM_FC_T rewrite_tac[]);
+(* *** Goal "2.2" *** *)
+a(all_fc_tac[homomorphism_∈_car_thm] THEN group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2.3" *** *)
+a(∃_tac⌜Unit G⌝);
+a(group_∈_tac THEN REPEAT strip_tac THEN ALL_FC_T rewrite_tac[homomorphism_unit_thm]);
+(* *** Goal "2.4" *** *)
+a(all_fc_tac[homomorphism_∈_car_thm] THEN group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2.5" *** *)
+a(all_fc_tac[homomorphism_∈_car_thm] THEN group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2.6" *** *)
+a(∃_tac⌜(x' ⋏~)G⌝);
+a(group_∈_tac THEN REPEAT strip_tac THEN ALL_FC_T rewrite_tac[homomorphism_inverse_thm]);
+(* *** Goal "2.7" *** *)
+a(all_fc_tac[homomorphism_∈_car_thm]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2.8" *** *)
+a(all_fc_tac[homomorphism_∈_car_thm]);
+a(group_nf_tac THEN REPEAT strip_tac);
+val ⦏img_subgroup_thm⦎ = save_pop_thm "img_subgroup_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H)
+⇒	Equiv(Car G, RightCongruent (Ker f (G, H))  G)
+⌝);
+a(REPEAT strip_tac THEN bc_thm_tac right_congruent_equiv_thm);
+a(REPEAT strip_tac THEN all_fc_tac [ker_normal_subgroup_thm]);
+a(POP_ASM_T ante_tac THEN rewrite_tac[normal_subgroup_def] THEN taut_tac);
+val ⦏equiv_right_congruent_ker_thm⦎ = save_pop_thm "equiv_right_congruent_ker_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H)
+⇒	(f Respects RightCongruent (Ker f (G, H))  G)  (Car G)
+⌝);
+a(rewrite_tac[respects_def, right_congruent_def, group_ops_def]
+	THEN PC_T1 "sets_ext1" REPEAT strip_tac);
+a(all_fc_tac[ker_normal_subgroup_thm]);
+a(POP_ASM_T (strip_asm_tac  o rewrite_rule[normal_subgroup_def]));
+a(POP_ASM_T (ante_tac o list_∀_elim[⌜((x ⋏~) G . y) G⌝, ⌜(x ⋏~)G⌝]));
+a(asm_rewrite_tac[] THEN group_∈_tac THEN asm_rewrite_tac[ker_def, group_ops_def]);
+a(group_nf_tac THEN REPEAT strip_tac);
+a(all_fc_tac[homomorphism_∈_car_thm]);
+a(conv_tac eq_sym_conv THEN ALL_FC_T1 fc_⇔_canon rewrite_tac[group_eq_thm]);
+a(DROP_NTH_ASM_T 4 ante_tac);
+a(lemma_tac⌜(x ⋏~)G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(GET_NTH_ASM_T 10 (strip_asm_tac o rewrite_rule[homomorphism_def]));
+a(rename_tac[] THEN ALL_ASM_FC_T rewrite_tac[homomorphism_inverse_thm]);
+val ⦏homomorphism_respects_ker_thm⦎ =
+	save_pop_thm "homomorphism_respects_ker_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G
+⇒	Car (G/H) = Car G / RightCongruent H G
+⌝);
+a(REPEAT strip_tac THEN rewrite_tac[quotient_group_def, group_ops_def]);
+a(rewrite_tac[quotient_set_def]);
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_var_elim_asm_tac1 THEN ∃_tac⌜x'⌝ THEN REPEAT strip_tac);
+a(DROP_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(ALL_FC_T rewrite_tac[right_coset_equiv_class_thm]);
+(* *** Goal "2" *** *)
+a(all_var_elim_asm_tac1 THEN ∃_tac⌜x'⌝ THEN REPEAT strip_tac);
+a(DROP_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(ALL_FC_T rewrite_tac[right_coset_equiv_class_thm]);
+val ⦏car_quotient_group_thm⦎ = save_pop_thm "car_quotient_group_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP ⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ Subgroup H
+⇒	(RightCongruent K G Refines RightCongruent H G) (Car G)
+⌝);
+a(REPEAT strip_tac THEN rewrite_tac[
+	right_congruent_def, refines_def] THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 4 ante_tac THEN rewrite_tac[subgroup_def1] THEN
+	REPEAT strip_tac THEN  all_asm_fc_tac[]);
+val ⦏subgroup_refines_thm⦎ = save_pop_thm "subgroup_refines_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G K : 'a GROUP; H : 'b GROUP; f : 'a → 'b⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H) ∧
+	K ∈ NormalSubgroup G ∧ K ∈ Subgroup (Ker f (G, H))
+⇒	∃g⦁
+		(∀x⦁x  ∈ Car G ⇒ g ((x.Car K)G) = f  x)
+	∧	g ∈ Homomorphism((G / K), Img f (Car G) H)
+⌝);
+a(REPEAT strip_tac);
+a(lemma_tac ⌜∃g⦁∀x⦁x  ∈ Car G ⇒ g ((x.Car K)G) = f  x⌝);
+(* *** Goal "1" *** *)
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(all_fc_tac[equiv_right_congruent_ker_thm,
+	right_congruent_equiv_thm, ker_normal_subgroup_thm]);
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(all_fc_tac[subgroup_refines_thm, homomorphism_respects_ker_thm]);
+a(all_fc_tac[respects_refines_thm]);
+a(all_fc_tac[induced_fun_∃_thm]);
+a(POP_ASM_T discard_tac THEN ∃_tac⌜g⌝ THEN REPEAT strip_tac);
+a(DROP_NTH_ASM_T 2 bc_thm_tac);
+a(ALL_FC_T rewrite_tac[conv_rule (ONCE_MAP_C eq_sym_conv) car_quotient_group_thm]);
+a(rewrite_tac[quotient_group_def, group_ops_def]);
+a(REPEAT strip_tac THEN1 ∃_tac⌜x⌝ THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[right_coset_equiv_class_thm, equiv_class_∈_thm]);
+(* *** Goal "2" *** *)
+a(∃_tac⌜g⌝ THEN asm_rewrite_tac[homomorphism_def, img_def]);
+a(rewrite_tac[quotient_group_def, group_ops_def]);
+a(REPEAT strip_tac);
+(* *** Goal "2.1" *** *)
+a(all_var_elim_asm_tac1);
+a(∃_tac⌜x'⌝ THEN ALL_ASM_FC_T asm_rewrite_tac[]);
+(* *** Goal "2.2" *** *)
+a(all_var_elim_asm_tac1);
+a(lemma_tac⌜(x' . x'') G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_ASM_FC_T rewrite_tac[quotient_group_times_thm]);
+a(ALL_ASM_FC_T asm_rewrite_tac[homomorphism_clauses]);
+val ⦏subgroup_ker_induced_thm⦎ = save_pop_thm "subgroup_ker_induced_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f⦁
+	G ∈ Group ∧ H ∈ Group
+⇒	(	f ∈ Isomorphism(G, H)
+	⇔	f ∈ Homomorphism(G, H)
+	∧	Ker f (G, H) = UnitSubgroup G
+	∧	Img f (Car G) H = H)
+⌝);
+a(rewrite_tac[isomorphism_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(rewrite_tac[ker_def, unit_subgroup_def, group_eq_group_thm, group_ops_def]);
+a(PC_T "sets_ext" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "1.1" *** *)
+a(swap_nth_asm_concl_tac 1);
+a(GET_NTH_ASM_T 4 bc_thm_tac);
+a(group_∈_tac THEN REPEAT strip_tac);
+a(ALL_FC_T  asm_rewrite_tac[homomorphism_clauses]);
+(* *** Goal "1.2" *** *)
+a(all_var_elim_asm_tac1 THEN group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "1.3" *** *)
+a(ALL_FC_T  asm_rewrite_tac[homomorphism_clauses]);
+(* *** Goal "2" *** *)
+a(all_fc_tac[img_subgroup_thm]);
+a(lemma_tac ⌜H ∈ Subgroup H⌝ THEN1 all_fc_tac[trivial_subgroups_thm]);
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[subgroup_eq_thm]);
+a(rewrite_tac[img_def, group_ops_def]);
+a(PC_T "sets_ext" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "2.1" *** *)
+a(all_var_elim_asm_tac1);
+a(GET_NTH_ASM_T 6 (strip_asm_tac o rewrite_rule[homomorphism_def]));
+a(all_asm_fc_tac[]);
+(* *** Goal "2.2" *** *)
+a(all_asm_fc_tac[]);
+a(all_var_elim_asm_tac1 THEN ∃_tac⌜x'⌝ THEN REPEAT strip_tac);
+(* *** Goal "3" *** *)
+a(GET_NTH_ASM_T 5 (strip_asm_tac o rewrite_rule[ker_def, unit_subgroup_def, group_eq_group_thm, group_ops_def]));
+a(GET_NTH_ASM_T 7 (strip_asm_tac o rewrite_rule[homomorphism_def]));
+a(lemma_tac⌜(y ⋏~)G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(all_asm_fc_tac[]);
+a(lemma_tac⌜f( (x.(y ⋏~)G)G ) = Unit H⌝ THEN1
+	(ALL_FC_T asm_rewrite_tac[homomorphism_clauses] THEN 
+		group_nf_tac THEN REPEAT strip_tac));
+a(LEMMA_T⌜(x . (y ⋏~) G) G ∈ {x|x ∈ Car G ∧ f x = Unit H}⌝ ante_tac THEN1
+	(asm_rewrite_tac[] THEN group_∈_tac THEN REPEAT strip_tac));
+a(pure_asm_rewrite_tac[] THEN rewrite_tac[]);
+a(REPEAT strip_tac THEN ALL_FC_T1 fc_⇔_canon asm_rewrite_tac[group_eq_thm]);
+(* *** Goal "4" *** *)
+a(GET_NTH_ASM_T 2 ante_tac);
+a(all_fc_tac[img_subgroup_thm]);
+a(lemma_tac ⌜H ∈ Subgroup H⌝ THEN1 all_fc_tac[trivial_subgroups_thm]);
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[subgroup_eq_thm]);
+a(rewrite_tac[img_def, group_ops_def]);
+a(STRIP_T (asm_tac o eq_sym_rule));
+a(DROP_NTH_ASM_T 4 ante_tac THEN asm_rewrite_tac[]);
+a(REPEAT strip_tac);
+a(all_var_elim_asm_tac1 THEN ∃_tac⌜x⌝ THEN REPEAT strip_tac);
+val ⦏isomorphism_ker_img_thm⦎ = save_pop_thm "isomorphism_ker_img_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G : 'a GROUP; H : 'b GROUP; f : 'a → 'b⦁
+	G ∈ Group ∧ H ∈ Group ∧ f ∈ Homomorphism(G, H)
+⇒	∃g⦁
+		(∀x⦁x  ∈ Car G ⇒ g ((x.Car(Ker f (G, H))) G) = f  x)
+	∧	g ∈ Isomorphism((G / Ker f (G, H)), Img f (Car G) H)
+⌝);
+a(REPEAT strip_tac);
+a(all_fc_tac[ker_normal_subgroup_thm]);
+a(lemma_tac⌜Ker f (G, H) ∈ Subgroup (Ker f (G, H))⌝ THEN1
+	(POP_ASM_T (strip_asm_tac o rewrite_rule[normal_subgroup_def, subgroup_def1]) THEN
+		all_fc_tac[trivial_subgroups_thm]));
+a(all_fc_tac[subgroup_ker_induced_thm]);
+a(∃_tac⌜g⌝ THEN asm_rewrite_tac[isomorphism_def]);
+a(rewrite_tac[quotient_group_def, group_ops_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_var_elim_asm_tac1 THEN POP_ASM_T ante_tac);
+a(GET_NTH_ASM_T 6  (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(ALL_ASM_FC_T1 fc_⇔_canon rewrite_tac[right_coset_eq_thm]);
+a(rewrite_tac[right_congruent_def, ker_def, group_ops_def]);
+a(group_∈_tac THEN REPEAT strip_tac);
+a(lemma_tac⌜(x' ⋏~) G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T rewrite_tac[homomorphism_inverse_thm, homomorphism_clauses]);
+a(all_fc_tac[homomorphism_∈_car_thm]);
+a(asm_rewrite_tac[] THEN group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(POP_ASM_T (strip_asm_tac o rewrite_rule[img_def, group_ops_def]));
+a(all_var_elim_asm_tac1);
+a(∃_tac⌜(x.Car (Ker f (G, H)))G⌝);
+a(ALL_ASM_FC_T asm_rewrite_tac[]);
+a(∃_tac⌜x⌝ THEN REPEAT strip_tac);
+val ⦏first_isomorphism_thm⦎ = save_pop_thm "first_isomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ NormalSubgroup G
+⇒	K ∈ NormalSubgroup (H.K) 
+⌝);
+a(REPEAT strip_tac THEN bc_thm_tac subgroup_normal_subgroup_thm);
+a(GET_NTH_ASM_T 1 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(GET_NTH_ASM_T 8 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(∃_tac ⌜G⌝  THEN asm_rewrite_tac[]);
+a(REPEAT strip_tac THEN1 all_fc_tac[group_product_subgroup_thm]);
+a(rewrite_tac[subgroup_def, group_product_def,
+	group_set_ops_def, group_ops_def] THEN REPEAT strip_tac
+	THEN_TRY SOLVED_T (ALL_FC_T rewrite_tac[subgroup_clauses]));
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+a(∃_tac⌜Unit H⌝ THEN ∃_tac⌜x⌝);
+a(group_∈_tac THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[subgroup_clauses] THEN group_nf_tac THEN REPEAT strip_tac);
+a(all_asm_fc_tac[]);
+val ⦏second_isomorphism_lemma1⦎ = save_pop_thm "second_isomorphism_lemma1";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ NormalSubgroup G
+⇒	H ∈ Subgroup (H.K) 
+⌝);
+a(REPEAT strip_tac THEN rewrite_tac[subgroup_def, group_product_def,
+	group_set_ops_def, group_ops_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+a(∃_tac⌜x⌝ THEN ∃_tac⌜Unit H⌝);
+a(GET_NTH_ASM_T 3 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(group_nf_tac THEN asm_rewrite_tac[]);
+a(ALL_FC_T asm_rewrite_tac[subgroup_clauses]);
+a(DROP_NTH_ASM_T 7 discard_tac);
+a(GET_NTH_ASM_T 6 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(ALL_FC_T asm_rewrite_tac[conv_rule (ONCE_MAP_C eq_sym_conv) subgroup_clauses]);
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(GET_NTH_ASM_T 2 (ante_tac o rewrite_rule[subgroup_def1]) THEN taut_tac);
+val ⦏second_isomorphism_lemma2⦎ = save_pop_thm "second_isomorphism_lemma2";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ NormalSubgroup G
+⇒	Ker (λx⦁(x.Car K)G) (H, ((H.K) : 'a GROUP)/K) = Car K ∩ H
+⌝);
+a(REPEAT strip_tac THEN rewrite_tac[ker_def, group_product_def,
+	group_set_ops_def, group_ops_def, restriction_def,
+	quotient_group_def,
+	group_eq_group_thm] THEN REPEAT strip_tac);
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(LEMMA_T ⌜x ∈ {z|∃ b⦁ b ∈ Car K ∧ z = (x . b) G}⌝ ante_tac);
+(* *** Goal "1.1" *** *)
+a(REPEAT strip_tac);
+a(GET_NTH_ASM_T 4 (fn th => all_fc_tac[rewrite_rule[subgroup_def1]th]));
+a(∃_tac⌜Unit G⌝ THEN group_nf_tac THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 4 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(ALL_FC_T asm_rewrite_tac[conv_rule (ONCE_MAP_C eq_sym_conv) subgroup_clauses]);
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(group_∈_tac THEN REPEAT strip_tac);
+(* *** Goal "1.2" *** *)
+a(POP_ASM_T pure_rewrite_thm_tac THEN rewrite_tac[] THEN REPEAT strip_tac);
+a(all_var_elim_asm_tac1 THEN ALL_FC_T rewrite_tac[subgroup_clauses]);
+a(group_nf_tac THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 3 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "2.1" *** *)
+a(all_var_elim_asm_tac1);
+a(∃_tac⌜(x.b)K⌝);
+a(GET_NTH_ASM_T 4 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(REPEAT strip_tac THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(GET_NTH_ASM_T 11 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(asm_rewrite_tac[] THEN ALL_FC_T rewrite_tac[subgroup_clauses]);
+a(all_asm_fc_tac[] THEN group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2.2" *** *)
+a(all_var_elim_asm_tac1);
+a(∃_tac⌜((x ⋏~)K.b)K⌝);
+a(GET_NTH_ASM_T 4 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(REPEAT strip_tac THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(GET_NTH_ASM_T 11 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(asm_rewrite_tac[] THEN ALL_FC_T rewrite_tac[subgroup_clauses]);
+a(all_asm_fc_tac[] THEN group_nf_tac THEN REPEAT strip_tac);
+val ⦏second_isomorphism_lemma3⦎ = save_pop_thm "second_isomorphism_lemma3";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ NormalSubgroup G
+⇒	(λx⦁(x.Car K)G) ∈ Homomorphism(H, ((H.K) : 'a GROUP)/K)
+⌝);
+a(REPEAT strip_tac THEN all_fc_tac[
+	group_product_subgroup_thm,
+	second_isomorphism_lemma1,
+	second_isomorphism_lemma2]);
+a(GET_NTH_ASM_T 3 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_fc_tac[∀_elim⌜(H.K) : 'a GROUP⌝quotient_group_homomorphism_thm]);
+a(POP_ASM_T ante_tac);
+a(LEMMA_T ⌜(λ x:'a⦁ (x . Car K) ((H . K):'a GROUP)) = (λ x⦁ (x . Car K) G)⌝
+	rewrite_thm_tac THEN1
+		(rewrite_tac[group_product_def, group_ops_def, group_set_ops_def] THEN
+			GET_NTH_ASM_T 9 (rewrite_thm_tac o rewrite_rule[subgroup_def1])));
+a( strip_tac THEN
+	LEMMA_T ⌜(λ x:'a⦁ (x . Car K) G)  = (λx:'a⦁ (λ x:'a⦁ (x . Car K) G) ((λx:'a⦁x) x))⌝
+		once_rewrite_thm_tac THEN1 rewrite_tac[]);
+a(bc_thm_tac comp_homomorphism_thm);
+a(∃_tac⌜(H.K) : 'a GROUP⌝);
+a(GET_NTH_ASM_T 10 (asm_rewrite_thm_tac o rewrite_rule[subgroup_def1]));
+a(ALL_FC_T rewrite_tac[quotient_group_group_thm, subgroup_homomorphism_thm]);
+val ⦏second_isomorphism_lemma4⦎ = save_pop_thm "second_isomorphism_lemma4";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ Subgroup G ∧ K ∈ NormalSubgroup G
+⇒	∃g⦁
+	(∀x⦁x ∈ Car H ⇒ g ((x. (Car K ∩ Car H))G) = (x. Car K) G)
+∧	g ∈ Isomorphism(H / (Car K ∩ H), ((H.K) : 'a GROUP)/K)
+⌝);
+a(REPEAT strip_tac THEN all_fc_tac[
+	group_product_subgroup_thm,
+	second_isomorphism_lemma1,
+	second_isomorphism_lemma2,
+	second_isomorphism_lemma3,
+	second_isomorphism_lemma4]);
+a(lemma_tac ⌜H ∈ Group⌝ THEN1
+	GET_NTH_ASM_T 7 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(lemma_tac ⌜((H.K):'a GROUP) ∈ Group⌝ THEN1
+	GET_NTH_ASM_T 6 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(lemma_tac ⌜((H.K):'a GROUP) / K ∈ Group⌝ THEN1
+	all_fc_tac[quotient_group_group_thm]);
+a(all_fc_tac[first_isomorphism_thm]);
+a(POP_ASM_T ante_tac THEN POP_ASM_T ante_tac THEN asm_rewrite_tac[]);
+a(LEMMA_T ⌜Car (Car K ∩ H) = Car K ∩ Car H⌝ rewrite_thm_tac
+	THEN1 (rewrite_tac[restriction_def, group_ops_def]));
+a(LEMMA_T ⌜∀ x:'a; A: 'a SET⦁ (x . A) H =(x. A)G⌝
+	rewrite_thm_tac THEN1
+		(rewrite_tac[group_ops_def, group_set_ops_def] THEN
+			GET_NTH_ASM_T 10 (rewrite_thm_tac o
+				rewrite_rule[subgroup_def1])));
+a(REPEAT strip_tac THEN ∃_tac⌜g⌝);
+a(asm_rewrite_tac[]);
+a(POP_ASM_T ante_tac THEN LEMMA_T ⌜
+		Img (λ x:'a⦁ (x . Car K) G) (Car H) (((H . K) : 'a GROUP) / K)
+	= 	((H.K) : 'a GROUP)/K⌝
+	rewrite_thm_tac);
+a(all_fc_tac[img_subgroup_thm]);
+a(lemma_tac⌜((H.K) : 'a GROUP)/K ∈ Subgroup (((H.K) : 'a GROUP)/K)⌝
+	THEN1 all_fc_tac[trivial_subgroups_thm]);
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[subgroup_eq_thm]);
+a(rewrite_tac[img_def, group_ops_def, group_product_def, group_set_ops_def,
+	quotient_group_def]);
+a(GET_NTH_ASM_T 13 (rewrite_thm_tac o rewrite_rule[subgroup_def1]));
+a(lemma_tac ⌜K ∈ Subgroup G⌝ THEN1
+	GET_NTH_ASM_T 12 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(lemma_tac ⌜K ∈ Group⌝ THEN1
+	GET_NTH_ASM_T 1 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac THEN all_var_elim_asm_tac1);
+(* *** Goal "1" *** *)
+a(∃_tac⌜x'⌝ THEN REPEAT strip_tac);
+a(∃_tac⌜x'⌝ THEN ∃_tac⌜Unit K⌝ THEN group_∈_tac THEN REPEAT strip_tac);
+a(ALL_FC_T rewrite_tac[subgroup_clauses]);
+a(group_nf_tac THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 16 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(∃_tac ⌜a⌝ THEN  REPEAT strip_tac);
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac THEN all_var_elim_asm_tac1);
+(* *** Goal "2.1" *** *)
+a(∃_tac ⌜(b.b')K⌝ THEN group_∈_tac THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 5 (rewrite_thm_tac o rewrite_rule[subgroup_def]));
+a(GET_NTH_ASM_T 18 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(GET_NTH_ASM_T 8 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_asm_fc_tac[]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2.2" *** *)
+a(∃_tac ⌜((b ⋏~)K.b')K⌝ THEN group_∈_tac THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 5 (rewrite_thm_tac o rewrite_rule[subgroup_def]));
+a(GET_NTH_ASM_T 18 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(GET_NTH_ASM_T 8 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_asm_fc_tac[]);
+a(group_nf_tac THEN REPEAT strip_tac);
+val ⦏second_isomorphism_thm⦎ = save_pop_thm "second_isomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G ∧ K ∈ NormalSubgroup G ∧ K ∈ Subgroup H
+⇒	∃g⦁
+		(∀x⦁x  ∈ Car G ⇒ g ((x.Car K)G) = (x.Car H)G)
+	∧	g ∈ Homomorphism(G / K, G / H)
+⌝);
+a(REPEAT strip_tac);
+a(LEMMA_T ⌜(G/K, G / H) = (G/K, Img ((λx⦁(x.Car H)G)) (Car G) (G/H))⌝ rewrite_thm_tac);
+(* *** Goal "1" *** *)
+a(rewrite_tac[group_eq_group_thm, img_def, group_ops_def]);
+a(rewrite_tac[quotient_group_def, group_ops_def]);
+(* *** Goal "2" *** *)
+a(LEMMA_T⌜∀y; x:'a⦁y = (x. Car H) G ⇔ y = (λx⦁(x. Car H)G)x⌝
+	once_rewrite_thm_tac THEN1 rewrite_tac[]);
+a(bc_thm_tac subgroup_ker_induced_thm);
+a(ALL_FC_T asm_rewrite_tac[quotient_group_group_thm,
+	quotient_group_homomorphism_thm,
+	ker_right_coset_thm]);
+val ⦏third_isomorphism_lemma1⦎ = save_pop_thm "third_isomorphism_lemma1";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G ∧ K ∈ NormalSubgroup G ∧ K ∈ Subgroup H
+⇒	∃g⦁
+		(∀x⦁x  ∈ Car G ⇒ g ((x.Car K)G) = (x.Car H)G)
+	∧	g ∈ Homomorphism(G / K, G / H)
+	∧	Car(Ker g (G / K, G /H)) = Car(H / K)
+⌝);
+a(REPEAT strip_tac);
+a(all_fc_tac [third_isomorphism_lemma1]);
+a(∃_tac⌜g⌝ THEN asm_rewrite_tac[]);
+a(pure_rewrite_tac[group_eq_group_thm, ker_def, group_ops_def]);
+a(GET_NTH_ASM_T 5 (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(GET_NTH_ASM_T 2 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(all_fc_tac[subgroup_normal_subgroup_thm]);
+a(rewrite_tac[quotient_group_def, group_ops_def]);
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_var_elim_asm_tac1);
+a(POP_ASM_T ante_tac THEN ALL_ASM_FC_T rewrite_tac[]);
+a(lemma_tac⌜Unit G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[right_coset_eq_thm]);
+a(rewrite_tac[right_congruent_def]);
+a(group_nf_tac THEN1 REPEAT strip_tac);
+a(GET_NTH_ASM_T 4 (rewrite_thm_tac o conv_rule (ONCE_MAP_C eq_sym_conv)));
+a(REPEAT strip_tac THEN ∃_tac⌜((x' ⋏~)H ⋏~)H⌝);
+a(gen_group_∈_tac ONCE_MAP_C THEN REPEAT strip_tac);
+a(asm_rewrite_tac[] THEN group_nf_tac THEN1 REPEAT strip_tac);
+a(asm_rewrite_tac[group_set_ops_def]);
+(* *** Goal "2" *** *)
+a(all_var_elim_asm_tac1);
+a(∃_tac⌜x'⌝ THEN REPEAT strip_tac THEN1 all_asm_fc_tac[]);
+a(asm_rewrite_tac[group_set_ops_def]);
+(* *** Goal "3" *** *)
+a(all_var_elim_asm_tac1);
+a(LEMMA_T ⌜(x'.Car K)H = (x'.Car K)G⌝  rewrite_thm_tac THEN1
+	asm_rewrite_tac[group_set_ops_def]);
+a(LIST_GET_NTH_ASM_T [6] all_fc_tac);
+a(ALL_ASM_FC_T rewrite_tac[]);
+a(lemma_tac⌜Unit G ∈ Car G⌝ THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[right_coset_eq_thm]);
+a(rewrite_tac[right_congruent_def]);
+a(group_nf_tac THEN1 REPEAT strip_tac);
+a(GET_NTH_ASM_T 5 (rewrite_thm_tac o conv_rule (ONCE_MAP_C eq_sym_conv)));
+a(group_∈_tac THEN1 REPEAT strip_tac);
+val ⦏third_isomorphism_lemma2⦎ = save_pop_thm "third_isomorphism_lemma2";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G ∧ K ∈ NormalSubgroup G ∧ K ∈ Subgroup H
+⇒	K ∈ NormalSubgroup H
+⌝);
+a(rewrite_tac[normal_subgroup_def] THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 7 (strip_asm_tac o rewrite_rule[subgroup_def1]));
+a(asm_rewrite_tac[] THEN GET_NTH_ASM_T 8 bc_thm_tac);
+a(REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏third_isomorphism_lemma3⦎ = save_pop_thm "third_isomorphism_lemma3";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G ∧ K ∈ NormalSubgroup G ∧ K ∈ Subgroup H
+⇒	(H / K) ∈ Subgroup (G / K)
+⌝);
+a(REPEAT strip_tac);
+a(rewrite_tac[subgroup_def1]);
+a(lemma_tac⌜H ∈ Group⌝ THEN1
+	(GET_NTH_ASM_T 3 (strip_asm_tac o rewrite_rule[normal_subgroup_def, subgroup_def1])
+		THEN REPEAT strip_tac));
+a(all_fc_tac[third_isomorphism_lemma3]);
+a(ALL_FC_T rewrite_tac[quotient_group_group_thm]);
+a(GET_NTH_ASM_T 5  (strip_asm_tac o rewrite_rule[normal_subgroup_def, subgroup_def1]));
+a(asm_rewrite_tac[quotient_group_def, group_ops_def, group_set_ops_def]);
+a(REPEAT strip_tac THEN all_var_elim_asm_tac1);
+a(∃_tac⌜x'⌝ THEN REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏third_isomorphism_lemma4⦎ = save_pop_thm "third_isomorphism_lemma4";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G ∧ K ∈ NormalSubgroup G ∧ K ∈ Subgroup H
+⇒	∃g⦁
+		(∀x⦁x  ∈ Car G ⇒ g ((x.Car K)G) = (x.Car H)G)
+	∧	g ∈ Homomorphism(G / K, G / H)
+	∧	Ker g (G / K, G / H) = H / K
+	∧	Img g (Car (G / K)) (G / H) = G / H
+⌝);
+a(REPEAT strip_tac);
+a(all_fc_tac [third_isomorphism_lemma2, third_isomorphism_lemma4]);
+a(all_fc_tac[quotient_group_group_thm]);
+a(∃_tac⌜g⌝ THEN asm_rewrite_tac[]);
+a(all_fc_tac[ker_normal_subgroup_thm]);
+a(TOP_ASM_T (strip_asm_tac o rewrite_rule[normal_subgroup_def]));
+a(lemma_tac⌜G / H  ∈ Subgroup (G/H)⌝ THEN1 all_fc_tac[trivial_subgroups_thm]);
+a(all_fc_tac[img_subgroup_thm]);
+a(ALL_FC_T1 fc_⇔_canon asm_rewrite_tac[subgroup_eq_thm]);
+a(rewrite_tac[img_def, quotient_group_def, group_ops_def] THEN
+	PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac THEN all_var_elim_asm_tac1);
+(* *** Goal "1" *** *)
+a(∃_tac⌜x''⌝ THEN REPEAT strip_tac);
+a(ALL_ASM_FC_T rewrite_tac[]);
+(* *** Goal "2" *** *)
+a(∃_tac⌜(x' . Car K) G⌝ THEN ALL_ASM_FC_T rewrite_tac[]);
+a(∃_tac⌜x'⌝ THEN REPEAT strip_tac);
+val ⦏third_isomorphism_lemma5⦎ = save_pop_thm "third_isomorphism_lemma5";
+=TEX
+=SML
+set_goal([], ⌜
+	∀G H K : 'a GROUP⦁
+	G ∈ Group ∧ H ∈ NormalSubgroup G ∧ K ∈ NormalSubgroup G ∧ K ∈ Subgroup H
+⇒	∃g⦁
+		(∀x⦁x  ∈ Car G ⇒ g (((x.Car K)G.Car (H/K)) (G/K)) = (x. Car H)G)
+	∧	g ∈ Isomorphism((G / K) / (H / K), G / H)
+⌝);
+a(REPEAT strip_tac);
+a(all_fc_tac[third_isomorphism_lemma5]);
+a(lemma_tac⌜H ∈ Group⌝ THEN1
+	(GET_NTH_ASM_T 7 (strip_asm_tac o rewrite_rule[normal_subgroup_def, subgroup_def1])
+		THEN REPEAT strip_tac));
+a(all_fc_tac[quotient_group_group_thm]);
+a(all_fc_tac[first_isomorphism_thm]);
+a(REPEAT_N 2 (POP_ASM_T ante_tac) THEN asm_rewrite_tac[] THEN REPEAT strip_tac);
+a(∃_tac⌜g'⌝ THEN REPEAT strip_tac);
+a(lemma_tac⌜(x.Car K)G ∈ Car (G / K)⌝ THEN1 rewrite_tac[quotient_group_def, group_ops_def]);
+(* *** Goal "1" *** *)
+a(∃_tac⌜x⌝ THEN  REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(LIST_GET_NTH_ASM_T [4] (ALL_FC_T rewrite_tac));
+a(LIST_GET_NTH_ASM_T [11] (ALL_FC_T rewrite_tac));
+val ⦏third_isomorphism_thm⦎ = save_pop_thm "third_isomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	∀X : 'a SET⦁ SymGroup X ∈ Group
+⌝);
+a(REPEAT strip_tac THEN rewrite_tac[sym_group_def, group_def, group_ops_def,
+	onto_def, one_one_def] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(all_asm_fc_tac[] THEN all_asm_fc_tac[]);
+(* *** Goal "2" *** *)
+a(spec_nth_asm_tac 5 ⌜y'⌝);
+a(spec_nth_asm_tac 3 ⌜x'⌝);
+a(all_var_elim_asm_tac1);
+a(prove_tac[]);
+(* *** Goal "3" *** *)
+a(all_asm_fc_tac[] THEN all_asm_fc_tac[]);
+a(asm_rewrite_tac[]);
+(* *** Goal "4" *** *)
+a(prove_tac[]);
+(* *** Goal "5" *** *)
+a(ante_tac (∀_elim⌜x⌝ inverse_def));
+a(asm_rewrite_tac[onto_def, one_one_def]);
+a(REPEAT strip_tac);
+a(LEMMA_T⌜x(Inverse x x1) = x(Inverse x x2)⌝ ante_tac THEN1
+	GET_NTH_ASM_T 3 rewrite_thm_tac);
+a(POP_ASM_T rewrite_thm_tac);
+(* *** Goal "6" *** *)
+a(ante_tac (∀_elim⌜x⌝ inverse_def));
+a(asm_rewrite_tac[onto_def, one_one_def]);
+a(REPEAT strip_tac THEN ∃_tac⌜x y⌝ THEN asm_rewrite_tac[]);
+(* *** Goal "7" *** *)
+a(ante_tac (∀_elim⌜x⌝ inverse_def));
+a(asm_rewrite_tac[onto_def, one_one_def]);
+a(all_asm_fc_tac[]);
+a(TOP_ASM_T (once_rewrite_thm_tac o eq_sym_rule));
+a(STRIP_T rewrite_thm_tac);
+a(asm_rewrite_tac[]);
+(* *** Goal "8" *** *)
+a(ante_tac (∀_elim⌜x⌝ inverse_def));
+a(asm_rewrite_tac[onto_def, one_one_def]);
+a(STRIP_T rewrite_thm_tac);
+(* *** Goal "9" *** *)
+a(ante_tac (∀_elim⌜x⌝ inverse_def));
+a(asm_rewrite_tac[onto_def, one_one_def]);
+a(STRIP_T rewrite_thm_tac);
+val ⦏sym_group_group_thm⦎ = save_pop_thm "sym_group_group_thm";
+=TEX
+=SML
+set_goal([], ⌜
+∀G : 'a GROUP⦁
+	G ∈ Group
+⇒	∃f : 'a → ('a → 'a)⦁
+		(∀x y⦁f x y = if y ∈ Car G then (x.y)G else y)
+∧	f ∈ Isomorphism (G, Img f (Car G) (SymGroup(Car G)))
+⌝);
+a(rewrite_tac[isomorphism_def, homomorphism_def, img_def, sym_group_def,
+	group_ops_def] THEN REPEAT strip_tac);
+a(∃_tac⌜λx y⦁ if y ∈ Car G then (x.y)G else y⌝ THEN rewrite_tac[] THEN REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(∃_tac⌜x⌝ THEN REPEAT strip_tac);
+(* *** Goal "2" *** *)
+a(cases_tac⌜¬x' ∈ Car G⌝ THEN asm_rewrite_tac[]);
+a(group_∈_tac THEN REPEAT strip_tac);
+a(asm_rewrite_tac[]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "3" *** *)
+a(POP_ASM_T (ante_tac o ∀_elim⌜Unit G⌝));
+a(group_∈_tac THEN asm_rewrite_tac[]);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "4" *** *)
+a(∃_tac⌜x⌝ THEN REPEAT strip_tac);
+a(asm_rewrite_tac[]);
+val ⦏cayley_thm⦎ = save_pop_thm "cayley_thm";
+=TEX
+=SML
+set_goal([], ⌜
+∀G H⦁
+	G ∈ Group ∧ Car G ∈ Finite
+∧	H ∈ Subgroup G
+⇒	Car H ∈ Finite
+⌝);
+a(rewrite_tac[subgroup_def] THEN REPEAT strip_tac);
+a(all_fc_tac[⊆_finite_thm]);
+val ⦏finite_subgroup_thm⦎ = save_pop_thm "finite_subgroup_thm";
+=TEX
+=SML
+set_goal([], ⌜
+∀G H : 'a GROUP⦁
+	G ∈ Group ∧ Car G ∈ Finite
+∧	H ∈ Subgroup G
+⇒	Car (G/H) ∈ Finite
+⌝);
+a(rewrite_tac[quotient_group_def,
+	group_ops_def] THEN REPEAT strip_tac);
+a(bc_thm_tac(prove_rule[]⌜∀X⦁X ∈ Finite ∧ #X ≤ #(Car G) ⇒ X ∈ Finite⌝));
+a(∃_tac⌜G⌝ THEN bc_thm_tac surjection_finite_size_thm);
+a(∃_tac⌜λx:'a⦁(x. Car H)G⌝ THEN asm_rewrite_tac[]);
+val ⦏finite_cosets_thm⦎ = save_pop_thm "finite_cosets_thm";
+=TEX
+=SML
+set_goal([], ⌜
+∀G H⦁
+	G ∈ Group
+∧	Car G ∈ Finite
+∧	H ∈ Subgroup G
+⇒	Car H ∈ Finite
+∧	Car(G/H) ∈ Finite
+∧	#G = #H * #(G/H)
+⌝);
+a(REPEAT ∀_tac THEN ⇒_tac THEN all_fc_tac[finite_subgroup_thm,
+	finite_cosets_thm] THEN REPEAT strip_tac);
+a(all_asm_ante_tac THEN rewrite_tac[size_group_def]
+	THEN REPEAT strip_tac);
+a(bc_thm_tac(prove_rule[]⌜∀p⦁ Car G ∈ Finite ∧ p ⇒ p⌝));
+a(∃_tac⌜G⌝ THEN bc_thm_tac covering_finite_size_thm);
+a(∃_tac⌜λx:'a⦁(x. Car H)G⌝ THEN asm_rewrite_tac[]);
+a(∧_tac THEN ∀_tac THEN ⇒_tac);
+(* *** Goal "1" *** *)
+a(rewrite_tac[quotient_group_def, group_ops_def]
+	THEN asm_prove_tac[]);
+(* *** Goal "2" *** *)
+a(bc_thm_tac bijection_finite_size_thm);
+a(all_fc_tac[quotient_group_rep_∃_thm]
+	THEN all_var_elim_asm_tac1);
+a(∃_tac⌜λg :'a⦁ (x.g)G⌝ THEN asm_rewrite_tac[]
+	THEN REPEAT strip_tac);
+(* *** Goal "2.1" *** *)
+a(GET_NTH_ASM_T 8 (fn th => PC_T1 "sets_ext1" all_fc_tac[rewrite_rule[subgroup_def] th]));
+a(ALL_FC_T rewrite_tac[left_cancel_thm]);
+(* *** Goal "2.2" *** *)
+a(PC_T "sets_ext1" strip_tac THEN REPEAT strip_tac);
+(* *** Goal "2.2.1" *** *)
+a(ALL_FC_T (MAP_EVERY ante_tac)[right_coset_eq_thm]);
+a(rewrite_tac[right_congruent_def] THEN strip_tac);
+a(∃_tac⌜((x ⋏~) G . x') G⌝ THEN REPEAT strip_tac);
+a(group_nf_tac THEN REPEAT strip_tac);
+(* *** Goal "2.2.2" *** *)
+a(all_var_elim_asm_tac1 THEN group_∈_tac
+	THEN REPEAT strip_tac);
+a(GET_NTH_ASM_T 6 (fn th => PC_T1 "sets_ext1" all_fc_tac[rewrite_rule[subgroup_def] th]));
+(* *** Goal "2.2.3" *** *)
+a(all_var_elim_asm_tac1);
+a(GET_NTH_ASM_T 6 (fn th => PC_T1 "sets_ext1" all_fc_tac[rewrite_rule[subgroup_def] th]));
+a(lemma_tac⌜(x . x'') G ∈ Car G⌝
+	THEN1 (group_∈_tac THEN REPEAT strip_tac));
+a(ALL_FC_T1 fc_⇔_canon rewrite_tac[right_coset_eq_thm]);
+a(rewrite_tac[right_congruent_def]);
+a(group_nf_tac THEN REPEAT strip_tac);
+val ⦏lagrange_cosets_thm⦎ = save_pop_thm "lagrange_cosets_thm";
+=TEX
+=SML
+set_goal([], ⌜
+∀G H⦁
+	G ∈ Group
+∧	H ∈ Group
+⇒	G ×⋎G H ∈ Group
+⌝);
+a(rewrite_tac[group_def, group_ops_def, ×_group_def, ×_def]);
+a(REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏product_group_thm⦎ = save_pop_thm "product_group_thm";
+=TEX
+%%%%
+%%%%
+%%%%
+=SML
+set_goal([], ⌜
+∀G H⦁
+	G ∈ Group
+∧	H ∈ Group
+⇒	Fst ∈ Homomorphism(G ×⋎G H, G)
+⌝);
+a(rewrite_tac[group_def, group_ops_def, ×_group_def, ×_def, homomorphism_def]);
+a(REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏fst_homomorphism_thm⦎ = save_pop_thm "fst_honomorphism_thm";
+=TEX
+%%%%
+%%%%
+%%%%
+=SML
+set_goal([], ⌜
+∀G H⦁
+	G ∈ Group
+∧	H ∈ Group
+⇒	Snd ∈ Homomorphism(G ×⋎G H, H)
+⌝);
+a(rewrite_tac[group_def, group_ops_def, ×_group_def, ×_def, homomorphism_def]);
+a(REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏snd_homomorphism_thm⦎ = save_pop_thm "snd_honomorphism_thm";
+=TEX
+%%%%
+%%%%
+%%%%
+=SML
+set_goal([], ⌜
+∀G H K⦁
+	G ∈ Group
+∧	H ∈ Group
+∧	K ∈ Group
+∧	f ∈ Homomorphism(G, H)
+∧	g ∈ Homomorphism(G, K)
+⇒	(λx⦁(f x, g x)) ∈ Homomorphism(G, H ×⋎G K)
+⌝);
+a(rewrite_tac[group_def, group_ops_def, ×_group_def, ×_def, homomorphism_def]);
+a(REPEAT strip_tac THEN all_asm_fc_tac[]);
+val ⦏product_homomorphism_thm⦎ = save_pop_thm "product_honomorphism_thm";
+=TEX
+%%%%
+%%%%
+%%%%
+=SML
+open_theory"group_egs";
+set_merge_pcs["basic_hol1", "'sets_alg", "'ℤ", "'ℝ"];
+=TEX
+=SML
+val ⦏ℤ_plus_def⦎ = ∧_left_elim(get_spec⌜ℤ_plus⌝);
+val ⦏ℤ_units_def⦎ = ∧_right_elim(get_spec⌜ℤ_units⌝);
+val ⦏ℝ_additive_def⦎ = ∧_left_elim(get_spec⌜ℝ⋎+⌝);
+val ⦏ℝ_pos_def⦎ = ∧_right_elim(get_spec⌜ℝ_pos⌝);
+=TEX
+=SML
+set_goal([], ⌜
+	ℤ_plus ∈ Group
+⌝);
+a(rewrite_tac[ℤ_plus_def, group_def, group_ops_def, ℤ_plus_assoc_thm]);
+val ⦏ℤ_plus_group_thm⦎ = save_pop_thm "ℤ_plus_group_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	ℤ_units ∈ Group
+⌝);
+a(rewrite_tac[ℤ_units_def, group_def, group_ops_def, ℤ_times_assoc_thm]);
+a(REPEAT strip_tac THEN_TRY asm_rewrite_tac[] THEN
+	all_var_elim_asm_tac1 THEN all_asm_ante_tac THEN rewrite_tac[]);
+val ⦏ℤ_units_group_thm⦎ = save_pop_thm "ℤ_units_group_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	Car ℤ_plus = Universe
+∧	(∀i j:ℤ⦁ (i . j) ℤ_plus = i + j)
+∧	Unit ℤ_plus = ℕℤ 0
+∧	(∀i:ℤ⦁ (i ⋏~) ℤ_plus = ~i)
+⌝);
+a(rewrite_tac[ℤ_plus_def, group_ops_def]);
+val ⦏ℤ_plus_ops_thm⦎ = save_pop_thm "ℤ_plus_ops_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	Car ℤ_units = {~(ℕℤ 1); ℕℤ 1}
+∧	(∀i j:ℤ⦁ (i . j) ℤ_units = i * j)
+∧	Unit ℤ_units = ℕℤ 1
+∧	(∀i:ℤ⦁ (i ⋏~) ℤ_units = i)
+⌝);
+a(rewrite_tac[ℤ_units_def, group_ops_def]);
+val ⦏ℤ_units_ops_thm⦎ = save_pop_thm "ℤ_units_ops_thm";
+=TEX
+=SML
+val ⦏ℤ_plus_ℤ_units_homomorphism_def⦎ =
+	save_thm("ℤ_plus_ℤ_units_homomorphism_def",
+		rewrite_rule[ℤ_units_ops_thm, ℤ_plus_ops_thm]
+			 (list_∀_elim[⌜ℤ_plus⌝, ⌜ℤ_units⌝] homomorphism_def));
+=TEX
+=SML
+val ⦏ℤ_plus_ℤ_units_homomorphism_unit_thm⦎ = save_thm("ℤ_plus_ℤ_units_homomorphism_unit_thm",
+		rewrite_rule[ℤ_units_ops_thm, ℤ_plus_ops_thm,
+			ℤ_plus_group_thm, ℤ_units_group_thm]
+			 (list_∀_elim[⌜ℤ_plus⌝, ⌜ℤ_units⌝] homomorphism_unit_thm));
+=TEX
+=SML
+val ⦏ℤ_plus_ℤ_units_homomorphism_inverse_thm⦎ = save_thm("ℤ_plus_ℤ_units_homomorphism_inverse_thm",
+		rewrite_rule[ℤ_units_ops_thm, ℤ_plus_ops_thm,
+			ℤ_plus_group_thm, ℤ_units_group_thm]
+			 (list_∀_elim[⌜ℤ_plus⌝, ⌜ℤ_units⌝] homomorphism_inverse_thm));
+=TEX
+=SML
+set_goal([], ⌜
+	ℝ⋎+ ∈ Group
+⌝);
+a(rewrite_tac[ℝ_additive_def, group_def, group_ops_def, ℝ_plus_assoc_thm]);
+val ⦏ℝ_additive_group_thm⦎ = save_pop_thm "ℝ_additive_group_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	ℝ_pos ∈ Group
+⌝);
+a(rewrite_tac[ℝ_pos_def, group_def, group_ops_def, ℝ_times_assoc_thm]);
+a(conv_tac (ONCE_MAP_C ℝ_anf_conv) THEN REPEAT strip_tac THEN_TRY 
+	SOLVED_T (all_fc_tac[ℝ_0_less_0_less_times_thm, ℝ_0_less_0_less_recip_thm]));
+(* *** Goal "1" = Goal "2" *** *)
+a(bc_thm_tac ℝ_times_recip_thm THEN PC_T1 "ℝ_lin_arith" asm_prove_tac[]);
+val ⦏ℝ_pos_group_thm⦎ = save_pop_thm "ℝ_pos_group_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	Car ℝ⋎+ = Universe
+∧	(∀x y:ℝ⦁ (x . y) ℝ⋎+ = x + y)
+∧	Unit ℝ⋎+ = ℕℝ 0
+∧	(∀x:ℝ⦁ (x ⋏~) ℝ⋎+ = ~x)
+⌝);
+a(rewrite_tac[ℝ_additive_def, group_ops_def]);
+val ⦏ℝ_additive_ops_thm⦎ = save_pop_thm "ℝ_additive_ops_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	Car ℝ_pos = {x | ℕℝ 0 < x}
+∧	(∀x y:ℝ⦁ (x . y) ℝ_pos = x * y)
+∧	Unit ℝ_pos = ℕℝ 1
+∧	(∀x:ℝ⦁ (x ⋏~) ℝ_pos = x ⋏-⋏1)
+⌝);
+a(rewrite_tac[ℝ_pos_def, group_ops_def]);
+val ⦏ℝ_pos_ops_thm⦎ = save_pop_thm "ℝ_pos_ops_thm";
+=TEX
+=SML
+val ⦏ℝ_additive_ℝ_pos_homomorphism_def⦎ =
+	save_thm("ℝ_additive_ℝ_pos_homomorphism_def",
+		rewrite_rule[ℝ_pos_ops_thm, ℝ_additive_ops_thm]
+			 (list_∀_elim[⌜ℝ⋎+⌝, ⌜ℝ_pos⌝] homomorphism_def));
+=TEX
+=SML
+val ⦏ℝ_additive_ℝ_pos_homomorphism_unit_thm⦎ = save_thm("ℝ_additive_ℝ_pos_homomorphism_unit_thm",
+		rewrite_rule[ℝ_pos_ops_thm, ℝ_additive_ops_thm,
+			ℝ_additive_group_thm, ℝ_pos_group_thm]
+			 (list_∀_elim[⌜ℝ⋎+⌝, ⌜ℝ_pos⌝] homomorphism_unit_thm));
+=TEX
+=SML
+val ⦏ℝ_additive_ℝ_pos_homomorphism_inverse_thm⦎ = save_thm("ℝ_additive_ℝ_pos_homomorphism_inverse_thm",
+		rewrite_rule[ℝ_pos_ops_thm, ℝ_additive_ops_thm,
+			ℝ_additive_group_thm, ℝ_pos_group_thm]
+			 (list_∀_elim[⌜ℝ⋎+⌝, ⌜ℝ_pos⌝] homomorphism_inverse_thm));
+=TEX
+=SML
+val ⦏ℝ_additive_ℝ_pos_isomorphism_def⦎ = save_thm("ℝ_additive_ℝ_pos_isomorphism_def",
+		rewrite_rule[ℝ_pos_ops_thm, ℝ_additive_ops_thm,
+			ℝ_additive_group_thm, ℝ_pos_group_thm]
+			 (list_∀_elim[⌜ℝ⋎+⌝, ⌜ℝ_pos⌝] isomorphism_def));
+=TEX
+=SML
+set_goal([], ⌜
+	Exp ∈ Isomorphism(ℝ⋎+, ℝ_pos)
+⌝);
+a(rewrite_tac[ ℝ_additive_ℝ_pos_isomorphism_def, ℝ_additive_ℝ_pos_homomorphism_def,
+	exp_clauses ]);
+a(REPEAT strip_tac);
+(* *** Goal "1" *** *)
+a(LEMMA_T ⌜Log(Exp x) = Log(Exp y)⌝ ante_tac THEN1 asm_rewrite_tac[]);
+a(rewrite_tac[log_def]);
+(* *** Goal "2" *** *)
+a(∃_tac⌜Log z⌝ THEN ALL_FC_T rewrite_tac[exp_log_thm]);
+val ⦏exp_isomorphism_thm⦎ = save_pop_thm "exp_isomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜∀c⦁
+	(λx⦁c * x) ∈ Homomorphism(ℝ⋎+, ℝ⋎+)
+⌝);
+a(rewrite_tac[ℝ_additive_def, group_ops_def, homomorphism_def, ℝ_times_plus_distrib_thm]);
+val ⦏linear_homomorphism_thm⦎ = save_pop_thm "linear_homomorphism_thm";
+=TEX
+=SML
+set_goal([], ⌜
+	Uncurry $+ ∈ Homomorphism(ℝ⋎+ ×⋎G ℝ⋎+, ℝ⋎+)
+⌝);
+a(rewrite_tac[ℝ_additive_def, group_ops_def, homomorphism_def, ×_group_def, ×_def]
+	THEN PC_T1 "ℝ_lin_arith" prove_tac[]);
+val ⦏plus_ℝ_additive_homomorphism_thm⦎ = save_pop_thm "plus_ℝ_additive_homomorphism_thm";
+
+=TEX
+%%%%
+=TEX
+%%%%
+%%%%
+%%%%
+%%%%
+=TEX
+\subsection{Epilogue}\label{END}
+} % matches turning off of HOL index entries.
+=TEX
+%%%%
+%%%%
+=SML
+open_theory"group_egs";
+output_theory{out_file="wrk0681.th.doc", theory="equiv_rel"};
+output_theory{out_file="wrk0682.th.doc", theory="groups"};
+output_theory{out_file="wrk0683.th.doc", theory="group_egs"};
+=TEX
+\end{document}
+=IGN
+open_theory"equiv_rel";
+set_merge_pcs["basic_hol1", "'sets_alg"];
+
+open_theory"groups";
+set_merge_pcs["basic_hol1", "'sets_alg"];
+
+
+open_theory"group_egs";
+set_merge_pcs["basic_hol1", "'sets_alg", "'ℤ", "'ℝ"];
+
