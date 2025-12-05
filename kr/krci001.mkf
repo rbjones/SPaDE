@@ -8,21 +8,20 @@
 
 MDWITHSML=krdd001.md krad001.md krte001.md
 
-# File classified by build method
+# Files classified by build method
 
 PPSML = krcd005.sml
 # krcd001.sml 
 HOL4SML = krcd006.sml 
-PYMODULES = krcd007.py krcd008.py krcd009.py krte001.py krte002.py
-PYTESTS = krte001.py krte002.py
+PYMODULES = krcd007.py krcd008.py krcd009.py
+PYTESTS = krte002.py krte003.py
 
-PPDBBASE = rbjhol
-PPDBNAME = spade
+BASEPPDBBNAME = daz
+SPADEPPDBNAME = spade
 
 include ../common/rules.mkf
 
 LDDS=$(SMLLDD) $(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(H4LDD)
-
 
 # Default target
 
@@ -50,10 +49,10 @@ maths_egs.ldd:
 
 rbjhol.ldd: maths_egs.ldd
 	$(MAKE) -C ../retro/np -f rbj.mkf bld
-	cp ../retro/np/rbjhol.polydb $(PPDIR)/bld/db/
+	cp ../retro/np/rbjhol.polydb $(PPDIR)/bld/db
 	touch rbjhol.ldd
 
-$(PPDBNAME).ldd: rbjhol.ldd
-	pp_make_database -f -p $(PPDBBASE) $(PPDBNAME)
-	touch $(PPDBNAME).ldd
+$(SPADEPPDBNAME).ldd: rbjhol.ldd $(BASEPPDBNAME).ldd
+	pp_make_database -f -p $(BASEPPDBNAME) $(SPADEPPDBNAME)
+	touch $(SPADEPPDBNAME).ldd
 

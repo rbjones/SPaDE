@@ -12,41 +12,36 @@
 # on presence in a group defined as a make variable.
 
 # The following variables should be set in the parent makefile.
+
 # python:
 # PYTESTOPTIONS options to be set when running python test scripts
 # PPDBNAME the root name of the ProofPower database to be used.
 # PYMODULES Python source files to be checked
 # PYTESTS Python test scripts to be run.
-# ProofPower:
-# PPSML
-# HOL4:
-# H4SML
+
+# Standard ML:
+# PPSML SML files to be loaded into the ProofPower database
+# HOL4 SML files to be loaded into HOL4
+# 
 # Sometimes code may be included in markdown.
 # In that case the markdown file should be mentioned in one or more of the following variables,
 # according to which languages are included.
+
 # MDWITHSML
 
 # The following variables used in the rules are derived from them.
 
 PYCHECKLDD=$(PYMODULES:.py=.ldd)
-PYTESTLDD=$(PYTESTS:.py=.tldd)
+PYTESTLDD=$(PYTESTS:.py=.ldd)
 
 PPLDD=$(PPSML:.sml=.ldd)
 H4LDD=$(H4SML:.sml=.ldd)
 
 SMLINMD=$(MDWITHSML:.md=.sml)
 
-# The following are variables use in the rules,
-# they are not necessarily the ones to be set in the parent script.
-#
-# PPDBNAME is the database name for the processing of SML by ProofPower
-# PPLDD is the target files for loading .sml into ProofPower
-# PYCHECKLDD is the target files for checking .py files.
-# PYTESTLDD is the target files for running tests written in python
-
 # Python
 
-# Syntax check without executing
+# check without executing
     
 $(PYCHECKLDD): %.ldd: %.py
 	@echo "Checking $<"
@@ -66,7 +61,7 @@ $(PYCHECKLDD): %.ldd: %.py
 
 # Run Unit Tests
 
-$(PYTESTLDD): %.tldd: %.py
+$(PYTESTLDD): %.ldd: %.py
 	@echo "Test" $<
 	@pytest $(PYTESTOPTIONS) $< >$*.err
 	@mv $*.err $@
@@ -81,7 +76,7 @@ $(PYTESTLDD): %.tldd: %.py
 # First we provide a rule for stripping sml from a markdown file
 
 $(SMLINMD):%.sml: $.md
-	extract_code.py < %.md > %.sml
+	extract_code.py sml < %.md > %.sml
 
 # ProofPower
 

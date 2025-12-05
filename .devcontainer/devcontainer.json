@@ -1,11 +1,9 @@
 {
   "name": "SPaDE Development (Prebuilt)",
   "image": "ghcr.io/rbjones/spade:latest",
-  
   "containerEnv": {
     "PPDIR": "/proofpower-source"
   },
-
   "customizations": {
     "vscode": {
       "extensions": [
@@ -19,15 +17,10 @@
       }
     }
   },
-
   "postCreateCommand": "echo 'SPaDE prebuilt environment ready'",
-
   "forwardPorts": [],
-
   "portsAttributes": {},
-
   "remoteUser": "root",
-  
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace"
 }

@@ -2,10 +2,6 @@
 #	$Id: maths_egs.mkf,v 1.21 2014/05/25 13:58:16 rda Exp rda $
 ######################################################################
 # This version of the makefile is for use with the utf8 branch of ProofPower
-# It does this without changing the coding of the source in the repository
-# but by converting as necessary using pp_file_conv before use.
-# If forward development in utf8 were intended, then the sources in
-# the repository would be changed to .pp files.
 # The documents contain script causing the resulting theory to be
 # output as .th.doc files, which under utf8 will actually be in utf8.
 # Since these do not appear to be used, I have not tidied this up.
@@ -30,7 +26,7 @@ COFLAGS=-kv
 PRODNAME=PPMathsEgs
 PRODDESC=mathematical case studies in ProofPower-HOL
 SHORTNAME=maths_egs
-PPPARENT=hol
+PPPARENT=daz
 
 VER=$(shell echo $${PPEGSVER:-`cat version 2>/dev/null || date +%y%m%d`})
 PRODUCT=$(PRODNAME)-$(VER)
@@ -51,16 +47,16 @@ COFLAGS=-kv
 
 # The documents (keep target desc and the list SMLDOCS in step!)
 desc:
-	@echo "wrk066.doc: Analysis"
-	@echo "wrk067.doc: Topology"
-	@echo "wrk068.doc: Group Theory"
-	@echo "wrk072.doc: Complex Numbers"
-	@echo "wrk073.doc: Finite Combinatorics"
-	@echo "wrk074.doc: Number Theory"
-	@echo "wrk076.doc: Geometric Algebra"
-	@echo "wrk078.doc: Trees"
-	@echo "wrk080.doc: Universal Algebra"
-	@echo "wrk081.doc: Semigroups and Monoids"
+	@echo "wrk066: Analysis"
+	@echo "wrk067: Topology"
+	@echo "wrk068: Group Theory"
+	@echo "wrk072: Complex Numbers"
+	@echo "wrk073: Finite Combinatorics"
+	@echo "wrk074: Number Theory"
+	@echo "wrk076: Geometric Algebra"
+	@echo "wrk078: Trees"
+	@echo "wrk080: Universal Algebra"
+	@echo "wrk081: Semigroups and Monoids"
 
 SMLDOCS=
 SMLDOCS+=	wrk066.doc	# Analysis
@@ -98,19 +94,7 @@ TMPFILES+=	$(SMLDOCS:.doc=.th.tex)
 TMPFILES+=	$(SMLDOCS:.doc=.th.aux)
 
 # packing list for a source release (target src)
-PACKINGLIST=
-PACKINGLIST+= wrk066.doc
-PACKINGLIST+= wrk067.doc
-PACKINGLIST+= wrk068.doc
-PACKINGLIST+= wrk072.doc
-PACKINGLIST+= wrk073.doc
-PACKINGLIST+= wrk074.doc
-PACKINGLIST+= wrk076.doc
-PACKINGLIST+= wrk078.doc
-PACKINGLIST+= wrk080.doc
-PACKINGLIST+= wrk081.doc
-PACKINGLIST+= wrk083.doc
-PACKINGLIST+= maths_egs.mkf
+PACKINGLIST=$(PPFILES) maths_egs.mkf
 
 DISTPACKINGLIST=$(PACKINGLIST) README.txt
 

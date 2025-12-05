@@ -1,3 +1,7 @@
+"""
+    coded by Gemini 3 Pro (preview)
+"""
+
 from abc import ABC, abstractmethod
 from typing import List, Tuple, Optional, Union
 

@@ -71,7 +71,6 @@ val _ = Datatype
              | Tabs sname htype hterm
              | Tloc rname hterm
              | Tlit sexp;             
-```
 
 (* Sequents *)
 

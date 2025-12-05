@@ -1,3 +1,7 @@
+"""
+    coded by Gemini 3 Pro (preview)
+"""
+
 import os
 from typing import List, Tuple, Optional, Union, BinaryIO
 from kr.krcd008 import EncodingDecodingABC, LowLevelIOABC, SExpressionsABC

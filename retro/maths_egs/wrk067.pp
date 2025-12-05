@@ -11278,7 +11278,7 @@ val _ = set_merge_pcs["basic_hol1", "'sets_alg", "'ℤ", "'topology_ℝ", "'ℝ"
 \subsection{Epilogue}
 =TEX
 =SML
-output_theory{out_file="wrk0671.th.doc", theory="topology"};
+output_theory{out_file="wrk0671.th.pp", theory="topology"};
 output_theory{out_file="wrk0672.th.doc", theory="metric_spaces"};
 output_theory{out_file="wrk0673.th.doc", theory="topology_ℝ"};
 output_theory{out_file="wrk0674.th.doc", theory="homotopy"};

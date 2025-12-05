@@ -18,7 +18,7 @@ This document outlines the methods and standards for effective human/AI collabor
 
 ### 1. Alignment with Vision
 
-- It's important for contributions in this repo to align with my philosophical vision and architectural proposals, and these are as yet very poorly documented.
+- It's important for contributions in this repo to align with my philosophical vision and architectural proposals, though these are as yet incompletely documented.
 - So at this stage the contributions most welcome are comments, but really, best to wait a bit until there is more coherent and complete documentation available.
 - I will be trying in the course of setting out the architecture to identify kinds of functionality that would contribute to the grand plan and are suitable for independent development in separate repositories.
 

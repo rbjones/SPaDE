@@ -6,7 +6,7 @@ The project is organised into subsystems each with its own top-level directory, 
 
 Where there is no compelling reason to do otherwise, documents will be written in github markdown, and will be organised in such a way as to provide a transparent and complete view of the project from the project web site on [rbjones.github.io/SPaDE](https://rbjones.github.io/SPaDE)
 
-Documents specific to some subsystem will be in the top-level directory for that subsystem.
+Documents specific to some subsystem will be in the top-level sub-directory for that subsystem.
 
 High level and project wide documentation will be in the [docs](../README.md) directory, which has an [admin](README.md) subdirectory for materials of a non-technical nature.
 
@@ -27,7 +27,7 @@ Subsystem codes:
 - **kr** kr - knowledge repository
 - **mcp** mcp - MCP server and A2A protocol
 - **rv** reviews - review reports e.g. from copilot
-  - **Exception**: Review files use temporal naming: `YYYYMMDD-HHMM-author-topic.md`
+  - **Exception**: Review files in the reviews directoryuse temporal naming: `YYYYMMDD-HHMM-author-topic.md`, see [reviews](./#reviews).
 - **tl** tl - top level, system wide.  This includes files in the docs directory but not those in the admin subdirectory. The documentation at this level should all be in the docs directory rather than the top level directory, and mainly consists of high level system wide philosophy and architecture documents.
 
 Document kinds:
@@ -47,18 +47,21 @@ Document kinds:
 - **ep** Papers intended for external publication
 
 After the two prefixes documents will have a three digit number starting at 001 for each kind of document.
-Document suffixes will generally indicate the language in which the document is written.
+This completes the basename.
+Document name extensions will generally indicate the language in which the document is written, or the coding format.
+In some cases documents will have derivatives whose filename has the same basename but a distinct extension.
+This will happen when code or formal specifications are included alongside explanatory text in an .md file, or when the processing of one kind of formal text yields some other file (e.g. compiling a source module into an object module).
+Except in such cases of derivative documents, basenames should be unique.
+Derivative files having the same basename but a distinct extension should not be linked to separately in the README.md of the their directory.
 
-When undertaking reviews, please place outputs from the review in a markdown file in the "reviews" directory file in the root of the repository, or in a subdirectory of that directory if the comments relate to a specific subproject.
-Use a filename which includes the date and time of the review followed by the contributor name, (e.g. copilot).
-The date and time should be rendered in a formal which collates the files in temporal order in a directory listing, e.g. 20241001-1530-copilot.md for a review made on 1st October 2024 at 15:30 by copilot.
-A further component of the filename may be a brief indication of the subject matter, e.g. 20241001-1530-copilot-KRreview.md
-Avoid using colons (:) in filenames as they cause issues with Jekyll/GitHub Pages processing.
+
 
 ## Document Headers and Footers
 
-Document headers should be avoided because of the impact on web page readability and presentation.  A footer is more acceptable. 
+Document headers should be avoided in markdown pages because of the impact on web page readability and presentation.  A footer is more acceptable. 
 Dates need not be included, history can be traced through git logs.  The primary author should be indicated, which in the case of copilot should include the model name.  Where a document results from conversation with an AI agent a link to the chat log should be included.
+
+In the case of code or formal specifications not embedded in markdown a brief header mentioning authorship, including model name if AI.
 
 ## The Admin Directory
 
@@ -109,7 +112,11 @@ The reflexive nature of the project architecture means that from the earliest po
 
 ## Reviews
 
-- Reviews of documents and code are to be placed in the reviews directory with filenames indicating date, time, reviewer and subject.
+When undertaking reviews, please place outputs from the review in a markdown file in the "reviews" directory file in the root of the repository, or in a subdirectory of that directory if the comments relate to a specific subproject.
+Use a filename which includes the date and time of the review followed by the contributor name, (e.g. copilot).
+The date and time should be rendered in a formal which collates the files in temporal order in a directory listing, e.g. 20241001-1530-copilot.md for a review made on 1st October 2024 at 15:30 by copilot.
+A further component of the filename may be a brief indication of the subject matter, e.g. 20241001-1530-copilot-KRreview.md
+Avoid using colons (:) in filenames as they cause issues with Jekyll/GitHub Pages processing.
 
 ## Evolution
 
