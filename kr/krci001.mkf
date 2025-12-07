@@ -13,7 +13,7 @@ MDWITHSML=krdd001.md krad001.md krte001.md
 PPSML = krcd005.sml
 # krcd001.sml 
 HOL4SML = krcd006.sml 
-PYMODULES = krcd007.py krcd008.py krcd009.py
+PYMODULES = krcd008.py krcd009.py
 PYTESTS = krte002.py krte003.py
 
 BASEPPDBBNAME = daz
