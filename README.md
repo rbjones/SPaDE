@@ -10,7 +10,7 @@ The contribution sought by this project to that purpose is in two principle area
 The first is concerned with the management of that shared repository.
 The second with the architecture and fundamental core of the deductive intelligence which is considered the engine of proliferation.
 
-The [seminal insights](tlph009.md) upon which the [SPaDE](docs/tlad001.md#spade) architecture is based include:
+The [seminal insights](docs/tlph009.md) upon which the [SPaDE](docs/tlad001.md#spade) architecture is based include:
 
 1. That there are universal representations for [declarative knowledge](docs/tlad001.md#declarative-knowledge), the simplest of which is the higher order logic derived from Alonzo Church's Simple Theory of Types (which is adopted by SPaDE).
 
