@@ -14,6 +14,8 @@ That concrete syntax is important primarily for communication between humans and
 ## Perfect Information and Formal Theories
 
 The idea that *perfect information spaces* and *formal deductive theories* are equivalent, and hence can be automated by similar methods, notably by self-exploration of the space without need of training data.
+This connection suggests that generic support for perfect information spaces (which have typically separately engineered solutions for each space) can be provided by a deductive kernel supporting formal theories.
+The general framework established by a formal foundational institution (such as higher order logic) can be specialised to particular perfect information spaces by defining that space as a formal theory within the foundational institution, and then building the heuristics to solve problems in that space using neural nets focussed on that application.
 
 ## The Potential of Focal Methods
 
