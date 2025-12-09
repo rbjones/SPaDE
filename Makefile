@@ -19,7 +19,7 @@ kr-%:
 	$(MAKE) -C kr -f krci001.mkf $*
 
 mcp-%:
-	$(MAKE) -C mcp $*
+	$(MAKE) -C mcp -f mcpci001.mkf $*
 
 # Shorthand targets
 di: di-all

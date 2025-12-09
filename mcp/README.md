@@ -16,6 +16,8 @@ The content of thid directory falls under the following headings"
 - [mcpcd001.py](mcpcd001.py) - Main SPaDE MCP server implementation
 - [mcpcd002.py](mcpcd002.py) - Minimal/Debug MCP server
 - [mcpcd003.sh](mcpcd003.sh) - Debug wrapper script for running the server
+- [mcpcd004.py](mcpcd004.py) - Abstract Base Class documentation for these MCP helpers
+- [mcpci001.mkf](mcpci001.mkf) - Makefile that runs the MCP integration harness (mcpte001.py)
 
 ## Testing and Evaluation
 

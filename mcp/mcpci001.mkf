@@ -1,0 +1,26 @@
+# SPaDE mcp Makefile (Continuous Integration)
+# MCP subsystem.
+
+.PHONY: all build test integration clean help
+
+PYTHON ?= python3
+
+# Default target runs the integration test
+all: test
+
+test: integration
+
+build: integration
+
+integration:
+	$(PYTHON) mcpte001.py
+
+clean:
+	rm -rf __pycache__
+	rm -f *.pyc 2>/dev/null || true
+
+help:
+	@echo "MCP subsystem makefile"
+	@echo "  test        - Run the MCP integration harness"
+	@echo "  build       - Alias for test"
+	@echo "  integration - Execute mcpte001.py against the MCP server"
