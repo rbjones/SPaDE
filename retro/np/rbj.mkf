@@ -134,9 +134,7 @@ ATEXS=$(HOLPPS2:.pp=a.tex) $(HOLPPS3:.pp=a.tex)
 ZTEXS=$(HOLPPS2:.pp=z.tex) $(HOLPPS3:.pp=z.tex)
 IPDFS=t028.pdf t040.pdf t041.pdf t045.pdf t046.pdf t047.pdf t048.pdf t049.pdf \
 	       t050.pdf t055.pdf t057.pdf
-ITEXS=t028i.tex t040i.tex t041i.tex t045i.tex t046i.tex t047i.tex t048i.tex \
-	t049i.tex t050i.tex t055i.tex t057i.tex
-ITEXS=$(IPDFS:.PDF=i.tex)
+ITEXS=$(IPDFS:.pdf=i.tex)
 
 ZEDPPS=
 
@@ -579,7 +577,7 @@ doc:	docrel
 ######################################################################
 
 clean:
-	rm -f $(HOLTEXS) $(HOLMTEXS) $(SMLFILES) $(LDDFILES)
+	rm -f $(HOLTEXS) $(HOLMTEXS) $(ITEXS) $(SMLFILES) $(LDDFILES)
 	rm -f *.aux *.bbl *.blg *.err *.idx *.log *.lot *.out *.sid *-e \
 	*.thna.pp *.sml *.toc *.th.pp *.stats.doc *.stats.tex t000abs.tex \
 	doc_theories.tex \\#*\\#
