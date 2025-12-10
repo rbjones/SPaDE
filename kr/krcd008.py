@@ -5,6 +5,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Tuple, Optional, Union
 
+
 class EncodingDecodingABC(ABC):
     """
     Abstract Base Class for Encoding/Decoding module.

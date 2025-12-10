@@ -10,14 +10,15 @@ MDWITHSML=krdd001.md krad001.md krte001.md
 
 # Files classified by build method
 
-PPSML = krcd005.sml
+PPSML =
 # krcd001.sml 
 HOL4SML = krcd006.sml 
 PYMODULES = krcd008.py krcd009.py
 PYTESTS = krte002.py krte003.py
 
-BASEPPDBBNAME = daz
+BASEPPDBNAME = rbjhol
 SPADEPPDBNAME = spade
+
 
 include ../common/rules.mkf
 
@@ -33,7 +34,7 @@ default: test
 
 check: $(PYCHECKLDD)
 
-build: check $(PPDBNAME).ldd $(PPLDD)
+build: check $(SPADEPPDBNAME).ldd $(PPLDD)
 
 test: build $(PYTESTLDD)
 
@@ -43,16 +44,16 @@ clean:
 	rm -rf **/__pycache__ 2>/dev/null || true
 
 maths_egs.ldd:
-	$(MAKE) -C ../pp-contrib/src/maths_egs -f maths_egs.mkf bld
-	cp ../pp-contrib/src/maths_egs/maths_egs.polydb $(PPDIR)/bld/db/
+	$(MAKE) -C ../retro/maths_egs -f maths_egs.mkf clean load
+	cp ../retro/maths_egs/maths_egs.polydb $(PPDIR)/bld/db/
 	touch maths_egs.ldd
 
-rbjhol.ldd: maths_egs.ldd
-	$(MAKE) -C ../retro/np -f rbj.mkf bld
-	cp ../retro/np/rbjhol.polydb $(PPDIR)/bld/db
+$(BASEPPDBNAME).ldd: maths_egs.ldd
+	$(MAKE) -C ../retro/np -f rbj.mkf clean bld
+	cp ../retro/np/$(BASEPPDBNAME).polydb $(PPDIR)/bld/db/
 	touch rbjhol.ldd
 
-$(SPADEPPDBNAME).ldd: rbjhol.ldd $(BASEPPDBNAME).ldd
+$(SPADEPPDBNAME).ldd: $(BASEPPDBNAME).ldd
 	pp_make_database -f -p $(BASEPPDBNAME) $(SPADEPPDBNAME)
+	cp $(SPADEPPDBNAME).polydb $(PPDIR)/bld/db/
 	touch $(SPADEPPDBNAME).ldd
-

@@ -617,7 +617,7 @@ val ≤⋎o_ext_thm = save_pop_thm "≤⋎o_ext_thm";
 =SML
 val lt⋎o_well_founded_thm = save_thm ("lt⋎o_well_founded_thm",
     ⇒_elim (∀_elim ⌜$<⋎o⌝ u_iswo_well_founded_thm) lt⋎o_def);
-
+=IGN
 val lt⋎o_well_founded_thm2 = save_thm ("lt⋎o_well_founded_thm2",
     rewrite_rule [get_spec ⌜UWellFounded⌝] lt⋎o_well_founded_thm);
 

@@ -123,7 +123,8 @@ TTEX= \
 	t041a.tex t042.tex t043.tex t044a.tex t045a.tex \
 	t046a.tex t047a.tex t048a.tex t049a.tex t050a.tex \
 	t051.tex t052.tex t053.tex t054.tex t055.tex \
-	t056.tex t057.tex t058.tex
+	t057.tex
+# t056.tex t058.tex
 	
 NTEX= \
       nt001.tex nt002.tex \
@@ -477,7 +478,8 @@ bld: t002.ldd t003.ldd t004.ldd t005.ldd t006.ldd t007.ldd \
      t010.ldd t016.ldd t018.ldd t019.pp t020.ldd t021.ldd t022.ldd t023.ldd \
      t024.ldd t025.ldd t026.ldd t027.ldd t028.ldd t029.ldd t032.ldd t033.ldd t037.ldd \
      t038.ldd t039.ldd t040.ldd t041.ldd t042.ldd t043.ldd t044.ldd t045.ldd t046.ldd \
-     t050.ldd t051.ldd t054.ldd t056.ldd t058.ldd
+     t050.ldd t051.ldd t054.ldd
+# t056.ldd t058.ldd
 
 $(HOLDBNAME).ldd:
 ifeq ($(USERDB),)

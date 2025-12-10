@@ -1,5 +1,7 @@
 *-e
 *.err
+*i.tex
+*.sml
 *.th.pp
 *.th.tex
 *.thna.pp

@@ -31,6 +31,7 @@
 *.tch
 *.th
 *.th.doc
+*.th.pp
 *.thl.doc
 *.thy.doc
 *.theories
