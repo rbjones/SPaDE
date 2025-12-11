@@ -36,7 +36,8 @@ test: di-test dk-test kr-test mcp-test
 %-test: %-build
 
 # Cleanup
-clean: di-clean dk-clean kr-clean mcp-clean
+clean: kr-clean mcp-clean
+# di-clean dk-clean
 
 # Help
 help:

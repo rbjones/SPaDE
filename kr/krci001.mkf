@@ -49,6 +49,8 @@ maths_egs.ldd:
 	touch maths_egs.ldd
 
 $(BASEPPDBNAME).ldd: maths_egs.ldd
+	cd $(PPDIR)/src/hol && make -f hol.mkf spc001.sml spc002.sml spc003.sml spc004.sml spc005.sml && \
+	echo "save_and_quit{};" | pp -d hol -f spc001 -f spc002 -f spc003 -f spc004 -f spc005
 	$(MAKE) -C ../retro/np -f rbj.mkf clean bld
 	cp ../retro/np/$(BASEPPDBNAME).polydb $(PPDIR)/bld/db/
 	touch rbjhol.ldd
