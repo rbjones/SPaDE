@@ -67,6 +67,7 @@ This section includes documents that describe the testing and evaluation process
 This section includes task descriptions for implementing knowledge repository components.
 
 - [krtd001.md](krtd001.md) - Task Description for Python ABC for SPaDE Native Repository I/O
+- [krtd002.md](krtd002.md) - Task Description for Code ad Test Low Level Native Repository I/O in SML.
 - [krtd003.md](krtd003.md) - Task Description for SML Signatures for SPaDE Native Repository I/O
 
 ## Build Configuration
