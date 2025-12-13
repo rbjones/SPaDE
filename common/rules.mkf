@@ -20,9 +20,9 @@
 # PYTESTS Python test scripts to be run.
 
 # Standard ML:
-# PPSMLSIGS SML signature files to be loaded into the ProofPower database
-# PPSMLSTRUCS SML structure files to be loaded into the ProofPower database
-# PPSMLTESTS SML unit test files to be loaded into the ProofPower database
+# PPSMLSIG SML signature files to be loaded into the ProofPower database
+# PPSMLSTRUCT SML structure files to be loaded into the ProofPower database
+# PPSMLTEST SML unit test files to be loaded into the ProofPower database
 # HOL4 SML files to be loaded into HOL4
 # 
 # Sometimes code may be included in markdown.

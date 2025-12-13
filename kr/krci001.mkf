@@ -20,7 +20,6 @@ PYTESTS = krte002.py krte003.py
 BASEPPDBNAME = rbjhol
 SPADEPPDBNAME = spade
 
-
 include ../common/rules.mkf
 
 LDDS=$(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(H4LDD)
@@ -41,6 +40,11 @@ check: $(PYCHECKLDD) $(PPSIGLDD)
 build: check $(SPADEPPDBNAME).ldd $(PPSTRUCTLDD)
 
 test: build $(PYTESTLDD) $(PPTESTLDD)
+
+echo:
+	@echo "PPSIGLDD: $(PPDSIGLDD)" 
+	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)" 
+	@echo "PPTESTLDD: $(PPTESTLDD)" 
 
 clean:
 	rm -f $(LDDS) $(SMLINMD) *.err
