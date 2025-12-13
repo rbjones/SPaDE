@@ -10,8 +10,10 @@ MDWITHSML=krdd001.md krad001.md krte001.md
 
 # Files classified by build method
 
-PPSML = krcd005.sml krcd010.sml
-HOL4SML = krcd006.sml 
+PPSMLSIG = krcd001.sml
+PPSMLSTRUC = krcd011.sml
+PPSMLTEST = krte004.sml
+HOL4SML = krcd006.sml
 PYMODULES = krcd008.py krcd009.py
 PYTESTS = krte002.py krte003.py
 
@@ -21,7 +23,7 @@ SPADEPPDBNAME = spade
 
 include ../common/rules.mkf
 
-LDDS=$(SMLLDD) $(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(H4LDD)
+LDDS=$(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(H4LDD)
 
 # Default target
 
@@ -29,13 +31,16 @@ default: test
 
 # Dependencies as necessary to get right build sequence
 
+krcd011.ldd: krcd001.ldd
+krte004.ldd: krcd011.ldd krcd001.ldd
+
 # Targets
 
-check: $(PYCHECKLDD)
+check: $(PYCHECKLDD) $(PPSIGLDD)
 
-build: check $(SPADEPPDBNAME).ldd $(PPLDD)
+build: check $(SPADEPPDBNAME).ldd $(PPSTRUCTLDD)
 
-test: build $(PYTESTLDD)
+test: build $(PYTESTLDD) $(PPTESTLDD)
 
 clean:
 	rm -f $(LDDS) $(SMLINMD) *.err

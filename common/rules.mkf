@@ -20,7 +20,9 @@
 # PYTESTS Python test scripts to be run.
 
 # Standard ML:
-# PPSML SML files to be loaded into the ProofPower database
+# PPSMLSIGS SML signature files to be loaded into the ProofPower database
+# PPSMLSTRUCS SML structure files to be loaded into the ProofPower database
+# PPSMLTESTS SML unit test files to be loaded into the ProofPower database
 # HOL4 SML files to be loaded into HOL4
 # 
 # Sometimes code may be included in markdown.
@@ -29,12 +31,19 @@
 
 # MDWITHSML
 
+# Default python interpreter (can be overridden by parent makefile)
+PYTHON ?= python3
+
 # The following variables used in the rules are derived from them.
 
 PYCHECKLDD=$(PYMODULES:.py=.ldd)
 PYTESTLDD=$(PYTESTS:.py=.ldd)
 
-PPLDD=$(PPSML:.sml=.ldd)
+PPSIGLDD=$(PPSMLSIG:.sml=.ldd)
+PPSTRUCTLDD=$(PPSMLSTRUCT:.sml=.ldd)
+PPTESTLDD=$(PPSMLTEST:.sml=.ldd)
+PPLDD=$(PPSIGLDD) $(PPSTRUCTLDD) $(PPTESTLDD)
+
 H4LDD=$(H4SML:.sml=.ldd)
 
 SMLINMD=$(MDWITHSML:.md=.sml)
@@ -44,26 +53,26 @@ SMLINMD=$(MDWITHSML:.md=.sml)
 # check without executing
     
 $(PYCHECKLDD): %.ldd: %.py
-	@echo "Checking $<"
-	@errfile=$*.err; \
-	rm -f $$errfile; \
-	failed=0; \
-	python3 -m py_compile $< >>$$errfile 2>&1 || failed=1; \
-	flake8 --max-line-length=100 --ignore=E203,W503 $< >>$$errfile 2>&1 || failed=1; \
-	mypy --ignore-missing-imports $< >>$$errfile 2>&1 || failed=1; \
-	if [ $$failed -eq 0 ]; then \
-	  touch $@; \
-	  rm -f $$errfile; \
-	  echo "  OK → $@"; \
-	else \
-	  echo "  Issues found → $$errfile"; \
-	fi
+		@echo "Checking $<"
+		@errfile=$*.err; \
+		rm -f $$errfile; \
+		failed=0; \
+		$(PYTHON) -m py_compile $< >>$$errfile 2>&1 || failed=1; \
+		$(PYTHON) -m flake8 --max-line-length=100 --ignore=E203,W503 $< >>$$errfile 2>&1 || failed=1; \
+		$(PYTHON) -m mypy --ignore-missing-imports $< >>$$errfile 2>&1 || failed=1; \
+		if [ $$failed -eq 0 ]; then \
+			touch $@; \
+			rm -f $$errfile; \
+			echo "  OK → $@"; \
+		else \
+			echo "  Issues found → $$errfile"; \
+		fi
 
 # Run Unit Tests
 
 $(PYTESTLDD): %.ldd: %.py
 	@echo "Test" $<
-	@pytest $(PYTESTOPTIONS) $< >$*.err
+	@$(PYTHON) -m pytest $(PYTESTOPTIONS) $< >$*.err
 	@mv $*.err $@
 
 # Standard ML
