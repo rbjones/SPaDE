@@ -32,7 +32,7 @@ THe modules required are as follows:
 
 ## Encoding/Decoding
 
-The SPaDE native repository is a sequence of null terminated byte sequences.
+The SPaDE native repository is a sequence of null terminated byte sequences (NTBS).
 It is necessary to have procedures for encoding arbitrary byte sequences as null terminated byte sequences, and for decoding such sequences back into arbitrary byte sequences.
 
 This module provides procedures for encoding and decoding null terminated byte sequences into a small number of primitive data types, as follows:
@@ -55,12 +55,14 @@ Binary 1 will be used as an escape character to permit a zero byte to be include
 It also serves to escape itself, so that any occurrence of the byte 1 in a byte sequence is represented in a null terminated byte sequence by the two byte sequence 1 1.
 When preceding a byte 0, binary 1 indicates that the 0 is to be included in the byte sequence rather than terminating it.
 When preceding a byte other than 0 or 1, binary 1 does not function as an escape, and is simply part of the byte sequence.
-
+When appearing at the end of a byte sequence being encoded, binary 1 must be escaped in the resulting NTSB since it would otherwise escape the null terminator.
 Decoding a null terminated byte sequence into a byte sequence therefore involves reading bytes until a byte 0 is reached, and interpreting any byte 1 as an escape character.
 If the byte following a byte 1 is a byte 0, then a byte 0 is included in the byte sequence.
 If the byte following a byte 1 is another byte 1, then a byte 1 is included in the byte sequence.
 If the byte following a byte 1 is any other byte, then both the byte 1 and the following byte are included in the byte sequence.
-All other bytes are included in the byte sequence until an unescaped byte 0 is reached
+All other bytes are included in the byte sequence until an unescaped byte 0 is reached.
+
+All passage of NTSBs as parameters to or return values from the procedures described in this document must include the terminating zero.  The null terminator is added when encoding and discarded when decoding.
 
 ## Low Level I/O
 

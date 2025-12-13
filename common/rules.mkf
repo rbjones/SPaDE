@@ -80,15 +80,15 @@ $(SMLINMD):%.sml: $.md
 
 # ProofPower
 
-$(PPLDD): %.ldd: %.sml
+$(PPLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
 	@echo "Compiling SML" $<
-	@echo 'save_and_quit();' | PPCHARSET=utf8 pp -d $(PPDBNAME) -f $< >$*.err
+	@echo 'save_and_quit();' PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
 	@mv $*.err $@
 
 # HOL4
 
-$(H4LDD): %.ldd: %.sml
+$(H4LDD): %.ldd: %.sml $(SPADEH4DBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
 	@echo "Compiling SML" $<
 	@hol <<< 'use("$<");PolyML.SaveState.saveState;'  >$*.err

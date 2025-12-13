@@ -10,8 +10,7 @@ MDWITHSML=krdd001.md krad001.md krte001.md
 
 # Files classified by build method
 
-PPSML =
-# krcd001.sml 
+PPSML = krcd005.sml krcd010.sml
 HOL4SML = krcd006.sml 
 PYMODULES = krcd008.py krcd009.py
 PYTESTS = krte002.py krte003.py

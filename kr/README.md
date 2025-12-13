@@ -51,6 +51,7 @@ This section includes documents that provide a detailed design of the Knowledge 
 This section includes documents that provide detailed formal specifications or code for the Knowledge Repository.
 
 - [krcd006.sml](krcd006.sml) - HOL4 specification of [SPaDE](../docs/tlad001.md#spade) repository
+- [krcd010.sml](krcd010.sml) - Signature describing the encoding/I/O/S-expression contracts for SPaDE Native Repository I/O
 - [krcd008.py](krcd008.py) - Abstract Base Classes for SPaDE Native Repository I/O (following krdd004.md)
 - [krcd009.py](krcd009.py) - Concrete Python implementation of SPaDE Native Repository I/O (implements krcd008)
 

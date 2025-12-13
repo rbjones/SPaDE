@@ -39,4 +39,3 @@ All new documents should be referenced in the relevant README.md files (kr/READM
 The work should begin with a pull request and should pause after creation of signature documents for review before proceeding to implementation.
 
 Once the SML implementation and its unit tests are complete an analysis of methods for wrapping SML code for use in python should be undertaken to determine the best approach for the python wrapper, and a further review point should be established before proceeding with the wrapper and MCP service implementation.
-
