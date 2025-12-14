@@ -11,11 +11,12 @@ MDWITHSML=krdd001.md krad001.md krte001.md
 # Files classified by build method
 
 PPSMLSIG = krcd001.sml
-PPSMLSTRUC = krcd011.sml
+PPSMLSTRUCT = krcd011.sml
 PPSMLTEST = krte004.sml
+# krte006.sml
 HOL4SML = krcd006.sml
-PYMODULES = krcd008.py krcd009.py
-PYTESTS = krte002.py krte003.py
+PYMODULES = krcd008.py krcd009.py krcd012.py
+PYTESTS = krte002.py krte003.py krte005.py
 
 BASEPPDBNAME = rbjhol
 SPADEPPDBNAME = spade
@@ -31,9 +32,16 @@ default: test
 # Dependencies as necessary to get right build sequence
 
 krcd011.ldd: krcd001.ldd
-krte004.ldd: krcd011.ldd krcd001.ldd
+krte004.ldd: krcd011.ldd
+krte006.ldd: krcd011.ldd
 
 # Targets
+
+vars:
+	@echo "PPSIGLDD: $(PPSIGLDD)"
+	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
+	@echo "PPTESTLDD: $(PPTESTLDD)"
+	@echo "PPLDD: $(PPLDD)"
 
 check: $(PYCHECKLDD) $(PPSIGLDD)
 
@@ -42,9 +50,9 @@ build: check $(SPADEPPDBNAME).ldd $(PPSTRUCTLDD)
 test: build $(PYTESTLDD) $(PPTESTLDD)
 
 echo:
-	@echo "PPSIGLDD: $(PPDSIGLDD)" 
-	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)" 
-	@echo "PPTESTLDD: $(PPTESTLDD)" 
+	@echo "PPSIGLDD: $(PPSIGLDD)"
+	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
+	@echo "PPTESTLDD: $(PPTESTLDD)"
 
 clean:
 	rm -f $(LDDS) $(SMLINMD) *.err

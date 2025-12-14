@@ -84,8 +84,8 @@ $(PYTESTLDD): %.ldd: %.py
 
 # First we provide a rule for stripping sml from a markdown file
 
-$(SMLINMD):%.sml: $.md
-	extract_code.py sml < %.md > %.sml
+$(SMLINMD): %.sml: %.md
+	extract_code.py sml < $< > $@
 
 # ProofPower
 

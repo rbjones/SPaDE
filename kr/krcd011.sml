@@ -229,3 +229,100 @@ struct
             | Atom v => AtomValue v
             | Cons (car, cdr) => ConsValue (read_recursive car, read_recursive cdr)
 end
+
+(*
+   Native service loop for driving the SML implementation from an external
+   controller (e.g. Python). Commands are newline-terminated strings; results
+   are single-line replies beginning OK/ERR followed by payload. Payloads that
+   represent byte sequences are hex-encoded to keep the protocol ASCII-only.
+*)
+structure NativeRepoService =
+struct
+    (* hex helpers *)
+    fun hex_of_word8 w =
+        let
+            val n = Word8.toInt w
+            val hi = n div 16
+            val lo = n mod 16
+            fun nib x = if x < 10 then Char.chr (x + Char.ord #"0")
+                        else Char.chr (x - 10 + Char.ord #"a")
+        in String.implode [nib hi, nib lo] end
+
+    fun hex_of_vec v =
+        String.concat (map hex_of_word8 (Word8Vector.foldr op:: [] v))
+
+    fun word8_of_hex2 s =
+        let
+            fun valof c =
+                if c >= #"0" andalso c <= #"9" then Char.ord c - Char.ord #"0"
+                else if c >= #"a" andalso c <= #"f" then 10 + Char.ord c - Char.ord #"a"
+                else if c >= #"A" andalso c <= #"F" then 10 + Char.ord c - Char.ord #"A"
+                else raise Fail "bad hex"
+        in
+            case String.explode s of
+                [h1,h2] => Word8.fromInt (valof h1 * 16 + valof h2)
+              | _ => raise Fail "bad hex width"
+        end
+
+    fun vec_of_hex s =
+        let
+            val chars = String.size s
+            fun loop i acc =
+                if i >= chars then Word8Vector.fromList (rev acc)
+                else loop (i+2) (word8_of_hex2 (String.extract (s, i, SOME 2)) :: acc)
+        in
+            if chars mod 2 <> 0 then raise Fail "hex length not even" else loop 0 []
+        end
+
+    (* helpers to print replies *)
+    fun ok payload = (TextIO.print ("OK " ^ payload ^ "\n"); TextIO.flushOut TextIO.stdOut)
+    fun err msg = (TextIO.print ("ERR " ^ msg ^ "\n"); TextIO.flushOut TextIO.stdOut)
+
+    (* command handlers *)
+    fun handle ["ENCODE_BYTES", hex] = ok (hex_of_vec (EncodingDecoding.encode_bytes (vec_of_hex hex)))
+      | handle ["DECODE_BYTES", hex] = ok (hex_of_vec (EncodingDecoding.decode_bytes (vec_of_hex hex)))
+      | handle ["ENCODE_INT", n] = ok (hex_of_vec (EncodingDecoding.encode_integer (valOf (Int.fromString n))))
+      | handle ["DECODE_INT", hex] = ok (Int.toString (EncodingDecoding.decode_integer (vec_of_hex hex)))
+    | handle ["DECODE_SEQ_LIST", hex] =
+        let
+            val parts = EncodingDecoding.decode_sequence_list (vec_of_hex hex)
+            val out = String.concatWith "," (map hex_of_vec parts)
+        in ok out end
+
+      | handle ["OPEN_NEW", path, ver] = (LowLevelIO.open_new_repository (path, valOf (Int.fromString ver)); ok "")
+      | handle ["OPEN_READ", path] = (LowLevelIO.open_existing_repository_read path; ok "")
+      | handle ["OPEN_APPEND", path] = (LowLevelIO.open_existing_repository_append path; ok "")
+      | handle ["CLOSE"] = (LowLevelIO.close_repository(); ok "")
+
+      | handle ["READ_BSEQ"] =
+            let val (bs, n) = LowLevelIO.read_byte_sequence()
+            in ok (Int.toString n ^ " " ^ hex_of_vec bs) end
+
+      | handle ["WRITE_BSEQ", hex] = ok (Int.toString (LowLevelIO.write_byte_sequence (vec_of_hex hex)))
+      | handle ["GET_SEQ", hex] = (case LowLevelIO.get_sequence_number (vec_of_hex hex) of
+                                        SOME n => ok (Int.toString n)
+                                      | NONE => ok "NONE")
+      | handle ["GET_BSEQ", n] = ok (hex_of_vec (LowLevelIO.get_byte_sequence (valOf (Int.fromString n))))
+
+      | handle ["WRITE_NIL"] = ok (Int.toString (SExpressions.write_nil()))
+      | handle ["WRITE_ATOM", hex] = ok (Int.toString (SExpressions.write_atom (vec_of_hex hex)))
+      | handle ["WRITE_CONS", car, cdr] = ok (Int.toString (SExpressions.write_cons (valOf (Int.fromString car), valOf (Int.fromString cdr))))
+      | handle ["READ_SEXP", n] =
+            (case SExpressions.read_sexpression (valOf (Int.fromString n)) of
+                SExpressions.Nil => ok "NIL"
+              | SExpressions.Atom v => ok ("ATOM " ^ hex_of_vec v)
+              | SExpressions.Cons (a,b) => ok ("CONS " ^ Int.toString a ^ " " ^ Int.toString b))
+      | handle ["PUSH_NIL"] = (SExpressions.push_nil(); ok "")
+      | handle ["PUSH_ATOM", hex] = (SExpressions.push_atom (vec_of_hex hex); ok "")
+      | handle ["STACK_CONS"] = (SExpressions.stack_cons(); ok "")
+
+      | handle _ = err "UNKNOWN_CMD"
+
+    fun repl () =
+        case TextIO.inputLine TextIO.stdIn of
+            NONE => ()
+          | SOME line =>
+                let val trimmed = String.extract (line, 0, SOME (String.size line - 1)) (* drop \n *)
+                    val parts = String.tokens (fn c => c = #" ") trimmed
+                in (handle parts; repl ()) end
+end

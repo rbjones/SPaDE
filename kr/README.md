@@ -50,11 +50,13 @@ This section includes documents that provide a detailed design of the Knowledge 
 
 This section includes documents that provide detailed formal specifications or code for the Knowledge Repository.
 
-- [krcd006.sml](krcd006.sml) - HOL4 specification of [SPaDE](../docs/tlad001.md#spade) repository
 - [krcd001.sml](krcd001.sml) - Signature describing the encoding/I/O/S-expression contracts for SPaDE Native Repository I/O
-- [krcd011.sml](krcd011.sml) - SML structures implementing the Native Repository encoding/I/O/S-expression contracts
+- [krcd006.sml](krcd006.sml) - HOL4 specification of [SPaDE](../docs/tlad001.md#spade) repository
 - [krcd008.py](krcd008.py) - Abstract Base Classes for SPaDE Native Repository I/O (following krdd004.md)
 - [krcd009.py](krcd009.py) - Concrete Python implementation of SPaDE Native Repository I/O (implements krcd008)
+- [krcd010.sml](krcd010.sml) - SML signatures detailing the Native Repository encoding/I/O/S-expression contracts
+- [krcd011.sml](krcd011.sml) - SML structures implementing the Native Repository encoding/I/O/S-expression contracts
+- [krcd012.py](krcd012.py) - Python wrapper that delegates the Native Repository I/O ABCs to the SML implementation in krcd011.sml via a persistent ProofPower session
 
 ## Testing and Evaluation
 
@@ -64,6 +66,8 @@ This section includes documents that describe the testing and evaluation process
 - [krte002.py](krte002.py) - Integration tests for krcd009.py (SPaDE Native Repository I/O)
 - [krte003.py](krte003.py) - Unit tests for krcd009.py (SPaDE Native Repository I/O)
 - [krte004.sml](krte004.sml) - SML unit smoke tests for krcd011 Native Repository implementation
+- [krte005.py](krte005.py) - Integration tests for krcd011 Native Repository implementation
+- [krte006.sml](krte006.sml) - Extended SML tests covering krcd011 Native Repository I/O and S-expressions
 
 ## Task Descriptions
 
