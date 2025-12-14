@@ -22,7 +22,7 @@ end
 
 signature LOW_LEVEL_IO =
 sig
-    type byte_sequence = ENCODING_DECODING.byte_sequence
+    type byte_sequence
     type sequence_number = int
 
     exception StaleCacheError of string
@@ -41,8 +41,8 @@ end
 
 signature S_EXPRESSIONS =
 sig
-    type byte_sequence = LOW_LEVEL_IO.byte_sequence
-    type sequence_number = LOW_LEVEL_IO.sequence_number
+    type byte_sequence
+    type sequence_number
 
     datatype sexp = Nil | Atom of byte_sequence | Cons of sequence_number * sequence_number
     datatype sexp_value =

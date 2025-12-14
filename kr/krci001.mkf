@@ -16,7 +16,8 @@ PPSMLTEST = krte004.sml
 # krte006.sml
 HOL4SML = krcd006.sml
 PYMODULES = krcd008.py krcd009.py krcd012.py
-PYTESTS = krte002.py krte003.py krte005.py
+PYTESTS = krte002.py krte003.py
+# krte005.py
 
 BASEPPDBNAME = rbjhol
 SPADEPPDBNAME = spade

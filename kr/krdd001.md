@@ -6,6 +6,7 @@ It is a mix of informal description of the process and a list of the SML functio
 - [An informal account of the process](#an-informal-account-of-the-process)
 - [SML Functions For Accessing ProofPower HOL Theories](#sml-functions-for-accessing-proofpower-hol-theories)
 - [Writing to a SPaDE Native Repository](#writing-to-a-spade-native-repository)
+- [ProofPower SML Usage Notes](#proofpower-sml-usage-notes)
 
 ## An informal account of the process
 
@@ -262,3 +263,10 @@ In [SPaDE](../docs/tlad001.md#spade) parents need not be in the same local repos
 In either case not only the path to the parent theory, but also the displacement in its own local repository are included in the context structure and in a terminating hash created from the whole theory.
 
 The context structure is followed by a list of extensions, each of which introduces new names (possibly none) and a constraint (which may be an axiom or a conservative extension).
+
+## ProofPower SML Usage Notes
+
+When running SML code inside ProofPower there are a few differences from plain Poly/ML that matter for our tooling and tests:
+
+- `Fail` payload type: in ProofPower, `Fail` is `exception Fail of MESSAGE` (not `string`). Code that raises `Fail "msg"` in vanilla SML must either construct a `MESSAGE` value or use a separate test-local exception (e.g., `TestFail of string`).
+- Loading files: the ProofPower interface provides `use_file` for loading SML from a file; prefer this over `use` when operating inside ProofPower sessions so that files are loaded correctly in that environment.

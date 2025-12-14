@@ -42,7 +42,8 @@ PYTESTLDD=$(PYTESTS:.py=.ldd)
 PPSIGLDD=$(PPSMLSIG:.sml=.ldd)
 PPSTRUCTLDD=$(PPSMLSTRUCT:.sml=.ldd)
 PPTESTLDD=$(PPSMLTEST:.sml=.ldd)
-PPLDD=$(PPSIGLDD) $(PPSTRUCTLDD) $(PPTESTLDD)
+PPLOADLDD=$(PPSIGLDD) $(PPSTRUCTLDD)
+PPLDD=$(PPTESTLDD) $(PPLOADLDD)
 
 H4LDD=$(H4SML:.sml=.ldd)
 
@@ -89,10 +90,16 @@ $(SMLINMD): %.sml: %.md
 
 # ProofPower
 
-$(PPLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
+$(PPLOADLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
 	@echo "Compiling SML" $<
-	@echo 'save_and_quit();' PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
+	@echo 'save_and_quit();' | PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
+	@mv $*.err $@
+	
+$(PPTESTLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
+	@rm -f $@ $*.err 2>/dev/null
+	@echo "Compiling SML" $<
+	@PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
 	@mv $*.err $@
 
 # HOL4

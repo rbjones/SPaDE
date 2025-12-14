@@ -1,12 +1,23 @@
 (* Minimal SML unit test for repository encoding and S-expression roundtrips. *)
 
+val _ = PolyML.use "krcd011.sml"   (* ensure LowLevelIO/SExpressions are available *)
+
+exception TestFail of string
+
 fun assert_bool (msg, true) = ()
-    | assert_bool (msg, false) = raise Fail ("Assertion failed: " ^ msg)
+    | assert_bool (msg, false) = raise TestFail ("Assertion failed: " ^ msg)
 
 fun assert_int (msg, a, b) = assert_bool (msg, a = b)
 
+fun vec_equal (a: Word8Vector.vector, b: Word8Vector.vector) =
+    let
+        val lenA = Word8Vector.length a
+        val lenB = Word8Vector.length b
+        fun loop i = i = lenA orelse (Word8Vector.sub (a, i) = Word8Vector.sub (b, i) andalso loop (i + 1))
+    in lenA = lenB andalso loop 0 end
+
 fun assert_bytes (msg, a:Word8Vector.vector, b) =
-        assert_bool (msg, Word8Vector.equals (a, b))
+        assert_bool (msg, vec_equal (a, b))
 
 val _ = LowLevelIO.open_new_repository ("/tmp/spade-test.repo", 1)
 
@@ -27,26 +38,26 @@ val sexp_cons = SExpressions.write_cons (sexp_atom, sexp_nil)
 
 val _ = (case SExpressions.read_sexpression sexp_nil of
             SExpressions.Nil => ()
-        | _ => raise Fail "Nil roundtrip failed")
+        | _ => raise TestFail "Nil roundtrip failed")
 
 val _ = (case SExpressions.read_sexpression sexp_atom of
             SExpressions.Atom v => assert_bytes ("atom roundtrip", bytes1, v)
-        | _ => raise Fail "Atom roundtrip failed")
+        | _ => raise TestFail "Atom roundtrip failed")
 
 val _ = (case SExpressions.read_sexpression sexp_cons of
             SExpressions.Cons (car,cdr) =>
                 (assert_int ("car ptr", sexp_atom, car);
                     assert_int ("cdr ptr", sexp_nil, cdr))
-        | _ => raise Fail "Cons roundtrip failed")
+        | _ => raise TestFail "Cons roundtrip failed")
 
 val recursive_in = SExpressions.ConsValue (SExpressions.AtomValue bytes2, SExpressions.NilValue)
 val recursive_seq = SExpressions.write_recursive recursive_in
 val recursive_out = SExpressions.read_recursive recursive_seq
 
 val _ = (case recursive_out of
-            SExpressions.ConsValue (SExpressions.AtomValue v, SExpressions.NilValue) =>
-                assert_bytes ("recursive atom payload", bytes2, v)
-        | _ => raise Fail "Recursive roundtrip failed")
+        SExpressions.ConsValue (SExpressions.AtomValue v, SExpressions.NilValue) =>
+        assert_bytes ("recursive atom payload", bytes2, v)
+    | _ => raise TestFail "Recursive roundtrip failed")
 
 val _ = LowLevelIO.close_repository ()
 
