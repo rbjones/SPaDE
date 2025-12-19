@@ -55,7 +55,7 @@ try:
         raise
 
     # Initialize FastMCP server
-    server = FastMCP("spade-repo-server")
+    server = FastMCP("SPaDE-server")
 
     @server.tool()
     async def create_repository(filepath: str, version: int = 1) -> str:

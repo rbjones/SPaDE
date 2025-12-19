@@ -1,26 +1,38 @@
-# SPaDE mcp Makefile (Continuous Integration)
-# MCP subsystem.
+# SPaDE mcp Makefile (Continuous Integration + Local Ops)
+# This is the single Makefile used by the mcp subsystem (invoked from the top-level SPaDE Makefile).
 
-.PHONY: all build test integration clean help
+.PHONY: default all check build test integration serve clean help
 
-PYTHON ?= python3
+# Some options
+PYRUNOPTIONS=-u
+# Python source files 
+PYCHECK = mcpcd001.py mcpcd002.py mcpte001.py
+# Python cripts to be run
+PYRUN= mcpcd001.py
+# Python test scripts to be run
+PYTEST= mcpte001.py
 
-# Default target runs the integration test
-all: test
+include ../common/rules.mkf
 
-test: integration
+# Default targets
+default: test
 
-build: integration
+# Targets
 
-integration:
-	$(PYTHON) mcpte001.py
+check: $(PYCHECKCDD)
+
+serve: $(PYRUNRDD)
+
+test: serve $(PYTESTTDD)
 
 clean:
-	rm -rf __pycache__
-	rm -f *.pyc 2>/dev/null || true
+	rm -f *.?dd *.err
+	rm -f **/__pycache__/*.pyc 2>/dev/null || true
+	rm -rf **/__pycache__ 2>/dev/null || true
 
 help:
 	@echo "MCP subsystem makefile"
-	@echo "  test        - Run the MCP integration harness"
-	@echo "  build       - Alias for test"
-	@echo "  integration - Execute mcpte001.py against the MCP server"
+	@echo "  clean		- delete generated files"
+	@echo "  check		- check code"
+	@echo "  serve      - Run the SPaDE MCP server"
+	@echo "  test       - Run all checks and test harness"

@@ -14,12 +14,14 @@
 # The following variables should be set in the parent makefile.
 
 # python:
+# PYRUNOPTIONS options to be set when running python scripts
 # PYTESTOPTIONS options to be set when running python test scripts
-# PPDBNAME the root name of the ProofPower database to be used.
-# PYMODULES Python source files to be checked
-# PYTESTS Python test scripts to be run.
+# PYCHECK Python source files to be checked
+# PYRUN Python scripts to be run.
+# PYTEST Python test scripts to be run.
 
 # Standard ML:
+# PPDBNAME the root name of the ProofPower database to be used.
 # PPSMLSIG SML signature files to be loaded into the ProofPower database
 # PPSMLSTRUCT SML structure files to be loaded into the ProofPower database
 # PPSMLTEST SML unit test files to be loaded into the ProofPower database
@@ -36,16 +38,21 @@ PYTHON ?= python3
 
 # The following variables used in the rules are derived from them.
 
-PYCHECKLDD=$(PYMODULES:.py=.ldd)
-PYTESTLDD=$(PYTESTS:.py=.ldd)
+PYCHECKCDD=$(PYCHECK:.py=.cdd)
+PYRUNRDD=$(PYRUN:.py=.rdd)
+PYTESTTDD=$(PYTEST:.py=.tdd)
 
 PPSIGLDD=$(PPSMLSIG:.sml=.ldd)
 PPSTRUCTLDD=$(PPSMLSTRUCT:.sml=.ldd)
 PPTESTLDD=$(PPSMLTEST:.sml=.ldd)
 PPLOADLDD=$(PPSIGLDD) $(PPSTRUCTLDD)
+
 PPLDD=$(PPTESTLDD) $(PPLOADLDD)
 
 H4LDD=$(H4SML:.sml=.ldd)
+
+CDD=$(PYCHECKCDD)
+LDD=$(PYLDD) $(PPLDD) $(H4LDD)
 
 SMLINMD=$(MDWITHSML:.md=.sml)
 
@@ -53,7 +60,7 @@ SMLINMD=$(MDWITHSML:.md=.sml)
 
 # check without executing
     
-$(PYCHECKLDD): %.ldd: %.py
+$(PYCHECKCDD): %.cdd: %.py
 		@echo "Checking $<"
 		@errfile=$*.err; \
 		rm -f $$errfile; \
@@ -69,9 +76,20 @@ $(PYCHECKLDD): %.ldd: %.py
 			echo "  Issues found → $$errfile"; \
 		fi
 
-# Run Unit Tests
+# Run Python
 
-$(PYTESTLDD): %.ldd: %.py
+$(PYRUNRDD): %.rdd: %.py
+	@echo "Run" $<
+	@log=$*.log; pid=$*.pid; stamp=$@; \
+	rm -f "$$pid" "$$stamp"; \
+	$(PYTHON) $(PYRUNOPTIONS) $< >"$$log" 2>&1 & \
+	echo $$! >"$$pid"; \
+	touch "$$stamp"; \
+	echo "Started PID $$(cat $$pid), log $$log"	@$
+
+# Python Unit Tests
+
+$(PYTESTTDD): %.tdd: %.py
 	@echo "Test" $<
 	@$(PYTHON) -m pytest $(PYTESTOPTIONS) $< >$*.err
 	@mv $*.err $@
@@ -99,7 +117,7 @@ $(PPLOADLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 $(PPTESTLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
 	@echo "Compiling SML" $<
-	@PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
+	PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
 	@mv $*.err $@
 
 # HOL4

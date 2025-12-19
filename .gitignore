@@ -63,3 +63,5 @@ inspector/
 *.code-workspace
 tools/
 
+# space for files not to be tracked by git
+temp/

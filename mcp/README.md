@@ -6,10 +6,11 @@ Because of the AI oriented development strategy, we may wish to create other MCP
 
 The first of these might be an MCP server for ProofPower, and/or HOL4, since those systems are likely to be used during the early work on the logical foundations and their metatheory, which would then be imported into SPaDE repositories.
 
-The content of thid directory falls under the following headings"
+The content of this directory falls under the following headings:
 
 - **[Code](#code)**
 - **[Testing and Evaluation](#testing-and-evaluation)**
+- **[Contiuous Integration](#continuous-integration)**
 
 ## Code
 
@@ -17,8 +18,13 @@ The content of thid directory falls under the following headings"
 - [mcpcd002.py](mcpcd002.py) - Minimal/Debug MCP server
 - [mcpcd003.sh](mcpcd003.sh) - Debug wrapper script for running the server
 - [mcpcd004.py](mcpcd004.py) - Abstract Base Class documentation for these MCP helpers
+
+## Continuous Integration
+
 - [mcpci001.mkf](mcpci001.mkf) - Makefile that runs the MCP integration harness (mcpte001.py)
 
 ## Testing and Evaluation
 
 - [mcpte001.py](mcpte001.py) - Integration tests for the MCP server
+
+- [mcpte002.md](mcpte002.md) - How to start the MCP server for Copilot and run a smoke test
