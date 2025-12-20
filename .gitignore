@@ -24,11 +24,14 @@
 *.o
 *.out
 *.pdf
+*.pid
 *.polydb
 *.ps
+*.rdd
 *.sig
 *.synctex.gz
 *.tch
+*.tdd
 *.th
 *.th.doc
 *.th.pp

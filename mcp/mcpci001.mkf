@@ -7,10 +7,13 @@
 PYRUNOPTIONS=-u
 # Python source files 
 PYCHECK = mcpcd001.py mcpcd002.py mcpte001.py
-# Python cripts to be run
-PYRUN= mcpcd001.py
 # Python test scripts to be run
 PYTEST= mcpte001.py
+
+# MCP runtime configuration (can be overridden via env)
+MCP_HOST ?= 127.0.0.1
+MCP_PORT ?= 8000
+MCP_TRANSPORT ?= sse
 
 include ../common/rules.mkf
 
@@ -21,9 +24,10 @@ default: test
 
 check: $(PYCHECKCDD)
 
-serve: $(PYRUNRDD)
+serve:
+	@PYTHONPATH=.. $(PYTHON) -u mcpcd001.py --transport $(MCP_TRANSPORT) --host $(MCP_HOST) --port $(MCP_PORT)
 
-test: serve $(PYTESTTDD)
+test: $(PYTESTTDD)
 
 clean:
 	rm -f *.?dd *.err

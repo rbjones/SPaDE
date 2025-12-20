@@ -12,5 +12,5 @@ echo "CWD: $(pwd)" >> "$LOGfile"
 echo "Python: $(which python3)" >> "$LOGfile"
 echo "Script: $SCRIPT_DIR/mcpcd001.py" >> "$LOGfile"
 
-# Run the server using the system python3 (from container)
-python3 "$SCRIPT_DIR/mcpcd001.py" 2>> "$LOGfile"
+# Run the server using the same command as the Makefile
+cd "$SCRIPT_DIR" && make -f mcpci001.mkf -s serve 2>> "$LOGfile"
