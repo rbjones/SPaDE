@@ -7,8 +7,8 @@
 PYRUNOPTIONS=-u
 # Python source files 
 PYCHECK = mcpcd001.py mcpcd002.py mcpte001.py
-# Python cripts to be run
-PYRUN= mcpcd001.py
+# Python scripts to be run in foreground
+PYRUN=
 # Python test scripts to be run
 PYTEST= mcpte001.py
 

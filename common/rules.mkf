@@ -76,16 +76,12 @@ $(PYCHECKCDD): %.cdd: %.py
 			echo "  Issues found → $$errfile"; \
 		fi
 
-# Run Python
+# Python Run
 
 $(PYRUNRDD): %.rdd: %.py
 	@echo "Run" $<
-	@log=$*.log; pid=$*.pid; stamp=$@; \
-	rm -f "$$pid" "$$stamp"; \
-	$(PYTHON) $(PYRUNOPTIONS) $< >"$$log" 2>&1 & \
-	echo $$! >"$$pid"; \
-	touch "$$stamp"; \
-	echo "Started PID $$(cat $$pid), log $$log"	@$
+	@$(PYTHON) $(PYRUNOPTIONS) $< >$*.err
+	@mv $*.err $@
 
 # Python Unit Tests
 
