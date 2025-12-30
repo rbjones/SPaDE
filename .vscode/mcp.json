@@ -1,10 +1,11 @@
 {
-  "mcpServers": {
-    "spade-repo": {
-      "command": "/Users/rbj/git/SPaDE/.venv/bin/python",
-      "args": [
-        "/Users/rbj/git/SPaDE/mcp/mcpcd001.py"
-      ]
-    }
-  }
+	"servers": {
+		"SPaDE-server": {
+			"type": "stdio",
+			"command": "${workspaceFolder}/.venv/bin/python",
+			"args": [
+				"${workspaceFolder}/mcp/mcpcd001.py"
+			]
+		}
+	}
 }
