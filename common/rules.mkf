@@ -11,22 +11,27 @@
 # The same code is used for multiple purposes, so the rules are conditional
 # on presence in a group defined as a make variable.
 
-# The following variables should be set in the parent makefile.
+# VARIABLES
+# Input Variables
+# The following variables should be set in the parent makefile which includes these rules.
 
 # python:
 # PYRUNOPTIONS options to be set when running python scripts
 # PYTESTOPTIONS options to be set when running python test scripts
 # PYCHECK Python source files to be checked
-# PYRUN Python scripts to be run.
 # PYTEST Python test scripts to be run.
+# PYRUN Python scripts to be run.
+# PYSRV Python mcp server scripts to be loaded.
 
 # Standard ML:
+
+# ProofPower
 # PPDBNAME the root name of the ProofPower database to be used.
 # PPSMLSIG SML signature files to be loaded into the ProofPower database
 # PPSMLSTRUCT SML structure files to be loaded into the ProofPower database
-# PPSMLTEST SML unit test files to be loaded into the ProofPower database
-# HOL4 SML files to be loaded into HOL4
-# 
+# PPSMLTEST SML unit test files to be run in the ProofPower database
+
+# HOL4
 # Sometimes code may be included in markdown.
 # In that case the markdown file should be mentioned in one or more of the following variables,
 # according to which languages are included.
@@ -34,32 +39,51 @@
 # MDWITHSML
 
 # Default python interpreter (can be overridden by parent makefile)
+
+# Defined Variables
+
+# Python
+
 PYTHON ?= python3
 
-# The following variables used in the rules are derived from them.
+# The following variables used in the rules are derived from the input variables defined in the parent makefile.
 
 PYCHECKCDD=$(PYCHECK:.py=.cdd)
-PYRUNRDD=$(PYRUN:.py=.rdd)
 PYTESTTDD=$(PYTEST:.py=.tdd)
+PYRUNRDD=$(PYRUN:.py=.rdd)
+PYSRVRDD=$(PYSRV:.py=.rdd)
+
+PYCDD=$(PTCHECKCDD)
+PYTDD=$(PYTESTTDD)
+PYRDD=$(PYRUNRDD) $(PYSRVRDD)
+
+PYDD=$(PYCDD) $(PYTDD) $(PYRDD)
 
 PPSIGLDD=$(PPSMLSIG:.sml=.ldd)
 PPSTRUCTLDD=$(PPSMLSTRUCT:.sml=.ldd)
-PPTESTLDD=$(PPSMLTEST:.sml=.ldd)
+PPTESTTDD=$(PPSMLTEST:.sml=.tdd)
 PPLOADLDD=$(PPSIGLDD) $(PPSTRUCTLDD)
 
-PPLDD=$(PPTESTLDD) $(PPLOADLDD)
+PPLDD=$(PPSIGLDD) $(PPSTRUCTLDD) $PYLOADLDD)
+PPTDD=$(PPTESTTDD)
+
+PPDD=$(PPLDD) $(PPTDD)
 
 H4LDD=$(H4SML:.sml=.ldd)
 
 CDD=$(PYCHECKCDD)
 LDD=$(PYLDD) $(PPLDD) $(H4LDD)
+TDD=$(PYTDD) $(PPTDD)
+RDD=$(PYRDD) $(PYSRVRDD) $(RDD)
+
+DD=$(CDD) $(LDD) $(TDD) $(RDD) 
 
 SMLINMD=$(MDWITHSML:.md=.sml)
 
-# Python
+# RULES
+# Python Rules
 
-# check without executing
-    
+# check Python without executing
 $(PYCHECKCDD): %.cdd: %.py
 		@echo "Checking $<"
 		@errfile=$*.err; \
@@ -77,20 +101,23 @@ $(PYCHECKCDD): %.cdd: %.py
 		fi
 
 # Python Run
-
 $(PYRUNRDD): %.rdd: %.py
 	@echo "Run" $<
 	@$(PYTHON) $(PYRUNOPTIONS) $< >$*.err
 	@mv $*.err $@
 
 # Python Unit Tests
-
 $(PYTESTTDD): %.tdd: %.py
 	@echo "Test" $<
 	@$(PYTHON) -m pytest $(PYTESTOPTIONS) $< >$*.err
 	@mv $*.err $@
 
-# Standard ML
+# Python Serve (for running mcp clients)
+$(PYSRVRDD): %.rdd: %.py
+	@echo "Serve" $<
+	$(PYTHON) $(PYESRVOPTIONS) $<
+
+# Standard ML Rules
 #
 # The processing of standard ML is primarily concerned with the export of
 # theories from Interactive Theorem Provers implemented in that language.
@@ -102,7 +129,7 @@ $(PYTESTTDD): %.tdd: %.py
 $(SMLINMD): %.sml: %.md
 	extract_code.py sml < $< > $@
 
-# ProofPower
+# ProofPower rules
 
 $(PPLOADLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
@@ -116,7 +143,7 @@ $(PPTESTLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 	PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
 	@mv $*.err $@
 
-# HOL4
+# HOL4 rules
 
 $(H4LDD): %.ldd: %.sml $(SPADEH4DBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null

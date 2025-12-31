@@ -8,7 +8,9 @@ PYRUNOPTIONS=-u
 # Python source files 
 PYCHECK = mcpcd001.py mcpcd002.py mcpte001.py
 # Python scripts to be run in foreground
-PYRUN=
+PYRUN = 
+# Python mcp server scripts 
+PYSRV=mcpcd001.py
 # Python test scripts to be run
 PYTEST= mcpte001.py
 
@@ -21,7 +23,7 @@ default: test
 
 check: $(PYCHECKCDD)
 
-serve: $(PYRUNRDD)
+serve: mcpcd001.rdd
 
 test: serve $(PYTESTTDD)
 
