@@ -1,6 +1,6 @@
 {
   "name": "SPaDE Development (Prebuilt)",
-  "image": "ghcr.io/rbjones/spade:latest",
+  "image": "ghcr.io/rbjones/spade:v0.1",
   "containerEnv": {
     "PPDIR": "/proofpower-source"
   },
