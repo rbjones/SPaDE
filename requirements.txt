@@ -3,3 +3,4 @@ mypy
 pytest
 mcp
 fastmcp
+cryptography
