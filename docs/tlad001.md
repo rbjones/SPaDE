@@ -35,7 +35,7 @@ Of course this formal stance may not be convincing when considering natural lang
 
 ## D
 
-### Declarative Knowledge
+### [Declarative Knowledge](../kr/krph004.md)
 
 Knowledge captured in propositions expressed by sentences in a well defined declarative language.
 

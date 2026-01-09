@@ -7,7 +7,7 @@ The primary purpose is the application of formal methods to the automation of de
 It is not intended that this software will directly interface with human users.
 It is intended to be delivered by one or more MCP servers to agentic AI systems whose work on behalf of users it will facilitate.
 
-Support for intelligent reasoning will be organised in the [SPaDE](tlad001.md#spade) project into three sub-systems (each of which has a separate subdirectory of the SPaDE repository):
+Support for intelligent reasoning will be organised in the [SPaDE](tlad001.md#spade) project into four sub-systems (each of which has a separate subdirectory of the SPaDE repository).
 
 ## Knowledge Representation [(kr)](../kr/README.md)
 
@@ -37,9 +37,7 @@ Any person or system may sign theorems independently of the deductive kernel and
 These may then used in continuing inference or be stored in a SPaDE repository, associated with the logical context in which they are alleged to be true as endorsed by the signatory.
 
 The deductive kernel will be capable of deriving theorems using the primitive rules of the HOL logic, and signing theorems so derived with its own key.
-But it will also provide a variety of other ways in which theorems may be established, using a variety of 
-
-
+But it will also provide a variety of other ways in which theorems may be established, using a variety of proof techniques, each associated with distinct authorities.
 
 ## Deductive Intelligence [(di)](../di/README.md)
 
@@ -50,3 +48,9 @@ These constitute perfect information spaces, and are therefore amenable to *[foc
 To realise the benefits of these methods, we therefore anticipate that a separate AI expert will be trained for each such context, and that problem solving will exploit the heuristics specific to the context (theory) while subcontracting to the expert for constituent contexts any subproblems which are local to that context.
 
 For non-trivial problems we envisage a marketplace in which multiple experts may be available for some domains and will bid for work.
+
+## MCP Server [(mcp)](../mcp/README.md)
+
+The MCP server subsystem provides the interface between SPaDE and client AGI systems.
+It purpose is to provide transparent and convenient access both to the distributed repository of declarative knowledge and to the reasoning capabilities of the deductive kernel and deductive intelligence subsystems.
+The interface will be constructively oriented, enabling its agentic AGI clients to elicit requirements from their own clients and construct solutions using the knowledge and reasoning capabilities of the SPaDE system.
