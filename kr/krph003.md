@@ -1,21 +1,4 @@
-# Philosophical Background for the Knowledge Repository
-
-An important feature of the [SPaDE](../docs/tlad001.md#spade) project, by comparison with prior support for reasoning in HOL is the aim to use HOL as an underlying abstract representation for [declarative knowledge](../docs/tlad001.md#declarative-knowledge) of all kinds, and to support an architecture for knowledge representation which is suitable for the entire body of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) of the human race and its intelligent progeny.
-
-This document is a first approach to turning that idea into a formal specification and implementation.
-
-The story may be split into two parts.
-
-## HOL as Universal Knowledge Representation
-
-* The first part would then be the reasons for believing that the abstract syntax of Cambridge HOL is universal for the representation of [declarative knowledge](../docs/tlad001.md#declarative-knowledge).
-For which, see [Universality in the Representation of Declarative Knowledge](krph002.md).
-However, the urgency of making that case is by no means compelling, since the project has independent merit.
-I spend years trying to philosophise about this, latterly under the heading "[Synthetic Philosophy](../docs/tlad001.md#synthetic-philosophy)" but this didn't work for me, and   [SPaDE](../docs/tlad001.md#spade) is my escape from Philosophy back into Engineering.
-I did think some greatly stripped down philosophical underpinning would be appropriate, but as I consider the factors important to the success of [SPaDE](../docs/tlad001.md#spade) justification of the underlying logical system is probably not one of them..
-So its likely to be progressed rather less enthusiastically than matters more crucial to the development.
-
-## The Structure of the Repository
+# The Structure of the SPaDERepository
 
 Under this heading then, everything important to the engineering of [SPaDE](../docs/tlad001.md#spade) is to be found, and it now seems likely that this will have to be spread over many documents, which I will try to introduce here.
 

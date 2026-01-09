@@ -35,19 +35,21 @@ The exposition is structured as follows:
 
 ## Key Features
 
-- **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all [declarative knowledge](../docs/tlad001.md#declarative-knowledge).  The knowledge repository does not contain concrete syntax and is not ties to any concrete physical representation, though there is a native [SPaDE](../docs/tlad001.md#spade) representation which is used for repositories constructed by [SPaDE](../docs/tlad001.md#spade) kr rather than other sources viewed as kr repos.
+- **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all [declarative knowledge](../docs/tlad001.md#declarative-knowledge).  The knowledge repository is not tied to any concrete syntax or physical representation, though there is a native [SPaDE](../docs/tlad001.md#spade) representation which is used for repositories constructed by [SPaDE](../docs/tlad001.md#spade) kr rather than other sources viewed as kr repos.
 - **Distributed Architecture**: Supports widely distributed shared knowledge repositories and incorporates knowledge from diverse sources, provide with appropriate metadata for interpretation.
 - **Version Control**: Maintains versioned contexts or theories in a WORM repository
  **Diverse Storage Support** as well as read/write support for native repositories, read access to diverse knowledge and data sources will be supported by special interfaces using metadata for interpretation.
-- **Consistency Management**: Is designed to support the management of consistency across distributed repositories through metatheoretic methods (which depend on the dk and di subsystems).
+- **Consistency Management**: Is designed to support the management of consistency across distributed repositories primarily through partitioning of the cosmic namespace in a manner similar to the terran heirarchy of URL/URIs and the convention of conservative extension.
 
 ## Architecture
 
-The Knowledge Repository is structured around the concept of **contexts** which are similar to theories in other HOL ITP systems, but which are not repositories for theorems (which are held in caches managed by di specialists in each context).
+The Knowledge Repository is structured around two hierarchies, the first of which is the heirarchy of names in the cosmic namespace.  The second heirarchy concerns logical  **contexts** which are carves out from that global namespace the vocabulary for each domain of interest through a relationship similar to the ancestral relationship between theories in  in other HOL and other interactive proof systems.
 The term theory is used to refer to a collection of context extensions (usually conservative) which yields a new context by introducing new names and constraints.
 
-Metatheory is intended to be a significant feature of [SPaDE](../docs/tlad001.md#spade), and metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
-A major part of such metadata is expected to be the demonstration of derived rules of inference, use of which is expected to displace in [SPaDE](../docs/tlad001.md#spade) the role of tactics and other high level proof facilities in more tranditional LCF proof support.
+Metatheory is intended to be a significant feature of [SPaDE](../docs/tlad001.md#spade).
+Metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
+
+A major part of such metatheory is expected to be the demonstration of derived rules of inference, use of which is expected to displace in [SPaDE](../docs/tlad001.md#spade) the role of tactics and other high level proof facilities in more tranditional LCF proof support.
 
 ## Abstract and Concrete Structures
 
@@ -87,7 +89,7 @@ The name space within which this takes place ensures that all names are unique, 
 The main features of the [SPaDE](../docs/tlad001.md#spade) repository which distinguishes it from prior HOL ITP systems are:
 
 1. The limitation to the extensions to the logical system, conservative or not, i.e. definitions and axioms.
-The [SPaDE](../docs/tlad001.md#spade) repository does not serve as a store of theorems unless those theorems are included in theories which are metatheoretic and explicitly state deribability, and is crucial to the ability to support a widely distributed shared repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge), and to the conception of a cosmic repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) is the structure of names in the [SPaDE](../docs/tlad001.md#spade) repository.
+The [SPaDE](../docs/tlad001.md#spade) repository does not serve as a store of theorems unless those theorems are included in theories which are metatheoretic and explicitly state derivability, and is crucial to the ability to support a widely distributed shared repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge), and to the conception of a cosmic repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) is the structure of names in the [SPaDE](../docs/tlad001.md#spade) repository.
 The structure of names in the [SPaDE](../docs/tlad001.md#spade) repository is the main feature which distinguishes it from prior HOL ITP systems, and is crucial to the ability to support a widely distributed shared repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge), and to the conception of a cosmic repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge).
 
 Though this makes possible the combination of repositories, it is not normally desirable to be working in such a maximal context, and the use of [focal AI](../docs/tlad001.md#focal-intelligence-or-focal-ai) methods to support reasoning will require that the context in which reasoning takes place is carefully curated to include only those names which are relevant to the subject matter at hand.
@@ -147,9 +149,9 @@ The use of signed cryptographic hashes to protect the integrity of contexts and 
 
 Theorem proving will always take place in exactly one logical context, and access to the repository for that purpose will require the extraction of the content of the relevant context.
 
-## S-expressions
+## J-expressions
 
-Underlying the HOL structures in [SPaDE](../docs/tlad001.md#spade) native repositories there is replica of the LISP S-expression structure, which is a simple binary tree structure in which each node is either an atom or a pair of nodes.
+Underlying the HOL structures in [SPaDE](../docs/tlad001.md#spade) native repositories there is slightly elaborated simulacra of the LISP S-expression structure, which may be used either for the encoding of formal material in HOL or may be used less formally for arbitrary structured JSON.
 
 This is mentioned here not because of its role in the representation of terms in the repository, but because it is used here for the structure of literal terms, which are explicit constants whose value is given by their structure as an S-expression.
 
@@ -157,11 +159,14 @@ This is mentioned here not because of its role in the representation of terms in
 Datatype: sexp =
       Atom string
     | Nil
-    | Cons sexp sexp
+    | Cons sexp list
 End
 ```
 
 Note that in HOL a string is an arbitrary finite sequence of bytes.
+As used here it supports a disjoint union of the various atomic types available in JSON.
+
+All the following kind of entity are coded in these J-expressions.
 
 ## Names
 
