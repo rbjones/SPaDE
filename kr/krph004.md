@@ -1,7 +1,28 @@
 # Declarative Knowledge in SPaDE
 
-[Declarative knowledge](../docs/tlad001.md#declarative-knowledge) is that kind of knowledge which can be expressed in true sentences of a well defined declarative language.
-A declarative language speaks of some domain of discourse using expressions whose values are determined by the state of that domain (and the values assigned to any free variables in those expressions).
+[Declarative knowledge](../docs/tlad001.md#declarative-knowledge) may be thought of  that kind of knowledge which can be expressed in true sentences of a well defined declarative language.
+However, a simple account of declarative language, though helpful in explaining declarative knowledge will not suffice for an understanding of support for declarative knowledge in SPaDE.
+
+## The Need for an Elaborated Conception of Declarative Language
+
+For that some new terminology seems unavoidable, and the term *foundational institution* has been adopted.
+
+This term will be explained in a progression, by first describing a conception of *declarative language*, then of a *foundation system*, and finally of a *foundational institution*.
+The distinction may be stated concisely by observing that a declarative language *simpliciter* has a fixed syntax and vocabulary, a *foundation system* provides for arbitrary vocabulary extendable from a primitive base by means of definitions, within the context of a fixed semantics and proof system, while a *foundational institution* provides for not only the vocabulary but also the precise semantics to be extended in a well systematic manner.
+Foundation systems first appeared in the work of the logicist philosophers Gottlob Frege and Bertrand Russell, initially supporting the formal development of mathematics.
+The term *institution* is a more recent development in logic, associated with the work of Joseph Goguen and Rod Burstall on institutions in the 1980s, work rooted in many-sorted algebra and category theory.
+The usage here in SPaDE, specifically in the term *foundational institution*, is distinct from that of Goguen and Burstall, similar only in referring to certain families of declarative languages.
+
+Notwithstanding these two elaborations of the concept of declarative language, in any particular context in the use of a declarative foundational instution, a single definite vocabulary and semantic will be identifiable and will determine (subject to some qualitifications) the denotation of expressions and the truth conditions of sentences in that context, so we may say that each such context fixes a declarative language in the simple sense.
+
+This elaboration of terminology serves two purposes.
+The first is simply to make clear the functionality which the SPaDE system provides, and the second to underpin the claim that SPaDE provides a *universal* representation for declarative knowledge, since, though there are no universal declarative languages, there may be universal foundational institutions in which all declarative knowledge may be represented.
+
+That was the concise account, and the remainder of this document elaborates the ideas involved.
+Ultimately, the metatheoretic reflection which SPaDE seeks to exploit demands fully formal accounts of these ideas, but for present purposes further informal elaboration will have to suffice.
+
+## An Informal Account of Declarative Language
+
 A sentence in a declarative language is an expression which takes a truth value (true or false) in any given state of the domain of discourse, and has no free variables.
 The semantics of the language determine the value of expressions in the language as a function of the state of the domain of discourse, and in particular, give assignmets of truth values to any free variables in the expressions.
 This encompasses the truth conditions of sentences, and the sentences may therefore be used to enquire whether, or to assert or require that those conditions hold.
@@ -10,6 +31,8 @@ A body of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) cons
 To say that a declarative language is *well defined* is to say the formation rules for expressions and sentences and the semantics which determine their values are precisely specified.
 
 This account of declarative language falls well short of the kind of precision which is needed to make clear of the idea of universality, but it must serve for our present purposes.
+
+## The Distinction between Concrete and Abstract Semantics
 
 It is now the case (as a result of historically recent advances in logic) that we have languages concerned with abstract entities whose truth conditions are very precisely known, and for which there are almost complete semi-decision procedures (algorithms which determine truth), usually presented as formal deductive systems.
 
@@ -28,8 +51,17 @@ Thus abstract languages may be thought of as interpretable in many non-abstract 
 
 ## The Distinction between Concrete and Abstract Syntax
 
-Language 
+The distinction between concrete and abstract semantics appears at first in the early work of scientists at the Programming Research Group of Oxford University, in PRG-1, Henry F. Ledgard's "Production Systems: A Formalism for Specifying the Syntax and Translation of Computer Languages" and  later in in PRG-6, "Towards a Mathematical Semantics for Computer Languages"
+by Christopher Strachey and Dana Scott, 1971.
 
+It reflects the distinction between the kind of syntactic presentation of a language which is convenient for use by human users, and that which is convenient for formal manipulation by machines, or in metatheory such as formal semantics for programming languages.
+This is particularly significant many decades later as coding, and formal work more generally is becoming the purview of machines rather than humans, and we may anticipate that concrete syntax will become less significant in the future, just as formally precise abstract representations become more widespread and significant in all fields of knowledge.
+As yet, beyond GAI support for coding, there is little sign of this progression, but its progression is central to the SPaDE project.
+
+The first thing to say about this distinction in relation to SPaDE is that SPaDE is intended to provide a service to AI systems, and not directly to human users, and is therefore not concerned with concrete syntax.
+This is qualified by the necessities of that interface with Agentic AI clients, in which the use of Model Context Protocol is intended, which uses the concrete syntax of JSON.
+
+The second is that in order to provide a repository and inference services for declarative knowledge in general, SPaDE pushes out the boat on the degree of abstraction in the syntax by adopting very simple underlying abstract structures which are suitable for representing the abstract syntax of arbitrary declarative languages.
 
 ## Expressiveness in Declarative Languages
 

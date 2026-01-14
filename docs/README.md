@@ -17,6 +17,7 @@ Philosophy and architecure are intertwined and therefore begin together with:
 - [tlph009.md](./tlph009.md) - SPaDE Seminal Insights
 - [tlph010.md](./tlph010.md) - Universal Foundational Institutions
 - [tlph011.md](./tlph011.md) - Standards, Norms and Values in SPaDE
+- [tlph012.md](./tlph012.md) - The purpose of SPaDE
 
 ## Architecture
 

@@ -1,4 +1,4 @@
-# The Structure of the SPaDERepository
+# The Structure of the SPaDE Repository
 
 Under this heading then, everything important to the engineering of [SPaDE](../docs/tlad001.md#spade) is to be found, and it now seems likely that this will have to be spread over many documents, which I will try to introduce here.
 
