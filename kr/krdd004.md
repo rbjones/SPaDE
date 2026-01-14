@@ -1,15 +1,23 @@
 # Detail description of Procedures for SPaDE Native Repository I/O
 
+*(version 0.2 in progress:
+The central thrust of this change is to change the second layer from an S-expression-like structure, to one closely aligned with JSON since that is the language with which the SPaDE MCP server will engage with its AGI clients.
+
+TO DO: complete the details of this change.
+)*
+
 This document describes the procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories in sufficent detail to guide implementation.
 
 In first drafts of this document the procedures defined are those necessary to write a [SPaDE](../docs/tlad001.md#spade) respository from scratch, and to read an existing repository into a suitably structured representation.
 
 Some of the detail will depend upon the language in which the procedures are implemented.
-Where possible pertinent differences will be highlighted.
+Where possible, pertinent differences will be highlighted.
 Only two languages are currently under consideration, SML (for HOL4 and ProofPower HOL implementations) and Python (for MCP server implementations).
-The Python implementation is now intended to come first.
 The former are only intended for the export of theory heirarchies from existing HOL ITP systems into [SPaDE](../docs/tlad001.md#spade) repositories, while the latter are intended for use in delivering the broader functionality of [SPaDE](../docs/tlad001.md#spade) through the logical kernel, deductive intelligence and MCP server subsystems.
 Python may also to be used in due course for export of theories from Lean.
+
+It is possible that access to non-SPaDE repositories will not be undertaken by writing from their custodians to a SPaDE repository, but via a much simpler export directly to SPaDE facilities implemented in Python.
+Either way the Python implementation is  expected to come first.
 
 For the earliest prototyping the requirement is for SML procedures to write [SPaDE](../docs/tlad001.md#spade) repositories from scratch, and Python procedures to read such repositories into suitable structured representations.
 
@@ -26,7 +34,7 @@ THe modules required are as follows:
 
 - [Encoding/Decoding](#encodingdecoding)
 - [Low Level I/O](#low-level-io)
-- [S-Expressions](#s-expressions)
+- [J-Expressions](#j-expressions)
 - [HOL Terms](#hol-terms)
 - [Theories and Folders](#theories-and-folders)
 
@@ -91,7 +99,7 @@ The operations required are:
 
 ### Open new repository for writing
 
-The file should be opened in append mode, so that new byte sequences written to the repositoryare added to the end of the file (which will be empty when creating a new repository).
+The file should be opened in append mode, so that new byte sequences written to the repositoryare are added to the end of the file (which will be empty when creating a new repository).
 
 A new empty byte sequence cache should be created.
 
@@ -142,34 +150,70 @@ The values of these two forms are to be returned after each read or write operat
 
 In order to support these functions, open append will only be allowed when a file has already been opened for reading, and is positioned at the end of the file, so that file position and sequence count are properly maintained.
 
-## S-Expressions
+## J-Expressions
 
-A module will be provided for reading and writing S-expressions using the low level I/O and encoding/decoding modules.
-These S-Expressions are represented using null terminated byte sequences as follows:
+J-expressions are the way in which JSON is represented in SPaDE native repositories.
+It is intended that a SPaDE repository can be read as a JSON value, in which directory or folder are given as JSON objects.
+The low level I/O is simply intended as an efficient means of storing and retrieving J-expressions in a linear file.
 
-Each S-expression is either Nil, an atom (a null terminated byte sequence) or a CONS cell (pairs of pointers to (sequence numbers of) S-expressions).
-Each such S-expression will be represented in the linear file as a single null terminated byte sequence, which when decoded by elimination of escapes would yield a sequence of one two or three null terminated byte sequences.
-The first sequence indicates the type of S-expression represented, and the remainder give the content of the S-expression.
-The first byte sequence is a single byte (plus null terminator), (*t*), with value 2, 3 or 4, which indicates whether the S-expression is Nil, an atom, or a CONS cell respectively, and also inducates how many further byte sequences follow it in the representation of the S-expression (*t-2*).
+### First Account of the Representation of JSON as J-expressions
 
-After decoding, the first sequence will be a single byte giving the type of S-expression it represents.
-If the first byte is 2, the S-expression is Nil, and there are no further byte sequences in the representation.
-If the first byte is 3, the S-expression is an atom, and the following null terminated byte sequence represents the atom itself.
-If the first byte is 4, the S-expression is a CONS cell, and the two subsequent null terminated byte sequences are the sequence numbers of the two S-expressions which are the CAR and CDR of the CONS cell.
+A J-expression is an NTBS in a SPaDE Repository.
 
-Pointers to S-expressions are represented by the sequence number of the null terminated byte sequence representing the expression in the repository.
-The module will provide procedures for reading and writing S-expressions to and from the repository file, using the low level I/O and encoding/decoding modules.
+A module will be provided for reading and writing J-expressions using the low level I/O and encoding/decoding modules.
+These J-Expressions are represented using null terminated byte sequences as follows:
+
+Every byte sequence in a SPaDE native repository represents a J-expression.
+It does so as a sequence of NTBS in which the byte sequences have the following significance.
+The first NTBS indicates the type of J-expression represented, and the remainder give the content of the J-expression.
+
+The signficance of the type code is as follows:
+
+- 0 and 1 are not used to sidestep escaping.
+- 2 indicates Nil (which is an empty JSON object).
+- 3 is a proper JSON object (which adds a key/value pair to a JSON Object).
+- 4 is a key/value pair
+- 5 is a JSON array
+JSON Objects are represented as lists 
+If the first NTBS is a single byte with value 2, the J-expression is Nil which represents an empty object ()
+
+There are two kinds of element in JSON, those which are atomic (i.e. have no JSON parts) and those which are composite (i.e. have JSON parts).
+
+The structured parts are Objects and Arrays.
+The atomic parts are Strings, Numbers, Booleans and Null.
+
+- Object: { "key": value, ... } — keys are double-quoted strings; members are comma-separated; order is preserved in practice but not semantically significant.
+- Array: [ value, value, ... ] — values are comma-separated; order is significant.
+- String: double-quoted, UTF-8 text with escapes (e.g., \", \\, \n, \u1234).
+- Number: like JavaScript numbers; no leading + or leading zeros (unless the number is zero); supports exponent (1.2e-3).
+Whitespace: optional around punctuation.
+Top-level: a single value (commonly an object or array).
+GPT-5.1-Codex-Max • 1x
+
+Each J-expression is either Nil, an atom (a null terminated byte sequence) or a CONS cell (pairs of pointers to (sequence numbers of) J-expressions).
+Each such J-expression will be represented in the linear file as a single null terminated byte sequence, which when decoded by elimination of escapes would yield a sequence of one two or three null terminated byte sequences.
+The first sequence indicates the type of J-expression represented, and the remainder give the content of the J-expression.
+The first byte sequence is a single byte (plus null terminator), (*t*), with value 2, 3 or 4, which indicates whether the J-expression is Nil, an atom, or a CONS cell respectively, and also inducates how many further byte sequences follow it in the representation of the J-expression (*t-2*).
+
+After decoding, the first sequence will be a single byte giving the type of J-expression it represents.
+If the first byte is 2, the J-expression is Nil, and there are no further byte sequences in the representation.
+This is only used to terminate the represetation of objects as lists.
+If the first byte is 3, the J-expression is an atom, and the following null terminated byte sequence represents the atom itself.
+If the first byte is 4, the J-expression is a CONS cell, and the two subsequent null terminated byte sequences are the sequence numbers of the two J-expressions which are the CAR and CDR of the CONS cell.
+
+Pointers to J-expressions are represented by the sequence number of the null terminated byte sequence representing the expression in the repository.
+The module will provide procedures for reading and writing J-expressions to and from the repository file, using the low level I/O and encoding/decoding modules.
 
 The procedures required are:
 
-1. [Write Nil S-expression](#write-nil-s-expression)
-2. [Write atom S-expression](#write-atom-s-expression)
-3. [Write CONS cell S-expression](#write-cons-cell-s-expression)
-4. [Read S-expression](#read-s-expression)
+1. [Write Nil J-expression](#write-nil-j-expression)
+2. [Write atom J-expression](#write-atom-j-expression)
+3. [Write CONS cell J-expression](#write-cons-cell-j-expression)
+4. [Read J-expression](#read-j-expression)
 
- As a further convenience, the S-expression module will operate a stack for writing S-expressions in the following way:
+ As a further convenience, the J-expression module will operate a stack for writing J-expressions in the following way:
 
-- the stack is a pointer stack on which sequence numbers of S-expressions written to the repository are held.
+- the stack is a pointer stack on which sequence numbers of J-expressions written to the repository are held.
 - a push operation is provided for Nil and one for Atoms which write to the file (if necessary) and push the sequence number to the stack.
 - a cons operation writes to the file a Cons cell whose pointers are the top two elements off the stack, and replaces those two elements with a single pointer which is the sequence number of the Cons cell.
 
@@ -179,31 +223,31 @@ The procedures required are:
 6. [Push Atom](#push-atom)
 7. [Stack Cons](#stack-cons)
 
-### Write Nil S-expression
+### Write Nil J-expression
 
-This procedure writes a Nil S-expression to the repository file.
-It creates a null terminated byte sequence representing the S-expression and writes it to the file, returning its sequence number
+This procedure writes a Nil J-expression to the repository file.
+It creates a null terminated byte sequence representing the J-expression and writes it to the file, returning its sequence number
 
-### Write atom S-expression
+### Write atom J-expression
 
-This procedure writes an atom S-expression to the repository file.
-It takes a byte sequence which is the value of the atom, creates a null terminated byte sequence representing it as an S-expression and writes it to the file (unless already in the cache) returning its sequence number.
+This procedure writes an atom J-expression to the repository file.
+It takes a byte sequence which is the value of the atom, creates a null terminated byte sequence representing it as an J-expression and writes it to the file (unless already in the cache) returning its sequence number.
 
-### Write CONS cell S-expression
+### Write CONS cell J-expression
 
-This procedure writes a CONS cell S-expression to the repository file.
-It takes two byte sequences numbers which are the CAR and CDR of the CONS cell and must already be in the cache, creates a null terminated byte sequence representing the S-expression and if new writes it to the file, otherwise retrieves its sequence number from the cache.
+This procedure writes a CONS cell J-expression to the repository file.
+It takes two byte sequences numbers which are the CAR and CDR of the CONS cell and must already be in the cache, creates a null terminated byte sequence representing the J-expression and if new writes it to the file, otherwise retrieves its sequence number from the cache.
 The sequence number is then returned.
 
-### Read S-expression
+### Read J-expression
 
-This procedure extracts an S-expression from the cache.
-It decodes a byte sequence in the cache given its sequence number into an S-expression and returns it.
-The S-expression is represented as either:
+This procedure extracts an J-expression from the cache.
+It decodes a byte sequence in the cache given its sequence number into an J-expression and returns it.
+The J-expression is represented as either:
 
 - Nil
 - An atom byte sequence
-- A pair of sequence numbers representing the CAR and CDR of a CONS cell
+- A tuple of sequence numbers representing the elements of a CONS cell
 
 ### Push Nil
 
@@ -219,14 +263,14 @@ Write CONS of top two stack items to the repo and replace them on the stack with
 
 ### Append List
 
-Take a list of S-expression sequence numbers and append them to the S-expression whose sequence number is at the top of the stack, replacing that item.
+Take a list of J-expression sequence numbers and append them to the J-expression whose sequence number is at the top of the stack, replacing that item.
 Take the first element off the list, push it to the stack, then CONS the top two items.
 Repeat until the list is empty.
 
 ## HOL Terms
 
-This module provides procedures for reading and writing HOL types and terms as S-expressions, following the structure defined in [krdd002.md](krdd002.md).
-These structures are represented as lists (S-expressions) where the first element is a "Kind Atom" identifying the node type.
+This module provides procedures for reading and writing HOL types and terms as J-expressions, following the structure defined in [krdd002.md](krdd002.md).
+These structures are represented as lists (J-expressions) where the first element is a "Kind Atom" identifying the node type.
 The Kind Atom is a single atom containing two null-terminated byte sequences: the *Kind* and the *Manner*.
 
 ### Names
@@ -251,7 +295,7 @@ There are two manners:
 
 1. **Write Type Variable**: Takes sequence numbers for Name and Arity (integer). Writes `(Type.Var, Name, Arity)`.
 2. **Write Type Construction**: Takes sequence numbers for Name and a list of Types. Writes `(Type.Cons, Name, TypeList)`.
-3. **Read Type**: Reads an S-expression. Dispatches based on Manner to return a Type object.
+3. **Read Type**: Reads an J-expression. Dispatches based on Manner to return a Type object.
 
 ### Terms
 
@@ -269,7 +313,7 @@ There are six manners:
 2. **Write Term Constant**: Takes Name and Type sequence numbers. Writes `(Term.Const, Name, Type)`.
 3. **Write Term Application**: Takes two Term sequence numbers. Writes `(Term.App, Term1, Term2)`.
 4. **Write Term Abstraction**: Takes Name, Type, and Term sequence numbers. Writes `(Term.Abs, Name, Type, Body)`.
-5. **Read Term**: Reads an S-expression. Dispatches based on Manner to return a Term object.
+5. **Read Term**: Reads an J-expression. Dispatches based on Manner to return a Term object.
 
 ## Repository Structure
 
