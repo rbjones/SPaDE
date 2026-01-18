@@ -39,10 +39,15 @@ krte006.ldd: krcd011.ldd
 # Targets
 
 vars:
+	@echo "PPDIR: $(PPDIR)"
 	@echo "PPSIGLDD: $(PPSIGLDD)"
 	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
 	@echo "PPTESTLDD: $(PPTESTLDD)"
 	@echo "PPLDD: $(PPLDD)"
+	@echo "PPSIGLDD: $(PPSIGLDD)"
+	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
+	@echo "PPTESTLDD: $(PPTESTLDD)"
+
 
 check: $(PYCHECKLDD) $(PPSIGLDD)
 
@@ -51,9 +56,6 @@ build: check $(SPADEPPDBNAME).ldd $(PPSTRUCTLDD)
 test: build $(PYTESTLDD) $(PPTESTLDD)
 
 echo:
-	@echo "PPSIGLDD: $(PPSIGLDD)"
-	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
-	@echo "PPTESTLDD: $(PPTESTLDD)"
 
 clean:
 	rm -f $(LDD) $(SMLINMD) *.err *.?dd
