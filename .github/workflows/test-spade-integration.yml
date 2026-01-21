@@ -27,14 +27,13 @@ jobs:
           
           # Source the ProofPower development environment
           . /proofpower-source/dev_env
-          
-          echo "Testing HOL theory hierarchy scraping..."
+      
           
           # Test that ProofPower is accessible
           which pp || echo "ProofPower not found in PATH"
           
           # Test basic ProofPower functionality
-          pp -d hol <<< "print_theory \"basic_hol\";quit();"
+          pp -d hol <<< "print_theory \"min\";quit();"
           
       - name: Run SPaDE integration tests
         shell: bash
@@ -47,3 +46,4 @@ jobs:
           
           # Run default SPaDE tests
           make
+          

@@ -14,17 +14,25 @@ PPSMLSIG = krcd001.sml
 PPSMLSTRUCT = krcd011.sml
 PPSMLTEST = krte004.sml
 # krte006.sml
-HOL4SML = krcd006.sml
+HOL4SML = krad001.sml krcd006.sml
 PYMODULES = krcd008.py krcd009.py krcd012.py
-PYTESTS = krte002.py krte003.py
+PYTEST = krte002.py krte003.py
 # krte005.py
 
+MATHEGPPDBNAME = maths_egs
 BASEPPDBNAME = rbjhol
 SPADEPPDBNAME = spade
+SPADEHOL4DBNAME = spade
+
+MATHEGPPDBPATH = $(PPDIR)/bld/db/maths_egs.polydb
+BASEPPDBPATH = $(PPDIR)/bld/db/rbjhol.polydb
+SPADEPPDBPATH = $(PPDIR)/bld/db/spade.polydb
+
+PPDBS = $(MATHEGPPDBPATH) $(BASEPPDBPATH) $(SPADEPPDBPATH) 
 
 include ../common/rules.mkf
 
-LDDS=$(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(H4LDD)
+LDDS=$(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(HOL4LDD)
 
 # Default target
 
@@ -42,23 +50,20 @@ vars:
 	@echo "PPDIR: $(PPDIR)"
 	@echo "PPSIGLDD: $(PPSIGLDD)"
 	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
-	@echo "PPTESTLDD: $(PPTESTLDD)"
+	@echo "PPTESTTDD: $(PPTESTTDD)"
 	@echo "PPLDD: $(PPLDD)"
-	@echo "PPSIGLDD: $(PPSIGLDD)"
-	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
-	@echo "PPTESTLDD: $(PPTESTLDD)"
 
 
-check: $(PYCHECKLDD) $(PPSIGLDD)
+check: $(PYCHECKLDD) $(PPSIGLDD) $(H4LDD)
 
 build: check $(SPADEPPDBNAME).ldd $(PPSTRUCTLDD)
 
-test: build $(PYTESTLDD) $(PPTESTLDD)
+test: build $(PYTESTTDD) $(PPTESTLDD)
 
 echo:
 
 clean:
-	rm -f $(LDD) $(SMLINMD) *.err *.?dd
+	rm -f $(LDD) $(SMLINMD) $(PPDBS) *.err *.?dd
 	rm -f **/__pycache__/*.pyc 2>/dev/null || true
 	rm -rf **/__pycache__ 2>/dev/null || true
 
@@ -68,13 +73,15 @@ maths_egs.ldd:
 	touch maths_egs.ldd
 
 $(BASEPPDBNAME).ldd: maths_egs.ldd
-#	cd $(PPDIR)/src/hol && make -f hol.mkf spc001.sml spc002.sml spc003.sml spc004.sml spc005.sml && \
-#	echo "save_and_quit{};" | pp -d hol -f spc001 -f spc002 -f spc003 -f spc004 -f spc005
+	cd $(PPDIR)/src/hol && make -f hol.mkf spc001.sml spc002.sml spc003.sml spc004.sml spc005.sml && \
+	echo "save_and_quit{};" | pp -d maths_egs -f spc001 -f spc002 -f spc003 -f spc004 -f spc005 > $(BASEPPDBNAME).ldd
 	$(MAKE) -C ../retro/np -f rbj.mkf clean bld
 	cp ../retro/np/$(BASEPPDBNAME).polydb $(PPDIR)/bld/db/
-	touch rbjhol.ldd
+	touch $(BASEPPDBNAME).ldd
 
 $(SPADEPPDBNAME).ldd: $(BASEPPDBNAME).ldd
 	pp_make_database -f -p $(BASEPPDBNAME) $(SPADEPPDBNAME)
 	cp $(SPADEPPDBNAME).polydb $(PPDIR)/bld/db/
 	touch $(SPADEPPDBNAME).ldd
+
+$(SPADEHOL4DBNAME).ldd:

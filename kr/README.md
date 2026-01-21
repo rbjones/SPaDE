@@ -57,6 +57,7 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd010.sml](krcd010.sml) - SML signatures detailing the Native Repository encoding/I/O/S-expression contracts
 - [krcd011.sml](krcd011.sml) - SML structures implementing the Native Repository encoding/I/O/S-expression contracts
 - [krcd012.py](krcd012.py) - Python wrapper that delegates the Native Repository I/O ABCs to the SML implementation in krcd011.sml via a persistent ProofPower session
+- [krcd013.py](krcd013.py) - Python interface to an interactive theorem prover (e.g., ProofPower) (coded by Gemini 3 Pro)
 
 ## Testing and Evaluation
 
