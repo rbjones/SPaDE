@@ -149,7 +149,7 @@ The use of signed cryptographic hashes to protect the integrity of contexts and 
 
 Theorem proving will always take place in exactly one logical context, and access to the repository for that purpose will require the extraction of the content of the relevant context.
 
-## J-expressions
+## S-expressions
 
 Underlying the HOL structures in [SPaDE](../docs/tlad001.md#spade) native repositories there is slightly elaborated simulacra of the LISP S-expression structure, which may be used either for the encoding of formal material in HOL or may be used less formally for arbitrary structured JSON.
 
@@ -166,7 +166,7 @@ End
 Note that in HOL a string is an arbitrary finite sequence of bytes.
 As used here it supports a disjoint union of the various atomic types available in JSON.
 
-All the following kind of entity are coded in these J-expressions.
+All the following kind of entity are coded in these S-expressions.
 
 ## Names
 

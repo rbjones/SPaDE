@@ -36,18 +36,20 @@ THe modules required are as follows:
 - [Low Level I/O](#low-level-io)
 - [J-Expressions](#j-expressions)
 - [HOL Terms](#hol-terms)
-- [Theories and Folders](#theories-and-folders)
+- [Repository Structure](#repository-structure)
 
 ## Encoding/Decoding
 
 The SPaDE native repository is a sequence of null terminated byte sequences (NTBS).
 It is necessary to have procedures for encoding arbitrary byte sequences as null terminated byte sequences, and for decoding such sequences back into arbitrary byte sequences.
+Multiple NTBS can be appended then converted into a single NTBS which may then be styled an NTBSS.
 
 This module provides procedures for encoding and decoding null terminated byte sequences into a small number of primitive data types, as follows:
+    - boolean truth values
     - byte sequences
     - strings
     - positive integers (natural numbers)
-    - sequences (lists) of null terminated byte sequences
+    - sequences of null terminated byte sequences
 
 When encoding integers, the integer is first represented as a sequence of bytes in big-endian order base 256, and then that byte sequence is encoded as a null terminated byte sequence using the procedure for encoding byte sequences.
 Decoding first decodes a null terminated byte sequence into a byte sequence, and then interprets that byte sequence as a big-endian representation of an integer.
@@ -217,7 +219,7 @@ The procedures required are:
 - a push operation is provided for Nil and one for Atoms which write to the file (if necessary) and push the sequence number to the stack.
 - a cons operation writes to the file a Cons cell whose pointers are the top two elements off the stack, and replaces those two elements with a single pointer which is the sequence number of the Cons cell.
 
- So we have:
+    So we have:
 
 5. [Push Nil](#push-nil)
 6. [Push Atom](#push-atom)

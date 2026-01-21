@@ -25,7 +25,7 @@ check: $(PYCHECKCDD)
 
 serve: mcpcd001.rdd
 
-test: serve $(PYTESTTDD)
+test: $(PYTESTTDD)
 
 clean:
 	rm -f *.?dd *.err

@@ -45,6 +45,7 @@
 # Python
 
 PYTHON ?= python3
+EXTRACTCODE = $HOME/common/extract_code.py
 
 # The following variables used in the rules are derived from the input variables defined in the parent makefile.
 
@@ -64,12 +65,12 @@ PPSTRUCTLDD=$(PPSMLSTRUCT:.sml=.ldd)
 PPTESTTDD=$(PPSMLTEST:.sml=.tdd)
 PPLOADLDD=$(PPSIGLDD) $(PPSTRUCTLDD)
 
-PPLDD=$(PPSIGLDD) $(PPSTRUCTLDD) $PYLOADLDD)
+PPLDD=$(PPSIGLDD) $(PPSTRUCTLDD) $(PYLOADLDD)
 PPTDD=$(PPTESTTDD)
 
 PPDD=$(PPLDD) $(PPTDD)
 
-H4LDD=$(H4SML:.sml=.ldd)
+HOL4LDD=$(HOL4SML:.sml=.ldd)
 
 CDD=$(PYCHECKCDD)
 LDD=$(PYLDD) $(PPLDD) $(H4LDD)
@@ -127,7 +128,7 @@ $(PYSRVRDD): %.rdd: %.py
 # First we provide a rule for stripping sml from a markdown file
 
 $(SMLINMD): %.sml: %.md
-	extract_code.py sml < $< > $@
+	$(EXTRACTCODE) sml < $< > $@
 
 # ProofPower rules
 
@@ -145,7 +146,7 @@ $(PPTESTLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 
 # HOL4 rules
 
-$(H4LDD): %.ldd: %.sml $(SPADEH4DBNAME).ldd
+$(HOL4LDD): %.ldd: %.sml $(SPADEHOL4DBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
 	@echo "Compiling SML" $<
 	@hol <<< 'use("$<");PolyML.SaveState.saveState;'  >$*.err
