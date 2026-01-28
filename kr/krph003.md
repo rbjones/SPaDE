@@ -2,7 +2,7 @@
 
 Under this heading then, everything important to the engineering of [SPaDE](../docs/tlad001.md#spade) is to be found, and it now seems likely that this will have to be spread over many documents, which I will try to introduce here.
 
-I do not expect that in my lifetime we will have access to components of a Cosmic Repository located outside our Solar System, but it is intended that the structure delineated will be suitable for unbounded distrbution across the cosmos.
+I don't expect that in my lifetime we will have access to components of a Cosmic Repository located outside our Solar System, but it is nevertheless intended that the structure delineated will be suitable for unbounded distrbution across the cosmos.
 
 The top level abstract descriptions of the [SPaDE](../docs/tlad001.md#spade) repository must therefor address the way in which [SPaDE](../docs/tlad001.md#spade) envisages the integration of very many diverse local repositories into a single coherent cosmic repository.
 
