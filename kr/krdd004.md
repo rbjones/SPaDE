@@ -50,23 +50,27 @@ This module provides procedures for encoding and decoding null terminated byte s
 
 The data conversions required are as follows (in all cases conversions are requred in both directions):
 
-    - byte sequences <-> strings
+- byte sequences <-> NTBS
 
-      Attempt to decode as utf-8 (strict); if successful use the resulting JSON string, otherwise use a JSON object with a single key-value pair with the key "hexbytes" and a value consisting of the hexadecimal representation (beginning "0x") of the byte sequence as a string.
+  Encoding a byte sequence as a null terminated byte sequence, and decoding a null terminated byte sequence into a byte sequence.
 
-    - byte sequences <-> integers
+- NTBS list <-> NTBSS
 
-    These are for the representation of positive integers as byte sequences in big-endian base 256 form.
-    The conversion is used for the sequence number of byte sequences in the repository file, and for other integer values represented in the repository.
-    This is not used for JSON numbers, which are represented as byte sequences of their textual representation.
+  This is just applying the NTBS encoding to the concatenation of the individual NTBS.
 
-    - JSON numbers <-> byte sequences
+- byte sequences <-> strings
 
-      These are represented as their textual representation in ASCII (utf-8) as byte sequences.
+  Attempt to decode as utf-8 (strict); if successful use the resulting JSON string, otherwise use a JSON object with a single key-value pair with the key "hexbytes" and a value consisting of the hexadecimal representation (beginning "0x") of the byte sequence as a string.
 
-    - NTBS list <-> NTBSS
+- byte sequences <-> integers
 
-      This is just applying the NTBS excoding the the concatenation of the individual NTBS.
+  These are for the representation of positive integers as byte sequences in big-endian base 256 form.
+  The conversion is used for the sequence number of byte sequences in the repository file, and for other integer values represented in the repository.
+  This is not used for JSON numbers, which are represented as byte sequences of their textual representation.
+
+- JSON numbers <-> byte sequences
+
+  These are represented as their textual representation in ASCII (utf-8) as byte sequences.
 
 When encoding integers, the integer is first represented as a sequence of bytes in big-endian order base 256, and then that byte sequence is encoded as a null terminated byte sequence using the procedure for encoding byte sequences.
 Decoding first decodes a null terminated byte sequence into a byte sequence, and then interprets that byte sequence as a big-endian representation of an integer.
@@ -181,8 +185,21 @@ In order to support these functions, open append will only be allowed when a fil
 ## J-Expressions
 
 J-expressions are the way in which JSON is represented in SPaDE native repositories.
+The use of J-expressions is aligned with the use of textual JSON as the protocol for communication between the SPaDE MCP server and its clients, and the use of python JSON objects (as opposed to JSON text) as an intermediary between the binary representation in the SPaDE native repository and the textual representation used in communication and in the SPaDE deductive kernel and deductive intelligence subsystems.
+
+This relationship is further complicated by intended use of the JSON object in python with subexpressions consisting of sequence numbers in the SPaDE native repository, which are to be dereferenced to yield further J-expressions.
+
+So, when a SPaDE native repository is read across the MCP server interface, the following representations of each JSON expression are involved:
+
+1. As an NTBS in the SPaDE native repository file, possibly linked to other NTBS via sequence numbers.
+2. As a J-expression, in which an NTBS has its top level structure decoded.
+3. As a JSON object in python, in which the J-expression is represented as a python object, with links represented as sequence numbers.
+
+When writing a SPaDE native repository from python JSON objects, the process is reversed:
+2. The representation of J-expressions as sequences of null terminated byte sequences in the SPa
+
 It is intended that a SPaDE repository can be read as a JSON value, in which directories or folders are given as JSON objects.
-The low level I/O is simply intended as an efficient means of storing and retrieving J-expressions in a linear file (as a WORM repository).
+The low level I/O is simply intended as an efficient means of storing and retrieving these J-expressions in a linear file (as a WORM repository).
 
 All the structures required for representing HOL terms and types, and the repository structure itself, will be represented as J-expressions, and this will facilitate communication across the MCP server interface using JSON.
 
@@ -195,6 +212,7 @@ These J-Expressions are represented using null terminated byte sequences as foll
 
 Every byte sequence in a SPaDE native repository represents a J-expression, providing the top-level structure of the JSON and pointers to any lower level content where the item is an object or an array.
 It does so as a sequence of NTBS in which the byte sequences have the following significance.
+
 The first NTBS indicates the kind of J-expression represented, and the remainder give the content of the J-expression.
 
 The signficance of the kind code is as follows:
@@ -202,26 +220,26 @@ The signficance of the kind code is as follows:
 - 0 and 1 are not used (to sidestep escaping).
 - 2 is an object (which appends a key/value pair to a JSON Object or Null).
 - 3 is an array or (n-tuple)
-- 4 string/byte sequence
+- 4 byte sequence (usually but not necessarily utf-8)
 - 5 number
 - 6 boolean true
 - 7 boolean false
-- 8 indicates Null (which also serves as an empty JSON object).
+- 8 Null (which also serves as an empty J-expression object).
 
 The remaining NTBS in the representation depend upon the kind of J-expression represented as follows:
 
-- 2 (Object): 3 following NTBS, all sequence numbers of NTBS, the first of a key the second of a value associated with that key and the third the sequence number of the remainder of the object (or of Null to terminate).
+- 2 (Object): three following NTBS, all sequence numbers of NTBS, the first of a key the second of a value associated with that key and the third the sequence number of the remainder of the object (or of Null to terminate).
 - 3 (Array): the number of following NTBS is the length of the array, each being the sequence number of an NTBS representing a J-expression in the array.
-- 4 (byte sequence): the following single NTBS is the sequence number of the byte sequence.  The presentation of such sequences in textual JSON is discussed above under Encoding/Decoding.
+- 4 (byte sequence): the following single NTBS is the byte sequence (once decoded).  The presentation of such sequences in textual JSON is discussed above under Encoding/Decoding.
 - 5 (Boolean true): no following NTBS.
 - 6 (Boolean false): no following NTBS.
 - 7 (Null): no following NTBS.
 
-JSON Objects are represented in manner similar to LISP except that they are always lists of key/value pairs, and so the equivalent of CONS takes three arguments, sequence numbers of the key, the value, and the rest of the object.
+J-expression Objects are represented in manner similar to LISP lists except that they are always lists of key/value pairs, and so the equivalent of CONS takes three arguments, sequence numbers of the key, the value, and the rest of the object.
 
-There are two kinds of element in JSON, those which are atomic (i.e. have no JSON parts) and those which are composite (i.e. have JSON parts).
+There are two kinds of element in J-expressions, those which are atomic (i.e. have no JSON parts, kinds 4-8) and those which are composite (i.e. have JSON parts, kinds 2 and 3).
 In J-expressions, the parts are given as sequence numbers of the byte sequences representing those parts in the repository file.
-As described above, the number of such parts depends upon the kind of J-expression represented.  For kind 2 there are 3 for kind 3 there as many as the length of the array, for kinds 4 and 5 there is one, and for kinds 6, 7 and 8 there are none.
+As described above, the number of such parts depends upon the kind of J-expression represented.  For kind 2 there are 3 for kind 3 there as many as the length of the array, for kinds 4 - 8 the value is the following NTBS which is not a link.
 
 The atoms are explicitly represented as byte sequences.
 
@@ -232,7 +250,9 @@ The textual presentation of these J-expressions as JSON is as follows (but is of
 
 - Object: { "key": value, ... } — keys are double-quoted strings; members are comma-separated; order is preserved in practice (but not semantically significant?).
 - Array: [ value, value, ... ] — values are comma-separated; order is significant.
-- String: double-quoted, UTF-8 text with escapes (e.g., \", \\, \n, \u1234).
+- String: double-quoted, UTF-8 text possibly with escapes (e.g., \", \\, \n, \u1234) OR if not valid UTF-8, an object {"hexbytes": "0x..."} where ... is the hexadecimal representation of the byte sequence.
+- Boolean: true or false.
+- Null: null.
 - Number: like JavaScript numbers; no leading + or leading zeros (unless the number is zero); supports exponent (1.2e-3).
 Whitespace: optional around punctuation.
 Top-level: a single value (commonly an object or array).
@@ -242,7 +262,7 @@ The first sequence indicates the type of J-expression represented, and the remai
 
 The procedures required are:
 
-1. [Write Nil J-expression](#write-null-j-expression)
+1. [Write Null J-expression](#write-null-j-expression)
 2. [Write atom J-expression](#write-atom-j-expression)
 3. [Write object cell J-expression](#write-object-cell-j-expression)
 4. [Read J-expression](#read-j-expression)
