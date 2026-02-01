@@ -1,11 +1,6 @@
 # Detail description of Procedures for SPaDE Native Repository I/O
 
-*(version 0.2 in progress:
-The central thrust of this change is to change the second layer from an S-expression-like structure, to one more closely aligned with JSON since that is the language with which the SPaDE MCP server will engage with its AGI clients.
-Once that is done the remaining layers can be properly described here, and the whole thing coded up in both SML and Python.
 
-TO DO: complete the details of these changes.
-)*
 
 This document describes the procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories in sufficent detail to guide implementation.
 
@@ -17,7 +12,7 @@ Only two languages are currently under consideration, SML (for HOL4 and ProofPow
 The former are only intended for the export of theory heirarchies from existing HOL ITP systems into [SPaDE](../docs/tlad001.md#spade) repositories, while the latter are intended for use in delivering the broader functionality of [SPaDE](../docs/tlad001.md#spade) through the logical kernel, deductive intelligence and MCP server subsystems.
 Python may also to be used in due course for export of theories from Lean.
 
-It is possible that access to non-SPaDE repositories will not be undertaken by writing from their custodians to a SPaDE repository, but via a much simpler export directly to SPaDE facilities implemented in Python.
+It is possible that access to non-SPaDE repositories will not be undertaken by writing from their custodians to a SPaDE repository, but via a simpler export directly to SPaDE facilities implemented in Python.
 Either way the Python implementation is  expected to come first.
 
 For the earliest prototyping the requirement is for SML procedures to write [SPaDE](../docs/tlad001.md#spade) repositories from scratch, and Python procedures to read such repositories into suitable structured representations.
@@ -35,7 +30,7 @@ THe modules required are as follows:
 
 - [Encoding/Decoding](#encodingdecoding)
 - [Low Level I/O](#low-level-io)
-- [J-Expressions](#j-expressions)
+- [S-Expressions](#s-expressions)
 - [HOL Types and Terms](#hol-types-and-terms)
 - [Theories and Folders](#theories-and-folders)
 
@@ -44,7 +39,7 @@ THe modules required are as follows:
 The SPaDE native repository is a sequence of null terminated byte sequences (NTBS).
 It is necessary to have procedures for encoding arbitrary byte sequences as null terminated byte sequences, and for decoding such sequences back into arbitrary byte sequences.
 Multiple NTBS can be appended then converted into a single NTBS which may then be styled an NTBSS.
-In fact, all the NTBS in a SPaDE repository are NTBSS, since at the second layer they are all used to represent J-expressions which are sequences of NTBS.
+In fact, all the NTBS in a SPaDE repository are NTBSS, since at the second layer they are all used to represent S-expressions which are sequences of NTBS.
 
 This module provides procedures for encoding and decoding null terminated byte sequences and for appropriate conversions of a small number of data types, as byte sequences.
 
@@ -127,7 +122,7 @@ The operations required are:
 
 ### Open new repository for writing
 
-The file should be opened in append mode, so that new byte sequences written to the repository are are added to the end of the file (which will be empty when creating a new repository).
+The file should be opened in append mode, so that new byte sequences written to the repository are added to the end of the file (which will be empty when creating a new repository).
 
 A new empty byte sequence cache should be created.
 
@@ -262,14 +257,14 @@ The first sequence indicates the type of J-expression represented, and the remai
 
 The procedures required are:
 
-1. [Write Null J-expression](#write-null-j-expression)
-2. [Write atom J-expression](#write-atom-j-expression)
-3. [Write object cell J-expression](#write-object-cell-j-expression)
-4. [Read J-expression](#read-j-expression)
+1. [Write Null S-expression](#write-null-s-expression)
+2. [Write atom S-expression](#write-atom-s-expression)
+3. [Write CONS cell S-expression](#write-cons-cell-s-expression)
+4. [Read S-expression](#read-s-expression)
 
-    As a further convenience, the J-expression module will operate a stack for writing J-expressions in the following way:
+    As a further convenience, the S-expression module will operate a stack for writing S-expressions in the following way:
 
-    - the stack is a pointer stack on which sequence numbers of J-expressions written to the repository are held.
+    - the stack is a pointer stack on which sequence numbers of S-expressions written to the repository are held.
     - a push operation is provided for Nil and one for Atoms which write to the file (if necessary) and push the sequence number to the stack.
     - a cons operation writes to the file a Cons cell whose pointers are the top two elements off the stack, and replaces those two elements with a single pointer which is the sequence number of the Cons cell.
 
@@ -277,58 +272,57 @@ The procedures required are:
 
 5. [Push Null](#push-null)
 6. [Push Atom](#push-atom)
-7. [Stack Object](#stack-object)
-8. [Stack Array](#stack-array)
+7. [Stack Cons](#stack-cons)
 
-### Write Null J-expression
+### Write Null S-expression
 
-This procedure writes a Null J-expression to the repository file.
-It creates a null terminated byte sequence representing the J-expression and writes it to the file, returning its sequence number.
+This procedure writes a Null S-expression to the repository file.
+It creates a null terminated byte sequence representing the S-expression and writes it to the file, returning its sequence number.
 
-### Write atom J-expression
+### Write atom S-expression
 
-This procedure writes an atom J-expression to the repository file.
-It takes a byte sequence which is the value of the atom, creates a null terminated byte sequence representing it as an J-expression and writes it to the file (unless already in the cache) returning its sequence number.
+This procedure writes an atom S-expression to the repository file.
+It takes a byte sequence which is the value of the atom, creates a null terminated byte sequence representing it as an S-expression and writes it to the file (unless already in the cache) returning its sequence number.
 
-### Write object cell J-expression
+### Write CONS cell S-expression
 
-This procedure writes a CONS cell J-expression to the repository file.
-It takes two byte sequences numbers which are the CAR and CDR of the CONS cell and must already be in the cache, creates a null terminated byte sequence representing the J-expression and if new writes it to the file, otherwise retrieves its sequence number from the cache.
+This procedure writes a CONS cell S-expression to the repository file.
+It takes two byte sequences numbers which are the CAR and CDR of the CONS cell and must already be in the cache, creates a null terminated byte sequence representing the S-expression and if new writes it to the file, otherwise retrieves its sequence number from the cache.
 The sequence number is then returned.
 
-### Read J-expression
+### Read S-expression
 
-This procedure extracts an J-expression from the cache.
-It decodes a byte sequence in the cache given its sequence number into an J-expression and returns it.
-The J-expression is represented as either:
+This procedure extracts an S-expression from the cache.
+It decodes a byte sequence in the cache given its sequence number into an S-expression and returns it.
+The S-expression is represented as either:
 
 - Nil
 - An atom byte sequence
-- A tuple of sequence numbers representing the elements of a CONS cell
+- A pair of sequence numbers representing the CAR and CDR of a CONS cell
 
 ### Push Null
 
-Write Nil, then push the sequence number to the stack.
+Write Null, then push the sequence number to the stack.
 
 ### Push Atom
 
 Write Atom, then push the sequence number to the stack.
 
-### Stack object
+### Stack CONS
 
-Write CONS of top three stack items to the repo and replace them on the stack with the resulting sequence number.
+Write CONS of top two stack items to the repo and replace them on the stack with the resulting sequence number.
 
 ### Append List
 
-Take a list of J-expression sequence numbers and append them to the J-expression whose sequence number is at the top of the stack, replacing that item.
+Take a list of S-expression sequence numbers and append them to the S-expression whose sequence number is at the top of the stack, replacing that item.
 Take the first element off the list, push it to the stack, then CONS the top two items.
 Repeat until the list is empty.
 
 ## HOL Types and Terms
 
-Though it is natural to think of the repository structure as consisting of more than one additional layer above J-expressions, in practice all the structures required for representing HOL terms and types, and the repository structure itself, can be mapped into J-expressions in a uniform way.
+Though it is natural to think of the repository structure as consisting of more than one additional layer above S-expressions, in practice all the structures required for representing HOL terms and types, and the repository structure itself, can be mapped into S-expressions in a uniform way.
 
-They are all represented as J-expressions which are arrays of which the first element is the name of a constructor.
+They are all represented as S-expressions which are arrays of which the first element is the name of a constructor.
 
 At this level the name of the constructor can be used, which in the NTBS representation of the array would be given as the sequence number of the atom representing the string in the repository.
 
@@ -386,7 +380,7 @@ There are two manners:
 
 1. **Write Type Variable**: Takes sequence numbers for Name and Arity (integer). Writes `(Type.Var, Name, Arity)`.
 2. **Write Type Construction**: Takes sequence numbers for Name and a list of Types. Writes `(Type.Cons, Name, TypeList)`.
-3. **Read Type**: Reads an J-expression. Dispatches based on Manner to return a Type object.
+3. **Read Type**: Reads an S-expression. Dispatches based on Manner to return a Type object.
 
 ### Terms
 
@@ -461,3 +455,4 @@ An update is performed by appending new versions of modified nodes and propagati
         - Write the new folder to the repository.
 4. **Create Commit**:
     - A commit is accomplished by writing an additional type/value pair to the top level folder.  The type is name of the commit and the value is the value of the repo being committed, normally created
+
