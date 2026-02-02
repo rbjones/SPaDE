@@ -5,13 +5,13 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: rbjones/pp/proofpower
+  IMAGE_NAME: rbjones/pp/spade:latest
 
 jobs:
   test-spade:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/rbjones/spade:latest
+      image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     
     steps:
       - name: Checkout code
