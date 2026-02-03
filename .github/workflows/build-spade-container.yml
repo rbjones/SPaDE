@@ -6,7 +6,7 @@ on:
 env:
   REGISTRY: ghcr.io
   BASE_IMAGE: rbjones/pp/proofpower:latest
-  IMAGE_NAME: rbjones/spade:latest
+  IMAGE_NAME: rbjones/spade
 
 jobs:
   build-container:
