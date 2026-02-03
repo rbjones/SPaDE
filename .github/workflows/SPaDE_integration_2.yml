@@ -1,0 +1,53 @@
+name: Test SPaDE Integration
+
+on:
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: rbjones/spade:latest
+
+jobs:
+  test-spade:
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      options: --user root
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Verify container and environment
+        shell: bash
+        run: |
+          echo "=== Container Debug Info ==="
+          echo "USER: $(whoami)"
+          echo "PWD: $(pwd)"
+          echo "PATH: $PATH"
+          ls -la /proofpower-source/ || echo "⚠️  /proofpower-source not found"
+          ls -la /proofpower-source/dev_env || echo "⚠️  dev_env script not found"
+      
+      - name: Set up ProofPower
+        shell: bash
+        run: |
+          set -ex
+          export PPDIR=/proofpower-source
+          . /proofpower-source/dev_env || { echo "Failed to source dev_env"; exit 1; }
+          which pp || { echo "ProofPower not in PATH"; exit 1; }
+          echo "ProofPower found at: $(which pp)"
+      
+      - name: Test ProofPower
+        shell: bash
+        run: |
+          set -ex
+          . /proofpower-source/dev_env
+          pp -d hol <<< "print_theory \"min\";quit();" || { echo "ProofPower test failed"; exit 1; }
+      
+      - name: Run SPaDE tests
+        shell: bash
+        run: |
+          set -ex
+          . /proofpower-source/dev_env
+          make
+          
