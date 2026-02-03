@@ -5,7 +5,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: rbjones/pp/spade:latest
+  IMAGE_NAME: rbjones/spade:latest
 
 jobs:
   test-spade:
