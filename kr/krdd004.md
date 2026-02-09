@@ -1,7 +1,5 @@
 # Detail description of Procedures for SPaDE Native Repository I/O
 
-
-
 This document describes the procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories in sufficent detail to guide implementation.
 
 In first drafts of this document the procedures defined are those necessary to write a [SPaDE](../docs/tlad001.md#spade) respository from scratch, and to read an existing repository into a suitably structured representation.
@@ -32,7 +30,7 @@ THe modules required are as follows:
 - [Low Level I/O](#low-level-io)
 - [S-Expressions](#s-expressions)
 - [HOL Types and Terms](#hol-types-and-terms)
-- [Theories and Folders](#theories-and-folders)
+- [Repository Structure](#repository-structure)
 
 ## Encoding/Decoding
 
@@ -177,87 +175,49 @@ The values of these two forms are to be returned after each read or write operat
 
 In order to support these functions, open append will only be allowed when a file has already been opened for reading, and is positioned at the end of the file, so that file position and sequence count are properly maintained.
 
-## J-Expressions
+## S-Expressions
 
-J-expressions are the way in which JSON is represented in SPaDE native repositories.
-The use of J-expressions is aligned with the use of textual JSON as the protocol for communication between the SPaDE MCP server and its clients, and the use of python JSON objects (as opposed to JSON text) as an intermediary between the binary representation in the SPaDE native repository and the textual representation used in communication and in the SPaDE deductive kernel and deductive intelligence subsystems.
+S-expressions are the way in which information is represented in SPaDE native repositories.
 
-This relationship is further complicated by intended use of the JSON object in python with subexpressions consisting of sequence numbers in the SPaDE native repository, which are to be dereferenced to yield further J-expressions.
-
-So, when a SPaDE native repository is read across the MCP server interface, the following representations of each JSON expression are involved:
+There are three levels at which similar structures may be represented as S-expressions:
 
 1. As an NTBS in the SPaDE native repository file, possibly linked to other NTBS via sequence numbers.
-2. As a J-expression, in which an NTBS has its top level structure decoded.
-3. As a JSON object in python, in which the J-expression is represented as a python object, with links represented as sequence numbers.
+2. As a S-expression, in which an NTBS has its top level structure decoded, but lower level structures (i.e. the two elemenst of a CONS cell) are given a references NTBS in a repository file.
+3. As a fully decoded S-expression, in which all the NTBS are decoded into their corresponding structures, and all links to other NTBS are replaced by the corresponding structures.
 
-When writing a SPaDE native repository from python JSON objects, the process is reversed:
-2. The representation of J-expressions as sequences of null terminated byte sequences in the SPa
+The structure of S-expressions and the manner in which they are used is influenced by the fact that a SPaDE native repository is a WORM repository, and the need to minimise replication of information in successive versions of an structure in the repository.
+In the case of folder or folder-like structures such as theories, the most frequent changes are likely to be the addition of new items, and to avoid unnecessary replication of the unchanged items, the structure of the folder is represented as a sequence of additions to an initially empty folder, with each addition being a CONS cell containing the item being added and a reference to the previous state of the folder.
+One may think of this as adding an item to the end of a list, but CONSing an item onto a list is normally thought of as adding to the head or front of the list.
+So it will generally be the case that the list structures in the SPaDE repository are in reverse order, and are accessed from the end of the list rather than the beginning.
 
-It is intended that a SPaDE repository can be read as a JSON value, in which directories or folders are given as JSON objects.
-The low level I/O is simply intended as an efficient means of storing and retrieving these J-expressions in a linear file (as a WORM repository).
+It is intended that a SPaDE repository as a whole can be read as an S-expression.
+The low level I/O is simply intended as an efficient means of storing and retrieving these S-expressions in a linear file (as a WORM repository).
 
-All the structures required for representing HOL terms and types, and the repository structure itself, will be represented as J-expressions, and this will facilitate communication across the MCP server interface using JSON.
+Apart from the folder-like structures the Lists in the repository as read in the more traditional order, will be used as tuples of which the first element is a numeric code indicating the syntactic constructor of item represented, uniquely identifying a production in the abstract syntax of HOL, and the remaining elements refer to the parameters required by that constructor (the relevant abstract syntax may be found in [krad001.md](krad001.md)).
 
-### First Account of the Representation of JSON as J-expressions
+### First Account of the SPaDE Native Representation of S-expressions
 
-A J-expression is an NTBS in a SPaDE Repository.
+An S-expression is an NTBS in a SPaDE Repository.
 
-A module will be provided for reading and writing J-expressions using the low level I/O and encoding/decoding modules.
-These J-Expressions are represented using null terminated byte sequences as follows:
+A module will be provided for reading and writing S-expressions using the low level I/O and encoding/decoding modules.
+These S-Expressions are represented using null terminated byte sequences as follows:
 
-Every byte sequence in a SPaDE native repository represents a J-expression, providing the top-level structure of the JSON and pointers to any lower level content where the item is an object or an array.
-It does so as a sequence of NTBS in which the byte sequences have the following significance.
+Each S-expression is either Nil, an atom (a null terminated byte sequence) or a CONS cell (pairs of pointers to (sequence numbers of) S-expressions).
+Each such S-expression will be represented in the linear file as a single null terminated byte sequence, which when decoded by elimination of escapes would yield a sequence of one two or three null terminated byte sequences.
+The first sequence indicates the type of S-expression represented, and the remainder give the content of the S-expression.
+The first byte sequence is a single byte (plus null terminator), (*t*), with value 2, 3 or 4, which indicates whether the S-expression is Nil, an atom, or a CONS cell respectively, and also inducates how many further byte sequences follow it in the representation of the S-expression (*t-2*).
 
-The first NTBS indicates the kind of J-expression represented, and the remainder give the content of the J-expression.
+After decoding, the first sequence will be a single byte giving the type of S-expression it represents.
+If the first byte is 2, the S-expression is Nil, and there are no further byte sequences in the representation.
+If the first byte is 3, the S-expression is an atom, and the following null terminated byte sequence represents the atom itself.
+If the first byte is 4, the S-expression is a CONS cell, and the two subsequent null terminated byte sequences are the sequence numbers of the two S-expressions which are the CAR and CDR of the CONS cell.
 
-The signficance of the kind code is as follows:
-
-- 0 and 1 are not used (to sidestep escaping).
-- 2 is an object (which appends a key/value pair to a JSON Object or Null).
-- 3 is an array or (n-tuple)
-- 4 byte sequence (usually but not necessarily utf-8)
-- 5 number
-- 6 boolean true
-- 7 boolean false
-- 8 Null (which also serves as an empty J-expression object).
-
-The remaining NTBS in the representation depend upon the kind of J-expression represented as follows:
-
-- 2 (Object): three following NTBS, all sequence numbers of NTBS, the first of a key the second of a value associated with that key and the third the sequence number of the remainder of the object (or of Null to terminate).
-- 3 (Array): the number of following NTBS is the length of the array, each being the sequence number of an NTBS representing a J-expression in the array.
-- 4 (byte sequence): the following single NTBS is the byte sequence (once decoded).  The presentation of such sequences in textual JSON is discussed above under Encoding/Decoding.
-- 5 (Boolean true): no following NTBS.
-- 6 (Boolean false): no following NTBS.
-- 7 (Null): no following NTBS.
-
-J-expression Objects are represented in manner similar to LISP lists except that they are always lists of key/value pairs, and so the equivalent of CONS takes three arguments, sequence numbers of the key, the value, and the rest of the object.
-
-There are two kinds of element in J-expressions, those which are atomic (i.e. have no JSON parts, kinds 4-8) and those which are composite (i.e. have JSON parts, kinds 2 and 3).
-In J-expressions, the parts are given as sequence numbers of the byte sequences representing those parts in the repository file.
-As described above, the number of such parts depends upon the kind of J-expression represented.  For kind 2 there are 3 for kind 3 there as many as the length of the array, for kinds 4 - 8 the value is the following NTBS which is not a link.
-
-The atoms are explicitly represented as byte sequences.
-
-The structured parts are Objects and Arrays.
-The atomic parts are Byte sequences, Numbers, True, False and Null.
-
-The textual presentation of these J-expressions as JSON is as follows (but is of little significance here):
-
-- Object: { "key": value, ... } — keys are double-quoted strings; members are comma-separated; order is preserved in practice (but not semantically significant?).
-- Array: [ value, value, ... ] — values are comma-separated; order is significant.
-- String: double-quoted, UTF-8 text possibly with escapes (e.g., \", \\, \n, \u1234) OR if not valid UTF-8, an object {"hexbytes": "0x..."} where ... is the hexadecimal representation of the byte sequence.
-- Boolean: true or false.
-- Null: null.
-- Number: like JavaScript numbers; no leading + or leading zeros (unless the number is zero); supports exponent (1.2e-3).
-Whitespace: optional around punctuation.
-Top-level: a single value (commonly an object or array).
-
-Each such J-expression will be represented in the linear file as a single null terminated byte sequence, which when decoded by elimination of escapes would yield a sequence of  null terminated byte sequences.
-The first sequence indicates the type of J-expression represented, and the remainder give the content of the J-expression, in the manner described above.
+Pointers to S-expressions are represented by the sequence number of the null terminated byte sequence representing the expression in the repository.
+The module will provide procedures for reading and writing S-expressions to and from the repository file, using the low level I/O and encoding/decoding modules.
 
 The procedures required are:
 
-1. [Write Null S-expression](#write-null-s-expression)
+1. [Write Nil S-expression](#write-nil-s-expression)
 2. [Write atom S-expression](#write-atom-s-expression)
 3. [Write CONS cell S-expression](#write-cons-cell-s-expression)
 4. [Read S-expression](#read-s-expression)
@@ -270,14 +230,14 @@ The procedures required are:
 
     So we have:
 
-5. [Push Null](#push-null)
+5. [Push Nil](#push-nil)
 6. [Push Atom](#push-atom)
 7. [Stack Cons](#stack-cons)
 
-### Write Null S-expression
+### Write Nil S-expression
 
-This procedure writes a Null S-expression to the repository file.
-It creates a null terminated byte sequence representing the S-expression and writes it to the file, returning its sequence number.
+This procedure writes a Nil S-expression to the repository file.
+It creates a null terminated byte sequence representing the S-expression and writes it to the file, returning its sequence number
 
 ### Write atom S-expression
 
@@ -300,9 +260,9 @@ The S-expression is represented as either:
 - An atom byte sequence
 - A pair of sequence numbers representing the CAR and CDR of a CONS cell
 
-### Push Null
+### Push Nil
 
-Write Null, then push the sequence number to the stack.
+Write Nil, then push the sequence number to the stack.
 
 ### Push Atom
 
@@ -352,8 +312,6 @@ The required constructors, together with the types of the parameters which they 
 - Tvar: name
 - Tcon: name x type list
 
--
-
 This module provides procedures for reading and writing HOL types and terms as J-expressions, following the structure defined in [krdd002.md](krdd002.md).
 These structures are represented as lists (J-expressions) where the first element is a "Kind Atom" identifying the node type.
 The Kind Atom is a single atom containing two null-terminated byte sequences: the *Kind* and the *Manner*.
@@ -398,9 +356,9 @@ There are six manners:
 2. **Write Term Constant**: Takes Name and Type sequence numbers. Writes `(Term.Const, Name, Type)`.
 3. **Write Term Application**: Takes two Term sequence numbers. Writes `(Term.App, Term1, Term2)`.
 4. **Write Term Abstraction**: Takes Name, Type, and Term sequence numbers. Writes `(Term.Abs, Name, Type, Body)`.
-5. **Read Term**: Reads an J-expression. Dispatches based on Manner to return a Term object.
+5. **Read Term**: Reads an S-expression. Dispatches based on Manner to return a Term object.
 
-## Theories and Folders
+## Repository Structure
 
 This module handles the organizational structure of the repository, including Theories, Folders, and Commits.
 
@@ -454,5 +412,11 @@ An update is performed by appending new versions of modified nodes and propagati
         - Create a new version of the folder containing the new sequence number of the modified child (and existing sequence numbers of unchanged children).
         - Write the new folder to the repository.
 4. **Create Commit**:
-    - A commit is accomplished by writing an additional type/value pair to the top level folder.  The type is name of the commit and the value is the value of the repo being committed, normally created
-
+    - Create a `Commit` structure pointing to the new Root Folder sequence number.
+    - Include Metadata (author, message).
+    - (Optional) Generate a signature for the commit and include it.
+    - Write the `Commit` to the repository.
+5. **Update Version List**:
+    - The physical end of the repository file represents a list of versions.
+    - The new `Commit` is effectively consed onto the existing list of versions (or becomes the new head of the list).
+    - (Note: The specific mechanism for linking the new commit to the previous list depends on the top-level file structure defined in `krdd002.md`, typically ending with a Cons cell linking the new Commit to the previous list head).

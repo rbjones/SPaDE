@@ -1,7 +1,5 @@
 (* Minimal SML unit test for repository encoding and S-expression roundtrips. *)
 
-val _ = PolyML.use "krcd011.sml"   (* ensure LowLevelIO/SExpressions are available *)
-
 exception TestFail of string
 
 fun assert_bool (msg, true) = ()

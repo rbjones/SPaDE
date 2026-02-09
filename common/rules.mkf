@@ -32,11 +32,13 @@
 # PPSMLTEST SML unit test files to be run in the ProofPower database
 
 # HOL4
+# HOL4SML sml files for hol4.
+
 # Sometimes code may be included in markdown.
 # In that case the markdown file should be mentioned in one or more of the following variables,
 # according to which languages are included.
 
-# MDWITHSML
+# MDWITHSML .md documents with SML
 
 # Default python interpreter (can be overridden by parent makefile)
 
@@ -45,7 +47,7 @@
 # Python
 
 PYTHON ?= python3
-EXTRACTCODE = $HOME/common/extract_code.py
+EXTRACTCODE = extract_code.py
 
 # The following variables used in the rules are derived from the input variables defined in the parent makefile.
 
@@ -134,13 +136,13 @@ $(SMLINMD): %.sml: %.md
 
 $(PPLOADLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
-	@echo "Compiling SML" $<
+	@echo "Compile and save ProofPower" $<
 	@echo 'save_and_quit();' | PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
 	@mv $*.err $@
 	
 $(PPTESTLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
-	@echo "Compiling SML" $<
+	@echo "Run in ProofPower " $<
 	PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
 	@mv $*.err $@
 
@@ -148,6 +150,6 @@ $(PPTESTLDD): %.ldd: %.sml $(SPADEPPDBNAME).ldd
 
 $(HOL4LDD): %.ldd: %.sml $(SPADEHOL4DBNAME).ldd
 	@rm -f $@ $*.err 2>/dev/null
-	@echo "Compiling SML" $<
+	@echo "Compiling HOL4 SML" $<
 	@hol <<< 'use("$<");PolyML.SaveState.saveState;'  >$*.err
 	@mv $*.err $@

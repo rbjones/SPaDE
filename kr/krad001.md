@@ -149,6 +149,15 @@ The use of signed cryptographic hashes to protect the integrity of contexts and 
 
 Theorem proving will always take place in exactly one logical context, and access to the repository for that purpose will require the extraction of the content of the relevant context.
 
+## Prelims
+
+```sml
+app load ["bossLib", "stringTheory"];
+open bossLib Theory Parse;
+local open stringTheory pred_setTheory in end;
+val _ = new_theory "SPaDE_KR_Spec";
+```
+
 ## S-expressions
 
 Underlying the HOL structures in [SPaDE](../docs/tlad001.md#spade) native repositories there is slightly elaborated simulacra of the LISP S-expression structure, which may be used either for the encoding of formal material in HOL or may be used less formally for arbitrary structured JSON.
@@ -159,7 +168,7 @@ This is mentioned here not because of its role in the representation of terms in
 Datatype: sexp =
       Atom string
     | Nil
-    | Cons sexp list
+    | Cons sexp sexp
 End
 ```
 
@@ -203,6 +212,9 @@ val _ = Datatype
 Because names are relative, comparing constants in terms is complicated by the possibility of using constants in distinct contexts, and the need to adjust to a common context.
 There are several ways to approach this difficulty, and a final decision may not be made until prototyping is well progressed.
 
+A probable solution is relocation on the opening of a theory, constructing a context at that point which is the union of the signatures and constraints of the theory and all its ancestors, and then relocating all terms in the extensions of that theory to that context.
+This will be a one time cost on the opening of the theory, and will ensure that all terms in the extensions of that theory are in the same context, and that the relative names in those terms are all relative to that context, so that comparison of terms is straightforward.
+
 ### Term Relocation
 
 In an earlier version of this specification I attempted to deal with this by including in the term structure a way of relocating terms from the context of construction to some other context of use.
@@ -222,14 +234,14 @@ THe details of this will be settled later and elsewhere, since it does not affec
 
 ### Term Structure
 
-The term structure therefore remains as in Cambridge HOL (and Churc's STT, apart from the elaborations to the structure of types providing for type variables and defined type constructors) with four kinds of term: variables, constants, applications and abstractions.
+The term structure therefore remains as in Cambridge HOL (and Church's STT, apart from the elaborations to the structure of types providing for type variables and defined type constructors) with four kinds of term: variables, constants, applications and abstractions.
 
 ```sml
 val _ = Datatype
       `hterm = Tmv sname
              | Tmc rname htype
              | Tapp hterm hterm
-             | Tabs sname htype hterm;             
+             | Tabs sname htype hterm`;             
 ```
 
 ## Sequents
@@ -278,8 +290,14 @@ But the extensions in each theory are theorems, and there are outstanding issues
 
 Folders are used to structure the repository hierarchically, and contain theories or other folders (not both).
 
+** sml here below broken, there seems to be. a problem in my setup with polymorphic datatypes, looks like the type variables interfere with the quotes **
+
 ```sml
-      val _ = Datatype `folder = Sdict (sname # 'b) list)`;
+val _ = Datatype `s-exp = SNil | SAtom 'a | SCons  s-exp s-exp`;
+```
+
+```sml
+val _ = Datatype `folder = Sdict (sname # 'a) list`;
 ```
 
 ## Trees
@@ -290,9 +308,11 @@ So this is a simpler tree datatype which will suffice.
 ```sml
 val _ = Datatype
  `rtree =
-   Sfolder ('a rtree) folder   |
-   Rleaf 'a;
+   Sfolder of ('a rtree) folder   |
+   Rleaf of 'a`;
 ```
+
+val _ = Datatype `btree = Leaf ’a | Node btree ’b btree`;
 
 ## The Structure of Local Repositories
 
