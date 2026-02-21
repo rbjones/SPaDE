@@ -48,7 +48,7 @@ SMLFROMMD=$(MDWITHSML:.md=.sml)
 # Python
 
 PYTHON ?= python3
-EXTRACTCODE = extract_code.py
+EXTRACTCODE = ~/common/extract_code.py
 
 # The following variables used in the rules are derived from the input variables defined in the parent makefile.
 
