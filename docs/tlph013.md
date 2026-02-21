@@ -47,8 +47,8 @@ They have just those properties which we ascribe to them, and any which logicall
 
 ## Some History of Logical Foundation Systems
 
-The idea of logical foundations for knowledge, and the role of ontology in those foundations, is of very recent origin within the two millennia since the explict study of logic was iitiated by Aristotle.
-Despite enthusiasm on the part of Leibniz for the use of Aritotle's logic as a foundation for knowledge, it was not until the late 19th century that the limitations of Aristotelian logic were surpassed by Frege's *Begriffsschrift* (concept script), and the idea of a logical foundation for knowledge was seriously entertained.
+The idea of logical foundations for knowledge, and the role of ontology in those foundations, is of very recent origin within the two millennia since the explicit study of logic was initiated by Aristotle.
+Despite enthusiasm on the part of Leibniz for the use of Aristotle's logic as a foundation for knowledge, it was not until the late 19th century that the limitations of Aristotelian logic were surpassed by Frege's *Begriffsschrift* (concept script), and the idea of a logical foundation for knowledge was seriously entertained.
 At this stage the significance and difficulty of ontology was not fully appreciated, and Frege's logical foundations for mathematics were found to be inconsistent for lack of a clear underlying ontology.
 
 Nevertheless, Frege's work was seminal, and set the ball rolling.
@@ -68,11 +68,11 @@ Here we sidestep that issue as terminological, by adopting the term *logical fou
 The motto then becomes:
     mathematics = logical foundation system + definitions
 
-In 1908, terminology apart, we had on the table, two candidiates for "logic" which realised these elements of Frege's ambition: Zermelo's Axiomatic Set Theory and Russell's Theory of Types.  Neither of these, as published in 1908 satisfied Frege's desire for precisely defined rules of inference, but both were subsequently refined to meet that requirement.
+In 1908, terminology apart, we had on the table, two candidates for "logic" which realised these elements of Frege's ambition: Zermelo's Axiomatic Set Theory and Russell's Theory of Types.  Neither of these, as published in 1908 satisfied Frege's desire for precisely defined rules of inference, but both were subsequently refined to meet that requirement.
 These two systems are prototypes for the logical foundation systems which are most important in this context, and we may identify more specifically the later derivatives of these two systems in the first order theory known as Zermelo-Fraenkel Set Theory with Choice (ZFC), and the higher order theory known as Church's Simple Theory of Types (STT) augmented primarily by polymorphism in the logic of Cambridge HOL.
 
 ## Some Limitations of Logical Foundation Systems
 
 The failure of Frege's logical foundations for mathematics led to a period of reflection on the nature of logic and ontology, culminating in the development of two different approaches to logical foundations for mathematics, both published in 1908.
 
-The one most closely related to Frege's approach was Russell's *Theory of Types*, which sought to avoid the Fregeian antinomy ("Russell's paradox") by stratifying entities into types.
+The one most closely related to Frege's approach was Russell's *Theory of Types*, which sought to avoid the Fregean antinomy ("Russell's paradox") by stratifying entities into types.

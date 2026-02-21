@@ -39,6 +39,7 @@
 # according to which languages are included.
 
 # MDWITHSML .md documents with SML
+SMLFROMMD=$(MDWITHSML:.md=.sml)
 
 # Default python interpreter (can be overridden by parent makefile)
 
@@ -79,9 +80,7 @@ LDD=$(PYLDD) $(PPLDD) $(H4LDD)
 TDD=$(PYTDD) $(PPTDD)
 RDD=$(PYRDD) $(PYSRVRDD) $(RDD)
 
-DD=$(CDD) $(LDD) $(TDD) $(RDD) 
-
-SMLINMD=$(MDWITHSML:.md=.sml)
+DD=$(CDD) $(LDD) $(TDD) $(RDD)
 
 # RULES
 # Python Rules
@@ -129,7 +128,7 @@ $(PYSRVRDD): %.rdd: %.py
 
 # First we provide a rule for stripping sml from a markdown file
 
-$(SMLINMD): %.sml: %.md
+$(SMLFROMMD): %.sml: %.md
 	$(EXTRACTCODE) sml < $< > $@
 
 # ProofPower rules

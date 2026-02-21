@@ -36,7 +36,7 @@ Key to this decomposition of the extraction is the design of an SML representati
 
 The design of an SML representation of a [SPaDE](../docs/tlad001.md#spade) repository provides a target for access to all non-native repositories which are accessed by SML (this includes ProofPower HOL, HOL4, and Isabelle HOL).
 
-The abstract structure of a [SPaDE](../docs/tlad001.md#spade) repository is formally specfied in HOL4 in [Knowledge Repository Architecture Overview](krad001.md).
+The abstract structure of a [SPaDE](../docs/tlad001.md#spade) repository is formally specified in HOL4 in [Knowledge Repository Architecture Overview](krad001.md).
 This may be a sufficient basis for coding the required SML data structures for representing a [SPaDE](../docs/tlad001.md#spade) repository in memory, we await feedback on design review before coding.
 
 ### The Structure of a SPaDE Native Repository

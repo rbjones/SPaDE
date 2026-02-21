@@ -6,11 +6,12 @@
 
 # MD files containing formal text
 
-MDWITHSML=krdd001.md krad001.md krte001.md
+MDWITHSML=krad001.md krcd002.md krdd001.md krte001.md
+# SMLFROMMD defined in rules.mkf
 
 # Files classified by build method
 
-PPSMLSIG = krcd001.sml
+PPSMLSIG = krcd001.sml krcd002.sml krcd010.sml
 PPSMLSTRUCT = krcd011.sml
 PPSMLTEST = krte004.sml
 # krte006.sml
@@ -63,7 +64,7 @@ test: build $(PYTESTTDD) $(PPTESTLDD)
 echo:
 
 clean:
-	rm -f $(LDD) $(SMLINMD) $(PPDBS) *.err *.?dd
+	rm -f $(LDD) $(SMLFROMMD) $(PPDBS) *.err *.?dd
 	rm -f **/__pycache__/*.pyc 2>/dev/null || true
 	rm -rf **/__pycache__ 2>/dev/null || true
 

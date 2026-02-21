@@ -6,9 +6,9 @@
 
 ## Introduction
 
-This document establishes a fundamental equivalence between three concepts central to the [SPaDE](tlad001.md#spade) project: [perfect information spaces](#perfect-information-space), [formal deductive theories](#formal-deductive-theory), and the domain of [deductive reason](#deductive-reason). This equivalence defines the precise scope and applicability of [focal methods](tlad001.md#focal-engineering) within [SPaDE](tlad001.md#spade).
+This document establishes a fundamental equivalence between three concepts central to the [SPaDE](tlad001.md#spade) project: [perfect information spaces](#perfect-information-spaces), [formal deductive theories](#formal-deductive-theories), and the domain of [deductive reason](tlad001.md#deductive-reason). This equivalence defines the precise scope and applicability of [focal methods](tlad001.md#focal-engineering) within [SPaDE](tlad001.md#spade).
 
-The key insight originates from Google DeepMind's AlphaZero, which demonstrated that artificial intelligence can achieve superhuman performance in [perfect information spaces](#perfect-information-space) through self-play alone, without requiring human expert demonstrations. This observation has profound implications for automated theorem proving and the architecture of [SPaDE](tlad001.md#spade)'s [deductive intelligence](tlad001.md#deductive-intelligence) subsystem.
+The key insight originates from Google DeepMind's AlphaZero, which demonstrated that artificial intelligence can achieve superhuman performance in [perfect information spaces](#perfect-information-spaces) through self-play alone, without requiring human expert demonstrations. This observation has profound implications for automated theorem proving and the architecture of [SPaDE](tlad001.md#spade)'s [deductive intelligence](tlad001.md#deductive-intelligence) subsystem.
 
 ## Perfect Information Spaces
 
@@ -47,8 +47,6 @@ The critical property of perfect information spaces for artificial intelligence 
 This property enabled AlphaZero to achieve superhuman performance in chess, Go, and shogi through reinforcement learning with self-play, starting from only the rules of the games.
 
 ## Formal Deductive Theories
-
-### Definition
 
 A **formal deductive theory** consists of:
 
@@ -105,7 +103,7 @@ This encoding preserves the strategic structure of the original space, making pr
 
 We can now state the central claim:
 
-**The scope of focal methods = Perfect information spaces = Formal deductive theories = The domain of deductive reason**
+- **The scope of focal methods = Perfect information spaces = Formal deductive theories = The domain of deductive reason**
 
 This equivalence means:
 

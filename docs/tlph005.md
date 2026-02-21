@@ -5,11 +5,11 @@ It consists of two main parts, the first giving a general characterisation of th
 
 ## General Characteristics
 
-In the present computational paradigm, computer programs operate on various data, which typically have real-world signficance informally understood but not formally expressed.
+In the present computational paradigm, computer programs operate on various data, which typically have real-world significance informally understood but not formally expressed.
 If you write down what that data means, you should get a declarative sentence expressing a proposition which captures that meaning.
 The computation produces new data the real-world significance of which is also only informally understood, and which could in principle be made explicit as a declarative sentence.
 There is here, in the computation, a deductive connection.
-We hope that the computation effects a deductive inference from the proposition which expresses significance of the input data, to that which expresses the signficance of the output data (in the context of a suitable formal model of the system in the context of which these propositions are to be understood).
+We hope that the computation effects a deductive inference from the proposition which expresses significance of the input data, to that which expresses the significance of the output data (in the context of a suitable formal model of the system in the context of which these propositions are to be understood).
 
 If this were transformed from a computational process to a properly (rather than implicitly) deductive process, then the meanings of these data structures and the effects of computation are explicit, and the process may more formally be considered to be deductive.
 
@@ -25,7 +25,7 @@ This is potentially more conclusive than testing the program, since testing is a
 
 Key features of the deductive paradigm:
 
-1. The signficance of data is made formally explicit, so that the data can be read as [declarative knowledge](tlad001.md#declarative-knowledge).
+1. The significance of data is made formally explicit, so that the data can be read as [declarative knowledge](tlad001.md#declarative-knowledge).
 
 2. Information Processing is specified in terms of the inference
 
@@ -62,14 +62,14 @@ The divergence from the strict letter of the LCF paradigm in [SPaDE](tlad001.md#
 
 ### Deductive Intelligence
 
-Deductive Intelligence in [SPaDE](tlad001.md#spade) comes through the use of artificial intelligence outside the deductive kernel to optimise all use of [deduction](tlad001.md#deduction) in the system.
+Deductive Intelligence in [SPaDE](tlad001.md#spade) comes through the use of artificial intelligence outside the deductive kernel to optimize all use of [deduction](tlad001.md#deduction) in the system.
 Because of the complexity of detailed formal proofs, even when enhanced by oracles and reflection in the kernel, progression to widespread adoption of a deductive paradigm depends on the effective integration of AI techniques to assist in proof construction and verification.
 
 The approach which will be taken to this falls under the general heading of [focal engineering](tlph004.md).
 This approach is intended because [deduction](tlad001.md#deduction) in formally defined theories constitutes a *perfect information space* similar to those for which the DeepMind alpha-zero system was developed, and it therefore to be addressed by similar methods in [SPaDE](tlad001.md#spade), which make use of neural nets trained narrowly for these specific domains, rather than being trained using a very broad range of materials.
 
-A significant difference is that deductive intelligence is targetted at not one such perfect information space, but a complex heirarchy corresponding to the theory structure in the distributed knowledge repository.
-It is therefore intended that specialists will be trained for each theory as the theory develops, and that these will in some cases constitute a layered neural net, and in others by a heirarchy of intelligent agents each with its own area of expertise.
+A significant difference is that deductive intelligence is targeted at not one such perfect information space, but a complex hierarchy corresponding to the theory structure in the distributed knowledge repository.
+It is therefore intended that specialists will be trained for each theory as the theory develops, and that these will in some cases constitute a layered neural net, and in others by a hierarchy of intelligent agents each with its own area of expertise.
 
 Deductive Intelligence contributes to the deductive paradigm primarily by overcoming the infeasibility of proof search in the absence of effective heuristics.
 

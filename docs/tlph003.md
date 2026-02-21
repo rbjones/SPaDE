@@ -10,7 +10,7 @@ The second part concerns the relationship between those logical truths and the o
 David Hume's philosophy provides a tripartite partition of what can be known in two distinctions.
 The first distinguishes "relations between ideas" and "matters of fact".
 The second comes in his insistance that one cannot derive an _ought_ from an _is_.
-This trichotomy can be cut according to different criteria, which are often considered coincident, especially by positivists, a position contested by others, notably Immanmual Kant.
+This trichotomy can be cut according to different criteria, which are often considered coincident, especially by positivists, a position contested by others, notably Immanuel Kant.
 The latter distinction is closely related to G.E.Moore's observations about a _naturalistic fallacy_
 
 The distinctions, as they are drawn here, are semantic.

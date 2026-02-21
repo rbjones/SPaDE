@@ -57,7 +57,7 @@ cd /path/to/SPaDE/common
 ./push-container.sh
 ```
 
-You'll need a GitHub Personal Access Token with `write:packages` scope from https://github.com/settings/tokens
+You'll need a GitHub Personal Access Token with `write:packages` scope from <https://github.com/settings/tokens>
 
 ### Alternative: Build via GitHub Actions
 

@@ -35,7 +35,7 @@ First I must give an informal account of the rationale which underpins the claim
 That part of the rationale concerns universal expression of abstract declarative language, i.e. language _about_ abstract entities.
 A few words are needed to embrace concrete language, i.e. language about the material world.
 
-It is implicit in the pratice of formalisation using HOL that empirical phenomena can be modelled to whatever level of precision required in the purely logical system supported by the Cambridge HOL Interactive Theorem Prover (subject to limits imposed by complexity, human frailty and the state of the art in and )
+It is implicit in the practice of formalisation using HOL that empirical phenomena can be modelled to whatever level of precision required in the purely logical system supported by the Cambridge HOL Interactive Theorem Prover (subject to limits imposed by complexity, human frailty and the state of the art in and )
 First I must give an informal account of the rationale which underpins the claim to represent [declarative knowledge](../docs/tlad001.md#declarative-knowledge)
 in general, and in whatever declarative language it might be presented, in the abstract logical system which underpins
 the Cambridge HOL ITP (derivative of Church's Simple Theory of Types).
@@ -62,7 +62,7 @@ In practice, and in particular, for the purposes of the kinds of reasoning requi
 Though it is set theory which is most likely to be understood as practically universal in this way, there are many other abstract logical systems which are equally expressive, if furnished with the similarly lavish ontologies and corresponding large cardinal axioms.
 Cardinality of ontology is the crucial factor.
 
-It is therefore alleged, that practically universal languages for the representation of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) are plentiful, and we may then pass to more mudane questions affecting the choice of a single such foundation system for knowledge representation.
+It is therefore alleged, that practically universal languages for the representation of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) are plentiful, and we may then pass to more mundane questions affecting the choice of a single such foundation system for knowledge representation.
 
 ## HOL as Universal Knowledge Representation
 

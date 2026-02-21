@@ -27,7 +27,7 @@ Subsystem codes:
 - **kr** kr - knowledge repository
 - **mcp** mcp - MCP server and A2A protocol
 - **rv** reviews - review reports e.g. from copilot
-  - **Exception**: Review files in the reviews directoryuse temporal naming: `YYYYMMDD-HHMM-author-topic.md`, see [reviews](./#reviews).
+  - **Exception**: Review files in the reviews directory use temporal naming: `YYYYMMDD-HHMM-author-topic.md`, see [reviews](./#reviews).
 - **tl** tl - top level, system wide.  This includes files in the docs directory but not those in the admin subdirectory. The documentation at this level should all be in the docs directory rather than the top level directory, and mainly consists of high level system wide philosophy and architecture documents.
 
 Document kinds:
@@ -54,11 +54,9 @@ This will happen when code or formal specifications are included alongside expla
 Except in such cases of derivative documents, basenames should be unique.
 Derivative files having the same basename but a distinct extension should not be linked to separately in the README.md of the their directory.
 
-
-
 ## Document Headers and Footers
 
-Document headers should be avoided in markdown pages because of the impact on web page readability and presentation.  A footer is more acceptable. 
+Document headers should be avoided in markdown pages because of the impact on web page readability and presentation.  A footer is more acceptable.
 Dates need not be included, history can be traced through git logs.  The primary author should be indicated, which in the case of copilot should include the model name.  Where a document results from conversation with an AI agent a link to the chat log should be included.
 
 In the case of code or formal specifications not embedded in markdown a brief header mentioning authorship, including model name if AI.

@@ -2,7 +2,7 @@
 
 This directory covers those aspects of the [SPaDE](tlad001.md#spade) project which are not specific to any one component, primarily concerning philosophical background, architecture, and administrative matters.
 
-Philosophy and architecure are intertwined and therefore begin together with:
+Philosophy and architecture are intertwined and therefore begin together with:
 
 ## Philosophy
 

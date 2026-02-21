@@ -1,13 +1,13 @@
 # Detail description of Procedures for SPaDE Native Repository I/O
 
-This document describes the procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories in sufficent detail to guide implementation.
+This document describes the procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories in sufficient detail to guide implementation.
 
-In first drafts of this document the procedures defined are those necessary to write a [SPaDE](../docs/tlad001.md#spade) respository from scratch, and to read an existing repository into a suitably structured representation.
+In first drafts of this document the procedures defined are those necessary to write a [SPaDE](../docs/tlad001.md#spade) repository from scratch, and to read an existing repository into a suitably structured representation.
 
 Some of the detail will depend upon the language in which the procedures are implemented.
 Where possible, pertinent differences will be highlighted.
 Only two languages are currently under consideration, SML (for HOL4 and ProofPower HOL implementations) and Python (for MCP server implementations).
-The former are only intended for the export of theory heirarchies from existing HOL ITP systems into [SPaDE](../docs/tlad001.md#spade) repositories, while the latter are intended for use in delivering the broader functionality of [SPaDE](../docs/tlad001.md#spade) through the logical kernel, deductive intelligence and MCP server subsystems.
+The former are only intended for the export of theory hierarchies from existing HOL ITP systems into [SPaDE](../docs/tlad001.md#spade) repositories, while the latter are intended for use in delivering the broader functionality of [SPaDE](../docs/tlad001.md#spade) through the logical kernel, deductive intelligence and MCP server subsystems.
 Python may also to be used in due course for export of theories from Lean.
 
 It is possible that access to non-SPaDE repositories will not be undertaken by writing from their custodians to a SPaDE repository, but via a simpler export directly to SPaDE facilities implemented in Python.
@@ -41,7 +41,7 @@ In fact, all the NTBS in a SPaDE repository are NTBSS, since at the second layer
 
 This module provides procedures for encoding and decoding null terminated byte sequences and for appropriate conversions of a small number of data types, as byte sequences.
 
-The data conversions required are as follows (in all cases conversions are requred in both directions):
+The data conversions required are as follows (in all cases conversions are required in both directions):
 
 - byte sequences <-> NTBS
 
@@ -53,17 +53,12 @@ The data conversions required are as follows (in all cases conversions are requr
 
 - byte sequences <-> strings
 
-  Attempt to decode as utf-8 (strict); if successful use the resulting JSON string, otherwise use a JSON object with a single key-value pair with the key "hexbytes" and a value consisting of the hexadecimal representation (beginning "0x") of the byte sequence as a string.
+  Attempt to decode as utf-8 (strict); if successful use the resulting utf-8 string, otherwise use a JSON object with a single key-value pair with the key "hexbytes" and a value consisting of the hexadecimal representation (beginning "0x") of the byte sequence as a string.
 
 - byte sequences <-> integers
 
-  These are for the representation of positive integers as byte sequences in big-endian base 256 form.
-  The conversion is used for the sequence number of byte sequences in the repository file, and for other integer values represented in the repository.
-  This is not used for JSON numbers, which are represented as byte sequences of their textual representation.
-
-- JSON numbers <-> byte sequences
-
-  These are represented as their textual representation in ASCII (utf-8) as byte sequences.
+  These are for the representation of integers as byte sequences in big-endian base 256 form.
+  The conversion is used primarily for the sequence number of byte sequences in the repository file, and for any other integer values represented in the repository.
 
 When encoding integers, the integer is first represented as a sequence of bytes in big-endian order base 256, and then that byte sequence is encoded as a null terminated byte sequence using the procedure for encoding byte sequences.
 Decoding first decodes a null terminated byte sequence into a byte sequence, and then interprets that byte sequence as a big-endian representation of an integer.
@@ -72,21 +67,21 @@ The final provision allows that a single null terminated byte sequence can be us
 This is achieved by appending the null terminated byte strings and then encoding that as a single null terminated byte sequence, using the previously described procedure for encoding byte sequences.
 The null terminatory of the individual byte sequences will then be escaped during encoding and restored when decoding.
 
-The coding of byte sequnces into null terminated form is as follows:
+The coding of byte sequences into null terminated form is as follows:
 
 The following escape convention will be used to permit the inclusion of null bytes in null terminated byte sequences.
 Binary 1 will be used as an escape character to permit a zero byte to be included.
 It also serves to escape itself, so that any occurrence of the byte 1 in a byte sequence is represented in a null terminated byte sequence by the two byte sequence 1 1.
 When preceding a byte 0, binary 1 indicates that the 0 is to be included in the byte sequence rather than terminating it.
 When preceding a byte other than 0 or 1, binary 1 does not function as an escape, and is simply part of the byte sequence.
-When appearing at the end of a byte sequence being encoded, binary 1 must be escaped in the resulting NTSB since it would otherwise escape the null terminator.
+When appearing at the end of a byte sequence being encoded, binary 1 must be escaped in the resulting NTBS since it would otherwise escape the null terminator.
 Decoding a null terminated byte sequence into a byte sequence therefore involves reading bytes until a byte 0 is reached, and interpreting any byte 1 as an escape character.
 If the byte following a byte 1 is a byte 0, then a byte 0 is included in the byte sequence.
 If the byte following a byte 1 is another byte 1, then a byte 1 is included in the byte sequence.
 If the byte following a byte 1 is any other byte, then both the byte 1 and the following byte are included in the byte sequence.
 All other bytes are included in the byte sequence until an unescaped byte 0 is reached.
 
-All passage of NTSBs as parameters to or return values from the procedures described in this document must include the terminating zero.  The null terminator is added when encoding and discarded when decoding.
+All passage of NTBS as parameters to or return values from the procedures described in this document must include the terminating zero.  The null terminator is added when encoding and discarded when decoding.
 
 ## Low Level I/O
 
@@ -125,15 +120,16 @@ The file should be opened in append mode, so that new byte sequences written to 
 A new empty byte sequence cache should be created.
 
 In order to provide for variations in the SPaDE native repository format which may arise in future, the open new repository procedure will take as arguments a version number.
-When creating a new respository, the version number will be written as the first byte sequence in the file.
+When creating a new repository, the version number will be written as the first byte sequence in the file.
 The current version number is 1 and is written as a null terminated byte sequence representing the integer 1.
 
-This will also be the first entry in the byte sequence cache, and will be elegible for use whenever the version number is required in the repository for whatever purpose.
+This will also be the first entry in the byte sequence cache, and will be eligible for use whenever the version number is required in the repository for whatever purpose.
 
 ### Open existing repository for reading
 
 A new empty byte sequence cache should be created for this repository.
 The file should then be opened for reading, and the entire repository read and cached using the procedure described below.
+It is necessary to read the entire repository in order to identify the start of the last NTBS in the file, which is the head of the last commit in the repository, from which the structure of the repository can be reconstructed.
 
 ### Open existing repository for appending
 
@@ -177,7 +173,15 @@ In order to support these functions, open append will only be allowed when a fil
 
 ## S-Expressions
 
-S-expressions are the way in which information is represented in SPaDE native repositories.
+The NTBS in a SPaDE repository are used to represent S-expressions, general purpose list structures which are used to represent the content of the repository, and in particular the theories and their components.
+
+Exactly how S-expressions are represented in memory after reading from or before writing to the repository depends upon the context and the implementation language.
+The main functionality of SPaDE is implemented using a repository manager implemented in Python, which provides access to SPaDE native repositories for the deductive kernel, deductive intelligence and MCP server subsystems.
+For this purpose a type of S-expressions will be defined in Python, and the procedures for reading and writing S-expressions to and from the repository will operate on that type, converting values between S-expressions and their NTBS representations as necessary.
+
+The other three subsystems are given access to the relevant context as S-expressions extracted from one or more SPaDE repositories, or other sources of declarative knowledge mediated by specialised procedures presenting that knowledge as if it were read from a SPaDE native repository.
+
+Alternatively the import of knowledge will be undertaken by facilities which read from the source repository and write to a SPaDE repository, using structures and languages appropriate to the source repository, and the S-expression module will be used only for the reading and writing of S-expressions to and from the SPaDE repository, and not for the intermediate representation of the knowledge in the source repository.
 
 There are three levels at which similar structures may be represented as S-expressions:
 
@@ -205,7 +209,7 @@ These S-Expressions are represented using null terminated byte sequences as foll
 Each S-expression is either Nil, an atom (a null terminated byte sequence) or a CONS cell (pairs of pointers to (sequence numbers of) S-expressions).
 Each such S-expression will be represented in the linear file as a single null terminated byte sequence, which when decoded by elimination of escapes would yield a sequence of one two or three null terminated byte sequences.
 The first sequence indicates the type of S-expression represented, and the remainder give the content of the S-expression.
-The first byte sequence is a single byte (plus null terminator), (*t*), with value 2, 3 or 4, which indicates whether the S-expression is Nil, an atom, or a CONS cell respectively, and also inducates how many further byte sequences follow it in the representation of the S-expression (*t-2*).
+The first byte sequence is a single byte (plus null terminator), (*t*), with value 2, 3 or 4, which indicates whether the S-expression is Nil, an atom, or a CONS cell respectively, and also indicates how many further byte sequences follow it in the representation of the S-expression (*t-2*).
 
 After decoding, the first sequence will be a single byte giving the type of S-expression it represents.
 If the first byte is 2, the S-expression is Nil, and there are no further byte sequences in the representation.
@@ -237,7 +241,8 @@ The procedures required are:
 ### Write Nil S-expression
 
 This procedure writes a Nil S-expression to the repository file.
-It creates a null terminated byte sequence representing the S-expression and writes it to the file, returning its sequence number
+It creates a null terminated byte sequence representing the S-expression and writes it to the file, returning its sequence number.
+Apart from the first time, this will simply be returning the sequence number of the first time, since the same byte sequence will be used for all Nil S-expressions, and will be cached after the first write.
 
 ### Write atom S-expression
 
@@ -369,7 +374,7 @@ This module handles the organizational structure of the repository, including Th
 - Theory
 - Folder
 
-A folder is represented as a JSON object mapping names to either Theories or Folders. To maintain the integrity of the repository, crptographic hashes are used in the top-level folder which is a folder of commits to the repository representing successive versions of the repository.  For this reason, folders associate names with pairs of which the first links to a cryptographic hash and the second is the top folder of the new commit. The cryptographic hash element will link to null for all non-top-level folders.  Otherwise it will be a hash formed on the NTBS from the last commit to that of the folder now being committed and linked to by the new commit.
+A folder is represented as a JSON object mapping names to either Theories or Folders. To maintain the integrity of the repository, cryptographic hashes are used in the top-level folder which is a folder of commits to the repository representing successive versions of the repository.  For this reason, folders associate names with pairs of which the first links to a cryptographic hash and the second is the top folder of the new commit. The cryptographic hash element will link to null for all non-top-level folders.  Otherwise it will be a hash formed on the NTBS from the last commit to that of the folder now being committed and linked to by the new commit.
 
 This will include the hash of the previous top-level folder, so that the entire history of the repository is captured in the chain of commits. This same cryptographic hash will be used in the signature of any theorems derived in the contexts being committed.
 

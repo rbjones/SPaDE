@@ -140,7 +140,7 @@ Would you like to try this approach? Should I create a log file for this current
 
 ### User
 
-First of all some adjustments to the documentation policy. I don't want to put the chats in the review series, I'd like to have a new series of documents for chat logs, and have now added the document type "cl" for chat logs to the policy. I would like to see a short document in the adms series describing for the process of seeding and evolving higher level documentation (particularly philosophy and architecture) by means of agentic chat. If we work through the steps here can you draft such a procedure description for me?
+First of all some adjustments to the documentation policy. I don't want to put the chats in the review series, I'd like to have a new series of documents for chat logs, and have now added the document type "cl" for chat logs to the policy. I would like to see a short document in the amms series describing for the process of seeding and evolving higher level documentation (particularly philosophy and architecture) by means of agentic chat. If we work through the steps here can you draft such a procedure description for me?
 
 ### Agent
 
@@ -218,7 +218,7 @@ Chat logs should be colocated. Also note that the subsystem code for the docs di
 
 Actually, I need to check that - looking back at the document you have open, I see:
 
-```
+```md
 Subsystem codes:
 ...
 - **do** docs - philosophy and architecture

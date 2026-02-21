@@ -5,7 +5,7 @@
 The SPaDE repository is exclusively for *declarative* knowledge.
 Why is that?
 
-There are multiple factors which have contributed to the ascendency of Homo Sapiens in the ecosystem of planet earth, but in its most recent developments the ability to acquire and effectively deploy knowledge has been a key factor.
+There are multiple factors which have contributed to the ascendancy of Homo Sapiens in the ecosystem of planet earth, but in its most recent developments the ability to acquire and effectively deploy knowledge has been a key factor.
 
 Knowledge comes in many shapes and forms, and has contributed to the evolution of life at every stage, since survival and reproduction inevitably depends upon the ability of organisms to sense key features of their environment and respond appropriately to them.
 At first this may primarily have been knowledge built into primitive genomes as instinctive reflexes, but the ability to learn from experience has played an important role from very early stages in the evolution of life.
@@ -13,8 +13,6 @@ Such adaptation does not need to be precise in its determination or perfect in e
 
 Interleaved among these gradual improvements there have been occasional quantum leaps.
 One such was the development of the central nervous system, greatly enhancing the ability of animals to process sensory information and respond appropriately, in the light of prior experience.
-
-
 
 The structure of the [SPaDE](../docs/tlad001.md#spade) knowledge repository is informed by supposed philosophical insights into the nature of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) and its representation.
 This document is a brief account of those ideas, and the way in which they have influenced the design of the repository.
@@ -28,7 +26,7 @@ This is a first informal account of the notion of [declarative knowledge](../doc
 
 ## [Universality in the Representation of Declarative Knowledge](krph002.md)
 
-This is a first informal account of concept of a *Universality* in the representation of declarative knowledge and of my reasons for believing that there are institutions whih exhibit that property.
+This is a first informal account of concept of a *Universality* in the representation of declarative knowledge and of my reasons for believing that there are institutions which exhibit that property.
 
 ## [The Structure of the SPaDE Repository](krph003.md)
 

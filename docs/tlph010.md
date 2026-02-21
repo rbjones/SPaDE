@@ -13,7 +13,7 @@ One was probably just that mathematics became less exclusively focussed on numbe
 From this point of view, the algebraic treatment of proposition logic by Boole and De Morgan was a natural development.
 
 The second stimulus was the perceived need for a return to rigor in mathematical analysis, which under the impetus of its applications in science and engineering had mushroomed despite a lack of clarity about its fundamental concepts, notably the real number system and the concept of function, both of which were ontologically novel and opaque.
-This thread was pursued most effectively by Cauchy, Weierstrass, Dedekind and Cantor, leading to the arithmetization of analysis and the formal definition of real numbers in terms of Dedekind cuts or Cauchy sequences of rationals.
+This thread was pursued most effectively by Cauchy, Weierstrass, Dedekind and Cantor, leading to the arithmetisation of analysis and the formal definition of real numbers in terms of Dedekind cuts or Cauchy sequences of rationals.
 
 A third notable stimulus was philosophical.
 In the eighteenth century a divergence appeared between David Hume, and the central place in this philosophy of his division of knowledge into "relations of ideas" and "matters of fact", and Immanuel Kant, who argued that synthetic a priori knowledge was possible, and that mathematics was the prime example of such knowledge.
@@ -45,7 +45,7 @@ To progress this idea, we will define the following concepts:
 
 ### Declarative Language
 
-A declarative language is one in which constraints on the possibile state of some domain of discourse can be expressed, using sentences having truth values which are determined by the state of that domain, the assertion of which limit the possibilities to those satisfying the truth conditions.
+A declarative language is one in which constraints on the possible state of some domain of discourse can be expressed, using sentences having truth values which are determined by the state of that domain, the assertion of which limit the possibilities to those satisfying the truth conditions.
 
 In order to talk about whether mappings between declarative languages preserve meaning, we need to say something about the semantics of those languages.  For meaning to be fully preserved, we need to consider not only the truth conditions of sentences but also the value of expressions within the languages.  Semantics is not just assigning values to sentences, but also to the members of all other syntactic categories of the language.
 

@@ -57,7 +57,7 @@ The machine could be programmed (via 8-track paper tape) in Fortran II or in ass
 
 In my explorations I discovered how I could assemble machine code in a Fortran array and then get the program to execute it.
 
-My first interesting idea about AI resulted from noticing that a program I wrote to allow the console to be used (instead of the more heavily used flexowriters) for editing a paper tape, produced a tape much longer than the original (because tabs were unintentionaly converted to multiple spaces).
+My first interesting idea about AI resulted from noticing that a program I wrote to allow the console to be used (instead of the more heavily used flexowriters) for editing a paper tape, produced a tape much longer than the original (because tabs were unintentionally converted to multiple spaces).
 I thought about ways of compressing the content of a tape and concluded that if one could analyse a body of knowledge to get a perfect compression of its sentences, then the inversion of that compression algorithm would be a program which would take random seeds and output only true sentences.
 It was a curious thought, I didn't imagine it could be done.
 

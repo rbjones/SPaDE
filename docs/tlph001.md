@@ -85,14 +85,14 @@ It is already the case, that the sphere of human habitation is enveloped by much
 There is an increasingly dense sphere of orbital satellites, and beyond that, a sparse but growing sphere of interplanetary probes.
 Though the intelligence is limited, this nevertheless represents a proliferation of intelligence from its origins on planet earth.
 
-Science fiction and space travel enthusiasts predominantly focus on space travel by homo sapiens, but the difficulty of establishing a human presence beyond earth is immense, and it seems doubful that colonisation, even of our closest planet, could sensibly approach other than by first creating a habitable environment using autonomous non-biological intelligent systems.
+Science fiction and space travel enthusiasts predominantly focus on space travel by homo sapiens, but the difficulty of establishing a human presence beyond earth is immense, and it seems doubtful that colonisation, even of our closest planet, could sensibly approach other than by first creating a habitable environment using autonomous non-biological intelligent systems.
 
 Its also pretty clear that proliferation of non-biological intelligent systems will proceed at much greater speed and efficiency than any human colonisation effort, once artificial intelligence cracks self-replication.
 
 It seems likely then, that the structure of the sphere of intelligent progeny of homo sapiens will be something like the following.
 
 1. An outer shell of intelligent probes which are primarily surveying the frontiers to determine the most promising directions for continuing proliferation.
-2. The sphere of self-reproducing intelligent systems which have evolved by incremental design to optimise the pace of replication.
+2. The sphere of self-reproducing intelligent systems which have evolved by incremental design to optimize the pace of replication.
 The systems dominating this sphere are unlikely to bear much resemblance to life on earth.
 3. A much smaller sphere encompassing the biological descendants of homo sapiens, also the product of many generations of evolution by incremental design (courtesy the continued development of synthetic biology).
 4. Since conservation is likely to remain popular, there may be a tiny core in which homo sapiens defies the usual trends of evolution and continues to exist in a more or less unchanged state.
@@ -106,14 +106,14 @@ It plays into the following analysis of the key resources required to achieve mo
 
 Though very different to the biological systems found on earth, these distant self-reproducing systems are likely to retain some similarities with their terrestrial predecessors.
 The cost of transporting matter across the cosmos is likely to make the process of replication more like that of plants than of animals.
-Mammals nurture their young, and this means that the geographical spread of mammalian species is undertaken primarilyby the geographical movement of fully functional mammals.
+Mammals nurture their young, and this means that the geographical spread of mammalian species is undertaken primarily by the geographical movement of fully functional mammals.
 
 Plants are less mobile, and their reproductive needs must be met through the production of seeds which can be widely dispersed and are capable of developing into plants in suitable environments.
 
 For interstellar proliferation the situation is closer to the latter than the former.
-To optimise the pace of proliferation, a self-proliferating system must seek the smallest physical structures which have the capability, in suitable environments, of developing into fully functional self-replicating systems.
+To optimize the pace of proliferation, a self-proliferating system must seek the smallest physical structures which have the capability, in suitable environments, of developing into fully functional self-replicating systems.
 
-It is of interest that the development of human embryos in utero folows a trajectory which has some similarities with the path of evolution of homo sapiens from single celled organisms.
+It is of interest that the development of human embryos in utero follows a trajectory which has some similarities with the path of evolution of homo sapiens from single celled organisms.
 It may be that this will be how the replication of self-replicating systems is achieved in the future, an elaborate intelligent self-reproducing system such as we may hope that the Earth's biosphere will soon prove to be, must reproduce itself by engineering something much simpler for transportation to a new planet in the expectation that it will then grow and develop in-situ to become a more advanced self-replicating intelligent system than the earth it left behind.
 
 So what resources are required for this process?
@@ -141,10 +141,10 @@ Three phases in the progression of abstraction are worth noting in this context.
 - The first is the development of number systems and the various computational manipulations which they admit.
 Alongside this we see the development of geometric techniques relevant, for example, to the administration of land alongside the meandering Nile.
 
-- The second phase begins with the emergence of Mathematics as a theoretic discipline, its rigorisation through the axiomatic method and the beginnings of the study of Logic, most prominently in the first instance by Aristotle.
+- The second phase begins with the emergence of Mathematics as a theoretic discipline, its rigourisation through the axiomatic method and the beginnings of the study of Logic, most prominently in the first instance by Aristotle.
 Mathematics, both pure and applied continued to be developed eventually underpinning modern science and the industrial revolution.
 
-- The third phase comes after the successing of mathematical analysis in science and engineering pushes mathematics beyond fundamentals that were well understood, leading to a process of rigorisation which culminated in the reduction of mathematics to logic, and the establishment of logical foundations capable of supporting mathematics and all deductive reasoning in any body of [declarative knowledge](tlad001.md#declarative-knowledge).
+- The third phase comes after the successes of mathematical analysis in science and engineering pushes mathematics beyond fundamentals that were well understood, leading to a process of rigourisation which culminated in the reduction of mathematics to logic, and the establishment of logical foundations capable of supporting mathematics and all deductive reasoning in any body of [declarative knowledge](tlad001.md#declarative-knowledge).
 
 ## The Primacy of Ethics
 
@@ -161,7 +161,7 @@ This suggests that the distinction between pragmatic and moral behaviour may be 
 Since I am making the case for a moral dimension to the [SPaDE](tlad001.md#spade) project, you may take it that I don't accept that conclusion.
 I do however consider this evidence that the evolutionary imperative is not incompatible with ethical behaviour.
 
-My second observation is that the kind of evolution we are now addressing, evolution by design iteration, is subject to influence by social factors, including contemporary ethical considerations, for a key to its sucess is the acceptance of its products by human society.
+My second observation is that the kind of evolution we are now addressing, evolution by design iteration, is subject to influence by social factors, including contemporary ethical considerations, for a key to its success is the acceptance of its products by human society.
 Among the many projects which aim to intersect the future of intelligence, those which are ethically informed may be more likely to succeed in the long term if they promise a future in which ethical considerations are not set aside.
 
 What kind of moral code can we imagine which transcends the terrestrial and biological origins of humanity, and is credible for a future dominated by non-biological super-intelligence?

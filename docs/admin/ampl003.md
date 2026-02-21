@@ -3,7 +3,7 @@
 Interaction with the project will be managed through GitHub Projects.
 This is a facility which is still evolving, and I will update this documentation as I learn how to use it effectively.
 
-A github project has been set up for [SPaDE](../tlad001.md#spade), so the terminology used here when discussing plans will reflect that useed by the github project management system and will evolve with it
+A github project has been set up for [SPaDE](../tlad001.md#spade), so the terminology used here when discussing plans will reflect that used by the github project management system and will evolve with it
 All activities in such a project have to be set up as "issues" and dependencies between these issues are registered as "blocks".
 In this discussion I will use the term "task" to refer to an issue which is a significant piece of work, and "subtask" to refer to a smaller piece of work which is part of a larger task.
 Subtasks are registered as "child" issues, the task being the "parent" issue.

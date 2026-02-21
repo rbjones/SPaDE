@@ -169,7 +169,7 @@ See [Perfect Information Spaces and Focal Methods](tlad005.md) for detailed trea
 ### The Singularity
 
 A hypothesised future point at which technological progress, particularly in AI, becomes so rapid and profound that it defies human understanding and control.
-Often associated with the acceleration of AI development expected when AI is able to improve its own capabilities or design its succesors autonomously.
+Often associated with the acceleration of AI development expected when AI is able to improve its own capabilities or design its successors autonomously.
 
 ### Singular Focus
 

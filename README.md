@@ -33,7 +33,7 @@ Containing those parts of the project contributing to the deductive kernel.
 ## [Deductive Intelligence (di directory)](./di/README.md)
 
 Containing the support for deductive intelligence which makes feasible the application of deduction and the transition to a deductive rather than a computation paradigm for information processing.
-This wraps the deductive kernel with layers of [focal intelligence](docs/tlad001.md#focal-intelligence-or-focal-ai) making use of multilayered neural nets closely coupled with the heirarchy of logical contexts found in the [SPaDE](docs/tlad001.md#spade) distributed knowledge repository.
+This wraps the deductive kernel with layers of [focal intelligence](docs/tlad001.md#focal-intelligence-or-focal-ai) making use of multilayered neural nets closely coupled with the hierarchy of logical contexts found in the [SPaDE](docs/tlad001.md#spade) distributed knowledge repository.
 
 ## [The MCP Server (mcp directory)](./mcp/README.md)
 

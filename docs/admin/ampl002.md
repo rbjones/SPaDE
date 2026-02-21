@@ -13,11 +13,11 @@ This document therefore begin's with a tentative list of those key features that
 3. **Proof by Primitive Rules** of HOL logic, first prototyping can cover many aspects of the system with only propositional reasoning.
 4. **Context Sensitive Alpha-Zero Proof Capability** This can be prototyped in the first instance while only primitive rules are available.
 5. **Efficient Execution** This is desirable in itself but is a precondition of delivering reflection (since otherwise proven derived rules will not be efficient).
-6. **Metatheory and Reflection** This is fundamental to the antificipated proof paradigm in which the use of tactics is diplaced by the application of derived rules of inference, however, this is probably hard to do.
+6. **Metatheory and Reflection** This is fundamental to the anticipated proof paradigm in which the use of tactics is displaced by the application of derived rules of inference, however, this is probably hard to do.
 
 ## Prototyping Phases
 
-In order to admit advances in prototyping and evaluating all the critical features, a radically simplfied version of the whole will first be required, after which there will be some scope for independently progressing the prototyping of each subsystem in the context thus established.
+In order to admit advances in prototyping and evaluating all the critical features, a radically simplified version of the whole will first be required, after which there will be some scope for independently progressing the prototyping of each subsystem in the context thus established.
 
 The temporal structure can therefore be partially defined by first describing that initial "whole system" prototype, and then describing how the prototyping of the key features of each subsystem can be progressed.
 
@@ -26,7 +26,7 @@ The temporal structure can therefore be partially defined by first describing th
 The aim for the first prototype is to implement the core features of the native repository, viz. uploading a repository scraped from another HOL system and reading it back into memory to support a subset of the functionality expected of the subsystem (i.e. read only access).
 This read facility will then be made available through an MCP server and queried through agentic LLMs.
 
-### Repository Protyping Progression
+### Repository Prototyping Progression
 
 The first MCP server depends upon:
 

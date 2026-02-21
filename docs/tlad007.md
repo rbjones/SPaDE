@@ -7,7 +7,7 @@ Away from the generality of LLMs, AI has lately had success in narrower domains 
 Deepmind's alpha-zero has shown the benefits of focus upon the problem domain at hand.
 
 Alongside the effectiveness of focus in some narrow domains, it sometimes happens that the solution of a relatively broad problem set may be facilitated by focus on certain key subproblems.
-A special case of this comes with the idea of "[the singularity](tlad001.md#the-singularity)", the point at which AI becomes capable of redesigning itself leading to progressive acceleration of the AI design cycle and hyperexponential grown in the capabilities of artificial superintelligence.
+A special case of this comes with the idea of "[the singularity](tlad001.md#the-singularity)", the point at which AI becomes capable of redesigning itself leading to progressive acceleration of the AI design cycle and hyperexponential growth in the capabilities of artificial superintelligence.
 Here we see that focus on the problem of AI design may be expected to advance capability in design across the board, and the potential suggests talking of this as a benefit of *[singular focus](tlad001.md#singular-focus)*.
 
 It may be that the benefits of focus, and the possibility of [singular focus](tlad001.md#singular-focus), can be turned into architectural models and strategic plans, and that is the purpose of this note.

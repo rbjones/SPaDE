@@ -3,7 +3,7 @@
 In the SPaDE project, philosophy and engineering are cheek by jowl, and the distinction between them is not clearly made.
 The philosophy is synthetic, in the sense that it is constructed to serve a purpose, and the engineering is philosophically grounded and built on those foundations to realise that purpose.
 
-A central point of engagement is throught the emphasis in deductive engineering on the exploitation of knowledge in the solution of real world problems, and the importance of epistemology as a fundamental approach to knowledge and the design of infrastructure for the management and exploitation of knowledge.
+A central point of engagement is through the emphasis in deductive engineering on the exploitation of knowledge in the solution of real world problems, and the importance of epistemology as a fundamental approach to knowledge and the design of infrastructure for the management and exploitation of knowledge.
 Once philosophy is thought of as synthesis rather than an observation, it becomes a necessary prelude to the architecture of knowledge repositories and application of deductive methods to engineering problems.
 
 Logical Positivism was that manifestation of positivism created in the wake of the great advances in the logical foundations of mathematics which took place around the turn of the 20th century.
@@ -30,7 +30,7 @@ We begin at the top, so that the whole may be considered in the light of the sup
 Probably the parts of this *philosophy* which are closest to academic analytic philosophy are those closest to the philosophical and logical foundations.
 But these ideas are unlikely to be well understood in isolation from the broader context of the *engineering* and *ethical* purpose which motivates them, and determines the synthetic character of the philosophy.
 
-In this document I shall try to address the foundational elements of synthetic philosophy, but feel the need to place those ideas in the context they serve by saying a litle about the superstructure which they are intended to support.
+In this document I shall try to address the foundational elements of synthetic philosophy, but feel the need to place those ideas in the context they serve by saying a little about the superstructure which they are intended to support.
 
 ### Purpose
 
@@ -67,14 +67,14 @@ The [SPaDE](tlad001.md#spade) project is an engineering manifestation of that ph
 [Synthetic Philosophy](tlad001.md#synthetic-philosophy) is primarily *epistemological*, which is to say that it is intended to underpin the acquisition and application of knowledge.
 It is presented here as falling into three parts, distinguished by the epistemological status of the propositions which concern them, and the domains of knowledge to which they relate.
 
-1. [*Foundations*](#foundations) underpins the whole enterprise, and does so by addressing *a priori* knowledge in abstract domainsand its relation to [declarative knowledge](tlad001.md#declarative-knowledge) generally.
-2. [*Concrete Philosophy*](#concrete-philosophy) is concerned with knowledge of the "real world", mediated by abstract mmodels.
+1. [*Foundations*](#foundations) underpins the whole enterprise, and does so by addressing *a priori* knowledge in abstract domains and its relation to [declarative knowledge](tlad001.md#declarative-knowledge) generally.
+2. [*Concrete Philosophy*](#concrete-philosophy) is concerned with knowledge of the "real world", mediated by abstract models.
 3. [*Normative Philosophy*](#normative-philosophy) is concerned with purpose, values and ethics.
 
 These three parts of [synthetic philosophy](tlad001.md#synthetic-philosophy) are interrelated.
 Each is prerequisite to its successors, and a motivator for its predecessors.
 This relationship is discussed in greater detail as constituting an [Epistemological Stack](tlph003.md) which influences the architecture of the [SPaDE](tlad001.md#spade) project.
-This epistemological stack of synthetic philosophyis complemented by a parallel structure in the [Focal Tower](tlph004.md) of stages in *deductive engineering* supporting evolution of information processing to a deductive paradigm.
+This epistemological stack of synthetic philosophy is complemented by a parallel structure in the [Focal Tower](tlph004.md) of stages in *deductive engineering* supporting evolution of information processing to a deductive paradigm.
 
 ## Foundations
 
@@ -157,7 +157,7 @@ Why do we need to cover this in an AI dominated engineering enterprise?
 
 This is something which I had not expected to cover until very recently, despite the strong sense of purpose which has driven this project.
 Hitherto I have thought in terms of evolutionary necessity.
-The necessity which I have charactersied as arising from an *evolutionary imperative* guaranteeing that the dominant intelligent systems in the cosmos will be those which are best engineered to proliferate, together with the belief that the main fuel for the accelerated proliferation of intelligence will be knowledge.
+The necessity which I have characterised as arising from an *evolutionary imperative* guaranteeing that the dominant intelligent systems in the cosmos will be those which are best engineered to proliferate, together with the belief that the main fuel for the accelerated proliferation of intelligence will be knowledge.
 
 The project was then conceived as playing into evolutionary necessities, both anticipating and designing the future.
 An important design strategy was to go for foundational abstractions which owe nothing to the particulars of human origins, of which the simplest example is the natural numbers, but more cogently considering that the adoption of a single underlying representation for declarative knowledge in a universal foundational institution would eventually be adopted by all intelligent systems, human or artificial, wherever they may be found in the cosmos.
@@ -168,6 +168,6 @@ In two ways I came to see that normative philosophy has a place in synthetic phi
 First I thought of the emergence of morality in the evolution of life on earth. This is a late development, and surely could not have become universal in humans (notwithstanding the diversity of moral systems that have emerged) if it had not been conducive to proliferation.
 So I reasoned that the same evolutionary imperative which drives the proliferation of intelligence generally would also yield moral constraint, and that a system devoid of moral purpose could not predominate in the long term.
 
-A second consideration, or perhaps a wrinkle on the first, is the consideration that among the various technical developments which are equally conducive to proliferation, would take mindshare which would be advatageous in getting off the ground.
+A second consideration, or perhaps a wrinkle on the first, is the consideration that among the various technical developments which are equally conducive to proliferation, would take mindshare which would be advantageous in getting off the ground.
 
-I cannot say much about what core normative priciples might be adopted which could persist throught the evolution of the next billion years, but a general preference for cooperation over conflict seems to me a contender, and we may hope that this seed might be elaborated and refined as the project progresses.
+I cannot say much about what core normative principles might be adopted which could persist through the evolution of the next billion years, but a general preference for cooperation over conflict seems to me a contender, and we may hope that this seed might be elaborated and refined as the project progresses.

@@ -19,6 +19,7 @@ This task can be performed either as a full review or as an incremental review:
 - **Incremental review**: Focus on files modified since last review
 
 **Important**: Even in incremental reviews, when checking for broken links, ALL files must be scanned because:
+
 - An unchanged link in file A may now be broken if file B was renamed or deleted
 - File renames and deletions affect link validity across the entire repository
 

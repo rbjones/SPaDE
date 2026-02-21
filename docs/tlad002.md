@@ -12,7 +12,7 @@ will transform the exploitation of [declarative knowledge](tlad001.md#declarativ
 from computation processes of uncertain effect to
 formally verified computation yielding unambiguous and reliable truths.
 
-- To specify APIs and protocols for access to a distrbuted shared repository of knowledge.
+- To specify APIs and protocols for access to a distributed shared repository of knowledge.
 The abstract form of knowledge is that of the abstract syntax of HOL and the abstract semantics is also that of HOL.
 The concrete forms may be diverse, and concrete semantics addresses the material world by giving concrete interpretation for various abstract domains.
 Arbitrary sources of data can be viewed as incorporated into this scheme, wither by treating it as data (i.e. assigning explicit values to new names), or by semantic embeddings, shallow or deep.

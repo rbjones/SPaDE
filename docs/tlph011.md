@@ -13,5 +13,3 @@ But I'm OK, I don't need that.
 Playing into the far future is interesting, and trying to make a contribution to ensuring that it is a good one seems worthwhile.
 
 The development of SPaDE as a synthetic philosophy and deductive engineering project involves not only technical and philosophical challenges, but also ethical and normative considerations.
-
-

@@ -1,6 +1,6 @@
 # SPaDE Seminal Insights
 
-Without claiming a broader signficance, I think of certain ideas as *seminal insights* which have inspired and shaped the design of the [SPaDE](tlad001.md#spade) project.
+Without claiming a broader significance, I think of certain ideas as *seminal insights* which have inspired and shaped the design of the [SPaDE](tlad001.md#spade) project.
 This document is an attempt to gather those insights together, in a very concise way, with links to more detailed discussions where available.
 
 ## Universal Foundational Institutions
@@ -19,7 +19,7 @@ The general framework established by a formal foundational institution (such as 
 
 ## The Potential of Focal Methods
 
-That *focal methods* exploiting perfect information spaces can achieve competence in domains which are currently considered the province of large language models and other statistical AI methods. That the heirarchy of logical contexts in the [SPaDE](tlad001.md#spade) knowledge repository can be exploited by focal methods to achieve competence in a wide variety of domains. That singular foci an be identified in multiple domains of competence exploiting reflexive capabilities to accelerate learning by application of intelligence in the domain to the learning process itself.
+That *focal methods* exploiting perfect information spaces can achieve competence in domains which are currently considered the province of large language models and other statistical AI methods. That the hierarchy of logical contexts in the [SPaDE](tlad001.md#spade) knowledge repository can be exploited by focal methods to achieve competence in a wide variety of domains. That singular foci an be identified in multiple domains of competence exploiting reflexive capabilities to accelerate learning by application of intelligence in the domain to the learning process itself.
 
 ## Evolution Reconceived
 
