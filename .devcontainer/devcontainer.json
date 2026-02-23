@@ -2,7 +2,8 @@
   "name": "SPaDE Development (Prebuilt)",
   "image": "ghcr.io/rbjones/spade:latest",
   "containerEnv": {
-    "PPDIR": "/proofpower-source"
+    "PPDIR": "/proofpower-source",
+    "PATH": "/workspace/common:${containerEnv:PATH}"
   },
   "customizations": {
     "vscode": {

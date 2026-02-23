@@ -69,6 +69,9 @@ jobs:
           # Set up ProofPower environment
           ENV PPDIR=/proofpower-source
           ENV PATH=/workspace/common:$PATH
+
+          # Ensure login shells also get /workspace/common on PATH
+          RUN printf '%s\n' 'export PATH="/workspace/common:${PATH}"' > /etc/profile.d/spade-path.sh
         
           # Build maths_egs and install to ProofPower DB
           RUN cd /workspace/retro/maths_egs && \

@@ -33,7 +33,10 @@ jobs:
         run: |
           set -ex
           export PPDIR=/proofpower-source
+          echo "PATH before dev_env: $PATH"
           . /proofpower-source/dev_env || { echo "Failed to source dev_env"; exit 1; }
+          echo "PATH after dev_env: $PATH"
+          export PATH="/workspace/common:$PATH"
           which pp || { echo "ProofPower not in PATH"; exit 1; }
           echo "ProofPower found at: $(which pp)"
       
@@ -41,12 +44,18 @@ jobs:
         shell: bash
         run: |
           set -ex
+          echo "PATH before dev_env: $PATH"
           . /proofpower-source/dev_env
+          echo "PATH after dev_env: $PATH"
+          export PATH="/workspace/common:$PATH"
           pp -d hol <<< "print_theory \"min\";quit();" || { echo "ProofPower test failed"; exit 1; }
       
       - name: Run SPaDE tests
         shell: bash
         run: |
           set -ex
+          echo "PATH before dev_env: $PATH"
           . /proofpower-source/dev_env
+          echo "PATH after dev_env: $PATH"
+          export PATH="/workspace/common:$PATH"
           make

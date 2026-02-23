@@ -26,7 +26,10 @@ jobs:
           export PPDIR=/proofpower-source
           
           # Source the ProofPower development environment
+          echo "PATH before dev_env: $PATH"
           . /proofpower-source/dev_env
+          echo "PATH after dev_env: $PATH"
+          export PATH="/workspace/common:$PATH"
       
           
           # Test that ProofPower is accessible
@@ -42,7 +45,10 @@ jobs:
           echo "Current PATH: $PATH"
           
           # Source the ProofPower development environment
+          echo "PATH before dev_env: $PATH"
           . /proofpower-source/dev_env
+          echo "PATH after dev_env: $PATH"
+          export PATH="/workspace/common:$PATH"
           
           # Run default SPaDE tests
           make
