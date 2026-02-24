@@ -11,7 +11,9 @@ MDWITHSML=krad001.md krcd002.md krdd001.md krte001.md
 
 # Files classified by build method
 
-PPSMLSIG = krcd001.sml krcd002.sml krcd010.sml
+PPSMLSIG = krcd001.sml krcd010.sml
+# krcd002.sml
+
 PPSMLSTRUCT = krcd011.sml
 PPSMLTEST = krte004.sml
 # krte006.sml
