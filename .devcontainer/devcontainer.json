@@ -1,9 +1,10 @@
 {
   "name": "SPaDE Development (Prebuilt)",
   "image": "ghcr.io/rbjones/spade:latest",
+  "runArgs": ["--platform=linux/amd64"],
   "containerEnv": {
     "PPDIR": "/proofpower-source",
-    "PATH": "/workspace/common:${containerEnv:PATH}"
+    "PATH": "/workspace/common:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   },
   "customizations": {
     "vscode": {
