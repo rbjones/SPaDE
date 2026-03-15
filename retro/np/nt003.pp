@@ -126,7 +126,7 @@ declare_infix(230, "⦏<<⦎");
 ⓈHOLCONST
 │ $⦏~~⦎: ('a → 'b) → ('a → 'b) → ('a → 'a → BOOL) → 'a → BOOL
 ├─────────
-│ ∀f g $~~ x⦁ (f ~~ g) x ⇔ (∀y⦁ y << x ⇒ f y = g y) ∧ f x = g x 
+│ ∀f g $<< x⦁ (f ~~ g) x ⇔ (∀y⦁ y << x ⇒ f y = g y) ∧ f x = g x 
 ■
 
 ⓈHOLCONST

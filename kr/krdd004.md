@@ -1,38 +1,43 @@
 # Detail description of Procedures for SPaDE Native Repository I/O
 
+## Introduction
+
 This document describes the procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories in sufficient detail to guide implementation.
+It includes SML signatures, and therefore directly supports implementation of SPaDE knowledge representation Standard ML, but is also intended to support implementation in other languages (notably Python) by translation of the signatures into similar structures in those languages (ABCs in Python).
 
-In first drafts of this document the procedures defined are those necessary to write a [SPaDE](../docs/tlad001.md#spade) repository from scratch, and to read an existing repository into a suitably structured representation.
+SPaDE local repositories connect together (logically) to form a distributed diasporic repository of declarative knowledge, and the SPaDE native repository format is a physical representation of declarative knowledge intended for the local repositories.
+Often the content of a local repository will semantically depend upon the content of other local repositories by including references to entities defined elsewhere in the defining constraints on names introduced in the repository.
+The SPaDE native repository format is designed to support this by using a name space partitioned between the local repositories, involving paths which identify the local repository and the path within the local repository to the matters of interest.
 
-Some of the detail will depend upon the language in which the procedures are implemented.
-Where possible, pertinent differences will be highlighted.
-Only two languages are currently under consideration, SML (for HOL4 and ProofPower HOL implementations) and Python (for MCP server implementations).
-The former are only intended for the export of theory hierarchies from existing HOL ITP systems into [SPaDE](../docs/tlad001.md#spade) repositories, while the latter are intended for use in delivering the broader functionality of [SPaDE](../docs/tlad001.md#spade) through the logical kernel, deductive intelligence and MCP server subsystems.
-Python may also to be used in due course for export of theories from Lean.
-
-It is possible that access to non-SPaDE repositories will not be undertaken by writing from their custodians to a SPaDE repository, but via a simpler export directly to SPaDE facilities implemented in Python.
-Either way the Python implementation is  expected to come first.
-
-For the earliest prototyping the requirement is for SML procedures to write [SPaDE](../docs/tlad001.md#spade) repositories from scratch, and Python procedures to read such repositories into suitable structured representations.
+The SPaDE repository is intended to be used by deductive methods which yield applicable conclusions from the content of the repository, the validity of which depend on the context in which they are derived.
+The context for such derivations must therefore be preserved, and amendments to the repository can therefore never change existing content, but only add new content (possibly as variations of or elaborations on prior content).
+The SPaDE local repositories are therefore WORM repositories, and the SPaDE native repository format is designed to support this by using a linear file structure in which new content is added to the end of the file, and links within the repository are always backwards links to content already present in the file.
+Amendments and augmentations may make use of prior content (by reference) but cannot change it, and all references to content are therefore stable under all the permitted changes to the repository, which is also protected by cryptographic hashes which are included in the repreentation of conclusions drawn in from the knowledge in the repositories.
 
 The following documents provide context for understanding the procedures described here:
 The [SPaDE](../docs/tlad001.md#spade) native repository format is described in [krdd002.md](krdd002.md).
 
 The following sections describe the modules to be implemented, and the procedures within those modules.
-The facilities will need to be provided in more than one language, to enable export from various sources of declarative knowledge into SPaDE repositories.
 
-This affects how the requirements are typically described.
-In SML they will be SML modules, viz signatures, structures, or functors, while in Python they will be abstract base classes and then the class implementation.
+The modules required are as follows:
 
-THe modules required are as follows:
-
-- [Encoding/Decoding](#encodingdecoding)
+- [Encoding and Decoding NTBS and Related Data Types](#encoding-and-decoding-ntbs-and-related-data-types)
+  Information is stored in the repository as a sequence of null terminated byte sequences (NTBS), and the encoding/decoding module provides procedures for encoding and decoding between NTBS and byte sequences, and for appropriate conversions of a small number of data types, as byte sequences.
+- [S-expressions](#s-expressions)
+  The NTBS in a repository are used to represent list structures (S-expression) and reconstruction of these structures from the byte sequences in the file together with caches which facilitate processing and use is completed on opening a local repository.
+  This module provides a datatype for S-expressions and for convering between that datatype and the NTBS used to represent S-expressions in the native repos.
+  It also offers an information structure used in the principle cache constructed of the repository context, accessible through multiple efficient dictionaries from either NTBS or the NTBS sequence numbers used for linking in the repository.
 - [Low Level I/O](#low-level-io)
-- [S-Expressions](#s-expressions)
+  On opening a repository, the entire file is read and the byte sequences are transformed into data structures suitable for processing and convenient for augmentation (details of these structures in the S-expressions module).
+  If the repository is to be augmented, these internal structures are first augmented with the required changes and the new data is appended to the file on committal.
+  The content of the repository is processed as list structures (S-expressions) and reconstruction of these structures from the byte sequences in the file together with caches which facilitate processing and use is completed on opening a local repository.
 - [HOL Types and Terms](#hol-types-and-terms)
+  This covers the representation of HOL types and terms as S-expressions.
 - [Repository Structure](#repository-structure)
+  This covers the representation of the higher structure of a SPaDE repository.
+  That is, the structure of theories, folders, and commits.
 
-## Encoding/Decoding
+## Encoding and Decoding NTBS and Related Data Types
 
 The SPaDE native repository is a sequence of null terminated byte sequences (NTBS).
 It is necessary to have procedures for encoding arbitrary byte sequences as null terminated byte sequences, and for decoding such sequences back into arbitrary byte sequences.
@@ -83,10 +88,17 @@ All other bytes are included in the byte sequence until an unescaped byte 0 is r
 
 All passage of NTBS as parameters to or return values from the procedures described in this document must include the terminating zero.  The null terminator is added when encoding and discarded when decoding.
 
+## S-Expressions(I)
+
 ## Low Level I/O
 
+SPaDE native repositories are stored as linear files in which the content is a sequence of null terminated byte sequences (NTBS).
+When a local repository is accessed, its content is read in its entirety and transformed into data structures suitable for processing and convenient for augmentation.
+
+The purpose of the low level I/O module is to provide procedures which translate between the stored form of the repository as a sequence of NTBS in a linear file, and the internal form of the repository as data structures in memory, and to provide access to the internal form.
+
 This module provides low level procedures for reading and writing [SPaDE](../docs/tlad001.md#spade) native repositories as sequences of null terminated byte sequences held in linear binary files.
-It also operates a byte sequence cache, which is an array of byte sequences in the order in which they occur in the file, complemented by an efficient means of retrieving the sequence number of a byte sequence already in the cache.
+It also creates a cache in which key information for each NTBS in a repository is made accessible for editing or , which is an array of byte sequences in the order in which they occur in the file, complemented by an efficient means of retrieving the sequence number of a byte sequence already in the cache.
 
 All byte sequences in a repository and in the cache are in null terminated form with escapes as described above, and all the interfaces at the low level I/O expect or deliver byte sequences in that form.
 
@@ -306,16 +318,16 @@ The categories are as follows, with the constructors and arities indicated for e
 - Term
   - Var: Sname x Type
   - Const: Rname x Type
-  - App: Term x Term x Type
-  - Abs: Sname x Type x Term x Type
+  - App: Term x Term
+  - Abs: Sname x Type x Term
 - Sequent
 
 The abstract syntax associates with each constructor a category, and the categories of the parameters which it requires.
 
 The required constructors, together with the types of the parameters which they require are as follows:
 
-- Tvar: name
-- Tcon: name x type list
+- Tvar: Sname
+- Tcon: Rname x type list
 
 This module provides procedures for reading and writing HOL types and terms as J-expressions, following the structure defined in [krdd002.md](krdd002.md).
 These structures are represented as lists (J-expressions) where the first element is a "Kind Atom" identifying the node type.
@@ -323,13 +335,13 @@ The Kind Atom is a single atom containing two null-terminated byte sequences: th
 
 ### Names
 
-Names are represented as single atoms containing a sequence of null-terminated byte strings.
+Names are given as relative paths represented as single atoms containing a sequence of null-terminated byte strings.
 The first byte string represents a numerical shift (up the hierarchy), and subsequent strings represent the path elements.
 
 **Procedures:**
 
-1. **Write Name**: Takes a shift integer and a list of path byte strings. Encodes them into a single atom and writes it. Returns sequence number.
-2. **Read Name**: Takes a sequence number. Decodes the atom into a shift integer and list of path strings.
+1. **Write Path**: Takes a shift integer and a list of path byte strings. Encodes them into a single atom and writes it. Returns sequence number. The integer and the strings are each encoded as NTBS and concatenated before being encoded as a single NTBS for the atom.
+2. **Read Path**: Takes a sequence number. Decodes the atom into a shift integer and list of path strings.
 
 ### Types
 

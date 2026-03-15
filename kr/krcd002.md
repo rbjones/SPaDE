@@ -4,14 +4,19 @@ This document describes the SML interface to the SPaDE native repository.
 It is presented as a set of signatures for the various layers in the interface which are:
 
 - [Encoding and Decoding](#encoding-and-decoding)
+  The primary purpose of this layer is to provide procedures for encoding and decoding byte sequences as null terminated byte sequences (NTBS), and for encoding and decoding lists of NTBS as single NTBS, which are the forms in which byte sequences are stored in the repository.
+  Big-endian base 256 encoding and decoding of integers as byte sequences is also provided at this level, since integers are used in the repository as sequence numbers for byte sequences, and as constituents of s-expressions.
 - [Low-Level I/O](#low-level-io)
+  This layer provides procedures for reading and writing byte sequences to and from the repository file, creating and maintaining a cache of byte sequences in the repository, and performing optimistic locking when committing append operations to the repository file.
 - [S-Expressions and Lists](#s-expressions-and-lists)
+  This layer provides procedures for encoding and decoding s-expressions (list structures) as NTBS.
 - [Higher Structures](#higher-structures)
+  This layer provides procedures for encoding and decoding higher structures such as HOL types and terms, theories and folders as s-expressions.  It also covers the committing of changes to the repository, including the use of cryptographic hashes to ensure the integrity of successive comits to the repository.
 
 ## Encoding and Decoding
 
 The repository is a sequence of null terminated byte sequences (NTBS).
-Because a zero byte terminates the NTBS, an escape convention is required to allow zero bytes to be included in the byte sequences.
+Because a zero byte terminates each NTBS, an escape convention is required to allow zero bytes to be included in byte sequence coded as NTBS.
 We therefore require procedures for creating NTBS which insert escapes as needed and add the terminating zero, and for decoding NTBS which remove the escapes and the terminator to give the original byte sequence.
 
 The NTBS are used to represent S-expressions.
@@ -19,13 +24,13 @@ This determines the requirements for encoding and decoding at this level.
 It involves packing more than one constituent into a single NTBS, in which case each constituent is given as an NTBS and the whole is then encoded as a single NTBS which we speak of as an NTBSS.
 This repeated encoding gives us three different uses of byte sequences, all of which are at bottom WORD8 vectors, but which are used in different ways and therefore have different type names in the SML signatures to make clear the depth of encoding required in parameters and delivered in results.
 
-They are named *bytes*, *NTBS* and *NTBSS*, and the encoding and decoding procedures are defined to convert between these different types as required.
+They are named *bytes*, *NTBS* and *NTBSS*. The encoding and decoding procedures are defined to convert between these different types as required.
 
-The required conversions are therefore to and from:
+The required conversions are therefore:
 
-- [Byte Sequences](#byte-sequences)
-- [Sequences (lists) of NTBS](#sequences-lists-of-ntbs)
-- [Integers](#integers)
+- [Byte Sequences and NTBS](#byte-sequences-and-ntbs)
+- [NTBS lists and NTBSS](#ntbs-lists-and-ntbss)
+- [Integers and NTBS](#integers-and-ntbs)
 
 ```sml
 signature ENCODING_DECODING =
@@ -48,7 +53,7 @@ type NTBSS = bytes
 type sequence_number = int
 ```
 
-### Byte Sequences
+### Byte Sequences and NTBS
 
 The algorithm for encoding and decoding byte sequences as NTBS is as follows:
 
@@ -69,15 +74,18 @@ val encode_bytes : bytes -> NTBS
 val decode_bytes : NTBS -> bytes
 ```
 
-The following procedure might be used for progressively decoding the sequence of NTBS which form a SPaDE repository.
+The following procedure *might* be used for progressively decoding the sequence of NTBS which form a SPaDE repository.
+Note that this is not an NTBSS, it is simply a concatenation of NTBS.
 
-The integer supplied is the index of the first byte of the NTBS to be decoded in the NTBSS, and the result is a pair of the index of the first byte of the next NTBS in the NTBSS and the decoded NTBS.
+The integer supplied is the index of the first byte of the NTBS to be decoded from the byte sequence, and the result is a pair of the index of the first byte of the next NTBS in the sequence and the decoded NTBS.
+The difference between the two integers is the length of the NTBS in the repo, so the NTBS can be taken as a slice from the byte sequence, which is different from the sequence returned by decode_slice, which is the NTBS decoded.
+If this is used on an NTBS in a SPaDE repository it will in fact yield a concatenation of NTBS, since the NTBS in the repository are in fact NTBSS (in which the first NTBS differentiates between the three different types of s-expression.)
 
 ```sml
-val decode_slice : NTBSS -> int -> int * bytes
+val decode_slice : bytes -> int -> int * bytes
 ```
 
-### Sequences (Lists) of NTBS
+### NTBS lists and NTBSS
 
 To pack a list of NTBS into a single NTBS, first concatenate the elements of the list into a single byte sequence, and then encode that byte sequence as an NTBS.
 To decode, first decode the NTBS into a byte sequence, and then split that byte sequence into the original list of NTBS by splitting on the terminator byte, ignoring escaped terminators.
@@ -87,11 +95,26 @@ val encode_NTBS_list : NTBS list -> NTBSS
 val decode_NTBS_list : NTBSS -> NTBS list
 ```
 
-### Integers
+### NTBS lists and bytes
+
+Though the repository is a sequence of NTBS, it is not itself an NTBSS, since the terminators of the constituent NTBS are not escaped, and the file as a whole does not have a null terminator.
+The repository is itself just the concatenation of the NTBS which it contains, and therefore is a byte sequence, but it is not an NTBSS since the terminators of the constituent NTBS are not escaped.
+
+We therefore require procedures which convert between these two forms, viz. between a list of NTBS and a byte sequence, by concatenating the list of NTBS into a single byte sequence, and by splitting a byte sequence into a list of NTBS by splitting on the terminator byte, ignoring escaped terminators.
+
+The reason for this is that the repository is a WORM repo and can only be modified by appending to the end of the file, and it is therefore not possible to remove a terminating zero in order to add material to the repo.
+
+```sml
+val encode_repo_file : NTBS list -> bytes
+val decode_repo_file : bytes -> NTBS list
+```
+
+### Integers and NTBS
 
 When encoding integers, the integer is first represented as a sequence of bytes in big-endian order base 256, and then that byte sequence is encoded as a null terminated byte sequence using the procedure for encoding byte sequences.
 Decoding first decodes a null terminated byte sequence into a byte sequence, and then interprets that byte sequence as a big-endian representation of an integer.
-These integers are primarily used in the SPaDE repository as sequence numbers in CONS cells, which are used to refer to byte sequences in the repository, but may also be used for atoms.
+
+These integers are primarily used in the SPaDE repository as sequence numbers in CONS cells, and are used to refer to byte sequences in the repository (and will be positive integers), but atoms in the list structure may also contain integers and need not be positive.
 
 ```sml
 val encode_integer : sequence_number -> NTBS
@@ -128,8 +151,8 @@ The required operations are as follows:
 - [Open an existing repository for reading](#open-an-existing-repository-for-reading)
 - [Open an existing repository for appending](#open-an-existing-repository-for-appending)
 - [Close a repository](#close-a-repository)
-- [Read a byte sequence](#read-a-byte-sequence)
 - [Write a byte sequence](#write-a-byte-sequence)
+- [Commit changes](#commit-changes)
 - [Get the sequence number for a byte sequence](#get-the-sequence-number-for-a-byte-sequence)
 - [Get the byte sequence for a sequence number](#get-the-byte-sequence-for-a-sequence-number)
 
@@ -137,21 +160,17 @@ The required operations are as follows:
 
 Each repository is associated with caches and other data structures which are used to manage access to the repository.
 These are initialised when a new repository is opened and are made available for operations on the repository via the repository handle returned by the open operation.
+On opening a repository the entire repository file is read and the data is cached.
+When writing to a repository, the additional NTBS are added to the cache, but not written to the file until the changes are committed, at which point the new NTBS are appended to the file.
 The repository handle incorporates the handle of the underlying linear file.
 
 Efficient dictionaries are required for the implementation of the cache, for which the ProofPower EfficientDictionary is available for use of a repository manager in that context, and may be imported into other contexts using SML.
 Similar facilities will also be required in python and possibly other languages for SPaDE repository functionality in other contexts.
 
-This information includes:
+This information held in the repository handle includes the following:
 
-- for each NTBS in the repository:
-  - the byte sequence of the NTBS (including the terminator)
-  - the sequence number of the NTBS (which is unique for each NTBS in the repository)
-- The necessary indexes to allow efficient retrieval of the byte sequence  for a given sequence number, and of the sequence number for a given byte sequence.
-- the physical position of the end of the file
-- the sequence number of the last byte sequence in the repository
-- the current sequence number (starts at 1, for the first NTBS after the version number, and is the sequence number of the next byte sequence to be written to or read from the repository)
-- EOF - a flag indicating either that the repository has been completely read and the current sequence number is not in the file, or that it is in append mode and the current sequence number is that of the next NTBS to be written to the repository
+- Efficient dictionaries indexed by sequence number and by byte sequence, which give the NTBS_info for each NTBS in the repository, where NTBS_info includes the NTBS itself, and its sequence number.
+- the sequence number of the next byte sequence to be written the repository
 - a flag indicating whether the repository is open for reading or appending
 - the file handle for the repository file
 
@@ -163,13 +182,11 @@ Though the facilities might appear to incrementally read from or write to the re
 All the data specific to a SPaDE native repository is encapsulated in the repository handle, which is returned by the open operations and passed to all subsequent operations on the repository.
 Further detail on the content of the repository handle is given in the description of the [open-a-new-repository](#open-a-new-repository) operation below.
 
-In the following repo-handle type, the information associated with each NTBS in the repository includes derived data, notably the sexpr and vexpr derived from the NTBS if that computation has been performed, and the sequence number of the NTBS, which is unique for each NTBS in the repository.
+In the following repo-handle type, the information associated with each NTBS in the repository.
 
 ```sml
 type NTBS_info = {
   ntbs: NTBS,
-  sexpr: ref sexp,
-  vexpr: ref vexp,
   seqno: sequence_number
 }
 ```
@@ -227,20 +244,20 @@ When a repository is closed, any updates to the repository must be written to th
 val close_repository : repo_handle -> unit
 ```
 
-### Read a byte sequence
-
-Given a sequence number, return the byte sequence of the corresponding NTBS in the repository.
-
-```sml
-val read_bytes : repo_handle -> (bytes * sequence_number) option
-```
-
 ### Write a byte sequence
 
 Given a byte sequence, write it to the end of the repository file as an NTBS and return its sequence number.
 
 ```sml
 val write_bytes : bytes -> sequence_number
+```
+
+### Commit changes
+
+When changes to a repository are committed, the new NTBS are written to the end of the repository file, and the cache is updated to reflect the new state of the repository.
+
+```sml
+val commit_changes : repo_handle -> unit
 ```
 
 ### Get the sequence number for a byte sequence
@@ -304,6 +321,8 @@ consing lists of s-expressions onto the s-expression pointed to by the top of th
 ```sml
 val push_list : sequence_number list -> unit
 ```
+
+### sexp and vexp
 
 In addition to the representation of s-expressions as NTBS, it is also useful to have representations of s-expressions as SML datatypes.
 
