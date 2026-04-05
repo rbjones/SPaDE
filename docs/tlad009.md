@@ -8,9 +8,12 @@
 
 I would like to give the clearest possible account of the rationale behind the SPaDE project.
 
-A difficulty in doing that is that such an account would at least partly autobiographical, and I'm pretty keen to avoid talking about myself any more than is absolutely necessary.
+A difficulty in doing that is that such an account would be at least partly autobiographical, and I'm pretty keen to avoid talking about myself any more than is absolutely necessary.
 
 So I will try to talk about the progression of the key ideas in a concise way abstracted away from any unnecessary personal detail.
+
+This start is already too much, but rather than decimate or trash it I'll make another more slender attempt and then I can shuffle between the two until I get the right balance.
+There is autobiographical material here, but I will try in the more compact version to simply address interests, motivations, purposes and ideas.
 
 ## First Ideas
 

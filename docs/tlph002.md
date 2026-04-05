@@ -1,9 +1,18 @@
 # Synthetic Philosophy
 
-In the SPaDE project, philosophy and engineering are cheek by jowl, and the distinction between them is not clearly made.
-The philosophy is synthetic, in the sense that it is constructed to serve a purpose, and the engineering is philosophically grounded and built on those foundations to realise that purpose.
+In the SPaDE project, philosophy and engineering are cheek by jowl.
+The distinction between them is not clearly made, they are both oriented in their own ways to a single purpose.
+The philosophy is synthetic, in the sense that it is *constructed* rather than *natural*.
+It is not the discovery of philosophical truths about some natural phenomenon, but the construction of a conception of knowledge optimised to underpin the proliferation of benign intelligence across the cosmos.
 
-A central point of engagement is through the emphasis in deductive engineering on the exploitation of knowledge in the solution of real world problems, and the importance of epistemology as a fundamental approach to knowledge and the design of infrastructure for the management and exploitation of knowledge.
+The engineering is then, philosophically grounded.
+It is built on those foundations to realise that purpose.
+
+Particular points of engagement between the philosophy and the engineering are:
+
+- the emphasis, in [deductive engineering](tlad007.md), on the exploitation of knowledge in the solution of real world problems,
+- the importance of epistemology as a fundamental approach to knowledge and the design of infrastructure for the management and exploitation of knowledge.
+
 Once philosophy is thought of as synthesis rather than an observation, it becomes a necessary prelude to the architecture of knowledge repositories and application of deductive methods to engineering problems.
 
 Logical Positivism was that manifestation of positivism created in the wake of the great advances in the logical foundations of mathematics which took place around the turn of the 20th century.

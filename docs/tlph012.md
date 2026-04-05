@@ -1,22 +1,21 @@
 # The Purpose of SPaDE
 
 It is January 13th 2026.
-I have just read, not very thoroughly, a lengthy article, [a16z: The Power Brokers](https://www.notboring.co/p/a16z-the-power-brokers)
- by Packy McCormick. Before that I had viewed (most of) a long podcast featuring Elon Musk, Peter Diamandis and Dave Blundin [ELON MUSK ON AGI TIMELINE, US VS CHINA, JOB MARKETS, CLEAN ENERGY & HUMANOID ROBOTS](https://www.diamandis.com/podcast/elon-musk-agi-timeline-copy-code).
+I have just read, not very thoroughly, a lengthy article, [a16z: The Power Brokers](https://www.notboring.co/p/a16z-the-power-brokers) by Packy McCormick. Before that I had viewed (most of) a long podcast featuring Elon Musk, Peter Diamandis and Dave Blundin [ELON MUSK ON AGI TIMELINE, US VS CHINA, JOB MARKETS, CLEAN ENERGY & HUMANOID ROBOTS](https://www.diamandis.com/podcast/elon-musk-agi-timeline-copy-code).
 
- These are both radical technologically oriented perspectives on the future from A16z a major Venture Capital company and Elon Musk, the leader of multiple companies potentially experting enormous influence on the future.
+These are both radical technologically oriented perspectives on the future, from A16z a major Venture Capital company and from Elon Musk, the leader of multiple companies potentially exerting enormous influence on the future.
 
- Both of these enterprises are very impressive, and apparently successful in many different ways.
- However, a full assessment of either would I think require clarity about overall *purpose*, a judgement possibly about the merits of that purpose, and an assessment of achievement or prospects for achievement against that purpose.
- It was most conspicuously in relation to clarity of purpose that they were both disappointing.
+Both of these enterprises are very impressive, and apparently successful in many different ways.
+However, a full assessment of either would I think require clarity about overall *purpose*, a judgement possibly about the merits of that purpose, and an assessment of achievement or prospects for achievement against that purpose.
+It was most conspicuously in relation to clarity of purpose that they were both disappointing.
 
- Elon, to give him credit, is frequently quite clear about the purposes of his organisations.
- The purpose of SpaceX is to enable self sustaining human settlement of Mars to guard against existential risk, and the purpose of Tesla is to accelerate the transition to sustainable energy.
- He purchased Twitter to rescue free speech, and created X in his dismay that the open source credentials of OpenAI were being compromised.
+Elon, to give him credit, is frequently quite clear about the purposes of his organisations.
+The purpose of SpaceX is to enable self sustaining human settlement of Mars to guard against existential risk, and the purpose of Tesla is to accelerate the transition to sustainable energy.
+He purchased Twitter to rescue free speech, and created X in his dismay that the open source credentials of OpenAI were being compromised.
 
- But in the bigger picture, he sees progress as measured by the Kardashev scale of energy consumption, as if environmental extravagance were some kind of virtue.
- His concern about AI risks were silenced by the perception that regulation in the USA would only hand the advantage to China.
- One of his mantras is now the expectation of "sustainable abundance", but the distribution of that abundance when most jobs are automated is not addressed.
+But in the bigger picture, he sees progress as measured by the Kardashev scale of energy consumption, as if environmental extravagance were some kind of virtue.
+His concern about AI risks were silenced by the perception that regulation in the USA would only hand the advantage to China.
+One of his mantras is now the expectation of "sustainable abundance", but the distribution of that abundance when most jobs are automated is not addressed.
 
 Packy McCormick's story about A16z comes closest to discussing purpose in his final section *The Future of the Firm of the Future*, in which he discusses the A16z "Culture Doc", which all employees are required to read and agree to.
 He quotes Katherine Boyle, a General Partner at A16z saying that “We believe in the future and bet the firm that way” (from the culture document) is literally why Marc and Ben created the firm.

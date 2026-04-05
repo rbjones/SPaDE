@@ -9,7 +9,10 @@ At the upper extreme, as intelligent systems spread across the universe, we anti
 
 The singularities in such a progression are not fully susceptible to focal methods, but will in general have focal cores in which formal models of the relevant capabilities are represented, can be elaborated deductively, and thereby contribute to progressing the singular capability in question.
 
-The progression from purely deductive logical foundations, through to the most advanced self-proliferating intelligent systems, may therefore be seen as a progressive collaboration between focal AI operating withing formal models of the target environments for proliferation and the available of projected technologies for implementing proliferation, and broader intelligent capabilities surveying the whole, constructing and evaluating relevant formal models.
+The progression from purely deductive logical foundations, through to the most advanced self-proliferating intelligent systems, may therefore be seen as a progressive collaboration between focal AI operating within relevent formal models, and broader intelligent capabilities surveying the whole, constructing and evaluating relevant formal models.
+The "relevant formal models" will be of the target environments, of systems designed to develop in those environments, and the transport necessary to get there.
+Whether or not these systems will be "living" is moot.
+The cost of transport will prioritise the development of systems which are as light as possible, and will therefore have to develop and grow in situ to reach the levels of complexity and size necessary to develop the next generation of self-proliferating intelligent systems.
 
 For the SPaDE project, this long term cosmic perspective provides motivation and context for an effort primarily addressing the logical foundations, where there are singularities which are completely focal, since they depend only on the structure of the logical systems and support no perception of physical reality, nor any direct effect upon it.
 The upper levels will be addressed in SPaDE only through philosophy.
@@ -47,23 +50,23 @@ From the bottom up:
 
 1. Logical Knowledge
 
-  1.1 *Logic and Software Engineering*
-    In this the broad capability is in logical reasoning in a logical system suitable for all deductive reasoning about [declarative knowledge](tlad001.md#declarative-knowledge).
-  The context in which that capability is exercised is contemporary accelerated computing.
-  The focus, which is a [singular focus](tlad001.md#singular-focus), is on reasoning about programs, since the embraces the capability to completely re-engineer this kind of reasoning capability.
+    1.1 *Logic and Software Engineering*
 
+      In this the broad capability is in logical reasoning in a logical system suitable for all deductive reasoning about [declarative knowledge](tlad001.md#declarative-knowledge).
+       The context in which that capability is exercised is contemporary accelerated computing.
+    The focus, which is a [singular focus](tlad001.md#singular-focus), is on reasoning about programs, since the embraces the capability to completely re-engineer this kind of reasoning capability.
 2. Empirical Knowledge
-  2.1 *Engineering Design*
-  The next layer takes us out of the purely logical into the physical work, from engineering software to engineering physical artifacts.
+
+    2.1 *Engineering Design*
+
+    The next layer takes us out of the purely logical into the physical work, from engineering software to engineering physical artifacts.
   The context for such engineering is the world as we find it, with existing physical system to support design and manufacturing, and the focus is on the advancement of the physical infrastructure supporting design and manufacture.
 
 3. Normative Knowledge
 
-  The previous layer a capability in the context of what we now have on planet Earth.
-  What happens as we try to establish such a capability on some other planet?
+    The previous layer a capability in the context of what we now have on planet Earth.
+    What happens as we try to establish such a capability on some other planet?
   Then we have to move to the design of a completely new system which will function in a context which is devoid of most everything we have here on planet earth.
 4. *Interstellar Proliferation*
 
-## The First Singular Focus: Reasoning about Inference
-
-
+## [The First Singular Focus](tlad010.md): Reasoning about Inference

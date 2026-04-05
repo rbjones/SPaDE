@@ -1,43 +1,28 @@
 # Synthetic Philosophy and Deductive Engineering
 
-This project seeks to progress the proliferation of benign intelligence across the cosmos from small beginnings here on earth, complementing and merging with similar progressions from other points of origin.
+This project is seeks to contribute to the proliferation of benign intelligence across the cosmos, from small beginnings here on earth, complementing and merging with similar progressions from other points of origin.
 
-The *purpose* is derived (post hoc) from ethical principles in the context of pragmatic constraints, taking into account the *fundamental imperative of evolution*.
+It involves both a kind of philosophy, here called "synthetic philosophy", and a kind of engineering,  "deductive engineering".
+The latter part is directed toward the engineering of a widely distributed shared repository of declarative knowledge and support for the use of deductive methods in the context of that knowledge, using  "focal" methods (methods focussed on particular logical contexts which constitute *perfect information spaces*).
 
-Its progression is considered as an engineering process in which the means to proliferation are engineered and applied by ever advancing intelligent infrastructure exploiting and continually advancing a distributed shared repository of [declarative knowledge](docs/tlad001.md#declarative-knowledge).
+That system is called SPaDE, and is thought of as consisting of four subsystems, each occupying a subdirectory of the project repository.
+In addition to those four subsystems, there is a fifth subdirectory, *docs*, which covers those aspects of the project which are not specific to any one component, primarily concerning philosophy, architecture, and administrative matters.
+It is here that *Synthetic Philosophy*, is developed and articulated.
+This philosophy not only guides the architecture of SPaDE, but is intended to be a significant part of the project in its own right.
+It is the part of the project which discusses the role of metrics, standards, and norms at all levels and in that way addresses what it might be for self-proliferating intelligent systems to be benign, and how that might be achieved.
 
-The contribution sought by this project to that purpose is in two principle areas.
-The first is concerned with the management of that shared repository.
-The second with the architecture and fundamental core of the deductive intelligence which is considered the engine of proliferation.
+Further elaboration may be sought in the following five directories, each with its own README (one for the top level, and one for each of the four subsystems):
 
-The [seminal insights](docs/tlph009.md) upon which the [SPaDE](docs/tlad001.md#spade) architecture is based include:
+- [docs](./docs/README.md) - rationale, philosophy, architecture, and administrative matters. with all documentation not specific to the four main subsystems of SPaDE.
 
-1. That there are universal representations for [declarative knowledge](docs/tlad001.md#declarative-knowledge), the simplest of which is the higher order logic derived from Alonzo Church's Simple Theory of Types (which is adopted by SPaDE).
-
-2. That all deductive reasoning takes place in *[perfect information spaces](docs/tlad001.md#perfect-information-space)*, which are domains in which intelligence can most effectively be delivered by *[focal](docs/tlad001.md#focal)* methods rather than by large language models.
-
-Further elaboration of the '[synthetic philosophy](docs/tlad001.md#synthetic-philosophy-spade)' which underpins the project, and the architecture for proliferation which emerges from it, appears in the *[docs](docs/README.md)* directory:
-
-## [SPaDE Project Philosophy, Architecture, and Administration (docs directory)](./docs/README.md)
-
-together with all other project documentation not specific to the four subsystems of special concern, covering knowledge representation, the deductive kernel, deductive intelligence and the MCP server.
-
-## [The Knowledge Repository (kr directory)](./kr/README.md)
-
+- [The Knowledge Repository (kr directory)](./kr/README.md)
 containing those parts of the project contributing to the architecture of the distributed repository of [declarative knowledge](docs/tlad001.md#declarative-knowledge).
 
-## [The Deductive Kernel (dk directory)](./dk/README.md)
-
-Containing those parts of the project contributing to the deductive kernel.
-
-## [Deductive Intelligence (di directory)](./di/README.md)
-
-Containing the support for deductive intelligence which makes feasible the application of deduction and the transition to a deductive rather than a computation paradigm for information processing.
+- [The Deductive Kernel (dk directory)](./dk/README.md) Primarily supporting primitive inference rules.
+- [Deductive Intelligence (di directory)](./di/README.md) Containing the support for deductive intelligence which makes feasible the application of deduction and the transition to a deductive rather than a computation paradigm for information processing.
 This wraps the deductive kernel with layers of [focal intelligence](docs/tlad001.md#focal-intelligence-or-focal-ai) making use of multilayered neural nets closely coupled with the hierarchy of logical contexts found in the [SPaDE](docs/tlad001.md#spade) distributed knowledge repository.
 
-## [The MCP Server (mcp directory)](./mcp/README.md)
-
-Containing the server through which the [SPaDE](docs/tlad001.md#spade) system delivers its services, exploited or mediated by agentic ASI (Artificial Superintelligence).
+- [The MCP Server (mcp directory)](./mcp/README.md) Containing the server through which the [SPaDE](docs/tlad001.md#spade) system delivers its services, exploited or mediated by agentic ASI (Artificial Superintelligence).
 This subsystem may also include facilities supporting a marketplace through which a broader ecology of focal intelligence beyond SPaDE may be accessed and served.
 
 ## Supporting Material
