@@ -2,14 +2,15 @@
 
 This project is seeks to contribute to the proliferation of benign intelligence across the cosmos, from small beginnings here on earth, complementing and merging with similar progressions from other points of origin.
 
-It involves both a kind of philosophy, here called "synthetic philosophy", and a kind of engineering,  "deductive engineering".
-The latter part is directed toward the engineering of a widely distributed shared repository of declarative knowledge and support for the use of deductive methods in the context of that knowledge, using  "focal" methods (methods focussed on particular logical contexts which constitute *perfect information spaces*).
+It involves both a kind of philosophy, dubbed "synthetic philosophy", and a kind of engineering,  "deductive engineering".
+The latter is directed toward the engineering of a widely distributed shared repository of declarative knowledge and support for the use of deductive methods in the context of that knowledge, using  "focal" methods (methods focussed on particular logical contexts which constitute *perfect information spaces*).
 
 That system is called SPaDE, and is thought of as consisting of four subsystems, each occupying a subdirectory of the project repository.
 In addition to those four subsystems, there is a fifth subdirectory, *docs*, which covers those aspects of the project which are not specific to any one component, primarily concerning philosophy, architecture, and administrative matters.
 It is here that *Synthetic Philosophy*, is developed and articulated.
 This philosophy not only guides the architecture of SPaDE, but is intended to be a significant part of the project in its own right.
-It is the part of the project which discusses the role of metrics, standards, and norms at all levels and in that way addresses what it might be for self-proliferating intelligent systems to be benign, and how that might be achieved.
+It is the part of the project which discusses the role of metrics, standards, and norms at all levels.
+In that way *synthetic philosophy* addresses what it might be for self-proliferating intelligent systems to be benign, and how that might be achieved.
 
 Further elaboration may be sought in the following five directories, each with its own README (one for the top level, and one for each of the four subsystems):
 
@@ -31,3 +32,4 @@ This subsystem may also include facilities supporting a marketplace through whic
 - [CONTRIBUTING](CONTRIBUTING.md)
 - [Review Log](reviews/README.md)
 - [glossary](docs/tlad001.md)
+- [drafts for discussion](drafts/README.md) - links to incomplete documents currently under discussion
