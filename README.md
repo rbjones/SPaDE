@@ -3,7 +3,11 @@
 This project is seeks to contribute to the proliferation of benign intelligence across the cosmos, from small beginnings here on earth, complementing and merging with similar progressions from other points of origin.
 
 It involves both a kind of philosophy, dubbed "synthetic philosophy", and a kind of engineering,  "deductive engineering".
-The latter is directed toward the engineering of a widely distributed shared repository of declarative knowledge and support for the use of deductive methods in the context of that knowledge, using  "focal" methods (methods focussed on particular logical contexts which constitute *perfect information spaces*).
+The latter (an aspect of a broader deductive paradigm, subsuming mere computation) is directed toward:
+
+- the engineering of a widely distributed shared repository of declarative knowledge, and
+- support for the use of deductive methods in the context of that knowledge, using  "focal" methods.
+- the application of the deductive infrastructure to the engineering of self-proliferating intelligent systems
 
 That system is called SPaDE, and is thought of as consisting of four subsystems, each occupying a subdirectory of the project repository.
 In addition to those four subsystems, there is a fifth subdirectory, *docs*, which covers those aspects of the project which are not specific to any one component, primarily concerning philosophy, architecture, and administrative matters.
@@ -17,7 +21,7 @@ Further elaboration may be sought in the following five directories, each with i
 - [docs](./docs/README.md) - rationale, philosophy, architecture, and administrative matters. with all documentation not specific to the four main subsystems of SPaDE.
 
 - [The Knowledge Repository (kr directory)](./kr/README.md)
-containing those parts of the project contributing to the architecture of the distributed repository of [declarative knowledge](docs/tlad001.md#declarative-knowledge).
+containing those parts of the project contributing to the architecture of the distributed repository of [declarative knowledge](./docs/tlad001.md#declarative-knowledge).
 
 - [The Deductive Kernel (dk directory)](./dk/README.md) Primarily supporting primitive inference rules.
 - [Deductive Intelligence (di directory)](./di/README.md) Containing the support for deductive intelligence which makes feasible the application of deduction and the transition to a deductive rather than a computation paradigm for information processing.

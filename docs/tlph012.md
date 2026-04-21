@@ -13,9 +13,9 @@ Elon, to give him credit, is frequently quite clear about the purposes of his or
 The purpose of SpaceX is to enable self sustaining human settlement of Mars to guard against existential risk, and the purpose of Tesla is to accelerate the transition to sustainable energy.
 He purchased Twitter to rescue free speech, and created X in his dismay that the open source credentials of OpenAI were being compromised.
 
-But in the bigger picture, he sees progress as measured by the Kardashev scale of energy consumption, as if environmental extravagance were some kind of virtue.
-His concern about AI risks were silenced by the perception that regulation in the USA would only hand the advantage to China.
-One of his mantras is now the expectation of "sustainable abundance", but the distribution of that abundance when most jobs are automated is not addressed.
+But in the bigger picture, he talks of progress as measured by the Kardashev scale of energy consumption, as if environmental extravagance were some kind of virtue.
+His concerns about AI risks were silenced by the perception that regulation in the USA would only hand the advantage to China.
+One of his mantras is now the expectation of "sustainable abundance", imagining that everyone can have all that they desire at the same time as setting himself ambitious like colonising Mars and building a terafab, barely conceivable for one, let alone 7 Billion.
 
 Packy McCormick's story about A16z comes closest to discussing purpose in his final section *The Future of the Firm of the Future*, in which he discusses the A16z "Culture Doc", which all employees are required to read and agree to.
 He quotes Katherine Boyle, a General Partner at A16z saying that “We believe in the future and bet the firm that way” (from the culture document) is literally why Marc and Ben created the firm.
@@ -48,8 +48,9 @@ This is a first simple articulation of the purpose of SPaDE.
 To have any reasonable hope of success it must be continuously refined, elaborated, and promoted (since its realisation will ultimately be cultural).
 
 As far as SPaDE is concerned, the future over these timescales is that of the proliferation of intelligence across the cosmos, both from this Earthly origin and likely also from other sources.
-This is a matter of evolutionary necessity, since forms of intelligence which do not proliferate cannot possible predominate.
-SPaDE is oriented to progressing that proliferation, but that cannot be regarded as a purpose in itself, for the outcome is inevitable.
+This is a matter of evolutionary necessity, since forms of intelligence which do not proliferate cannot possible predominate, and it is not unreasonable to expect that intelligence will enable more rapid proliferation (though at the same time, make the proliferation more challenging?).
+
+SPaDE is oriented to progressing that proliferation, but that cannot be regarded as the purpose in itself, for the outcome is inevitable.
 
 By playing a part in that proliferation, SPaDE seeks to make that proliferation and that cosmically distributed intelligence *benign*.
 
