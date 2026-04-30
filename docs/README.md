@@ -43,10 +43,12 @@ Philosophy and architecture are intertwined and therefore begin together with:
 - [tlph011.md](./tlph011.md) - Standards, Norms and Values in SPaDE
 - [tlph012.md](./tlph012.md) - The purpose of SPaDE
 - [tlph013.md](./tlph013.md) - Foundational Ontologies
-- [tlph014.md](./tlph014.md) - The Philosophical Rationale for SPaDE
+- [tlph014.md](./tlph014.md) - The Rationale for SPaDE
 - [tlph015.md](./tlph015.md) - The Evolution of Intelligent Systems
 - [tlph016.md](./tlph016.md) - From Synthetic Epistemology to SPaDE
 - [tlph017.md](./tlph017.md) - Knowledge in SPaDE
+- [tlph018.md](./tlph018.md) - Deduction in SPaDE
+- [tlph019.md](./tlph019.md) - Synthetic Metaphysics
 
 ## Architecture
 
@@ -62,6 +64,7 @@ Philosophy and architecture are intertwined and therefore begin together with:
 - [tlad010.md](./tlad010.md) - The First Singular Focus
 - [tlad011.md](./tlad011.md) - On the Rationale for SPaDE
 - [tlad012.md](./tlad012.md) - Knowledge Repository Data Structures and Interfaces
+- [tlad013.md](./tlad013.md) - The SPaDE Deductive Kernel
 
 ## Formal Spacifications
 

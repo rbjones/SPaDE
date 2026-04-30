@@ -7,11 +7,17 @@ It consists of two main parts, the first giving a general characterisation of th
 
 In the present computational paradigm, computer programs operate on various data, which typically have real-world significance informally understood but not formally expressed.
 If you write down what that data means, you should get a declarative sentence expressing a proposition which captures that meaning.
+
 The computation produces new data the real-world significance of which is also only informally understood, and which could in principle be made explicit as a declarative sentence.
 There is here, in the computation, a deductive connection.
 We hope that the computation effects a deductive inference from the proposition which expresses significance of the input data, to that which expresses the significance of the output data (in the context of a suitable formal model of the system in the context of which these propositions are to be understood).
 
 If this were transformed from a computational process to a properly (rather than implicitly) deductive process, then the meanings of these data structures and the effects of computation are explicit, and the process may more formally be considered to be deductive.
+
+In claiming that such inferences would be deductive, I am presuming the factorisation of the relevant semantics into an abstract semantics expressing a proposition about an abstract model of the intended subject matter, and a real world interpretation which connects that abstract model to the real world, so that the truth of the proposition in the abstract semantics is connected to the truth of a proposition about the real world.
+
+Though it is not the purpose of this document to elaborate on this kind of semantic factorisation, it is crucial to the discussion here that it results in logical inferences in the context of an abstract model corresponding with inferences in the real world which are contingent upon the thesis that the abstract model is an accurate representation of the real world in the relevant respects.
+This is an elaboration of the usual practice in using formal reasoning in abstract languages such as HOL about the real world to verify designs and implementations of real world systems, without assuming axiomatically the contingent premises which underpin the connection between the abstract model and the real world.
 
 Why would we want to do this, what are the potential benefits and disadvantages and costs?
 How might it be accomplished, what are the difficulties downsides and costs?

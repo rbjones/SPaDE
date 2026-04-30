@@ -1,7 +1,7 @@
 # From Synthetic Epistemology to SPaDE
 
-Synthetic Philsophy and SPaDE are both projects which I have initiated and progressed in recent years.
-The former was intended to be purely philosophical, aimed at writing a small book presenting an approach to epistmology inspired by the relevance of epistemology to *knowledge engineering*, and artificial intelligence more broadly.
+Synthetic Epistemology and SPaDE are both projects which I have initiated and progressed in recent years.
+The former was intended to be purely philosophical, aimed at writing a small book presenting an approach to epistemology inspired by the relevance of epistemology to *knowledge engineering*, and artificial intelligence more broadly.
 Philosophy as groundwork for the engineering of cognitive systems.
 
 This represented a retreat from the continuing software development aspirations of this retired software engineer, who thought little of his chances of turning his aspirations into code before time out.

@@ -1,6 +1,11 @@
 # Work in Progress
 
 The account of SPaDE in this repository is a work in progress, and is very incomplete.
+
+This guide to the areas which are currently being addressed is also a work in progress!
+I'd like to get better structure to it and to my work.
+The structure I want to see is that the effort hangs around the desire to expose the rationale for SPaDE in concise but sufficient detail to enable AI to contribute effectively to the detailed design and coding of the SPaDE kr subsystem (in the first instance).
+
 The more philosophical aspects will continue to evolve for as long as anyone cares to work on them.
 In order to make progress on the more practical aspects of the project, it is necessary to focus on those aspects of the project which are critical to the implementation of the SPaDE MCP server, but the contribution of AI to all aspects of the project is crucial, and can only be undertaken effectively if the philosophical and architectural rationale for SPaDE is well articulated and intelligible to the AI systems contributing to the project.
 
@@ -9,13 +14,14 @@ There is no part of the documentation which could not be improved, and there are
 The areas of focus are determined by a strategy which is driven by the desire to make effective AI contributions to the project possible and pervasive.
 As things stand, the least difficult area is at the level of code and test, in the context of detailed design, and the strategy is to document the higher level aspects of the process sufficiently well to enable progressively higher level AI contributions, beginning with detailed design sufficient for code and test, and gradually advancing upwards through architectural design and eventually to the philosophical aspects of SPaDE.
 
+The details below are due for substantial restructuring to reflect the prioritisation of a sufficiently well-documented rationale for the features of the SPaDE repository and its intended use by other parts of SPaDE for the detailed design and implementation of the SPaDE repository manager to be progressed by github copilot.
+
 That strategy translates into focus on:
 
 - the purpose of the SPaDE project
 - the high level architecture of SPaDE
 - the rationale connecting the architecture to the purpose
 - the data structures and interfaces of the SPaDE knowledge repository, which is central to the architecture and therefore critical to the implementation of the SPaDE MCP server, and which is also a critical aspect of the philosophical rationale for SPaDE, and therefore a critical aspect of the project as a whole.
-
 
 This is to provide a space for discussion with LLMs either via github copilot or using the web interface to Grok (which I can use for free rather than pay-per-use via the API in copilot.)
 The web interface to Grok has folders which provide a degree of persistence.
@@ -28,8 +34,12 @@ I'm looking to factor this into a *philosophical* presentation and an *architect
 The philosophical part is currently in:
 
 - [docs/tlph012.md](../docs/tlph012.md) -The Purpose of SPaDE
-- [docs/tlph014.md](../docs/tlph014.md) -The Philosophical Rationale for SPaDE
+- [docs/tlph014.md](../docs/tlph014.md) -The Rationale for SPaDE
 - [docs/tlph015.md](../docs/tlph015.md) The Evolution of Intelligent Systems
+- [docs/tlph016.md](../docs/tlph016.md) - From Synthetic Epistemology to SPaDE
+- [docs/tlph017.md](../docs/tlph017.md) - Knowledge in SPaDE
+- [docs/tlph018.md](../docs/tlph018.md) - Deduction in SPaDE
+- [docs/tlph019.md](../docs/tlph019.md) - Synthetic Metaphysics
 
 The architectural part is to be found in:
 
