@@ -1,6 +1,8 @@
 # Project Structure and Documentation Policy
 
-The project is organised into subsystems each with its own top-level directory, in addition to which there is a docs directory for materials not specific to any single subsystem.
+The project is organised into subsystems each with its own top-level directory.
+A top-level docs directory provides materials not specific to any single subsystem, which includes the important philosophical side to the project and materials relating to the overall architecture and design of the system as a whole.
+The docs directory also has an admin subdirectory for materials of a non-technical nature, including project management and collaboration policies and procedures, and guidance for potential contributors.
 
 ## Documentation
 
@@ -39,6 +41,7 @@ Document kinds:
 - **cd** Detailed formal specifications and code
 - **ci** Continuous integration, release and deployment
 - **cl** Chat logs and conversation transcripts
+- **mc** Miscellanea
 - **ms** Methods and standards
 - **pd** Process or procedure descriptions
 - **pl** Plans and strategies

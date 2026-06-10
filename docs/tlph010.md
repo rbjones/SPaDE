@@ -16,7 +16,9 @@ The second stimulus was the perceived need for a return to rigor in mathematical
 This thread was pursued most effectively by Cauchy, Weierstrass, Dedekind and Cantor, leading to the arithmetisation of analysis and the formal definition of real numbers in terms of Dedekind cuts or Cauchy sequences of rationals.
 
 A third notable stimulus was philosophical.
-In the eighteenth century a divergence appeared between David Hume, and the central place in this philosophy of his division of knowledge into "relations of ideas" and "matters of fact", and Immanuel Kant, who argued that synthetic a priori knowledge was possible, and that mathematics was the prime example of such knowledge.
+In the eighteenth century a divergence appeared between (on the one hand) David Hume and Immanuel Kant.
+In Hume's philosophy the division of knowledge into "relations of ideas" and "matters of fact" has a central place and mathematics is placed in the former category.
+Kant disputed that account of the status of mathematics, creating a new usage of the term "synthetic" (relating to propositions rather than it previous use as a kind of proof) and arguing that synthetic a priori knowledge was possible, and that mathematics was the prime example of such knowledge.
 For Hume, mathematics belonged to the realm of "relations of ideas", and hence to logic, from which Kant demurred.
 
 In a context in which mathematics had been progressing a profound foundational re-construction, Gottlob Frege set out to refute Kant by showing that mathematics could be reduced to logic.

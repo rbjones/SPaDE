@@ -12,14 +12,28 @@ The rationale for SPaDE is intended to provide:
 - a description of how that purpose is to be realised
 - some reasons for believing that the proposed method will be effective in realising the purpose
 
-SPaDE and its rationale has been devised in the context of many years of varied experience in just some matters of relevance, resulting in a personal weltanschaumung parts of which may be essential to an understanding.
-Key points will be mentioned where appropriate, and links to more expansive explanations will be provided.
+SPaDE and its rationale has been devised in the context of many years of varied experience in just some matters of relevance, resulting in a personal weltanschauung parts of which may be essential to an understanding.
+Key points will be mentioned where appropriate, and links to more expansive explanations may be provided.
 
-The whole is undertaken in the spirit of Peter Diamandis' adage (law 19?) "the best way to predict the future is to create it", with the qualification that understanding the future is pre-requisite to successful intervention.
+The whole is undertaken in the spirit of Peter Diamandis' adage (law 19?) "the best way to predict the future is to create it".
+When we think a billion years ahead the creation of that future will span those years and what we can hope to do in a lifetimes is more on the lines of "lay the ground for" or "(Strive to) influence the development of".
+In SPaDE that laying of ground involved philosophy of foundations and superstructure, and engineering design and prototyping of key aspects.
 
 ## Purpose
 
-My purpose in SPaDE is to exert positive influence on the future of the intelligent progeny of humanity, *over the long term*.
+Striclty speaking, this should be about the purpose of SPaDE but it will help in the exposition to talk first about my own purposes in devising the project.
+
+- [My Purpose in initiating SPaDE](#my-purpose-in-initiating-spade)
+- [The Purpose of SPaDE](#the-purpose-of-spade)
+
+### [My Purpose in initiating SPaDE](#my-purpose-in-initiating-spade)
+
+This is probably more than you need to know about me so I put it in [a separate document](./tlmc001.md) so it doesn't have too intrusive a presence here.
+And it's more autobiography than philosophy, I'm stretching philosophy enough without it.
+
+### The purpose of SPaDE
+
+The purpose in SPaDE is to exert positive influence on the future of the intelligent progeny of humanity, *over the long term*.
 I take "the long term" to be in the billions of years, like the history of life on earth.
 
 Outcomes over such timescales are largely determined by evolutionary considerations.

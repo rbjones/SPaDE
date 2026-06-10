@@ -2,6 +2,15 @@
 
 This directory covers those aspects of the [SPaDE](tlad001.md#spade) project which are not specific to any one component, primarily concerning philosophical background, architecture, and administrative matters.
 
+The material is presented in the following categories:
+
+- [Philosophy](#philosophy) - SPaDE's "synthetic philosophy"
+- [Architecture](#architecture) - top level design and its rationale 
+- [Formal Spacifications](#formal-spacifications)
+- [Chat Logs](#chat-logs) - logs of conversations with AI systems contributing to the project, which may be of interest to readers and contributors.
+- [Plans and Strategy](#plans-and-strategy) 
+- [Admin Directory](admin/README.md) - plans, processes, methods, standards, task descriptions and guidelines for contributors.
+
 I am a philosophically inclined, retired software engineer, with particular interests in the formal foundations of mathematics, generalised to declarative knowledge as a whole, and in the role which formal representation and reasoning can play in the engineering of intelligent systems.
 I am free to work on whatever I choose, and look for the problems to which I might be able to contribute.
 
@@ -9,14 +18,17 @@ The rationale begins with a speculation, underpinned by evolutionary imperatives
 As intelligence spreads from Earth across the galaxy and perhaps beyond, the dominant forms of intelligent systems will be those most effective in self-proliferation, a general principle which applies beyond the particulars of the evolution of life on Earth.
 
 Anticipating the forms of intelligent systems over such timescales is difficult, but some features can reasonably be predicted.
-Success will be fueled by knowledge, the growth of knowledge is a collaborative endeavour, certain prominent forms of knowledge are additive (bodies of knowledge which aggregate consistently), can be given solid but slender foundations, building on a small number of fundamental concepts and principles.
-Such foundations can be made formally precise, admit reliable deductive elaboration and application and are susceptible to focal methods enabling productive reasoning about the world using abstract models and thereby the construction of solutions to the engineering of self-proliferation of intelligent systems.
+Success will be fueled by knowledge.
+The growth of knowledge is a collaborative endeavour.
+Certain prominent forms of knowledge are *additive* (bodies of knowledge which aggregate consistently), and can be given solid but slender foundations, building on a small number of fundamental concepts and principles.
+Such foundations can be made formally precise, admit reliable deductive elaboration and application and are susceptible to focal methods.
+These enable productive reasoning about the world using abstract models and thereby support the engineering of self-proliferating of intelligent systems.
 
-Its progression is considered as an engineering process in which the means to proliferation are engineered and applied by ever advancing intelligent infrastructure exploiting and continually advancing a distributed shared repository of [declarative knowledge](tlad001.md#declarative-knowledge).
+The progression of SPaDE is intended as an engineering process in which the means to proliferation are engineered and applied by ever advancing intelligent infrastructure exploiting and continually advancing a distributed shared repository of [declarative knowledge](tlad001.md#declarative-knowledge).
+Its progress is underpinned and supported by a constructively oriented philosophy which provides epistemological and logical foundations as well as addressing the ethical and aesthetic norms which are intended to guide the project and its outcomes.
+Philosophy and architecture are intertwined and therefore begin together with:
 
-The contribution sought by this project to that purpose is in two principle areas.
-The first is concerned with the management of that shared repository.
-The second with the architecture and fundamental core of the deductive intelligence which is considered the engine of proliferation.
+## Philosophy
 
 The [seminal insights](tlph009.md) upon which the [SPaDE](tlad001.md#spade) architecture is based include:
 
@@ -25,10 +37,6 @@ The [seminal insights](tlph009.md) upon which the [SPaDE](tlad001.md#spade) arch
 2. That all deductive reasoning takes place in *[perfect information spaces](tlad001.md#perfect-information-space)*, which are domains in which intelligence can most effectively be delivered by *[focal](tlad001.md#focal)* methods rather than by large language models.
 
 Further elaboration of the '[synthetic philosophy](tlad001.md#synthetic-philosophy-spade)' which underpins the project, and the architecture for proliferation which emerges from it, appears in the *[docs](README.md)* directory:
-
-Philosophy and architecture are intertwined and therefore begin together with:
-
-## Philosophy
 
 - [tlph001.md](./tlph001.md) - A STEM Fantasy and Ethical Consequence
 - [tlph002.md](./tlph002.md) - [Synthetic Philosophy](tlad001.md#synthetic-philosophy)
@@ -45,12 +53,16 @@ Philosophy and architecture are intertwined and therefore begin together with:
 - [tlph013.md](./tlph013.md) - Foundational Ontologies
 - [tlph014.md](./tlph014.md) - The Rationale for SPaDE
 - [tlph015.md](./tlph015.md) - The Evolution of Intelligent Systems
-- [tlph016.md](./tlph016.md) - From Synthetic Epistemology to SPaDE
 - [tlph017.md](./tlph017.md) - Knowledge in SPaDE
 - [tlph018.md](./tlph018.md) - Deduction in SPaDE
 - [tlph019.md](./tlph019.md) - Synthetic Metaphysics
+- [tlph020.md](./tlph020.md) - Skepticism and Authority in SPaDE
 
 ## Architecture
+
+The contribution sought by this project to that purpose is in two principle areas.
+The first is concerned with the management of that shared repository.
+The second with the architecture and fundamental core of the deductive intelligence which is considered the engine of proliferation.
 
 - [tlad001.md](./tlad001.md) - The [SPaDE](tlad001.md#spade) glossary
 - [tlad002.md](./tlad002.md) - [SPaDE](tlad001.md#spade) Project Aims and Ambitions
@@ -65,6 +77,7 @@ Philosophy and architecture are intertwined and therefore begin together with:
 - [tlad011.md](./tlad011.md) - On the Rationale for SPaDE
 - [tlad012.md](./tlad012.md) - Knowledge Repository Data Structures and Interfaces
 - [tlad013.md](./tlad013.md) - The SPaDE Deductive Kernel
+- [tlad014.md](./tlad014.md) - Cryptography in SPaDE
 
 ## Formal Spacifications
 
@@ -78,6 +91,7 @@ Philosophy and architecture are intertwined and therefore begin together with:
 
 - [tlpl001.md](./tlpl001.md) - Strategy and Plan for Top-Level Philosophy and Architecture Documentation
 
-## [Admin Directory](admin/README.md)
+## Miscellanea
 
-This section includes administrative documents related to the [SPaDE](tlad001.md#spade) project, including project strategy, plans, processes, methods, standards, task descriptions and guidelines for contributors.
+- [tlmc001.md](./tlmc001.md) - My Purpose in initiating SPaDE
+- [tlmc002.md](./tlmc002.md) - From Synthetic Epistemology to SPaDE

@@ -3,17 +3,21 @@
 In the SPaDE project, philosophy and engineering are cheek by jowl.
 The distinction between them is not clearly made, they are both oriented in their own ways to a single purpose.
 The philosophy is synthetic, in the sense that it is *constructed* rather than *natural*.
-It is not the discovery of philosophical truths about some natural phenomenon, but the construction of a conception of knowledge optimised to underpin the proliferation of benign intelligence across the cosmos.
+It is not the discovery of philosophical truths about some natural phenomenon, but the construction of a conception of knowledge devised to underpin the proliferation of benign intelligence across the cosmos.
+This places epistemology at the heart of the philosophy, intertwined with elements from the philosophy of language, logic and metaphysics, without which the articulation of the epistemology would be impossible.
 
 The engineering is then, philosophically grounded.
 It is built on those foundations to realise that purpose.
 
 Particular points of engagement between the philosophy and the engineering are:
 
-- the emphasis, in [deductive engineering](tlad007.md), on the exploitation of knowledge in the solution of real world problems,
-- the importance of epistemology as a fundamental approach to knowledge and the design of infrastructure for the management and exploitation of knowledge.
+- the emphasis, in [deductive engineering](tlad007.md), on the exploitation of declarative knowledge in the solution of real world problems,
+- the importance of epistemology in providing a fundamental approach to knowledge representation and the design of infrastructure for the management and exploitation of knowledge.
 
-Once philosophy is thought of as synthesis rather than an observation, it becomes a necessary prelude to the architecture of knowledge repositories and application of deductive methods to engineering problems.
+These features are more closely associated historically with the symbolic approach to AI rather than the connectionist approach.
+This is not intended to marginalise the importance of current LLM techniques or their continuing evolution, but rather to provide methods and tools which advance their effectiveness and reliability.
+
+Philosophy, thought of as a synthesis rather than an observation, serves as a stage in  designing the architecture of knowledge repositories and the application of deductive methods to engineering problems.
 
 Logical Positivism was that manifestation of positivism created in the wake of the great advances in the logical foundations of mathematics which took place around the turn of the 20th century.
 In the philosophy of Rudolf Carnap, inspired by the work of Bertrand Russell on the formalisation of mathematics and his ideas for "scientific philosophy", it promoted and facilitated the application of formal deductive systems to the advancement of logical rigour in philosophy and science.
@@ -33,6 +37,8 @@ We begin at the top, so that the whole may be considered in the light of the sup
   - [Philosophy of Language](#philosophy-of-language)
   - [Logic](#logic)
 - [**Concrete Philosophy**](#concrete-philosophy)
+- [**Normative Philosophy**](#normative-philosophy)
+- [Beyond Conventionalism](#beyond-conventionalism)
 
 ## Superstructure
 
@@ -155,7 +161,7 @@ A significant instance of this comes in the idea of *singular focus*, where refl
 
 ## Concrete Philosophy
 
-Concrete philosophy is the domain of empirical truth and physical engineering.
+Concrete philosophy (as that term is used here)concerns the domain of empirical truth and physical engineering.
 In the SPaDE project, concrete philosophy is addressed through the construction and application of abstract models of physical systems, expressed in declarative language and subject to deductive reasoning.
 We may think of these models as isomorphic to aspects of the material world and given semantically by a bijection between the abstract entities of the model and the concrete entities of the physical system being modelled.
 
@@ -180,3 +186,25 @@ So I reasoned that the same evolutionary imperative which drives the proliferati
 A second consideration, or perhaps a wrinkle on the first, is the consideration that among the various technical developments which are equally conducive to proliferation, would take mindshare which would be advantageous in getting off the ground.
 
 I cannot say much about what core normative principles might be adopted which could persist through the evolution of the next billion years, but a general preference for cooperation over conflict seems to me a contender, and we may hope that this seed might be elaborated and refined as the project progresses.
+
+## Beyond Conventionalism
+
+Philosophical usage of the term "conventionalism" seems normally to presume that a convention must be arrived at by agreement among a number of parties.
+This presumption should not be understood in any discussion of convensionalism in SPaDE, where formal expression of declarative knowledge is always sought, in the course of which language is extended by fiat, and considered conventional even if only one party is involved.
+
+Synthetic philosophy involves (if not being entirely exhausted by) the kind of analysis in which declarative truths are established in the following way:
+
+- first, by defining an abstract language in which declarative prositions may be expressed, establishing an abstract model of the relevant subject matter
+- second, interpreting the purely abstract model in the intended domain of discourse, by whatever means may be appropriate to that domain
+- third by establishing the fidelity of the abstract model under that interpretation to the observed or required features of that domain.
+- and finally, by proving further claims in the language using deductive methods.
+
+Admitting that the order may vary and considerable iteration may be required.
+
+This kind of attitude to language, in which it is chosen rather than discovered, is similar to the difference of attitude between two camps which might be perceived in the analytic philosophy of the 20th century, the first exemplified by Frege, Russell, and Carnap (and perhaps the early Wittgenstein), and the second by Moore, the later Wittgenstein, and Oxford "ordinary language philosophy".
+
+In this section I would like to move forward from this characterisation, if you will, of the essence of *synthetic* philosophy, even though it is the aspect of the philosophy which influenced the choice of the name.
+
+Philosophy is a search for knowledge, and it aligns with research on AI in the following ways:
+
+- it seeks knowledge about knowledge, as epistemology
