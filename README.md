@@ -3,13 +3,15 @@
 This project is seeks to contribute to the proliferation of benign intelligence across the cosmos, from small beginnings here on earth, complementing and merging with similar progressions from other points of origin.
 
 It involves both a kind of philosophy, dubbed "synthetic philosophy", and a kind of engineering,  "deductive engineering".
-*Deductive Engineering* (an aspect of a broader deductive paradigm, subsuming mere computation) is directed toward:
 
-- the engineering of a widely distributed shared repository of declarative knowledge,
-- support for the use of deductive methods in the context of that knowledge, using  "focal" methods, and
-- the application of the deductive infrastructure to the engineering of self-proliferating intelligent systems
+- *Deductive Engineering* (an aspect of a broader deductive paradigm, subsuming mere computation) is directed toward:
 
-*Synthetic Philosophy* provides philosophical foundations for the representation of knowledge and the application of deductive methods to its exploitation in the proliferation of intelligence, as well as addressing the what it means and what it takes for such proliferation to be benign.
+  - the engineering of a widely distributed shared repository of declarative knowledge,
+  - support for the use of deductive methods in the context of that knowledge, using  "focal" methods, and
+  - the application of the deductive infrastructure to the engineering of self-proliferating intelligent systems
+
+- *Synthetic Philosophy* provides philosophical foundations for the representation of knowledge and the application of deductive methods to its exploitation in the proliferation of intelligence, as well as addressing the what it means and what it takes for such proliferation to be benign.
+The earliest and highest levels of strategic thinking for SPaDE belong here, and are informed by evolutionary thinking, projecting from the evolution of intelligence in the past to its future proliferation, and considering how higher aesthetic and moral purpose survive evolutionary imperatives.
 
 The engineering begins with the development of prototypes of softwaresupport for knowledge representation and deduction in an architecture consisting of four subsystems, each occupying a subdirectory of the project repository.
 

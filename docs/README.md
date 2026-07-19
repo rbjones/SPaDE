@@ -5,11 +5,12 @@ This directory covers those aspects of the [SPaDE](tlad001.md#spade) project whi
 The material is presented in the following categories:
 
 - [Philosophy](#philosophy) - SPaDE's "synthetic philosophy"
-- [Architecture](#architecture) - top level design and its rationale 
+- [Architecture](#architecture) - top level design and its rationale
 - [Formal Spacifications](#formal-spacifications)
 - [Chat Logs](#chat-logs) - logs of conversations with AI systems contributing to the project, which may be of interest to readers and contributors.
-- [Plans and Strategy](#plans-and-strategy) 
+- [Plans and Strategy](#plans-and-strategy)
 - [Admin Directory](admin/README.md) - plans, processes, methods, standards, task descriptions and guidelines for contributors.
+- [Miscellanea](#miscellanea)
 
 I am a philosophically inclined, retired software engineer, with particular interests in the formal foundations of mathematics, generalised to declarative knowledge as a whole, and in the role which formal representation and reasoning can play in the engineering of intelligent systems.
 I am free to work on whatever I choose, and look for the problems to which I might be able to contribute.
@@ -57,6 +58,8 @@ Further elaboration of the '[synthetic philosophy](tlad001.md#synthetic-philosop
 - [tlph018.md](./tlph018.md) - Deduction in SPaDE
 - [tlph019.md](./tlph019.md) - Synthetic Metaphysics
 - [tlph020.md](./tlph020.md) - Skepticism and Authority in SPaDE
+- [tlph021.md](./tlph021.md) - A History of Deduction
+- [tlph022.md](./tlph022.md) - The Evolution of Intelligence
 
 ## Architecture
 
@@ -95,3 +98,5 @@ The second with the architecture and fundamental core of the deductive intellige
 
 - [tlmc001.md](./tlmc001.md) - My Purpose in initiating SPaDE
 - [tlmc002.md](./tlmc002.md) - From Synthetic Epistemology to SPaDE
+- [tlmc003.md](./tlmc003.md) - The Purpose of SPaDE
+- [tlmc004.md](./tlmc004.md) - A SPaDE perspective on "Solve Everything"

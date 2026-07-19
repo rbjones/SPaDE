@@ -53,6 +53,7 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+.obsidian/
 env/
 venv/
 

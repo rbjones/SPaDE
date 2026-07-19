@@ -48,6 +48,8 @@ The philosophical part is currently in:
 - [docs/tlph018.md](../docs/tlph018.md) - Deduction in SPaDE
 - [docs/tlph019.md](../docs/tlph019.md) - Synthetic Metaphysics
 - [docs/tlph020.md](../docs/tlph020.md) - Skepticism and Authority in SPaDE
+- [docs/tlph021.md](../docs/tlph021.md) - A History of Deduction
+- [docs/tlph022.md](../docs/tlph022.md) - The Evolution of Intelligence
 
 The architectural part is to be found in:
 

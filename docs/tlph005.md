@@ -33,7 +33,21 @@ Key features of the deductive paradigm:
 
 1. The significance of data is made formally explicit, so that the data can be read as [declarative knowledge](tlad001.md#declarative-knowledge).
 
-2. Information Processing is specified in terms of the inference
+2. Information Processing is specified in terms of the inference of new declarative knowledge from existing declarative knowledge, rather than in terms of the transformation of data.
+
+Requirements for deductive rigour:
+
+1. The languages in which declarative knowledge is expressed must be formally defined, both on their syntax and semantics.
+There is a problem of regress associated with such definitions, but sceptical doubt about the adequacy of such definitions is not a reason to avoid them, but rather a reason to be careful in their formulation.
+
+2. Semantics can and should be layered, with an abstract semantics sufficient to determine the relation of entailment which determines which inferences are sound, and further interpretations in other domains of interest which must be tested by means appropriate to the domain.
+
+3. In the representation of declarative knowledge, particularly in the context of artificial (super)intelligence which may be expected to undertake much more elaborate chains of reasoning than humans. it essential that the logical coherence of the knowledge base be maintained.
+This protects against the most common logical fallacy of them all, equivocation.
+Without that protection, superintelligent agents will exploit any incoherence, however subtle to prove any proposition.
+
+The precautions against equivocation must be engineered to suffice in the context of a cosmically distributed shared knowledge base, and must safely admit the conjunction of distinct diasporan knowledge bases when hitherto distinct diaspora make contact and share knowledge.
+This problem is analogous to if not quite so straightforward as the devising of a global scheme for referring to web pages or other resources.
 
 ## Support for the Deductive Paradigm in SPaDE
 
@@ -80,3 +94,11 @@ It is therefore intended that specialists will be trained for each theory as the
 Deductive Intelligence contributes to the deductive paradigm primarily by overcoming the infeasibility of proof search in the absence of effective heuristics.
 
 Further details on how it is intended to approach this problem will in due course be found in the [di](../di/README.md) directory.
+
+### Singular Metatheory
+
+An important element in broadscoping deduction to subsume computation is the use of a reflection rule to permit deductive reasoning to admit any provably sound computation.
+The primitive inference rules determine a recursively enumerable (semi-decidable) subset of the entailment relation.
+Any algorithm which has been proven to be correct in its judgements about membership of that set can be used in formal proofs in the system.
+
+In addition, arbitrary computational resource can be used to execute algorithms, subject to a formal specification of the language or notation used to express the algorithms which that resource executes.

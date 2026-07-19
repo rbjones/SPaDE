@@ -4,7 +4,7 @@ The statement of purpose for SPaDE is easy, and has already been done on my home
 
         The purpose of SPaDE is to contribute to the proliferation of benign intelligence across the cosmos.
 
-However, beyond that bald assertion three more difficult expositions are called for, without which the bald statement will fail of *its* purpose.
+However, beyond that bald assertion (which is itself under continuous review) three more difficult expositions are called for, without which the bald statement will fail of *its* purpose.
 
 The first is to say something about [*why* that is the purpose](#why-that-purpose) of SPaDE, the second is to give some account of [what on earth (or anywhere else) that *means*](#what-does-it-mean), and the third perhap, to give a hint on [how that might possibly be done](#how-on-earth).
 
@@ -21,7 +21,7 @@ I won't go into it here, but the story is here:
 
 Probably the least clear term in the statement of purpose is "benign intelligence".
 
-Intelligence comes on a sliding scale, but it is customary when speaking of *artificial* intelligence to take *homo sapiens* as the baseline (even though in other domains of discourse we regard intelligence as an attribute of only a minority of humans).
+Intelligence comes on a sliding scale, but it is customary when speaking of *artificial* intelligence to take *homo sapiens* as the baseline (even though in other domains of discourse we regard intelligence as an attribute of only a minority of humans, and in everyday discourse intelligence may be attributed to a variety of species or artifacts).
 
 Though that might be an imprecise, yardstick, over the timescales of interest (within which proliferation across the cosmos may be feasible), the intelligence of even the best of *homo sapiens* is likely to have become a distant and trifling historical phenomenon.
 In practice, evolutionary considerations dictate (as we discuss elsewhere) that to have any influence on long term outcomes we must play into a dominating trend of continuing escalation in intellectual capability.
@@ -31,3 +31,14 @@ But what is intended by the term *benign*?
 This is a normative term.
 
 ## How on Earth?
+
+The proposed method runs as follows:
+
+First I speculate about the long term future, and try to identify significant aspects of it which can be known with some confidence despite the difficulties involved even in much shorter projections.
+
+Second I consider ways in which I might possibly play into that future, engage with the necessities, to get skin in the game and enable insights into what aspects of that future may be amenable to influence.
+
+Finally I put together a project (SPaDE) intended to exert the intended benign influence upon the projected long term outcomes.
+
+Though of course, this is not a waterfall, it's an iterative mush.
+

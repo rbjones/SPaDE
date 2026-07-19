@@ -28,4 +28,3 @@ What we expect is that among the characteristics of self-proliferating intellige
 
 Note here the shift to talking of *proliferation*.
 In determining the characteristics of trans galactic intelligence originating on earth, the primary challenge is in crossing interstellar distances.
-
