@@ -28,10 +28,11 @@ The theory of evolution is most closely associated with Charles Darwin, and is s
 But Darwin's evolution may be seen as narrowly cast, showing that the origin of species is not by intelligent design, but also in various ways, terra-centric.
 
 The modern synthesis, incorporating significant parts of modern evolutionary science, is arguably less applicable either to:
--the pre-biological evolution which lead to first life on earth
 
+- the pre-biological evolution which led to first life on earth
 - the post-biological evolution which may determine the future of non-biological intelligence, or to
 - the ongoing biological evolution in which synthetic biology begins to inject intelligent design into the genome.
+- the complexities of cultural evolution
 
 Here we consider a conception of evolution broadened to cover such developments and hence inform our speculations about the distant future of intelligent systems:
 
@@ -40,15 +41,29 @@ This is proliferation.
 2. That the direction of evolution is determined by which variants are conducive at any time to maximising proliferation.
 
 When we strip away the Darwinian constraints in considering the future evolution of intelligence, what remains?
-Irrespective of how variation occurs, and of how selection takes place, the outcome of evolution is determined by the progression of features which are conducive to the proliferation of the entities in question.
+Irrespective of how variation occurs, and of how selection takes place, the outcome of evolution is determined by the progression of variations which are most conducive to the proliferation of the entities in question.
 
 This leads me to articulate the residual *principle* of evolution:
 <div style="text-align: center;">
       "proliferation begets predominance"
 </div>
 i.e., those characteristics which are conducive to proliferation will predominate at the expense of those which are not (in the relevant context or evolutionary niche).
+This may also be thought of in terms of exponentials.
+Exponential growth is not necessarily rapid, but if sustained it will eventually eclipse any fixed linear growth.
+Of course, most growth is exponential, which is why it is normally quantified as a percentage, and this would naturally apply to most evolutionary contexts.
+The key then is in the rate of growth, those characteristics will predominate which are conducive to the highest growth rate, the most rapid proliferation.
+So long as the growth rates are fixed.
 
-Which engenders *The Evolutionary Imperative*:
+What we see however, looking over geological timespans, is that change accelerates, i.e. rates of change grow.
+This is one way in which talk of "The coming singularity" arises, for a sufficient rate of advancement in the growth rate, if sustained, yields a mathematical singularity.
+
+It has been suggested that the time to double in a variety of metrics halves at each doubling, and this would indeed yield a singularity.
+From which we may conclude, that it won't happen (cue the alternative characterisation of the singularity as the realisation of recursive self-improvement).
+
+Nevertheless, there are many relevant examples which show accelerating growth rates, and similar considerations apply.
+If sustained, such trajectories would overwhelm any fixed growth rate.
+
+Notwithstanding these complexities, the bottom line is that rate of proliferation is the key to predominance, which engenders *The Evolutionary Imperative*:
 <div style="text-align: center;">
       "proliferate"
 </div>
