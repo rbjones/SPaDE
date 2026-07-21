@@ -1,12 +1,14 @@
 # Synthetic Philosophy
 
 In the SPaDE project, philosophy and engineering are cheek by jowl.
-The distinction between them is not clearly made, they are both oriented in their own ways to a single purpose.
+The distinction between them is not clearly made, they are both oriented in their own ways to [a single purpose](./tlph012.md).
 The philosophy is synthetic, in the sense that it is *constructed* rather than *natural*.
-It is not the discovery of philosophical truths about some natural phenomenon, but the construction of a conception of knowledge devised to underpin the proliferation of benign intelligence across the cosmos.
+It is not the discovery of philosophical truths about some natural phenomenon or metaphysical reality, but the construction of a conception of knowledge intended (in the context of SPaDE) to underpin the proliferation of benign intelligence across the cosmos.
+Though synthetic philosophy is not project specific, it is presented here through its relevance to and role in the SPaDE project.
 This places epistemology at the heart of the philosophy, intertwined with elements from the philosophy of language, logic and metaphysics, without which the articulation of the epistemology would be impossible.
 
 The engineering is then, philosophically grounded.
+This aspect of synthetic philosophy is instrumental, and foundational.
 It is built on those foundations to realise that purpose.
 
 Particular points of engagement between the philosophy and the engineering are:
@@ -21,7 +23,7 @@ Philosophy, thought of as a synthesis rather than an observation, serves as a st
 
 Logical Positivism was that manifestation of positivism created in the wake of the great advances in the logical foundations of mathematics which took place around the turn of the 20th century.
 In the philosophy of Rudolf Carnap, inspired by the work of Bertrand Russell on the formalisation of mathematics and his ideas for "scientific philosophy", it promoted and facilitated the application of formal deductive systems to the advancement of logical rigour in philosophy and science.
-[Synthetic Philosophy](tlad001.md#synthetic-philosophy) is intended as a successor to Logical Positivism, oriented more broadly to Science, Technology Engineering and Mathematics (STEM) and to all applications in which deduction may play a role.
+[Synthetic Philosophy](tlad001.md#synthetic-philosophy) is intended as a successor to Logical Positivism, oriented more broadly to Science, Technology, Engineering and Mathematics (STEM) and to all applications in which deduction may play a role.
 
 The structure of this exposition is a bit like a roller coaster.
 In various ways I think of SPaDE and its philosophy as a stack with certain things at the top and others below.
@@ -129,9 +131,9 @@ It is convenient in the establishment of declarative language to think of langua
 Working in the first instance with such abstract declarative language provides the methods and tools for the construction of models of both physical and ethical systems, and enables reliable deductive methods to be applied in all domains of [declarative knowledge](tlad001.md#declarative-knowledge).
 
 In order to effect this abstract foundation, it is necessary to chose appropriate abstract domains, and we will find when we come to discuss the expressiveness of declarative languages and the possibility of universal declarative languages, that the key choice to be made in relation to those abstract domains is cardinality.
-It does not matter *what* these abstract entities are, only *how many* there are.
+It does not so much matter *what* these abstract entities are, only *how many* there are.
 
-The conventionalist metaphysics of [synthetic philosophy](tlad001.md#synthetic-philosophy) may this be reduced to the thesis that we may chose whatever abstract ontology we please, but at bottom the choice is just one of cardinality and the difficult problems in this domain concern how to express the choice of cardinality in declarative language, how to devise propositions which are logically consistent but are only satisfiable in models of sufficient size (in set theory, these are the large cardinal axioms).
+The conventionalist metaphysics of [synthetic philosophy](tlad001.md#synthetic-philosophy) may thus be reduced to the thesis that we may chose whatever abstract ontology we please, but at bottom the choice is just one of cardinality and the difficult problems in this domain concern how to express the choice of cardinality in declarative language, how to devise propositions which are logically consistent but are only satisfiable in models of sufficient size (in set theory, these are the large cardinal axioms).
 
 These are however, from the perspective of synthetic philosophy, analogous to debating how many angels may dance on the head of a pin, since the practical application of [declarative knowledge](tlad001.md#declarative-knowledge) does not depend on very large cardinals.
 It is doubtful whether any practical application of [declarative knowledge](tlad001.md#declarative-knowledge) will be expedited by the assumption of more than an unbounded set of inaccessibles.

@@ -11,16 +11,16 @@ I do not aspire to articulating here a fully worked out philosophical system.
 I did spend some years in that endeavour, the chaotic results of which may be found in my now moribund git repository [SynEpis](https://github.com/rbjones/SynEpis), in which I pursued [Epistemology](tlad001.md#epistemology) construed as fundamental constructive philosophy to underpin knowledge engineering.
 Though that philosophical endeavour was closely coupled with Engineering, I found it insufficiently grounded for my continuous revisions of approach to terminate, and eventually decided that I needed to reposition the thinking in an engineering enterprise.
 
-The [SPaDE](tlad001.md#spade) project is that enterprise, and this document is part of the philosophical underpinning which present for that purpose.
+The [SPaDE](tlad001.md#spade) project is that enterprise, and this document is part of the philosophical underpinning which I present for that purpose.
 
 The approach I will adopt, at least in the first instance, is to articulate the beliefs which provide a rationale for the project, and to use those premises to explain the key features of the project, expanding on them only to that extent necessary to make the rationale clear.
 
 ## Fundamental Principles
 
-1. **[Intelligence and *The Evolutionary Imperative*]**(#intelligence-and-the-evolutionary-imperative) That intelligence arose on earth by evolution and its future development will be governed by evolution.
-2. **[The Proliferation of Intelligence]**(#the-proliferation-of-intelligence) That the intelligent progeny of humanity will in due course spread throughout the cosmos.
-3. **[The Importance of Knowledge]**(#the-importance-of-knowledge) That knowledge is a crucial ingredient fuelling the proliferation of intelligence.
-4. **[The Primacy of Ethics]**(#the-primacy-of-ethics) That an appropriate ethical stance will be a crucial differentiator in the proliferation of intelligence.
+1. **[Intelligence and *The Evolutionary Imperative*](#intelligence-and-the-evolutionary-imperative)** That intelligence arose on earth by evolution and its future development will be governed by evolution.
+2. **[The Proliferation of Intelligence](#the-proliferation-of-intelligence)** That the intelligent progeny of humanity will in due course spread throughout the cosmos.
+3. **[The Importance of Knowledge](#the-importance-of-knowledge)** That knowledge is a crucial ingredient fuelling the proliferation of intelligence.
+4. **[The Primacy of Ethics](#the-primacy-of-ethics)** That an appropriate ethical stance will be a crucial differentiator in the proliferation of intelligence.
 
 ## Intelligence and *The Evolutionary Imperative*
 
