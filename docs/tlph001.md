@@ -57,7 +57,8 @@ So long as the growth rates are fixed.
 What we see however, looking over geological timespans, is that change accelerates, i.e. rates of change grow.
 This is one way in which talk of "The coming singularity" arises, for a sufficient rate of advancement in the growth rate, if sustained, yields a mathematical singularity.
 
-It has been suggested that the time to double in a variety of metrics halves at each doubling, and this would indeed yield a singularity.
+It has been suggested that the time to double, in a variety of metrics, halves at each doubling.
+If sustained this would indeed yield a singularity.
 From which we may conclude, that it won't happen (cue the alternative characterisation of the singularity as the realisation of recursive self-improvement).
 
 Nevertheless, there are many relevant examples which show accelerating growth rates, and similar considerations apply.

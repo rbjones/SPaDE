@@ -33,11 +33,9 @@ The central thesis of this discussion is that despite the difficulties from the 
 
 I will present here the bare bones of my own imperfect understanding of the evolution of intelligence, and its implications for how SPaDE might realise its purpose.
 
-
-
 ## ************** ATTICK ***************
 
-## Introduction
+## Introduction(A)
 
 The history of life on Earth can be viewed through many lenses.
 As soon as rational animals evolve, it can be instructive to examine developments as arising from reason, which can be understood by unconvering the rationale for each advance.

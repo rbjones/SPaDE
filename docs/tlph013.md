@@ -64,12 +64,22 @@ In this I mention two aspects of his ambition which were of particular importanc
 The latter conception was controversial but influential, and is the substance of the position in the philosophy of logic which came to be called *logicism*.
 The principle attack on that conception of mathematics and its foundations was connected with the difficulties associated with ontology, and hence with whether those logical systems which were ontologically adequate could properly be considered to be purely logical.
 
+That mathematics proceeds by deduction from the definitions of its concepts is not controversial, but whether those definitions can be considered to be purely logical is controversial, and depends upon what is considered acceptable as a definition.
+The Hilbert school arbitrary axioms could be used to define mathematical concepts, but this renders definitions at risk of incoherence.
+A stricter conception of definition regards a definition as the naming of something which is already known to exist, and thereby ensures coherence.
+But the provision of an adequate ontology then becomes the locus of risk of incoherence, and that such provision belongs to logic is controversial.
+
 Here we sidestep that issue as terminological, by adopting the term *logical foundation systems* to refer to those systems which provide logical foundations for mathematics, regardless of whether they are purely logical or not.
+
 The motto then becomes:
     mathematics = logical foundation system + definitions
 
-In 1908, terminology apart, we had on the table, two candidates for "logic" which realised these elements of Frege's ambition: Zermelo's Axiomatic Set Theory and Russell's Theory of Types.  Neither of these, as published in 1908 satisfied Frege's desire for precisely defined rules of inference, but both were subsequently refined to meet that requirement.
-These two systems are prototypes for the logical foundation systems which are most important in this context, and we may identify more specifically the later derivatives of these two systems in the first order theory known as Zermelo-Fraenkel Set Theory with Choice (ZFC), and the higher order theory known as Church's Simple Theory of Types (STT) augmented primarily by polymorphism in the logic of Cambridge HOL.
+In 1908, two candidate foundation systems were published, broadly equivalent in their power if differing in their philosophical motivation: Zermelo's Axiomatic Set Theory and Russell's Theory of Types.
+The former came from Hilbert's school of mathematics, the latter more closely aligned with Frege's logicism.
+Neither of these, as published in 1908 satisfied Frege's desire for precisely defined rules of inference, but both were subsequently refined to meet that requirement.
+They were parallel responses to the paradoxes, not equivalent systems inspired by distinct philosophical positions.
+
+These two systems are prototypes for the logical foundation systems which are most important in this context, and we may identify more specifically the later derivatives of these two systems in the first order theory known as Zermelo-Fraenkel Set Theory with Choice (ZFC), and the higher order theory known as Church's Simple Theory of Types (STT) augmented, primarily by polymorphism, in the logic of Cambridge HOL.
 
 ## Some Limitations of Logical Foundation Systems
 

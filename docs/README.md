@@ -60,6 +60,9 @@ Further elaboration of the '[synthetic philosophy](tlad001.md#synthetic-philosop
 - [tlph020.md](./tlph020.md) - Skepticism and Authority in SPaDE
 - [tlph021.md](./tlph021.md) - A History of Deduction
 - [tlph022.md](./tlph022.md) - The Evolution of Intelligence
+- [tlph023.md](./tlph023.md) - Evolutionary Threads
+- [tlph024.md](./tlph024.md) - The Evolution of Evolution
+- [tlph025.md](./tlph025.md) - A Waypoint for Deduction
 
 ## Architecture
 

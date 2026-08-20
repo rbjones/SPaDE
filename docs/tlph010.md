@@ -5,7 +5,7 @@ The purpose of this document is to provide that account.
 
 ## Some Context
 
-The status quo terminologically is confused by the number of academic disciplines concerned with language and logic, which chose terminology conducive to theoretical development within those disciplines, but not closely aligned with the purposes of this work, or even with the motivations of the pioneers of modern logic.
+The *status quo* terminologically is confused by the number of academic disciplines concerned with language and logic, which chose terminology conducive to theoretical development within those disciplines, but not closely aligned with the purposes of this work, or even with the motivations of the pioneers of modern logic.
 
 It may be worth touching upon some of the seminal work concerned with the emergence of modern logic.
 The main factor in the development of logic in the 19th century was the engagement of mathematics with logic, which seems to have had two principal stimuli.
@@ -16,13 +16,19 @@ The second stimulus was the perceived need for a return to rigor in mathematical
 This thread was pursued most effectively by Cauchy, Weierstrass, Dedekind and Cantor, leading to the arithmetisation of analysis and the formal definition of real numbers in terms of Dedekind cuts or Cauchy sequences of rationals.
 
 A third notable stimulus was philosophical.
-In the eighteenth century a divergence appeared between (on the one hand) David Hume and Immanuel Kant.
-In Hume's philosophy the division of knowledge into "relations of ideas" and "matters of fact" has a central place and mathematics is placed in the former category.
-Kant disputed that account of the status of mathematics, creating a new usage of the term "synthetic" (relating to propositions rather than it previous use as a kind of proof) and arguing that synthetic a priori knowledge was possible, and that mathematics was the prime example of such knowledge.
+In the eighteenth century a divergence appeared between David Hume and Immanuel Kant.
+
+In Hume's philosophy the division of knowledge into "relations of ideas" and "matters of fact" has a central place.
+Mathematics is placed in the former category.
+Kant disputed that account of the status of mathematics, creating a new usage of the term “synthetic” (relating to propositions rather than it previous use as a kind of proof) and arguing that synthetic a priori knowledge was possible, and that mathematics was the prime example of such knowledge.
 For Hume, mathematics belonged to the realm of "relations of ideas", and hence to logic, from which Kant demurred.
 
 In a context in which mathematics had been progressing a profound foundational re-construction, Gottlob Frege set out to refute Kant by showing that mathematics could be reduced to logic.
 The conception of *logic* which he tabled for that purpose was *Begriffsschrift*, concept notation.
+It was intended from the outset as a subject-matter-neutral language of pure thought, not a notation confined to mathematics, and not a mere *calculus ratiocinator*.
+Frege's logicism is, in important part, an attempt to place arithmetic on the analytic side of Kant's distinction, and thereby to restore Hume's conception of mathematics as concerned with the  relation of ideas.
+Carnap later formalised a successor of that same concept analytic truths as those that hold in virtue of the rules of a language rather than matters of fact.
+A fuller historical account is in [A History of Deduction](tlph021.md).
 
 ## Foundational Institutions
 

@@ -42,4 +42,3 @@ Second I consider ways in which I might possibly play into that future, engage w
 Finally I put together a project (SPaDE) intended to exert the intended benign influence upon the projected long term outcomes.
 
 Though of course, this is not a waterfall, it's an iterative mush.
-

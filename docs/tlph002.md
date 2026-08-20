@@ -23,6 +23,7 @@ Philosophy, thought of as a synthesis rather than an observation, serves as a st
 
 Logical Positivism was that manifestation of positivism created in the wake of the great advances in the logical foundations of mathematics which took place around the turn of the 20th century.
 In the philosophy of Rudolf Carnap, inspired by the work of Bertrand Russell on the formalisation of mathematics and his ideas for "scientific philosophy", it promoted and facilitated the application of formal deductive systems to the advancement of logical rigour in philosophy and science.
+
 [Synthetic Philosophy](tlad001.md#synthetic-philosophy) is intended as a successor to Logical Positivism, oriented more broadly to Science, Technology, Engineering and Mathematics (STEM) and to all applications in which deduction may play a role.
 
 The structure of this exposition is a bit like a roller coaster.
