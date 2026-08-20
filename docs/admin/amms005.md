@@ -39,3 +39,5 @@ You should presume that large tasks should not be undertaken without full review
 
 I will refer you to this and other guidelines whenever resuming work on this project.
 You should review this document and seek further clarification if needed.
+
+For Grok Build, also follow [ampd004.md](ampd004.md) (one focus per branch and worktree; do not check out a different branch under a live session).

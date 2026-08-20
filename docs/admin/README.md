@@ -25,18 +25,22 @@ This documentation falls into the following categories:
 - [amms005.md](amms005.md) Guidance for AI Contributions
 - [amms006.md](amms006.md) Glossary Link Maintenance
 - [amms007.md](amms007.md) Glossary Augmentation Procedure
+- [amms008.md](amms008.md) LLM Wiki (in progress; not authoritative)
 
 ## Process or procedure descriptions
 
 - [ampd001.md](ampd001.md) Using GitHub Copilot Agent with SPaDE - Process for assigning code-and-test tasks to Copilot agents
 - [ampd002.md](ampd002.md) Using GitHub Copilot Agent with SPaDE - Process for Copilot in completing code and test assignments.
 - [ampd003.md](ampd003.md) Conversational Documentation Development Procedure
+- [ampd004.md](ampd004.md) Grok Build: branches, worktrees, and sessions
 
 ## Plans and strategies
 
 - [ampl001.md](ampl001.md) [SPaDE](../tlad001.md#spade) Project Action Plan
 - [ampl002.md](ampl002.md) Prototyping Strategy
 - [ampl003.md](ampl003.md) Project Management
+- [ampl004.md](ampl004.md) SPaDE Development Strategy
+- [ampl005.md](ampl005.md) Immediate plan: Grok Build transition
 
 ## Testing and evaluation
 

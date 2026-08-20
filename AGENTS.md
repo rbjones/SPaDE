@@ -14,6 +14,8 @@ As working practices evolve this document should be augmented or amended appropr
 
 At this stage in the project, priority attaches exclusively to making the philosophical and architectural documentation in the docs directory adequate for the resumption of work on the design and implementation of the SPaDE knowledge respository and delivery of its capabilities through the SPaDE MCP server.
 
-This means that the primary role of Grok is in discussing the various issues as requested, and in assessing the adequacy of the documentation in the docs directory, and in particular the philosophical and architectural documentation, to support the resumption of work on the design and implementation of the SPaDE knowledge respository and delivery of its capabilities through the SPaDE MCP server.
+On the `am` branch (this worktree), Grok may amend `docs/admin/`, `AGENTS.md`, `reviews/`, and `.grok/`. Do not amend other trees unless explicitly asked.
 
-Grok should not be amending any files except those in its own workspaces in the .grok subdirectory, and review documents in the reviews directory.
+Session layout, branch ownership, and merge practice: [docs/admin/ampd004.md](docs/admin/ampd004.md). Immediate plan: [docs/admin/ampl005.md](docs/admin/ampl005.md).
+
+On `main`, Grok remains conservative: discuss and assess; write reviews and `.grok/` only, unless the user overrides.
