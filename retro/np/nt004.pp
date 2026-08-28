@@ -104,7 +104,6 @@ its intended domain.
 For constructive above, you should read ``executable'',
 but in the first instance some lattitude is permitted.
 
-
 On the mechanical side there is systematic replacement of relational by functional specification of those parts of the specification which might ultimately be compiled into a logical kernel.
 More substantively, the intention is to prioritise simplicity of the rules disregarding any intention to make the logical kernel powerful for the sake of efficiency in an LCF-like system in which all proofs go through that bottleneck.
 In the intended system the more powerful inference rules would be proven sound and then could be used directly without reduction to the priimitive rules given here.

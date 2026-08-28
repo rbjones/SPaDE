@@ -1,28 +1,30 @@
 (* Extended SML tests for the krcd011 structures. *)
 
+exception TestFail of string;
+
 fun assert_bool (label, true) = ()
-  | assert_bool (label, false) = raise Fail ("Assertion failed: " ^ label)
+  | assert_bool (label, false) = raise TestFail ("Assertion failed: " ^ label);
 
 fun assert_int (label, expected, actual) =
     assert_bool (label ^ " (expected " ^ Int.toString expected ^ ", got " ^ Int.toString actual ^ ")",
-                 expected = actual)
+                 expected = actual);
 
 fun assert_vec (label, expected: Word8Vector.vector, actual) =
-    assert_bool (label, Word8Vector.equals (expected, actual))
+    assert_bool (label, Word8Vector.equals (expected, actual));
 
 fun assert_vec_list (label, expected, actual) =
     let
         fun loop ([], []) = ()
           | loop (e :: es, a :: as) = (assert_vec (label, e, a); loop (es, as))
-          | loop _ = raise Fail ("Length mismatch in " ^ label)
+          | loop _ = raise TestFail ("Length mismatch in " ^ label)
     in loop (expected, actual) end
 
 fun expect_fail_msg (label, expected, thunk) =
-    (thunk (); raise Fail (label ^ " expected failure"))
-    handle Fail msg => if msg = expected then () else raise Fail (label ^ " wrong message: " ^ msg)
+    (thunk (); raise TestFail (label ^ " expected failure"))
+    handle TestFail msg => if msg = expected then () else raise TestFail (label ^ " wrong message: " ^ msg)
 
 fun expect_stale (label, thunk) =
-    (thunk (); raise Fail (label ^ " expected stale cache error"))
+    (thunk (); raise TestFail (label ^ " expected stale cache error"))
     handle LowLevelIO.StaleCacheError _ => ()
 
 (* Encoding/decoding tests *)
@@ -100,53 +102,53 @@ val _ = (
         val _ = (SExpressions.stack := [])
 
         val nil_seq = SExpressions.write_nil ()
-        val _ = (case SExpressions.read_sexpression nil_seq of SExpressions.Nil => () | _ => raise Fail "nil roundtrip")
+        val _ = (case SExpressions.read_sexpression nil_seq of SExpressions.Nil => () | _ => raise TestFail "nil roundtrip")
 
         val atom_bytes = Word8Vector.fromList [0w65, 0w0]
         val atom_seq = SExpressions.write_atom atom_bytes
         val _ = (case SExpressions.read_sexpression atom_seq of
                     SExpressions.Atom v => assert_vec ("atom roundtrip", atom_bytes, v)
-                  | _ => raise Fail "atom roundtrip")
+                  | _ => raise TestFail "atom roundtrip")
 
         val cons_seq = SExpressions.write_cons (atom_seq, nil_seq)
         val _ = (case SExpressions.read_sexpression cons_seq of
                     SExpressions.Cons (car, cdr) => (assert_int ("cons car", atom_seq, car);
                                                      assert_int ("cons cdr", nil_seq, cdr))
-                  | _ => raise Fail "cons roundtrip")
+                  | _ => raise TestFail "cons roundtrip")
 
         val _ = (SExpressions.stack := []);
-        val _ = SExpressions.push_atom atom_bytes
-        val _ = SExpressions.push_atom (Word8Vector.fromList [0w66])
-        val _ = SExpressions.stack_cons ()
-        val _ = assert_int ("stack length", 1, length (!SExpressions.stack))
-        val stack_cons_seq = hd (!SExpressions.stack)
+        val _ = SExpressions.push_atom atom_bytes;
+        val _ = SExpressions.push_atom (Word8Vector.fromList [0w66]);
+        val _ = SExpressions.stack_cons ();
+        val _ = assert_int ("stack length", 1, length (!SExpressions.stack));
+        val stack_cons_seq = hd (!SExpressions.stack);
         val _ = (case SExpressions.read_sexpression stack_cons_seq of
                     SExpressions.Cons (car, cdr) => (assert_vec ("stack car", atom_bytes, LowLevelIO.get_byte_sequence car);
                                                      assert_vec ("stack cdr", Word8Vector.fromList [0w66], LowLevelIO.get_byte_sequence cdr))
-                  | _ => raise Fail "stack cons")
+                  | _ => raise TestFail "stack cons");
 
         val list_value = SExpressions.ConsValue (SExpressions.AtomValue atom_bytes,
-                        SExpressions.ConsValue (SExpressions.AtomValue (Word8Vector.fromList [0w66]), SExpressions.NilValue))
-        val list_seq = SExpressions.write_recursive list_value
+                        SExpressions.ConsValue (SExpressions.AtomValue (Word8Vector.fromList [0w66]), SExpressions.NilValue));
+        val list_seq = SExpressions.write_recursive list_value;
         val _ = (case SExpressions.read_recursive list_seq of
                     SExpressions.ConsValue (SExpressions.AtomValue a,
                         SExpressions.ConsValue (SExpressions.AtomValue b, SExpressions.NilValue)) =>
                             (assert_vec ("recursive a", atom_bytes, a);
                              assert_vec ("recursive b", Word8Vector.fromList [0w66], b))
-                  | _ => raise Fail "recursive roundtrip")
+                  | _ => raise TestFail "recursive roundtrip");
 
         (* Error cases *)
-        val empty_seq = LowLevelIO.write_byte_sequence (SExpressions.encoding.encode_sequence_list [])
+        val empty_seq = LowLevelIO.write_byte_sequence (SExpressions.encoding.encode_sequence_list []);
         val _ = expect_fail_msg ("empty payload", "Empty S-expression payload",
-                                 fn () => SExpressions.read_sexpression empty_seq)
+                                 fn () => SExpressions.read_sexpression empty_seq);
 
-        val atom_only = LowLevelIO.write_byte_sequence (SExpressions.encoding.encode_sequence_list [Word8Vector.fromList [0w3]])
+        val atom_only = LowLevelIO.write_byte_sequence (SExpressions.encoding.encode_sequence_list [Word8Vector.fromList [0w3]]);
         val _ = expect_fail_msg ("atom missing value", "Atom missing value",
-                                 fn () => SExpressions.read_sexpression atom_only)
+                                 fn () => SExpressions.read_sexpression atom_only);
 
         val cons_missing = LowLevelIO.write_byte_sequence (SExpressions.encoding.encode_sequence_list [Word8Vector.fromList [0w4], Word8Vector.fromList [0w0]])
         val _ = expect_fail_msg ("cons missing", "Cons missing pointers",
-                                 fn () => SExpressions.read_sexpression cons_missing)
+                                 fn () => SExpressions.read_sexpression cons_missing);
 
         val unknown_tag = LowLevelIO.write_byte_sequence (SExpressions.encoding.encode_sequence_list [Word8Vector.fromList [0w5]])
         val _ = expect_fail_msg ("unknown tag", "Unknown S-expression type",
@@ -156,8 +158,8 @@ val _ = (
         val _ = expect_fail_msg ("stack underflow", "Stack underflow", fn () => SExpressions.stack_cons ())
 
         val _ = LowLevelIO.close_repository ()
-    in () end)
+    in () end);
 
 val _ = (OS.FileSys.remove repo_path handle _ => ();
          OS.FileSys.remove sexp_repo handle _ => ();
-         print "krte006: tests passed\n")
+         print "krte006: tests passed\n");

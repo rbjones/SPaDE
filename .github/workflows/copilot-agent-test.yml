@@ -1,4 +1,4 @@
-name: SPaDE - Test in Container
+name: copilot agent test
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: rbjones/spade
+  IMAGE_NAME: rbjones/spade:latest
 
 jobs:
   test:

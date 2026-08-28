@@ -2,15 +2,10 @@ name: Build SPaDE Container
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Container tag (default: latest)'
-        required: false
-        default: 'latest'
 
 env:
   REGISTRY: ghcr.io
-  BASE_IMAGE: ghcr.io/rbjones/pp/proofpower:latest
+  BASE_IMAGE: rbjones/pp/proofpower:latest
   IMAGE_NAME: rbjones/spade
 
 jobs:
@@ -19,11 +14,9 @@ jobs:
     permissions:
       contents: read
       packages: write
-    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
       - name: Log in to Container Registry
         uses: docker/login-action@v3
         with:
@@ -37,20 +30,18 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ github.event.inputs.tag || 'latest' }}
-            type=sha,prefix={{branch}}-
+            type=raw,value=latest
       
       - name: Create Dockerfile
         run: |
           cat > Dockerfile << 'EOF'
           # Start from ProofPower container
-          FROM ${{ env.BASE_IMAGE }}
+          FROM ${{ env.REGISTRY }}/${{ env.BASE_IMAGE }}
           
           # Install SPaDE-specific dependencies
           RUN apt-get update && apt-get install -y \
             python3 \
             python3-pip \
-            python3-venv \
             git \
             curl \
             make \
@@ -77,7 +68,10 @@ jobs:
           
           # Set up ProofPower environment
           ENV PPDIR=/proofpower-source
-          
+          ENV PATH=/workspace/common:$PATH
+
+          # Ensure login shells also get /workspace/common on PATH
+          RUN printf '%s\n' 'export PATH="/workspace/common:${PATH}"' > /etc/profile.d/spade-path.sh
         
           # Build maths_egs and install to ProofPower DB
           RUN cd /workspace/retro/maths_egs && \
@@ -105,4 +99,4 @@ jobs:
           echo "${{ steps.meta.outputs.tags }}"
           echo ""
           echo "To use this image:"
-          echo "  docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag || 'latest' }}"
+          echo "  docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"

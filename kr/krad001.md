@@ -35,19 +35,24 @@ The exposition is structured as follows:
 
 ## Key Features
 
-- **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all [declarative knowledge](../docs/tlad001.md#declarative-knowledge).  The knowledge repository does not contain concrete syntax and is not ties to any concrete physical representation, though there is a native [SPaDE](../docs/tlad001.md#spade) representation which is used for repositories constructed by [SPaDE](../docs/tlad001.md#spade) kr rather than other sources viewed as kr repos.
+- **Universal Representation**: Uses Cambridge HOL as a universal abstract representation for all [declarative knowledge](../docs/tlad001.md#declarative-knowledge).  The knowledge repository is not tied to any concrete syntax or physical representation, though there is a native [SPaDE](../docs/tlad001.md#spade) representation which is used for repositories constructed by [SPaDE](../docs/tlad001.md#spade) kr rather than other sources viewed as kr repos.
 - **Distributed Architecture**: Supports widely distributed shared knowledge repositories and incorporates knowledge from diverse sources, provide with appropriate metadata for interpretation.
-- **Version Control**: Maintains versioned contexts or theories in a WORM repository
- **Diverse Storage Support** as well as read/write support for native repositories, read access to diverse knowledge and data sources will be supported by special interfaces using metadata for interpretation.
-- **Consistency Management**: Is designed to support the management of consistency across distributed repositories through metatheoretic methods (which depend on the dk and di subsystems).
+- **Version Control**: Maintains versioned contexts or theories in a WORM repository.
+- **Diverse Storage Support**: as well as read/write support for "native" repositories, read access to diverse knowledge and data sources will be supported by special interfaces using metadata for interpretation.
+- **Consistency Management**: SPaDE designed to support the management of consistency across distributed repositories primarily through partitioning of the cosmic namespace in a manner similar to the terran hierarchy of URL/URIs and the convention of conservative extension.
+The architecture is designed to provide sustain the conception of declarative knowledge as *additive*, i.e. that bodies of declarative knowledge can be merged without loss of consistency, and that the addition of new knowledge does not invalidate prior knowledge.  This depends primarily on the avoidance of equivocation by ensuring that vocabulary is uniquely named, and that the addition of new vocabulary is conservative, i.e. does not further constrain the values of any prior names.
+- **Diverse Views**: Though there is a single cosmic repository structure, practical applications, including further augmentation, will depend on a variety of mechanisms which provide distinct and limited views of the repository curated for the purposes in hand.
+This includes selecting just those parts which are relevant, limiting according to security consideration, or to levels of assurance or integrity, and presenting in ways which are appropriate to the users and their purposes.
 
 ## Architecture
 
-The Knowledge Repository is structured around the concept of **contexts** which are similar to theories in other HOL ITP systems, but which are not repositories for theorems (which are held in caches managed by di specialists in each context).
+The Knowledge Repository is structured around two hierarchies, the first of which is the hierarchy of names in the cosmic namespace.  The second hierarchy concerns logical  **contexts** which are carves out from that global namespace the vocabulary for each domain of interest through a relationship similar to the ancestral relationship between theories in  in other HOL and other interactive proof systems.
 The term theory is used to refer to a collection of context extensions (usually conservative) which yields a new context by introducing new names and constraints.
 
-Metatheory is intended to be a significant feature of [SPaDE](../docs/tlad001.md#spade), and metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
-A major part of such metadata is expected to be the demonstration of derived rules of inference, use of which is expected to displace in [SPaDE](../docs/tlad001.md#spade) the role of tactics and other high level proof facilities in more tranditional LCF proof support.
+Metatheory is intended to be a significant feature of [SPaDE](../docs/tlad001.md#spade).
+Metatheory will in general relate to specific theories, but the metadata will be held in its own distinct theories.
+
+A major part of such metatheory is expected to be the demonstration of derived rules of inference, use of which is expected to displace in [SPaDE](../docs/tlad001.md#spade) the role of tactics and other high level proof facilities in more traditional LCF proof support.
 
 ## Abstract and Concrete Structures
 
@@ -79,7 +84,7 @@ There are some complications in [SPaDE](../docs/tlad001.md#spade) arising from t
 
 Names are given to two kinds of entities, type constructors, and constants (terms).
 Though type and term variables are used in the logic, they are not constrained by the repository.
-Constraints may involve either or both of types and constants and are usually closely coupled with the introduction of one or more new types or constants in a manner which does not further constrain the valuesany other names, in which case it is normally possible to prove that the extension is *conservative*, i.e. that any model of the prior names and constraints can be extended to a model of the new names and constraints.
+Constraints may involve either or both of types and constants and are usually closely coupled with the introduction of one or more new types or constants in a manner which does not further constrain the values of any other names, in which case it is normally possible to prove that the extension is *conservative*, i.e. that any model of the prior names and constraints can be extended to a model of the new names and constraints.
 If a constraint is not associated with new names it is either non-conservative (and usually called an axiom) or irrelevant (semantically, but should be a demonstrable theorem).
 
 The name space within which this takes place ensures that all names are unique, and is structured hierarchically to support the logical combination of repositories from disparate origins.
@@ -87,7 +92,7 @@ The name space within which this takes place ensures that all names are unique, 
 The main features of the [SPaDE](../docs/tlad001.md#spade) repository which distinguishes it from prior HOL ITP systems are:
 
 1. The limitation to the extensions to the logical system, conservative or not, i.e. definitions and axioms.
-The [SPaDE](../docs/tlad001.md#spade) repository does not serve as a store of theorems unless those theorems are included in theories which are metatheoretic and explicitly state deribability, and is crucial to the ability to support a widely distributed shared repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge), and to the conception of a cosmic repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) is the structure of names in the [SPaDE](../docs/tlad001.md#spade) repository.
+The [SPaDE](../docs/tlad001.md#spade) repository does not serve as a store of theorems unless those theorems are included in theories which are metatheoretic and explicitly state derivability, and is crucial to the ability to support a widely distributed shared repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge), and to the conception of a cosmic repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge) is the structure of names in the [SPaDE](../docs/tlad001.md#spade) repository.
 The structure of names in the [SPaDE](../docs/tlad001.md#spade) repository is the main feature which distinguishes it from prior HOL ITP systems, and is crucial to the ability to support a widely distributed shared repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge), and to the conception of a cosmic repository of [declarative knowledge](../docs/tlad001.md#declarative-knowledge).
 
 Though this makes possible the combination of repositories, it is not normally desirable to be working in such a maximal context, and the use of [focal AI](../docs/tlad001.md#focal-intelligence-or-focal-ai) methods to support reasoning will require that the context in which reasoning takes place is carefully curated to include only those names which are relevant to the subject matter at hand.
@@ -102,7 +107,7 @@ Thus, for example, a theory of ordered pairs might be developed in a context who
 By contrast, for reasoning about the correctness of programs one might construct a context in which operators are available whose signature corresponds with the abstract syntax of the relevant programming language, and whose definitions capture the semantics of the language, thus providing for the representation in HOL of programs in that language.
 In that case we may see the context as establishing a language, and also sufficient metatheory to reason about programs expressed in that language.
 
-More generally, in using formal models of some engineering domain for the purpose of achieving reliable design and implementation of softare and hardware systems in that domain, the context in which that design activity takes place constitutes a language in which the necessary features of the designed systems and their role in the domain can be expressed.
+More generally, in using formal models of some engineering domain for the purpose of achieving reliable design and implementation of software and hardware systems in that domain, the context in which that design activity takes place constitutes a language in which the necessary features of the designed systems and their role in the domain can be expressed.
 
 Each such context is created, from a primitive context which corresponds to the primitive HOL logical system, by extensions, usually *conservative*.
 Each such extension introduces names for new type constructors and/or constants, together with a constraint limiting the values which those names can take, and optionally but normally, a proven existential theorem showing that every model of the prior context can be extended to encompass these new types and constants in a way which satisfies the constraints.
@@ -147,9 +152,18 @@ The use of signed cryptographic hashes to protect the integrity of contexts and 
 
 Theorem proving will always take place in exactly one logical context, and access to the repository for that purpose will require the extraction of the content of the relevant context.
 
+## Prelims
+
+```sml
+app load ["bossLib", "stringTheory"];
+open bossLib Theory Parse;
+local open stringTheory pred_setTheory in end;
+val _ = new_theory "SPaDE_KR_Spec";
+```
+
 ## S-expressions
 
-Underlying the HOL structures in [SPaDE](../docs/tlad001.md#spade) native repositories there is replica of the LISP S-expression structure, which is a simple binary tree structure in which each node is either an atom or a pair of nodes.
+Underlying the HOL structures in [SPaDE](../docs/tlad001.md#spade) native repositories there is slightly elaborated simulacra of the LISP S-expression structure, which may be used either for the encoding of formal material in HOL or may be used less formally for arbitrary structured JSON.
 
 This is mentioned here not because of its role in the representation of terms in the repository, but because it is used here for the structure of literal terms, which are explicit constants whose value is given by their structure as an S-expression.
 
@@ -162,12 +176,15 @@ End
 ```
 
 Note that in HOL a string is an arbitrary finite sequence of bytes.
+As used here it supports a disjoint union of the various atomic types available in JSON.
+
+All the following kind of entity are coded in these S-expressions.
 
 ## Names
 
 In order to enable the indefinite extension of the repository, and the logical combination of repositories from disparate origins, all names are *relative* and the top is open ended, enabling any two repositories from disparate origins to be logically combined into a single repository by adding an additional layer if necessary.
 
-Names are relative, giving a place in the heirarchic structure relative to the locus of the name.
+Names are relative, giving a place in the hierarchic structure relative to the locus of the name.
 Naturally this does give rise to complications when reasoning with theorems proven in different contexts, for which some innovation in the structure of terms is required (see below).
 
 They are therefore represented as a number indicating a height above the current theory, and a path downward from that folder, each step in the path being a simple name which selects a new folder, the last of which will be a theory.
@@ -198,6 +215,9 @@ val _ = Datatype
 Because names are relative, comparing constants in terms is complicated by the possibility of using constants in distinct contexts, and the need to adjust to a common context.
 There are several ways to approach this difficulty, and a final decision may not be made until prototyping is well progressed.
 
+A probable solution is relocation on the opening of a theory, constructing a context at that point which is the union of the signatures and constraints of the theory and all its ancestors, and then relocating all terms in the extensions of that theory to that context.
+This will be a one time cost on the opening of the theory, and will ensure that all terms in the extensions of that theory are in the same context, and that the relative names in those terms are all relative to that context, so that comparison of terms is straightforward.
+
 ### Term Relocation
 
 In an earlier version of this specification I attempted to deal with this by including in the term structure a way of relocating terms from the context of construction to some other context of use.
@@ -210,21 +230,21 @@ This too is now thought to be an unnecessary complication, and may be better ach
 In ProofPower HOL literals are represented as constants for which there is no explicit definition, but whose meaning is given by special rules in the logic.
 The distinction between defined constants and literals is made in the first instance in the parser and type checking, which syntactically distinguishes between the names allowed for constants and the syntactic structure of the available literals (numeric values, and quoted characters or strings).
 
-SPaDE does not deal with concrete syntax, and so the distinction between defined constants and literals, and to accomodate naming conventions, potentially from other diasporic repositories allows arbitrary byte sequences as names.
-The various altenatives roles for constants in terms can nevertheless be accomodated by the packing of data into the byte sequences used as names.
-One way of achieving this is to pack into the byte seuqence two null terminated byte sequences, the first indicating the role of the constant (defined constant, numeric literal, string literal, etc.) and the second giving the data appropriate to that role.
+SPaDE does not deal with concrete syntax, and so the distinction between defined constants and literals, and to accommodate naming conventions, potentially from other diasporic repositories allows arbitrary byte sequences as names.
+The various alternatives roles for constants in terms can nevertheless be accommodated by the packing of data into the byte sequences used as names.
+One way of achieving this is to pack into the byte sequence two null terminated byte sequences, the first indicating the role of the constant (defined constant, numeric literal, string literal, etc.) and the second giving the data appropriate to that role.
 THe details of this will be settled later and elsewhere, since it does not affect the abstract structure of the repository at the level we are now addressing it
 
 ### Term Structure
 
-The term structure therefore remains as in Cambridge HOL (and Churc's STT, apart from the elaborations to the structure of types providing for type variables and defined type constructors) with four kinds of term: variables, constants, applications and abstractions.
+The term structure therefore remains as in Cambridge HOL (and Church's STT, apart from the elaborations to the structure of types providing for type variables and defined type constructors) with four kinds of term: variables, constants, applications and abstractions.
 
 ```sml
 val _ = Datatype
       `hterm = Tmv sname
              | Tmc rname htype
              | Tapp hterm hterm
-             | Tabs sname htype hterm;             
+             | Tabs sname htype hterm`;             
 ```
 
 ## Sequents
@@ -273,21 +293,29 @@ But the extensions in each theory are theorems, and there are outstanding issues
 
 Folders are used to structure the repository hierarchically, and contain theories or other folders (not both).
 
+**[sml below here broken, there seems to be. a problem in my setup with polymorphic datatypes, looks like the type variables interfere with the quotes]**
+
 ```sml
-      val _ = Datatype `folder = Sdict (sname # 'b) list)`;
+val _ = Datatype `s-exp = SNil | SAtom 'a | SCons  s-exp s-exp`;
+```
+
+```sml
+val _ = Datatype `folder = Sdict (sname # 'a) list`;
 ```
 
 ## Trees
 
-I was looking for a much tighter charactersation of versioned trees, but this involved recursions in Datatype constructions which are not supported.
+I was looking for a much tighter characterisation of versioned trees, but this involved recursions in Datatype constructions which are not supported.
 So this is a simpler tree datatype which will suffice.
 
 ```sml
 val _ = Datatype
  `rtree =
-   Sfolder ('a rtree) folder   |
-   Rleaf 'a;
+   Sfolder of ('a rtree) folder   |
+   Rleaf of 'a`;
 ```
+
+val _ = Datatype `btree = Leaf ’a | Node btree ’b btree`;
 
 ## The Structure of Local Repositories
 
@@ -307,19 +335,19 @@ The combination of all local repositories which are reachable from each other fo
 Since there may be more than one such origin, we may think of the collection of all [diasporic](../docs/tlad001.md#diasporic) repositories as constituting the pansophic repository, which encompasses all knowledge in the cosmos.
 The point of discussing a whole thus composed is to ensure that when previously disconnected diaspora encounter each other, we have a clear model of how their repositories may be logically combined.
 
-The way in which this has been addressed has been through the heirarchic structure of relative names, open ended at the top, so that any two [diasporic](../docs/tlad001.md#diasporic) repositories may be combined by adding a further layer to the hierarchy if necessary to ensure uniqueness of names.
+The way in which this has been addressed has been through the hierarchic structure of relative names, open ended at the top, so that any two [diasporic](../docs/tlad001.md#diasporic) repositories may be combined by adding a further layer to the hierarchy if necessary to ensure uniqueness of names.
 I don't think there is any urgency to formal modelling at this level.
 
 ## Contexts and Views
 
-Each diaporic repository determines a [diasporic](../docs/tlad001.md#diasporic) context, which a syntactic and a semantic component.
+Each diasporic repository determines a [diasporic](../docs/tlad001.md#diasporic) context, which a syntactic and a semantic component.
 The syntactic component is a signature and a set of constraints.
-The semantic componenet is a collection of assignments of values to the names in the signature which satisfy the constraints, and is therefore called a model.
+The semantic component is a collection of assignments of values to the names in the signature which satisfy the constraints, and is therefore called a model.
 Each models determines the truth value of BOOLean terms constructed using only the names in the signature, and the soundness of the logic ensures that any term which can be proved true in the context is true in all models of the context.
 
 The context in which reasoning takes place will normally be a small part of that [diasporic](../docs/tlad001.md#diasporic) context, and the [diasporic repository](../docs/tlad001.md#diasporic) has additional structure which facilitates the choice of a context appropriate for any particular application or theory development.
 
-Two core mechanisms provide the bsis for this, with some additional elaborations related to integrity and security.
+Two core mechanisms provide the basis for this, with some additional elaborations related to integrity and security.
 
 The core features are:
 
@@ -327,10 +355,10 @@ The core features are:
 2. The grouping of extensions into theories.
 
 The context in which the extensions in a theory are to be interpreted is determined by the union of the signatures and constraints of the parent theories of that theory, together with all their ancestors.
-A new appliction may therefore select just those parent theories needed to incorporate all the names on which the proposed extensions depend.
+A new application may therefore select just those parent theories needed to incorporate all the names on which the proposed extensions depend.
 The context in which the extensions of that theory are then interpreted is the union of the contexts created by those parent theories.
 
-Theorems proven in that context are signed by some more or less trusted authority as derivable in that context, usng a cryptographic hash of the theory which not only reliably identifies the theory, but also insures against its modification.
+Theorems proven in that context are signed by some more or less trusted authority as derivable in that context, using a cryptographic hash of the theory which not only reliably identifies the theory, but also insures against its modification.
 Because the integrity of theorems is established using  digital signatures, theorems do not need to be stored in the [SPaDE](../docs/tlad001.md#spade) repository, which is wholly devoted to securely recording logical contexts in which reasoning takes place rather than the resulting theorems.
 [SPaDE](../docs/tlad001.md#spade) does not permit modification to theories, ensuring that the context in which any theorem is proven cannot be misconstrued.
 It is possible to edit theories in a [SPaDE](../docs/tlad001.md#spade) repository, but this creates a new theory with a new name and a new hash, and any theorems proven in the prior theory remain valid in that theory, but not in the new theory.

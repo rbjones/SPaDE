@@ -70,7 +70,7 @@ val _ = Datatype
              | Tapp hterm hterm
              | Tabs sname htype hterm
              | Tloc rname hterm
-             | Tlit sexp;             
+             | Tlit sexp`;             
 
 (* Sequents *)
 
@@ -118,7 +118,7 @@ So this is a simpler tree datatype which will suffice.
 
 val _ = Datatype
  `rtree =
-   Rfolder (rtree rdict)   |
+   Rfolder 'a rtree   |
    Rleaf 'a`;
 
 (* The Repository *)

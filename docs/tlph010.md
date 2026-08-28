@@ -5,7 +5,7 @@ The purpose of this document is to provide that account.
 
 ## Some Context
 
-The status quo terminologically is confused by the number of academic disciplines concerned with language and logic, which chose terminology conducive to theoretical development within those disciplines, but not closely aligned with the purposes of this work, or even with the motivations of the pioneers of modern logic.
+The *status quo* terminologically is confused by the number of academic disciplines concerned with language and logic, which chose terminology conducive to theoretical development within those disciplines, but not closely aligned with the purposes of this work, or even with the motivations of the pioneers of modern logic.
 
 It may be worth touching upon some of the seminal work concerned with the emergence of modern logic.
 The main factor in the development of logic in the 19th century was the engagement of mathematics with logic, which seems to have had two principal stimuli.
@@ -13,14 +13,22 @@ One was probably just that mathematics became less exclusively focussed on numbe
 From this point of view, the algebraic treatment of proposition logic by Boole and De Morgan was a natural development.
 
 The second stimulus was the perceived need for a return to rigor in mathematical analysis, which under the impetus of its applications in science and engineering had mushroomed despite a lack of clarity about its fundamental concepts, notably the real number system and the concept of function, both of which were ontologically novel and opaque.
-This thread was pursued most effectively by Cauchy, Weierstrass, Dedekind and Cantor, leading to the arithmetization of analysis and the formal definition of real numbers in terms of Dedekind cuts or Cauchy sequences of rationals.
+This thread was pursued most effectively by Cauchy, Weierstrass, Dedekind and Cantor, leading to the arithmetisation of analysis and the formal definition of real numbers in terms of Dedekind cuts or Cauchy sequences of rationals.
 
 A third notable stimulus was philosophical.
-In the eighteenth century a divergence appeared between David Hume, and the central place in this philosophy of his division of knowledge into "relations of ideas" and "matters of fact", and Immanuel Kant, who argued that synthetic a priori knowledge was possible, and that mathematics was the prime example of such knowledge.
+In the eighteenth century a divergence appeared between David Hume and Immanuel Kant.
+
+In Hume's philosophy the division of knowledge into "relations of ideas" and "matters of fact" has a central place.
+Mathematics is placed in the former category.
+Kant disputed that account of the status of mathematics, creating a new usage of the term “synthetic” (relating to propositions rather than it previous use as a kind of proof) and arguing that synthetic a priori knowledge was possible, and that mathematics was the prime example of such knowledge.
 For Hume, mathematics belonged to the realm of "relations of ideas", and hence to logic, from which Kant demurred.
 
 In a context in which mathematics had been progressing a profound foundational re-construction, Gottlob Frege set out to refute Kant by showing that mathematics could be reduced to logic.
 The conception of *logic* which he tabled for that purpose was *Begriffsschrift*, concept notation.
+It was intended from the outset as a subject-matter-neutral language of pure thought, not a notation confined to mathematics, and not a mere *calculus ratiocinator*.
+Frege's logicism is, in important part, an attempt to place arithmetic on the analytic side of Kant's distinction, and thereby to restore Hume's conception of mathematics as concerned with the  relation of ideas.
+Carnap later formalised a successor of that same concept analytic truths as those that hold in virtue of the rules of a language rather than matters of fact.
+A fuller historical account is in [A History of Deduction](tlph021.md).
 
 ## Foundational Institutions
 
@@ -45,7 +53,7 @@ To progress this idea, we will define the following concepts:
 
 ### Declarative Language
 
-A declarative language is one in which constraints on the possibile state of some domain of discourse can be expressed, using sentences having truth values which are determined by the state of that domain, the assertion of which limit the possibilities to those satisfying the truth conditions.
+A declarative language is one in which constraints on the possible state of some domain of discourse can be expressed, using sentences having truth values which are determined by the state of that domain, the assertion of which limit the possibilities to those satisfying the truth conditions.
 
 In order to talk about whether mappings between declarative languages preserve meaning, we need to say something about the semantics of those languages.  For meaning to be fully preserved, we need to consider not only the truth conditions of sentences but also the value of expressions within the languages.  Semantics is not just assigning values to sentences, but also to the members of all other syntactic categories of the language.
 

@@ -10,7 +10,7 @@ The content of this directory falls under the following headings:
 
 - **[Code](#code)**
 - **[Testing and Evaluation](#testing-and-evaluation)**
-- **[Contiuous Integration](#continuous-integration)**
+- **[Continuous Integration](#continuous-integration)**
 
 ## Code
 

@@ -1,6 +1,7 @@
 # The SPaDE Glossary
 
 Note that in this glossary, many terms are given special meanings for SPaDE which may differ from their general usage.
+Some are neologisms.
 
 [A](#a) [D](#d) [E](#e) [F](#f) [I](#i) [M](#m) [P](#p) [S](#s) [T](#t)
 
@@ -35,7 +36,7 @@ Of course this formal stance may not be convincing when considering natural lang
 
 ## D
 
-### Declarative Knowledge
+### [Declarative Knowledge](../kr/krph004.md)
 
 Knowledge captured in propositions expressed by sentences in a well defined declarative language.
 
@@ -112,6 +113,15 @@ These will often be *perfect information spaces* in which competence can be achi
 
 A conceptual framework for understanding how focal engineering (including singular foci) can be applied to problems in various domains, by identifying the perfect information spaces within those domains and applying appropriate focal AI techniques to solve problems within those spaces.
 
+### Foundational Institution
+
+A foundational institution is family of logical systems, sharing similar syntax and semantics, each of which provides a basis for the development of declarative knowledge by conservative extension.
+The members of the family are ordered by semantic expressiveness and proof theoretic strength.
+
+### Foundational Ontology
+
+A foundational ontology is a family of collections of abstract entities in the context of which declarative knowledge (notably but not exclusively, mathematics) can be represented by conservative extension.
+
 ## I
 
 ### Institution
@@ -141,6 +151,11 @@ In [Synthetic Philosophy](tlph002.md), which follows logical positivism in rejec
 
 Concerning all knowledge in the cosmos.
 
+### Pansophism
+
+The belief in the possibility of universal knowledge, or the idea that all knowledge can be unified into a single, coherent system.
+A philosophical system devised by the Czech theologian and pedagogue John Amos Comenius (1592–1670) in the mid-17th century, centered on achieving pansophia — universal wisdom.
+
 ### [Perfect Information Space](./tlad005.md#perfect-information-spaces)
 
 A domain characterized by complete observability, well-defined rules, deterministic behavior, finite and discrete state/action spaces, objective evaluation criteria, and self-contained specification.
@@ -169,7 +184,7 @@ See [Perfect Information Spaces and Focal Methods](tlad005.md) for detailed trea
 ### The Singularity
 
 A hypothesised future point at which technological progress, particularly in AI, becomes so rapid and profound that it defies human understanding and control.
-Often associated with the acceleration of AI development expected when AI is able to improve its own capabilities or design its succesors autonomously.
+Often associated with the acceleration of AI development expected when AI is able to improve its own capabilities or design its successors autonomously.
 
 ### Singular Focus
 

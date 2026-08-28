@@ -5,13 +5,19 @@ It consists of two main parts, the first giving a general characterisation of th
 
 ## General Characteristics
 
-In the present computational paradigm, computer programs operate on various data, which typically have real-world signficance informally understood but not formally expressed.
+In the present computational paradigm, computer programs operate on various data, which typically have real-world significance informally understood but not formally expressed.
 If you write down what that data means, you should get a declarative sentence expressing a proposition which captures that meaning.
+
 The computation produces new data the real-world significance of which is also only informally understood, and which could in principle be made explicit as a declarative sentence.
 There is here, in the computation, a deductive connection.
-We hope that the computation effects a deductive inference from the proposition which expresses significance of the input data, to that which expresses the signficance of the output data (in the context of a suitable formal model of the system in the context of which these propositions are to be understood).
+We hope that the computation effects a deductive inference from the proposition which expresses significance of the input data, to that which expresses the significance of the output data (in the context of a suitable formal model of the system in the context of which these propositions are to be understood).
 
 If this were transformed from a computational process to a properly (rather than implicitly) deductive process, then the meanings of these data structures and the effects of computation are explicit, and the process may more formally be considered to be deductive.
+
+In claiming that such inferences would be deductive, I am presuming the factorisation of the relevant semantics into an abstract semantics expressing a proposition about an abstract model of the intended subject matter, and a real world interpretation which connects that abstract model to the real world, so that the truth of the proposition in the abstract semantics is connected to the truth of a proposition about the real world.
+
+Though it is not the purpose of this document to elaborate on this kind of semantic factorisation, it is crucial to the discussion here that it results in logical inferences in the context of an abstract model corresponding with inferences in the real world which are contingent upon the thesis that the abstract model is an accurate representation of the real world in the relevant respects.
+This is an elaboration of the usual practice in using formal reasoning in abstract languages such as HOL about the real world to verify designs and implementations of real world systems, without assuming axiomatically the contingent premises which underpin the connection between the abstract model and the real world.
 
 Why would we want to do this, what are the potential benefits and disadvantages and costs?
 How might it be accomplished, what are the difficulties downsides and costs?
@@ -25,9 +31,23 @@ This is potentially more conclusive than testing the program, since testing is a
 
 Key features of the deductive paradigm:
 
-1. The signficance of data is made formally explicit, so that the data can be read as [declarative knowledge](tlad001.md#declarative-knowledge).
+1. The significance of data is made formally explicit, so that the data can be read as [declarative knowledge](tlad001.md#declarative-knowledge).
 
-2. Information Processing is specified in terms of the inference
+2. Information Processing is specified in terms of the inference of new declarative knowledge from existing declarative knowledge, rather than in terms of the transformation of data.
+
+Requirements for deductive rigour:
+
+1. The languages in which declarative knowledge is expressed must be formally defined, both on their syntax and semantics.
+There is a problem of regress associated with such definitions, but sceptical doubt about the adequacy of such definitions is not a reason to avoid them, but rather a reason to be careful in their formulation.
+
+2. Semantics can and should be layered, with an abstract semantics sufficient to determine the relation of entailment which determines which inferences are sound, and further interpretations in other domains of interest which must be tested by means appropriate to the domain.
+
+3. In the representation of declarative knowledge, particularly in the context of artificial (super)intelligence which may be expected to undertake much more elaborate chains of reasoning than humans. it essential that the logical coherence of the knowledge base be maintained.
+This protects against the most common logical fallacy of them all, equivocation.
+Without that protection, superintelligent agents will exploit any incoherence, however subtle to prove any proposition.
+
+The precautions against equivocation must be engineered to suffice in the context of a cosmically distributed shared knowledge base, and must safely admit the conjunction of distinct diasporan knowledge bases when hitherto distinct diaspora make contact and share knowledge.
+This problem is analogous to if not quite so straightforward as the devising of a global scheme for referring to web pages or other resources.
 
 ## Support for the Deductive Paradigm in SPaDE
 
@@ -62,15 +82,23 @@ The divergence from the strict letter of the LCF paradigm in [SPaDE](tlad001.md#
 
 ### Deductive Intelligence
 
-Deductive Intelligence in [SPaDE](tlad001.md#spade) comes through the use of artificial intelligence outside the deductive kernel to optimise all use of [deduction](tlad001.md#deduction) in the system.
+Deductive Intelligence in [SPaDE](tlad001.md#spade) comes through the use of artificial intelligence outside the deductive kernel to optimize all use of [deduction](tlad001.md#deduction) in the system.
 Because of the complexity of detailed formal proofs, even when enhanced by oracles and reflection in the kernel, progression to widespread adoption of a deductive paradigm depends on the effective integration of AI techniques to assist in proof construction and verification.
 
 The approach which will be taken to this falls under the general heading of [focal engineering](tlph004.md).
 This approach is intended because [deduction](tlad001.md#deduction) in formally defined theories constitutes a *perfect information space* similar to those for which the DeepMind alpha-zero system was developed, and it therefore to be addressed by similar methods in [SPaDE](tlad001.md#spade), which make use of neural nets trained narrowly for these specific domains, rather than being trained using a very broad range of materials.
 
-A significant difference is that deductive intelligence is targetted at not one such perfect information space, but a complex heirarchy corresponding to the theory structure in the distributed knowledge repository.
-It is therefore intended that specialists will be trained for each theory as the theory develops, and that these will in some cases constitute a layered neural net, and in others by a heirarchy of intelligent agents each with its own area of expertise.
+A significant difference is that deductive intelligence is targeted at not one such perfect information space, but a complex hierarchy corresponding to the theory structure in the distributed knowledge repository.
+It is therefore intended that specialists will be trained for each theory as the theory develops, and that these will in some cases constitute a layered neural net, and in others by a hierarchy of intelligent agents each with its own area of expertise.
 
 Deductive Intelligence contributes to the deductive paradigm primarily by overcoming the infeasibility of proof search in the absence of effective heuristics.
 
 Further details on how it is intended to approach this problem will in due course be found in the [di](../di/README.md) directory.
+
+### Singular Metatheory
+
+An important element in broadscoping deduction to subsume computation is the use of a reflection rule to permit deductive reasoning to admit any provably sound computation.
+The primitive inference rules determine a recursively enumerable (semi-decidable) subset of the entailment relation.
+Any algorithm which has been proven to be correct in its judgements about membership of that set can be used in formal proofs in the system.
+
+In addition, arbitrary computational resource can be used to execute algorithms, subject to a formal specification of the language or notation used to express the algorithms which that resource executes.

@@ -7,7 +7,7 @@ Like domain names they constitute units of an addressing scheme which allocated 
 The fit into the domain name system by using a URL as the lower part of a name (allowing that higher levels might eventually prove desirable).
 
 It is not necessary for a [SPaDE](../docs/tlad001.md#spade) repository to have any predetermined physical structure, provided only that content can be presented and managed according to the abstract structure described in [KnowledgeRepo.md].(KnowledgeRepo.md).
-However, the [SPaDE](../docs/tlad001.md#spade) knowledge representaton sofware is engineered to use a specific concrete representation of a subtree of the hierarchic repository, and repositories structured in this way are described as [SPaDE](../docs/tlad001.md#spade) Native Repositories.
+However, the [SPaDE](../docs/tlad001.md#spade) knowledge representation sofware is engineered to use a specific concrete representation of a subtree of the hierarchic repository, and repositories structured in this way are described as [SPaDE](../docs/tlad001.md#spade) Native Repositories.
 
 The [SPaDE](../docs/tlad001.md#spade) Native Repository structure uses a linear binary file as a versioned WORM (Write Once Read Many) repository, in which the entire content of the repository is stored in a single file, to which new versions may be efficiently added by appending amendments and supplements to the end of the file.
 At the lowest level such a repository consists of a sequence of null terminated byte sequences, which may be interpreted as UTF-8 character strings, or as any other type of data.
@@ -38,7 +38,7 @@ Linear sequences of bytes are found at multiple levels, not only in this base la
 
 2. Coded in that linear array *a general representation of tree structures*, represented in the simplest way as atoms, the empty list NIL, and binary nodes (CONS cells) which add a head to a list.
 
-3. Coded in that tree structure *a representation of a heirarchy of contexts or theories*, each of which introduces various names by including them in a signature indicating what type of value they denote, and providing a constraint which assigns meaning to the names.
+3. Coded in that tree structure *a representation of a hierarchy of contexts or theories*, each of which introduces various names by including them in a signature indicating what type of value they denote, and providing a constraint which assigns meaning to the names.
 Metadata which might be included in theories will not be explicitly incorporated into theories at this stage, but are expected to form the subject matters of separate theories which will refer back to the theory to which they relate, so that the content of a theory is strictly limited to the signatures and constraints which define the context.
 Caches of theorems will be maintained by the deductive intelligence subsystem, along with neural net heuristics specific to logical contexts.
 These will also be stored in separate theories which refer back to the contexts in which the theorems were proved, and to which the heuristics apply.
@@ -48,7 +48,7 @@ These will also be stored in separate theories which refer back to the contexts 
 In this sequence of sequences, the sequences are represented as null-terminated byte sequences, allowing for inclusion of the zero byte by using binary 1 as an escape character.
 Note that though these byte sequences will often be UTF-8 character strings, they are not restricted to that format, and may be arbitrary byte sequences.
 Since the intention is that this will be written and read linearly, the position of a sequence in the file may be represented by counting the sequences and using that count as an index.
-In some places sucha sequence of bytes may be used to represent a number, and may then be thought of as a base 256 number, with the most significant byte first ("big endian").
+In some places such a sequence of bytes may be used to represent a number, and may then be thought of as a base 256 number, with the most significant byte first ("big endian").
 
 ## Layer 2: A Tree Structure
 
@@ -108,12 +108,12 @@ In [SPaDE](../docs/tlad001.md#spade) repositories there are two distinct but int
 The first is a hierarchy of names which provides a global namespace in which names are allocated to contributors in such a way that the names allocated to distinct contributors are distinct, enabling different contributions to be coherently combined.
 The meanings assigned to these names are subject to amendment, and the name spaces are therefore versioned, so that the logical context for any theorem can be reconstructed.
 The hierarchy of names is built using collections which may generally be thought of as folders or directories, at the lowest level of which appear *theories*, which determine a logical context by extension to previously defined contexts.
-Within a [SPaDE](../docs/tlad001.md#spade) respository there will be a versioned hierarchy of folders containing theories.
+Within a [SPaDE](../docs/tlad001.md#spade) repository there will be a versioned hierarchy of folders containing theories.
 Above that level, to enable reference to contexts in other repositories, there will be a further hierarchy of folders or directories, which corresponds (as far as earthly repositories are concerned) to the structure of URL's.
 
 In order for this hierarchy to be open ended, to admit continuous expansion through other planets, star systems and galaxies, all name references will be relative, and access to larger domains will be possible through higher levels of the hierarchy.
 
-Though in principle this makes it possible for developments to take place in the context of the entire known subsystems of the cosmic namespace, we neverthess want to enable each development to take place in a context curated for that development, including only the vocabulary for theories on which the development depends.
+Though in principle this makes it possible for developments to take place in the context of the entire known subsystems of the cosmic namespace, we nevertheless want to enable each development to take place in a context curated for that development, including only the vocabulary for theories on which the development depends.
 This is essential to enable appropriate focus, and for the operation of the [focal AI](../docs/tlad001.md#focal-intelligence-or-focal-ai) methods which are to be used in the deductive intelligence subsystem.
 
 ### The Context Hierarchy

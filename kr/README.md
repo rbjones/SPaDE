@@ -18,11 +18,13 @@ The files in this directory are organized as follows:
 This section includes documents that provide the philosophical context and rationale for the design of the Knowledge Repository.
 This supplements the general philosophical materials in the [docs](../docs/README.md) directory.
 
-At the moment we have three muddled documents in this section, which will be rationalised in due course.
+At the moment we have muddled documents in this section, which will be rationalised in due course.
 
 - [krph001.md](krph001.md) - Knowledge Repository Philosophical Background
 - [krph002.md](krph002.md) - Universality in the Representation of [Declarative Knowledge](../docs/tlad001.md#declarative-knowledge)
 - [krph003.md](krph003.md) - Philosophical Background for the Knowledge Repository
+- [krph004.md](krph004.md) - Declarative Knowledge in SPaDE
+- [krph005.md](krph005.md) - Universality (V)
 
 ## Architectural Design
 
@@ -57,6 +59,7 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd010.sml](krcd010.sml) - SML signatures detailing the Native Repository encoding/I/O/S-expression contracts
 - [krcd011.sml](krcd011.sml) - SML structures implementing the Native Repository encoding/I/O/S-expression contracts
 - [krcd012.py](krcd012.py) - Python wrapper that delegates the Native Repository I/O ABCs to the SML implementation in krcd011.sml via a persistent ProofPower session
+- [krcd013.py](krcd013.py) - Python interface to an interactive theorem prover (e.g., ProofPower) (coded by Gemini 3 Pro)
 
 ## Testing and Evaluation
 

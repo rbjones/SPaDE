@@ -1,5 +1,6 @@
 (*
-   Signature for SPaDE Native Repository low-level I/O
+   Signature for SPaDE Native Repository:
+    low-level I/O
    Mirrors the Python ABCs in krcd008.py (encoding/decoding, low-level IO,
    and S-expression helpers) so the SML implementation can expose the same
    contract.

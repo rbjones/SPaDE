@@ -36,5 +36,5 @@ This document outlines the methods and standards for effective human/AI collabor
 
 ### 4. Quality Assurance
 
-- It is an important aim of the project to enable development to achieve correctness through formal verification rather than testing, and to establish development methods initially for software but ultimately for any kind of engineering, which allow aritficial intelligence to be used with confidence that the results are correct, eliminating the need for testing (though requirements review will still be needed).
-- It is therefore expected that the steps adoped to achieve quality results will evolve through the projects, and be rather primitive at first, but will become more sophisticated as the project progresses.
+- It is an important aim of the project to enable development to achieve correctness through formal verification rather than testing, and to establish development methods initially for software but ultimately for any kind of engineering, which allow artificial intelligence to be used with confidence that the results are correct, eliminating the need for testing (though requirements review will still be needed).
+- It is therefore expected that the steps adopted to achieve quality results will evolve through the projects, and be rather primitive at first, but will become more sophisticated as the project progresses.

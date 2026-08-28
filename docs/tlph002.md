@@ -1,14 +1,30 @@
 # Synthetic Philosophy
 
-In the SPaDE project, philosophy and engineering are cheek by jowl, and the distinction between them is not clearly made.
-The philosophy is synthetic, in the sense that it is constructed to serve a purpose, and the engineering is philosophically grounded and built on those foundations to realise that purpose.
+In the SPaDE project, philosophy and engineering are cheek by jowl.
+The distinction between them is not clearly made, they are both oriented in their own ways to [a single purpose](./tlph012.md).
+The philosophy is synthetic, in the sense that it is *constructed* rather than *natural*.
+It is not the discovery of philosophical truths about some natural phenomenon or metaphysical reality, but the construction of a conception of knowledge intended (in the context of SPaDE) to underpin the proliferation of benign intelligence across the cosmos.
+Though synthetic philosophy is not project specific, it is presented here through its relevance to and role in the SPaDE project.
+This places epistemology at the heart of the philosophy, intertwined with elements from the philosophy of language, logic and metaphysics, without which the articulation of the epistemology would be impossible.
 
-A central point of engagement is throught the emphasis in deductive engineering on the exploitation of knowledge in the solution of real world problems, and the importance of epistemology as a fundamental approach to knowledge and the design of infrastructure for the management and exploitation of knowledge.
-Once philosophy is thought of as synthesis rather than an observation, it becomes a necessary prelude to the architecture of knowledge repositories and application of deductive methods to engineering problems.
+The engineering is then, philosophically grounded.
+This aspect of synthetic philosophy is instrumental, and foundational.
+It is built on those foundations to realise that purpose.
+
+Particular points of engagement between the philosophy and the engineering are:
+
+- the emphasis, in [deductive engineering](tlad007.md), on the exploitation of declarative knowledge in the solution of real world problems,
+- the importance of epistemology in providing a fundamental approach to knowledge representation and the design of infrastructure for the management and exploitation of knowledge.
+
+These features are more closely associated historically with the symbolic approach to AI rather than the connectionist approach.
+This is not intended to marginalise the importance of current LLM techniques or their continuing evolution, but rather to provide methods and tools which advance their effectiveness and reliability.
+
+Philosophy, thought of as a synthesis rather than an observation, serves as a stage in  designing the architecture of knowledge repositories and the application of deductive methods to engineering problems.
 
 Logical Positivism was that manifestation of positivism created in the wake of the great advances in the logical foundations of mathematics which took place around the turn of the 20th century.
 In the philosophy of Rudolf Carnap, inspired by the work of Bertrand Russell on the formalisation of mathematics and his ideas for "scientific philosophy", it promoted and facilitated the application of formal deductive systems to the advancement of logical rigour in philosophy and science.
-[Synthetic Philosophy](tlad001.md#synthetic-philosophy) is intended as a successor to Logical Positivism, oriented more broadly to Science, Technology Engineering and Mathematics (STEM) and to all applications in which deduction may play a role.
+
+[Synthetic Philosophy](tlad001.md#synthetic-philosophy) is intended as a successor to Logical Positivism, oriented more broadly to Science, Technology, Engineering and Mathematics (STEM) and to all applications in which deduction may play a role.
 
 The structure of this exposition is a bit like a roller coaster.
 In various ways I think of SPaDE and its philosophy as a stack with certain things at the top and others below.
@@ -24,13 +40,15 @@ We begin at the top, so that the whole may be considered in the light of the sup
   - [Philosophy of Language](#philosophy-of-language)
   - [Logic](#logic)
 - [**Concrete Philosophy**](#concrete-philosophy)
+- [**Normative Philosophy**](#normative-philosophy)
+- [Beyond Conventionalism](#beyond-conventionalism)
 
 ## Superstructure
 
 Probably the parts of this *philosophy* which are closest to academic analytic philosophy are those closest to the philosophical and logical foundations.
 But these ideas are unlikely to be well understood in isolation from the broader context of the *engineering* and *ethical* purpose which motivates them, and determines the synthetic character of the philosophy.
 
-In this document I shall try to address the foundational elements of synthetic philosophy, but feel the need to place those ideas in the context they serve by saying a litle about the superstructure which they are intended to support.
+In this document I shall try to address the foundational elements of synthetic philosophy, but feel the need to place those ideas in the context they serve by saying a little about the superstructure which they are intended to support.
 
 ### Purpose
 
@@ -67,14 +85,14 @@ The [SPaDE](tlad001.md#spade) project is an engineering manifestation of that ph
 [Synthetic Philosophy](tlad001.md#synthetic-philosophy) is primarily *epistemological*, which is to say that it is intended to underpin the acquisition and application of knowledge.
 It is presented here as falling into three parts, distinguished by the epistemological status of the propositions which concern them, and the domains of knowledge to which they relate.
 
-1. [*Foundations*](#foundations) underpins the whole enterprise, and does so by addressing *a priori* knowledge in abstract domainsand its relation to [declarative knowledge](tlad001.md#declarative-knowledge) generally.
-2. [*Concrete Philosophy*](#concrete-philosophy) is concerned with knowledge of the "real world", mediated by abstract mmodels.
+1. [*Foundations*](#foundations) underpins the whole enterprise, and does so by addressing *a priori* knowledge in abstract domains and its relation to [declarative knowledge](tlad001.md#declarative-knowledge) generally.
+2. [*Concrete Philosophy*](#concrete-philosophy) is concerned with knowledge of the "real world", mediated by abstract models.
 3. [*Normative Philosophy*](#normative-philosophy) is concerned with purpose, values and ethics.
 
 These three parts of [synthetic philosophy](tlad001.md#synthetic-philosophy) are interrelated.
 Each is prerequisite to its successors, and a motivator for its predecessors.
 This relationship is discussed in greater detail as constituting an [Epistemological Stack](tlph003.md) which influences the architecture of the [SPaDE](tlad001.md#spade) project.
-This epistemological stack of synthetic philosophyis complemented by a parallel structure in the [Focal Tower](tlph004.md) of stages in *deductive engineering* supporting evolution of information processing to a deductive paradigm.
+This epistemological stack of synthetic philosophy is complemented by a parallel structure in the [Focal Tower](tlph004.md) of stages in *deductive engineering* supporting evolution of information processing to a deductive paradigm.
 
 ## Foundations
 
@@ -114,9 +132,9 @@ It is convenient in the establishment of declarative language to think of langua
 Working in the first instance with such abstract declarative language provides the methods and tools for the construction of models of both physical and ethical systems, and enables reliable deductive methods to be applied in all domains of [declarative knowledge](tlad001.md#declarative-knowledge).
 
 In order to effect this abstract foundation, it is necessary to chose appropriate abstract domains, and we will find when we come to discuss the expressiveness of declarative languages and the possibility of universal declarative languages, that the key choice to be made in relation to those abstract domains is cardinality.
-It does not matter *what* these abstract entities are, only *how many* there are.
+It does not so much matter *what* these abstract entities are, only *how many* there are.
 
-The conventionalist metaphysics of [synthetic philosophy](tlad001.md#synthetic-philosophy) may this be reduced to the thesis that we may chose whatever abstract ontology we please, but at bottom the choice is just one of cardinality and the difficult problems in this domain concern how to express the choice of cardinality in declarative language, how to devise propositions which are logically consistent but are only satisfiable in models of sufficient size (in set theory, these are the large cardinal axioms).
+The conventionalist metaphysics of [synthetic philosophy](tlad001.md#synthetic-philosophy) may thus be reduced to the thesis that we may chose whatever abstract ontology we please, but at bottom the choice is just one of cardinality and the difficult problems in this domain concern how to express the choice of cardinality in declarative language, how to devise propositions which are logically consistent but are only satisfiable in models of sufficient size (in set theory, these are the large cardinal axioms).
 
 These are however, from the perspective of synthetic philosophy, analogous to debating how many angels may dance on the head of a pin, since the practical application of [declarative knowledge](tlad001.md#declarative-knowledge) does not depend on very large cardinals.
 It is doubtful whether any practical application of [declarative knowledge](tlad001.md#declarative-knowledge) will be expedited by the assumption of more than an unbounded set of inaccessibles.
@@ -146,7 +164,7 @@ A significant instance of this comes in the idea of *singular focus*, where refl
 
 ## Concrete Philosophy
 
-Concrete philosophy is the domain of empirical truth and physical engineering.
+Concrete philosophy (as that term is used here)concerns the domain of empirical truth and physical engineering.
 In the SPaDE project, concrete philosophy is addressed through the construction and application of abstract models of physical systems, expressed in declarative language and subject to deductive reasoning.
 We may think of these models as isomorphic to aspects of the material world and given semantically by a bijection between the abstract entities of the model and the concrete entities of the physical system being modelled.
 
@@ -157,7 +175,7 @@ Why do we need to cover this in an AI dominated engineering enterprise?
 
 This is something which I had not expected to cover until very recently, despite the strong sense of purpose which has driven this project.
 Hitherto I have thought in terms of evolutionary necessity.
-The necessity which I have charactersied as arising from an *evolutionary imperative* guaranteeing that the dominant intelligent systems in the cosmos will be those which are best engineered to proliferate, together with the belief that the main fuel for the accelerated proliferation of intelligence will be knowledge.
+The necessity which I have characterised as arising from an *evolutionary imperative* guaranteeing that the dominant intelligent systems in the cosmos will be those which are best engineered to proliferate, together with the belief that the main fuel for the accelerated proliferation of intelligence will be knowledge.
 
 The project was then conceived as playing into evolutionary necessities, both anticipating and designing the future.
 An important design strategy was to go for foundational abstractions which owe nothing to the particulars of human origins, of which the simplest example is the natural numbers, but more cogently considering that the adoption of a single underlying representation for declarative knowledge in a universal foundational institution would eventually be adopted by all intelligent systems, human or artificial, wherever they may be found in the cosmos.
@@ -168,6 +186,28 @@ In two ways I came to see that normative philosophy has a place in synthetic phi
 First I thought of the emergence of morality in the evolution of life on earth. This is a late development, and surely could not have become universal in humans (notwithstanding the diversity of moral systems that have emerged) if it had not been conducive to proliferation.
 So I reasoned that the same evolutionary imperative which drives the proliferation of intelligence generally would also yield moral constraint, and that a system devoid of moral purpose could not predominate in the long term.
 
-A second consideration, or perhaps a wrinkle on the first, is the consideration that among the various technical developments which are equally conducive to proliferation, would take mindshare which would be advatageous in getting off the ground.
+A second consideration, or perhaps a wrinkle on the first, is the consideration that among the various technical developments which are equally conducive to proliferation, would take mindshare which would be advantageous in getting off the ground.
 
-I cannot say much about what core normative priciples might be adopted which could persist throught the evolution of the next billion years, but a general preference for cooperation over conflict seems to me a contender, and we may hope that this seed might be elaborated and refined as the project progresses.
+I cannot say much about what core normative principles might be adopted which could persist through the evolution of the next billion years, but a general preference for cooperation over conflict seems to me a contender, and we may hope that this seed might be elaborated and refined as the project progresses.
+
+## Beyond Conventionalism
+
+Philosophical usage of the term "conventionalism" seems normally to presume that a convention must be arrived at by agreement among a number of parties.
+This presumption should not be understood in any discussion of convensionalism in SPaDE, where formal expression of declarative knowledge is always sought, in the course of which language is extended by fiat, and considered conventional even if only one party is involved.
+
+Synthetic philosophy involves (if not being entirely exhausted by) the kind of analysis in which declarative truths are established in the following way:
+
+- first, by defining an abstract language in which declarative prositions may be expressed, establishing an abstract model of the relevant subject matter
+- second, interpreting the purely abstract model in the intended domain of discourse, by whatever means may be appropriate to that domain
+- third by establishing the fidelity of the abstract model under that interpretation to the observed or required features of that domain.
+- and finally, by proving further claims in the language using deductive methods.
+
+Admitting that the order may vary and considerable iteration may be required.
+
+This kind of attitude to language, in which it is chosen rather than discovered, is similar to the difference of attitude between two camps which might be perceived in the analytic philosophy of the 20th century, the first exemplified by Frege, Russell, and Carnap (and perhaps the early Wittgenstein), and the second by Moore, the later Wittgenstein, and Oxford "ordinary language philosophy".
+
+In this section I would like to move forward from this characterisation, if you will, of the essence of *synthetic* philosophy, even though it is the aspect of the philosophy which influenced the choice of the name.
+
+Philosophy is a search for knowledge, and it aligns with research on AI in the following ways:
+
+- it seeks knowledge about knowledge, as epistemology

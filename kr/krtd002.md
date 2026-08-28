@@ -1,9 +1,9 @@
-# Task Description for Code and Test of Low Level Native Repository I/O in SML.
+# Task Description for Code and Test of Low Level Native Repository I/O in SML
 
 ## Overview
 
 This task involves implementing and testing the low-level input/output (I/O) operations for the SPaDE Native Repository using Standard ML (SML).
-This should replicate in SML the functionality implmented in [krcd008.py](krcd008.py) and [krcd009.py](krcd009.py) together with a wrapper making this service available in python so that it can be delivered as an MCP service.
+This should replicate in SML the functionality implemented in [krcd008.py](krcd008.py) and [krcd009.py](krcd009.py) together with a wrapper making this service available in python so that it can be delivered as an MCP service.
 
 ## Objectives
 

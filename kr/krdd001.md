@@ -33,7 +33,7 @@ This can be done using a stack of positions, which are byte displacements in the
 
 The first component of a theory in the [SPaDE](../docs/tlad001.md#spade) repo will always be a list of parent theories which determine the context from which the sequence of extensions which forms the theory is begun.
 This list includes the path within the repository to the theory (including the repo version number), the byte displacement in the repo of each theory (i.e. a pointer to the theory) and a signed cryptographic hash of the theory which is taken from the theory).
-There follows a list of extensions, and concluded by a signed hash of the theory signeed by the server which created it.
+There follows a list of extensions, and concluded by a signed hash of the theory signed by the server which created it.
 In a first prototype these signed hashes may be omitted.
 Note that the order of these components in terms of their numerical position in the repo will be that in the description, but the components will be combined in a list using CONS cells in the given order, at each step adding a head to the list, so the order of the list is opposite to the order in the description.
 
@@ -112,7 +112,7 @@ If it should prove fallible we will need to think again.
 
 The extensions which form a theory can be established in the following way:
 
-1. Gather the list of all definitions in the theory using get_defns. This list is in the reverse of the order in which the definitions were made. Each definition is a pair of a list of tags and a theorem. The tags are the names of the new constants or type constructorsintroduced, and the name of the definition (which is the last in the list and should be ignored for present purposes).
+1. Gather the list of all definitions in the theory using get_defns. This list is in the reverse of the order in which the definitions were made. Each definition is a pair of a list of tags and a theorem. The tags are the names of the new constants or type constructors introduced, and the name of the definition (which is the last in the list and should be ignored for present purposes).
 To establish the signature from this list it is necessary to establish whether each tag is a type or a constant.
 This can be done using get_type_arity, which returns NIL if the name is not a type constructor, and Value n if it is a type constructor of arity n.
 If it is not a type constructor, it must be a constant, and its type can be found using get_consts, which returns the list of all constants in the theory, from which the type of the constant can be found by matching names.
@@ -247,7 +247,7 @@ This is slightly complicated by folders not being mere lists of theories, but li
 In order to incrementally write this folder it is of course necessary to record the byte displacement in the file of each prior part of folder, as well as the start of the next theory.
 Once the theory is complete, its name is written and consed with the theory and the pair is then connected at the head of the folder to the previous part of the folder.
 
-This kind of maneuvre is needed at all levels of the repository, since all structures are built up from their components using CONS cells.
+This kind of maneuver is needed at all levels of the repository, since all structures are built up from their components using CONS cells.
 A stack could be used to manage the process, but the implicit stack associated with functional recursion might suffice.
 
 ### Writing a theory to the repository

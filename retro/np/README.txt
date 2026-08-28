@@ -32,7 +32,9 @@ this to work.
 1    ProofPower
 2    Rob Arthan's "maths_egs" 
 
-     (both obtainable from www.lemma1.com)
+     (both obtainable from github.com/robarthan)
+
+The ProofPower work uses a version of ProofPower working with utf8 files which was never formally released, but may be found on the "utf8" branch of the robarthan/pp repo.
 
 If you have a working ProofPower installation (and have set up your
 environment variables appropriately) and have built the
@@ -41,7 +43,7 @@ that should be OK for this build.
 
 In addition, it will be necessary for the directory in which you
 propose to run the build to be specified on your PATH variable and
-included in the various LaTeX related paths (which normaly include
+included in the various LaTeX related paths (which normally include
 ".").
 It will also be necessary to have an INDEXSTYLE variable with the
 build directory mentioned in it.

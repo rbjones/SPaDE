@@ -67,10 +67,10 @@
 This essay belongs to a period of tumult in my intellectual endeavours, and aims to contribute to a reformulation of my aspirations.
 My inclinations straddle the relationship between Philosophy and Engineering, spreading across some of the other disciplines which might be thought to lie between them, such as logic, mathematics, and the sciences.
 
-The project to which I aim to contribute goes top to bottom across that spectrum, though which way is up is debateable.
-From my Engineering perspective, the philosophy is an aspect of the highest and earliest stages in the systems architevtural design, which fits it into the unworkable ``waterfall' model of systems development.
+The project to which I aim to contribute goes top to bottom across that spectrum, though which way is up is debateable (up and down is preferred to left and right, because of my foundational predelictions which make me put logic in the basement).
+From my Engineering perspective, the philosophy is an aspect of the highest and earliest stages in the system's architectural design, which fits it into the unworkable ``waterfall'' model of systems development.
 
-From a philosophical persepective, philosophy is concerned with foundations, most importantly the foundations of epistemology. but inextricably intertwined with philosophy of language, logic, and elements of metaphysics.
+From a philosophical persepective, philosophy is concerned with foundations. Most importantly, the foundations of epistemology, but inextricably intertwined with philosophy of language, logic, and elements of metaphysics.
 Everything else is superstructure.
 
 What is it that we are engineering?
@@ -124,7 +124,6 @@ Such logical contexts form a hierarchy in which languages or theories with the g
 In that context, focal interest is progressively vested further down the tree with particular focus on the primitive logical system.
 Progression at these lower levels potentially benefits all the theories higher in the structure.
 Chosing the low-level structure of this heirarchy will be important in facilitating the bootstrapping of intelligence.
-
 
 \item quasi-universal logical foundations
 
@@ -182,8 +181,6 @@ One way of resolving that problem might be to use the existing system to develop
 The existing specs (of the HOL logic and ProofPower kernel) have two features which may not wuit the above aspirations.
 The first is that the rules are defined as relationships rather than as functions, and hence the ability to execute them doesn't yield a computation which delivers a theorem.
 
-
-
 \end{itemize}
 
 \section{More Compact Attempt}
@@ -234,7 +231,6 @@ But if it could be proven that the method proposed was sound, then it could in p
 It is therefore possible to replace the use of tactics by the use of proven derived rules having the same effects but nopt required to provide detailed justification by reduction to the primitive rules.
 
 \end{itemize}
-
 
 \section{Forget the Focal and Try Again}
 

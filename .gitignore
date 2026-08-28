@@ -6,18 +6,17 @@
 *.aux
 *.bbl
 *.blg
+*.dvi
+*.err
 *.fdb_latexmk
 *.fls
 *.fmt
-*.dvi
 *.grm.run
 *.grm.txt
 *.hrf
 *.idx
 *.inc
 *.ldd
-*.tldd
-*.err
 *.lof
 *.log
 *.lot
@@ -44,6 +43,7 @@
 *.tar
 *.tgz
 *.zip
+# Backup files
 *~
 
 # Python virtual environments and cache
@@ -53,6 +53,7 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+.obsidian/
 env/
 venv/
 

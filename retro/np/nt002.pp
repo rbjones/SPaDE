@@ -93,6 +93,7 @@ In the first instance this document will hang on `misc3',
 later the dependencies will be pruned, with a view to establishing
 the simplest basis for the metatheory of HOL and its use in defining
 a reflexive logical kernel.
+
 =SML
 open_theory "misc3";
 force_new_theory "⦏nt002⦎";
@@ -105,6 +106,7 @@ set_merge_pcs ["misc11", "'GSU", "'misc3","'nt002"];
 
 =SML
 declare_infix(230, "⦏<<⦎");
+declare_infix(230, "⦏~~⦎");
 =TEX
 
 ⓈHOLCONST
@@ -128,7 +130,7 @@ declare_infix(230, "⦏<<⦎");
 ⓈHOLCONST
 │ $⦏~~⦎: ('a → 'b) → ('a → 'b) → ('a → 'a → BOOL) → 'a → BOOL
 ├─────────
-│ ∀f g $~~ x⦁ (f ~~ g) x ⇔ (∀y⦁ y << x ⇒ f y = g y) ∧ f x = g x 
+│ ∀f g $<< x⦁ (f ~~ g) x ⇔ (∀y⦁ y << x ⇒ f y = g y) ∧ f x = g x 
 ■
 
 ⓈHOLCONST

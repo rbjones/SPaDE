@@ -20,13 +20,13 @@ But pro-tem, to help me do that I'll just list them here,
   - The *subsystem plane*: The three subsystems of SPaDE: knowledge representation, deductive kernel, deductive intelligence.
 - **Network Structures**
   - The specialists of *deductive intelligence*: The network of specialist intelligent agents cooperating to solve problems which span multiple contexts.
-  This network has relationships with some of the other structures, for example the hierarchical structure of contexts determines the layering of specialists, each specialist subcontracting to specialists in its ancestors in the theory heirarchy for subproblems which are confined to those ancestor contexts.
+  This network has relationships with some of the other structures, for example the hierarchical structure of contexts determines the layering of specialists, each specialist subcontracting to specialists in its ancestors in the theory hierarchy for subproblems which are confined to those ancestor contexts.
 
 ## The SPaDE Arch
 
 This is an attempt to visualise the overall structure not of SPaDE but of its philosophical and architectural documentation in a quasi-geometric way.
 It is presented as arch-like two-column structure in which the two columns are the epistemic stack on the left and the focal tower on the right, each column showing a vertically tripartite shaft (dictated by epistemological considerations) with a base below and a capital above.
-The capital on the left is the characterisation of synthetic philosohy and that on the right of deductive engineering, thus the top level account of SPaDE spans the two pillars as an architrave.
+The capital on the left is the characterisation of synthetic philosophy and that on the right of deductive engineering, thus the top level account of SPaDE spans the two pillars as an architrave.
 The base on the left is concerned with logical foundations, and that on the right the architectural consequences of that foundational perspective.
 
 There may be more levels above the architrave which provide context and motivation for SPaDE as a whole constituting the frienze and perhaps cornice of the arch.
