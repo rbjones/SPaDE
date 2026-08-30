@@ -2,6 +2,10 @@
 
 ## Modes of Interaction
 
+This is currently in flux because of continuing development of the capabilities of AI contributors.
+
+The project should not overfit the procedures to the details of any one agent or product interface. Where a tool-specific distinction affects the working pattern, it should be recorded in the relevant procedure; otherwise the project should keep its standards and workflows tool-agnostic.
+
 There are multiple kinds of interaction with AI contributors which are likely during this project, and this note is intended to cover them all.
 
 Here are three:
@@ -13,6 +17,16 @@ In this case I will need to supply any missing context, but these instructions w
 In this case we are jointly working as a single user.
 
 3. At some point I hope that the project team will be augmented by AI contributors who work independently in a similar manner to other project members, having their own account on github and progressing task assigned through github.
+
+## What to record
+
+It is best for procedure documentation to be as concise, clear, comprehensice and precise as possible.
+This means that describing history or rationale should be avoided unless it is necessary to those ends.
+
+It might nevertheless be appropriate to record elsewhere accounts of the history and rationale.
+The combination of the git history and review documents might provide a sufficient complement to the documented standards.
+
+Write the **endpoint** of a discussion into the document hierarchy: the decision, placement, or procedure as it now stands. Do not preserve the path of the discussion (false starts, rejected wordings, blow-by-blow of how a sentence was reached) unless that history is itself the subject.
 
 ## Context Focus and Concision
 

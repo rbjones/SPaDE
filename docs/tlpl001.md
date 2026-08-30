@@ -21,9 +21,9 @@ At the top level, five documents provide a structure which provides two routes i
 There are suitably reworked and expanded (or contracted) versions of the following existing documents:
 
 - the top level [README](README.md) which should link prominently to the other three and give a first account of their roles in the exposition.
-- [Background to the Rationale for SPaDE](docs/tlph009.md), a background document which gives as concise an account as I can muster of the reasoning which lead me to my present conception of the project, possibly linking to a more detailed account of the same.
-- [Synthetic Philosophy](docs/tlph001.md)
-- [Deductive Engineering](docs/tlph002.md)
-- [The Purpose of SPaDE](docs/tlph012.md) and/or [SPaDE Project Aims and Ambitions](docs/tlph003.md)
+- [Background to the Rationale for SPaDE](../docs/tlph009.md), a background document which gives as concise an account as I can muster of the reasoning which lead me to my present conception of the project, possibly linking to a more detailed account of the same.
+- [Synthetic Philosophy](../docs/tlph001.md)
+- [Deductive Engineering](../docs/tlph002.md)
+- [The Purpose of SPaDE](../docs/tlph012.md) and/or [SPaDE Project Aims and Ambitions](../docs/tlph003.md)
 
 This is as far as the plan goes at this stage, further detail will be worked out as I progress with the writing of the top level documents, and will be added to this document as it emerges.

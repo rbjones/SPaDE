@@ -4,11 +4,13 @@ The [SPaDE](../tlad001.md#spade) project is intended, en route to its more ambit
 
 It is now clear to me that an important part of that is project management and administration, which will need to continuously evolve as the capabilities of AI systems evolve, and their role becomes more substantial.
 
-Because of the shifting balance between human and AI contributions, it is intended to document roles in ways which are agnostic as to whether the role is filled by a human or an AI system.
+Because of the shifting balance between human and AI contributions, it is preferable to document roles in ways which are agnostic as to whether the role is filled by a human or an AI system.
+
+Agents (including Grok Build) should take in **this directory**, via this README, rather than treating `AGENTS.md` as the project methods manual. `AGENTS.md` is only Grok-specific (and similar) advice. Worktrees, edit scope, commit, and merge to `main` are in [ampd004.md](ampd004.md) and [ampd005.md](ampd005.md). Document placement is in [amms001.md](amms001.md).
 
 This documentation falls into the following categories:
 
-- **[Methods, processes and standards](#methods-processes-and-standards)**
+- **[Methods, and standards](#methods-and-standards)**
 - **[Process or procedure descriptions](#process-or-procedure-descriptions)**
 - **[Plans and strategies](#plans-and-strategies)**
 - **[Testing and evaluation](#testing-and-evaluation)**
@@ -16,23 +18,26 @@ This documentation falls into the following categories:
 - **[Chat logs](#chat-logs)**
 - **[Code and scripts](#code-and-scripts)**
 
-## Methods, Processes and Standards
+## Methods, and standards
 
-- [amms001.md](amms001.md) Project Structure and Documentation Policy
+- [amms001.md](amms001.md) Project Structure and Documentation Policy (including: subsystem-specific architecture/design/implementation in the subsystem directory; `docs/` only for whole-system or cross-subsystem material)
 - [amms002.md](amms002.md) Roles, Responsibilities, Tasks
 - [amms003.md](amms003.md) Workflows
 - [amms004.md](amms004.md) Collaborative Guidelines
 - [amms005.md](amms005.md) Guidance for AI Contributions
 - [amms006.md](amms006.md) Glossary Link Maintenance
-- [amms007.md](amms007.md) Glossary Augmentation Procedure
+- [amms007.md](amms007.md) Glossary Augmentation Procedure (status-quo baseline, retained for continuity)
 - [amms008.md](amms008.md) LLM Wiki (in progress; not authoritative)
 
 ## Process or procedure descriptions
 
-- [ampd001.md](ampd001.md) Using GitHub Copilot Agent with SPaDE - Process for assigning code-and-test tasks to Copilot agents
-- [ampd002.md](ampd002.md) Using GitHub Copilot Agent with SPaDE - Process for Copilot in completing code and test assignments.
+- [ampd001.md](ampd001.md) Using GitHub Copilot Agent with SPaDE (historical context)
+- [ampd002.md](ampd002.md) Process for Copilot in completing code and test assignments (historical context)
 - [ampd003.md](ampd003.md) Conversational Documentation Development Procedure
-- [ampd004.md](ampd004.md) Grok Build: branches, worktrees, and sessions
+- [ampd004.md](ampd004.md) Branches, worktrees, and sessions (current baseline)
+- [ampd005.md](ampd005.md) Independent review: Grok authors, Copilot reviews; PRs into `main`; later LLM-evaluation questions (current baseline)
+- [ampd007.md](ampd007.md) Glossary Augmentation Procedure
+- [ampd008.md](ampd008.md) Copilot Delegation Procedure with Task Documents (current baseline)
 
 ## Plans and strategies
 
@@ -43,6 +48,8 @@ This documentation falls into the following categories:
 - [ampl005.md](ampl005.md) Immediate plan: Grok Build transition
 
 ## Testing and evaluation
+
+Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP clients, frozen prompts, independence from the authoring agent) are listed at the end of [ampd005.md](ampd005.md).
 
 ## Task Descriptions
 

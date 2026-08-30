@@ -4,6 +4,16 @@
 **Category**: Process or procedure descriptions  
 **Subsystem**: docs/admin (am)
 
+## Status
+
+Historical context document.
+
+For current baseline practice, use:
+
+1. [ampd004.md](ampd004.md) for branches, worktrees, and session scope
+2. [ampd005.md](ampd005.md) for independent review (Grok authors, Copilot reviews)
+3. [ampd008.md](ampd008.md) for issue-backed Copilot delegation and task templates
+
 ## Overview
 
 This document describes how to assign autonomous code-and-test tasks to GitHub Copilot agents, enabling them to create PRs that are automatically tested in the SPaDE development container.

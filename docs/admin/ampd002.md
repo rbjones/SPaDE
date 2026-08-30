@@ -1,5 +1,15 @@
 # Process for completing code and test assignments
 
+## Status
+
+Historical context document.
+
+For current baseline practice, use:
+
+1. [ampd004.md](ampd004.md) for branches, worktrees, and session scope
+2. [ampd005.md](ampd005.md) for independent review (Grok authors, Copilot reviews)
+3. [ampd008.md](ampd008.md) for issue-backed Copilot delegation and task templates
+
 When you are assigned a code or test task, please follow these steps to ensure a smooth and efficient completion:
 
 1. **Create a new branch** from the main branch of the repository.

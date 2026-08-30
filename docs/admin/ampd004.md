@@ -1,33 +1,37 @@
-# Grok Build: branches, worktrees, and sessions
+# Branches, worktrees, and sessions
 
-This is a first account of how SPaDE is to be developed with Grok Build, while methods are still being revised. It supersedes, for Grok, the Copilot-agent task assignment notes in [ampd001.md](ampd001.md) and [ampd002.md](ampd002.md) insofar as those assume a single checkout and GitHub Copilot.
+## Introduction
 
-## One focus per branch and worktree
+Substantial areas of work should be conducted on a new branch with a corresponding worktree and session, so that work in progress in one area does not interfere with work in another area.
+Work will in one area will not affect work in another area until it has been merged into main (usually via a pull request), and then back into the other areas worktree.
 
-Work is split into a small number of standing areas. Each area has:
+Each area has:
 
-- a **git branch** named for the area (no slash in the name if that would block a later `docs` branch);
+- a **git branch** named for the area;
 - a **sibling git worktree**, not a second clone, e.g. `/Users/rbj/git/SPaDE-am` beside `/Users/rbj/git/SPaDE`;
-- **Grok sessions whose cwd is that worktree**.
+- **Chat sessions (grok build or copilot) whose cwd is that worktree**.
 
-`main` is the integration branch. Do not check out another branch in a worktree that already has a live Grok session. Create or switch worktrees instead (`git worktree add`).
+`main` is the integration branch. Do not check out another branch in a worktree that already has a live Chat session. Create or switch worktrees instead (`git worktree add`).
 
-Clones and worktrees of this repo share one Grok memory directory (keyed on `origin`). Memory is for WIP and session continuity. Outcomes that belong in the document hierarchy go into the hierarchy, not into `~/.grok/memory`.
+Clones and worktrees of this repo share one Grok memory directory (keyed on `origin`).
+Memory in copilot will span all work under github rbjones.
+is for WIP and session continuity. Outcomes that belong in the document hierarchy go into the hierarchy, not into `~/.grok/memory`.
 
 ## Standing areas (provisional)
 
-Open only what is needed. Do not create every worktree at once.
+Open only what is needed.
+Do not create every worktree at once.
 
 | Area | Branch | Worktree (proposed) | Owns |
-|---|---|---|---|
-| Administration | `am` | `…/SPaDE-am` | `docs/admin/`, `AGENTS.md`, plans, methods, Grok/session rules; `drafts/` phase-out |
-| Knowledge repository | `kr` | `…/SPaDE-kr` | `kr/` plus KR-facing system docs, especially `docs/tlad012.md` |
-| Synthetic philosophy | `synthetic-philosophy` | `…/SPaDE-sp` | system-wide `docs/tlph*` (not `kr/krph*` unless agreed) |
-| MCP | `mcp` | `…/SPaDE-mcp` | `mcp/`; inspect `mcp-gpt-5.1-Codex-Max` before new coding |
-| Glossary | (time-boxed, not standing) | — | term/anchor work rides on the branch that needs it; methods stay in [amms006](amms006.md) / [amms007](amms007.md) |
-| Deductive kernel / intelligence | `dk`, `di` | later | after KR/MCP have a usable core |
+| --- | --- | --- | --- |
+| Philosophy and Architecture | `pa` | `…/SPaDE-pa` | system-wide `docs/tlph*` |
+| Administration | `am` | `…/SPaDE-am` | Administrative materials only: `docs/admin/`, `AGENTS.md`, `reviews/`, `.grok/`; `drafts/` phase-out. **Not** `docs/tlph*`, `docs/tlad*`, `docs/tlpl*`, or other system-wide philosophy/architecture. |
+| Knowledge repository | `kr` | `…/SPaDE-kr` | `kr/` |
+| MCP | `mcp` | `…/SPaDE-mcp` | `mcp/` |
+| Deductive kernel | `dk` | .../SPaDE-dk | `dk/` |
+| Deductive intelligence | `di` | `…/SPaDE-di` | `di/` |
 
-Top-level documentation strategy (`docs/tlpl001.md`) and prototyping plans (`ampl001` and successors) are owned on `am`.
+Admin plans and methods (`ampl*` and the rest of `docs/admin/`) are owned on `am`. Top-level documentation strategy in `docs/tlpl001.md` is **not** an `am` file.
 
 ## What a session may edit
 
@@ -39,7 +43,9 @@ On this `am` branch, Grok may edit `docs/admin/`, `AGENTS.md`, `reviews/`, and `
 
 1. Open Grok with cwd set to the worktree (not to `main` unless integrating).
 2. If memory is enabled, `/flush` before leaving a session that decided anything that is not yet in the docs.
-3. Merge to `main` when a coherent unit is ready; do not accumulate unrelated work on `am`.
+3. Merge to `main` when a coherent unit is ready; do not accumulate unrelated work on `am`. Preferred path: a pull request into `main` with GitHub Copilot as an independent reviewer — [ampd005.md](ampd005.md).
+
+For Copilot coding-agent delegation workflow and templates (task document, issue body, and delegation prompt), see [ampd008.md](ampd008.md).
 
 ## Auth and spend
 

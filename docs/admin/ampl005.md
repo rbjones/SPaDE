@@ -1,18 +1,26 @@
-# Immediate plan: Grok Build transition
+# Immediate plan: Grok Build/ Copilot app evaluation
 
-This is the short plan for the period in which SPaDE is moving from Copilot-centred practice to Grok Build, with one focus per branch and worktree. Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md). Session mechanics are in [ampd004.md](ampd004.md).
+This is the short plan for the period in which SPaDE is evaluating ways of working which faclitate fuller involvement of AI in the development.
+
+During this period it is intended that two distinct modes of invoking agentic AIcontributions will be explored: one through the Copilot app which makes full use of the github ecosystem and the use of issues and PRs, with the AI acting as an assistant within that framework, and the other through Grok Build with agentic contributions invoked in interactive sessions grok build sessions.
+
+moving from Copilot-centred practice to Grok Build, with one focus per branch and worktree. Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md). Session mechanics are in [ampd004.md](ampd004.md).
 
 ## Now (`am`)
 
 1. Document methods: worktrees, branch ownership, what Grok may edit, memory vs `docs/`.
 2. Align `AGENTS.md` with those methods (conservative on `main`; relaxed per area branch).
 3. Decide the fate of `drafts/` (phase out: remaining links into `docs/` / chat logs, then remove).
-4. Keep `docs/tlpl001.md` and the `ampl*` plans pointing at each other so documentation strategy and prototyping strategy do not drift.
+4. Keep the `ampl*` plans in `docs/admin/` consistent with top-level strategy; do not edit `docs/tlpl001.md` from `am`.
+5. Land coherent `am` units on `main` by pull request, with Copilot as independent reviewer ([ampd005.md](ampd005.md)). Do not treat Copilot Chat as a substitute for that PR review.
 
 ## Next (`kr`)
 
-1. Treat `docs/tlad012.md` as the system-wide KR abstract model, reconciled with `kr/krad001.md`.
-2. KR-local philosophy (`krph*`) stays with `kr`, not with synthetic-philosophy.
+KR-specific architecture, design, and prototype work lives in `kr/` and is **not blocked** on completing system-wide `docs/` architecture ([amms001.md](amms001.md)).
+
+1. Proceed from existing `kr/` material (`krad*`, `krhd*`, prototype notes).
+2. Keep `docs/tlad012.md` as the **cross-subsystem** catalogue of KR structures and interfaces (because other subsystems must see them), reconciled with `kr/krad001.md` — not as a substitute for KR-local design.
+3. KR-local philosophy (`krph*`) stays with `kr`, not with synthetic-philosophy.
 
 ## Then (`mcp`)
 
@@ -23,6 +31,7 @@ This is the short plan for the period in which SPaDE is moving from Copilot-cent
 
 - Synthetic philosophy (`docs/tlph*`) as a standing area when wanted.
 - Glossary as a method, or a short pass, not a fifth long-lived parallel branch.
+- Revisions to glossary maintenance procedures are deferred unless urgent, and should be resumed after KR progress restarts.
 - `dk` and `di` later, as in the existing onion (`ampl001`).
 
 ## Done enough to leave `am` as the bottleneck

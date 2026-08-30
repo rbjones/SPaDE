@@ -1,9 +1,5 @@
 # Glossary Augmentation Procedure
 
-## Status
-
-This document records the status-quo procedure as it existed before the current revision of the glossary maintenance workflow. It is retained for continuity and auditability, and should be treated as a historical baseline rather than as the final active standard unless no replacement has yet been adopted.
-
 ## Purpose
 
 This document describes a method for systematically identifying new technical terms in the SPaDE project documentation that should be added to the glossary, and for integrating those terms into the glossary and linking them throughout the documentation.
@@ -23,7 +19,7 @@ This procedure applies to all markdown (.md) files in the SPaDE repository, excl
 The workflow is split into two stages, with Stage 1 focusing on candidate proposal and Stage 2 on glossary integration.
 In Stage 1, Copilot opens a draft pull request, which delivers a curated list of candidate terms for review.
 The review may then lead to modifications of the candidate list.
-Stage 2 then integrates the approved terms into the glossary, links them throughout the documentation and generates an augmentation report.
+Stage 2 then integrates the approved terms into the glossary, links them throughout the documentation and generates an augmentation report.
 After a final review the results are merged into the main branch.
 
 To assist in undertaking this procedure, several supporting scripts are provided in the `docs/admin/` directory as follows:
@@ -32,7 +28,7 @@ To assist in undertaking this procedure, several supporting scripts are provided
 - `amcd002.py` — Glossary term frequency and occurrence extractor
 - `amcd003.py` — Glossary candidate identification script
 
-### Stage 1 — Candidate Proposal (Draft PR)
+### Stage 1 — Candidate Proposal (Draft PR)
 
 1. **Establish baseline**
    - Locate the most recent glossary augmentation report (`reviews/YYYYMMDD-HHMM-*-glossary-augmentation.md`) and note the date for reference.
@@ -44,7 +40,7 @@ To assist in undertaking this procedure, several supporting scripts are provided
 
 3. **Prepare candidate list for review**
    - Create `reviews/YYYYMMDD-HHMM-copilot-glossary-candidates.yaml` (use UTC timestamp).
-   - Record one term per line in YAML sequence form for easy editing, for example:
+   - Record one term per line in YAML sequence form for easy editing, e.g.:
 
      ```yaml
      candidates:
@@ -58,13 +54,13 @@ To assist in undertaking this procedure, several supporting scripts are provided
 4. **Open a draft pull request**
    - Create a feature branch containing only the YAML candidate list (and any optional supporting notes).
    - Open a draft PR titled “Glossary candidates YYYY-MM-DD” and request maintainer review.
-   - No glossary edits are made at this stage.
+   No glossary edits are made at this stage.
 
 5. **Await maintainer curation**
    - The reviewer may remove or add terms in the candidate list.
-   - Work pauses until approval is given to proceed with Stage 2.
+   Work pauses until approval is given to proceed with Stage 2.
 
-### Stage 2 — Glossary Integration (Maintainer Approved)
+### Stage 2 — Glossary Integration (Maintainer Approved)
 
 1. **Confirm scope**
    - Sync the branch with the maintainer’s revisions to the YAML list. Treat the edited list as the authoritative scope for the iteration.
@@ -91,7 +87,7 @@ To assist in undertaking this procedure, several supporting scripts are provided
    - Author the augmentation report described in [amtd003.md](amtd003.md) (filename `reviews/YYYYMMDD-HHMM-copilot-glossary-augmentation.md`). Reference the YAML candidate list and note any deviations.
 
 5. **Finalize the pull request**
-   - Include all Stage 2 changes (glossary edits, automated links, augmentation report) in the existing PR.
+   - Include all Stage 2 changes (glossary edits, automated links, augmentation report) in the existing PR.
    - Provide a concise summary of actions taken and any follow-up required. Await maintainer review before merging.
 
 6. **Post-merge follow-up**
