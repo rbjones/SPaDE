@@ -26,18 +26,18 @@ This documentation falls into the following categories:
 - [amms004.md](amms004.md) Collaborative Guidelines
 - [amms005.md](amms005.md) Guidance for AI Contributions
 - [amms006.md](amms006.md) Glossary Link Maintenance
-- [amms007.md](amms007.md) Glossary Augmentation Procedure (status-quo baseline, retained for continuity)
-- [amms008.md](amms008.md) LLM Wiki (in progress; not authoritative)
+- [amms007.md](amms007.md) Glossary Augmentation Procedure
+- [amms008.md](amms008.md) LLM Wiki, in progress and not authoritative
 
 ## Process or procedure descriptions
 
-- [ampd001.md](ampd001.md) Using GitHub Copilot Agent with SPaDE (historical context)
-- [ampd002.md](ampd002.md) Process for Copilot in completing code and test assignments (historical context)
+- ~~[ampd001.md](ampd001.md)~~ Using GitHub Copilot Agent with SPaDE
+- ~~[ampd002.md](ampd002.md)~~ Process for Copilot in completing code and test assignments
 - [ampd003.md](ampd003.md) Conversational Documentation Development Procedure
-- [ampd004.md](ampd004.md) Branches, worktrees, and sessions (current baseline)
-- [ampd005.md](ampd005.md) Independent review: Grok authors, Copilot reviews; PRs into `main`; later LLM-evaluation questions (current baseline)
-- [ampd007.md](ampd007.md) Glossary Augmentation Procedure
-- [ampd008.md](ampd008.md) Copilot Delegation Procedure with Task Documents (current baseline)
+- [ampd004.md](ampd004.md) Branches, worktrees, and sessions
+- [ampd005.md](ampd005.md) Independent review: Grok authors, Copilot reviews; PRs into `main`; later LLM-evaluation questions
+- ~~[ampd007.md](ampd007.md)~~ Glossary Augmentation Procedure
+- [ampd008.md](ampd008.md) Copilot Delegation Procedure with Task Documents
 
 ## Plans and strategies
 

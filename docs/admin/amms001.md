@@ -28,13 +28,13 @@ This needs to be made sufficiently systematic for all contributors (including co
 
 Within each document-type group, README.md entries should normally be kept in numerical order by document number, with the lowest numbered document first. This is the default convention for admin, subsystem, and top-level documentation indexes because it makes browsing, diff review, and later automation easier. The numbering convention is therefore more than cosmetic: it provides a stable, predictable ordering that contributors and agents can rely on when scanning the project or adding new documents.
 
-Where a document is current or historical, the status should be recorded in the short description, but the ordering should remain numerical. This is preferred to reordering by status, chronology, or perceived urgency, because those are less stable and can create avoidable churn in the documentation.
+The current baseline does not need explicit marking in each README line item. When a document is active, list it normally. If a document is retained but retired from active use, mark it with strikethrough while preserving the live link. Keep the ordering numerical either way.
 
 ### README completeness and historical status
 
 A README.md for a directory should list every document in that directory that still exists. An entry should be removed only when the underlying file is deleted. This preserves a complete index and makes it clear when project documentation is being kept intentionally, not merely forgotten.
 
-When a document is retained for historical interest but is not part of the current working baseline, it may be marked with a strikethrough while keeping the link active, for example: `~~amms007.md~~` or `~~[amms007.md](amms007.md)~~`. In Markdown, strikethrough is written as `~~text~~`, and it can be applied to the label while leaving the link itself live. This is a concise way to indicate that a document remains available for reference without implying that it is the current operating standard.
+When a document is retained for historical interest but is not part of the current working baseline, it should be marked with a strikethrough while keeping the link active, for example: `~~[ampd001.md](ampd001.md)~~`. In Markdown, strikethrough is written as `~~text~~`, and it can be applied to the linked label so that the link remains usable. This is the preferred concise indication that a document remains available for reference without implying current normative status.
 
 ### Avoiding time-sensitive procedural commentary
 
