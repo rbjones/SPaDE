@@ -1,6 +1,8 @@
 name: SPaDE Integration Test (2)
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 env:
