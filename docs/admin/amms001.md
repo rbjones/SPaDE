@@ -14,7 +14,7 @@ Formal materials where appropriate may be presented in markdown as literate scri
 The SPaDE documentation mostly falls into the following categories:
 
 1. Philosophical and Architectural materials in the [docs](../docs/README.md) directory.
-2. Adminstrative documentation including standards and procedures in the [docs/admin](../docs/admin/README.md) directory.
+2. Administrative documentation including standards and procedures in the [docs/admin](../docs/admin/README.md) directory.
 3. Subsystem-specific implementation and design materials in their respective top-level directories (e.g., knowledge repository ([kr](../kr/README.md)), mcp server ([mcp](../mcp/README.md)), deductive kernel ([dk](../dk/README.md)), deductive intelligence ([di](../di/README.md)).
 
 ## File Naming Conventions

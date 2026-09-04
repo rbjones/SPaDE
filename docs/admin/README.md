@@ -20,7 +20,7 @@ Do not use Copilot Chat in the local tree as a substitute for (1) or for (3).
 
 This documentation falls into the following categories:
 
-- **[Methods, and standards](#methods-and-standards)**
+- **[Methods and standards](#methods-and-standards)**
 - **[Process or procedure descriptions](#process-or-procedure-descriptions)**
 - **[Plans and strategies](#plans-and-strategies)**
 - **[Testing and evaluation](#testing-and-evaluation)**
@@ -28,7 +28,7 @@ This documentation falls into the following categories:
 - **[Chat logs](#chat-logs)**
 - **[Code and scripts](#code-and-scripts)**
 
-## Methods, and standards
+## Methods and standards
 
 - [amms001.md](amms001.md) Project Structure and Documentation Policy (including: subsystem-specific architecture/design/implementation in the subsystem directory; `docs/` only for whole-system or cross-subsystem material)
 - [amms002.md](amms002.md) Roles, Responsibilities, Tasks
@@ -36,7 +36,7 @@ This documentation falls into the following categories:
 - [amms004.md](amms004.md) Collaborative Guidelines
 - [amms005.md](amms005.md) Guidance for AI Contributions
 - [amms006.md](amms006.md) Glossary Link Maintenance
-- [amms007.md](amms007.md) Glossary Augmentation Procedure
+- [amms007.md](amms007.md) Glossary Augmentation Procedure (historic, pro-tem)
 - [amms008.md](amms008.md) LLM Wiki, in progress and not authoritative
 
 ## Process or procedure descriptions

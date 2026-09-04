@@ -1,4 +1,4 @@
-# Glossary Augmentation Procedure
+# Glossary Augmentation Procedure (historic, pro-tem)
 
 ## Status
 

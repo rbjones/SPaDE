@@ -20,7 +20,7 @@ In this case we are jointly working as a single user.
 
 ## What to record
 
-It is best for procedure documentation to be as concise, clear, comprehensice and precise as possible.
+It is best for procedure documentation to be as concise, clear, comprehensive and precise as possible.
 This means that describing history or rationale should be avoided unless it is necessary to those ends.
 
 It might nevertheless be appropriate to record elsewhere accounts of the history and rationale.
