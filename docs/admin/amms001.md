@@ -7,17 +7,40 @@ The docs directory also has an admin subdirectory for materials of a non-technic
 ## Documentation
 
 Where there is no compelling reason to do otherwise, documents will be written in github markdown, and will be organised in such a way as to provide a transparent and complete view of the project from the project web site on [rbjones.github.io/SPaDE](https://rbjones.github.io/SPaDE)
+Formal materials where appropriate may be presented in markdown as literate scripts.
 
-Documents specific to some subsystem will be in the top-level sub-directory for that subsystem.
+### Where a document lives
 
-High level and project wide documentation will be in the [docs](../README.md) directory, which has an [admin](README.md) subdirectory for materials of a non-technical nature.
+The SPaDE documentation mostly falls into the following categories:
 
-## File Naming Convention
+1. Philosophical and Architectural materials in the [docs](../docs/README.md) directory.
+2. Administrative documentation including standards and procedures in the [docs/admin](../docs/admin/README.md) directory.
+3. Subsystem-specific implementation and design materials in their respective top-level directories (e.g., knowledge repository ([kr](../kr/README.md)), mcp server ([mcp](../mcp/README.md)), deductive kernel ([dk](../dk/README.md)), deductive intelligence ([di](../di/README.md)).
+
+## File Naming Conventions
 
 The general policy on naming of documents is that they should be in numerical series prefixed by short identifiers for the subsystem or subdirectory, and for the kind of document as follows.
 This seems to be morphing to using the subsystem codes for directories, whether or not they are subsystems, so that the README.doc indexes all the documents with the same subsystem code.
 
 This needs to be made sufficiently systematic for all contributors (including copilot) to be able to choose filenames and maintain README.md files consistently.
+
+### Ordering in README indexes
+
+Within each document-type group, README.md entries should normally be kept in numerical order by document number, with the lowest numbered document first. This is the default convention for admin, subsystem, and top-level documentation indexes because it makes browsing, diff review, and later automation easier. The numbering convention is therefore more than cosmetic: it provides a stable, predictable ordering that contributors and agents can rely on when scanning the project or adding new documents.
+
+The current baseline does not need explicit marking in each README line item. When a document is active, list it normally. If a document is retained but retired from active use, mark it with strikethrough while preserving the live link. Keep the ordering numerical either way.
+
+### README completeness and historical status
+
+A README.md for a directory should list every document in that directory that still exists. An entry should be removed only when the underlying file is deleted. This preserves a complete index and makes it clear when project documentation is being kept intentionally, not merely forgotten.
+
+When a document is retained for historical interest but is not part of the current working baseline, it should be marked with a strikethrough while keeping the link active, for example: `~~[ampd001.md](ampd001.md)~~`. In Markdown, strikethrough is written as `~~text~~`, and it can be applied to the linked label so that the link remains usable. This is the preferred concise indication that a document remains available for reference without implying current normative status.
+
+### Avoiding time-sensitive procedural commentary
+
+Current procedure documents should describe enduring policy and working methods, not time-sensitive commentary about the state of tools, product changes, or temporary debates. Explanations of why a particular tool or workflow was being evaluated, or material that depends on a short-lived product state, belong in change histories, review reports, or chat logs rather than in the standards themselves.
+
+In other words: the standard should record the endpoint, not the temporary path. The substantive content of a procedure should remain readable as a stable instruction, while the historical narrative belongs elsewhere.
 
 Subsystem codes:
 

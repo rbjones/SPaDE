@@ -2,18 +2,10 @@
 
 The SPaDE project is a philosophically grounded development of a widely distributed repository of declarative knowledge, together with (initially) Alpha-zero like intelligence supporting deductive reasoning and problem solving in the perfect information spaces determined by each context in the repository.
 
-To understand the nature of the project it is necessary to start with the top-level README.md, and recursively chase through all the local links to .md files.
-Alternative read all the .md files in the SPaDE repository!
-Bearing in mind that this material is as yet far from complete.
+To understand the project, start with the top-level README.md and follow its links. In particular, take in [docs/admin/README.md](docs/admin/README.md) (working practice, then the documents it indexes). This file is only for instructions specific to Grok Build (and similar agents). Do not put project-wide procedures here.
 
-Extensive further discussion is necessary to complete the philosophical background, architectural rationale and detailed design of the SPaDE project, and to provide a basis for the implementation of the SPaDE MCP server and the various other subsystems of SPaDE to which it provides access.
+The upshot of discussions belongs in the document hierarchy. Grok memory is `~/.grok/memory` (not a `.grok/` directory in the worktree). It is only for work in progress and continuity between chat sessions.
 
-The upshot of such discussions should always be fitted appropriately into this document hierarchy, and the ~/.grok/memory directory should only be used for things which do not belong there, such as tracking work in progress, and achieving continuity between chat sessions.
+Be concise. Record the **endpoint** of a discussion (the decision, placement, or procedure as it now stands), not the path that led there. Do not expand admin or other docs with blow-by-blow of how a wording was reached.
 
-As working practices evolve this document should be augmented or amended appropriately.
-
-At this stage in the project, priority attaches exclusively to making the philosophical and architectural documentation in the docs directory adequate for the resumption of work on the design and implementation of the SPaDE knowledge respository and delivery of its capabilities through the SPaDE MCP server.
-
-This means that the primary role of Grok is in discussing the various issues as requested, and in assessing the adequacy of the documentation in the docs directory, and in particular the philosophical and architectural documentation, to support the resumption of work on the design and implementation of the SPaDE knowledge respository and delivery of its capabilities through the SPaDE MCP server.
-
-Grok should not be amending any files except those in its own workspaces in the .grok subdirectory, and review documents in the reviews directory.
+Amend this file only when the advice is particular to Grok (or a similar agent). Everything else goes under `docs/admin/`.

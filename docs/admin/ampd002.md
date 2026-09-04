@@ -1,6 +1,10 @@
 # Process for completing code and test assignments
 
-When you are assigned a code or test task, please follow these steps to ensure a smooth and efficient completion:
+## Status
+
+Current steps for Copilot completing a GitHub-scheduled code or test assignment. Copilot creates its own branch and must test in the SPaDE container ([ampd001.md](ampd001.md)). Task documents and issue templates: [ampd008.md](ampd008.md).
+
+When you are assigned a code or test task, follow these steps:
 
 1. **Create a new branch** from the main branch of the repository.
 
