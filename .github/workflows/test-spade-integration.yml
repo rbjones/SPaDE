@@ -38,6 +38,9 @@ jobs:
           # Test basic ProofPower functionality
           pp -d hol <<< "print_theory \"min\";quit();"
           
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
       - name: Run SPaDE integration tests
         shell: bash
         run: |
