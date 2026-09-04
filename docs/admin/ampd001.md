@@ -6,17 +6,13 @@
 
 ## Status
 
-Historical context document.
+Current procedure for **GitHub-scheduled** Copilot work (issues, coding agent, PRs). Interactive discussion and local editing are Grok Build ([README.md](README.md) working practice, [ampd004.md](ampd004.md)). Independent review of *Grok-authored* PRs is [ampd005.md](ampd005.md). Task templates: [ampd008.md](ampd008.md).
 
-For current baseline practice, use:
-
-1. [ampd004.md](ampd004.md) for branches, worktrees, and session scope
-2. [ampd005.md](ampd005.md) for independent review (Grok authors, Copilot reviews)
-3. [ampd008.md](ampd008.md) for issue-backed Copilot delegation and task templates
+Copilot’s model is often selectable and is not assumed to be Grok.
 
 ## Overview
 
-This document describes how to assign autonomous code-and-test tasks to GitHub Copilot agents, enabling them to create PRs that are automatically tested in the SPaDE development container.
+This document describes how to assign autonomous code-and-test tasks to GitHub Copilot agents. Copilot has no access to the local workspace, so tests must run in the SPaDE development container.
 
 ## Workflow
 
@@ -27,11 +23,11 @@ This document describes how to assign autonomous code-and-test tasks to GitHub C
 5. GitHub Actions tests the changes in the SPaDE container
 6. Review and merge if tests pass, otherwise diagnose, fix and go to 5.
 
-## Key Distinction: Two Modes of Copilot Usage
+## Scope of this document
 
-**Interactive Mode (Current)**: Working directly in this dev container via chat - Copilot has direct access to run commands, test iteratively, and see immediate results.
+This is **autonomous / GitHub** Copilot only: generate code, open a PR, CI tests in the SPaDE container, iterate from logs. It is not interactive Copilot Chat in a local or codespace tree. Interactive work is Grok Build.
 
-**Autonomous Agent Mode (This Document)**: Copilot works at arm's length - generates code, opens PR, CI tests run, Copilot reviews logs, iterates if needed. No interactive container access.
+When Copilot authors the PR, Copilot is not the independent reviewer of that PR ([ampd005.md](ampd005.md)).
 
 ## Container Strategy
 
@@ -93,4 +89,4 @@ Structure issues with: Task description, Context (files, ProofPower theories), R
 
 ## Current Limitations
 
-Autonomous agents work at arm's length - they cannot interactively debug ProofPower sessions. For complex ProofPower integration tasks, interactive mode (working in this dev container) may be more effective.
+Autonomous agents work at arm's length: they cannot interactively debug ProofPower sessions. For that class of work, specify and explore in Grok Build, then hand a bounded task to Copilot via an issue, or run tests in the SPaDE container yourself.

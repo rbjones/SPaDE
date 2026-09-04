@@ -1,16 +1,14 @@
 # Immediate plan: Grok Build/ Copilot app evaluation
 
-This is the short plan for the period in which SPaDE is evaluating ways of working which faclitate fuller involvement of AI in the development.
+This is the short plan for the period in which SPaDE is evaluating ways of working which facilitate fuller involvement of AI in the development.
 
-During this period it is intended that two distinct modes of invoking agentic AIcontributions will be explored: one through the Copilot app which makes full use of the github ecosystem and the use of issues and PRs, with the AI acting as an assistant within that framework, and the other through Grok Build with agentic contributions invoked in interactive sessions grok build sessions.
-
-moving from Copilot-centred practice to Grok Build, with one focus per branch and worktree. Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md). Session mechanics are in [ampd004.md](ampd004.md).
+The working split is in [README.md](README.md): Grok Build for interactive and high-level work (memory in `~/.grok`); Copilot for GitHub-scheduled agentics, tested in the SPaDE container; Copilot code review of Grok-authored PRs as a third use. Area worktrees remain ([ampd004.md](ampd004.md)). Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md).
 
 ## Now (`am`)
 
 1. Document methods: worktrees, branch ownership, what Grok may edit, memory vs `docs/`.
 2. Align `AGENTS.md` with those methods (conservative on `main`; relaxed per area branch).
-3. Decide the fate of `drafts/` (phase out: remaining links into `docs/` / chat logs, then remove).
+3. `drafts/` removed. Living documents it listed are in `docs/`. Grok web share URLs are in [amcl002.md](amcl002.md).
 4. Keep the `ampl*` plans in `docs/admin/` consistent with top-level strategy; do not edit `docs/tlpl001.md` from `am`.
 5. Land coherent `am` units on `main` by pull request, with Copilot as independent reviewer ([ampd005.md](ampd005.md)). Do not treat Copilot Chat as a substitute for that PR review.
 
@@ -36,4 +34,4 @@ KR-specific architecture, design, and prototype work lives in `kr/` and is **not
 
 ## Done enough to leave `am` as the bottleneck
 
-A new Grok session, started in a worktree, can read `ampd004.md` and `AGENTS.md` and know which files it may change, and `ampl005.md` for what to do next.
+A new Grok session, started in a worktree, can read [README.md](README.md) (working practice), [ampd004.md](ampd004.md) and `AGENTS.md` and know which files it may change, and this file for what to do next.

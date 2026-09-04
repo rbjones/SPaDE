@@ -1,6 +1,10 @@
 # Independent review: Grok authors, Copilot reviews
 
-This is the working practice for the period in which **Grok Build** (with the human) does the work, and **GitHub Copilot** is used as an *independent* reviewer of that work. It complements [ampd004.md](ampd004.md) (branches, worktrees, sessions) and does **not** revive Copilot as the primary authoring agent ([ampd001.md](ampd001.md), [ampd002.md](ampd002.md)).
+This is the working practice for pull requests **authored by Grok Build** (with the human): GitHub Copilot **code review** is the independent reviewer of that diff. It complements [ampd004.md](ampd004.md).
+
+It does **not** cover Copilot as implementer. GitHub-scheduled Copilot work is [ampd001.md](ampd001.md), [ampd002.md](ampd002.md), [ampd008.md](ampd008.md). Do not treat this document as a ban on that path.
+
+Copilot’s review model is often not selectable on the review API and is not assumed to be Grok. Independence is **institutional** (different product, no Grok session transcript), not a guarantee of a different model family.
 
 ## Roles
 
@@ -9,7 +13,8 @@ This is the working practice for the period in which **Grok Build** (with the hu
 | Author | Human + Grok Build, in an area worktree | Design and write; keep outcomes in `docs/` (and code when that area is in scope) |
 | Independent reviewer | GitHub Copilot **code review** on a pull request | Read the PR diff; post review comments without having written the change |
 | Integrator | Human | Merge to `main` only after the PR (and Copilot review) have been considered |
-| Fallback chat | Copilot Chat in VS Code | Interactive questions when Grok is unavailable; not a substitute for PR review |
+| Copilot as implementer | Coding agent on a GitHub issue | Separate path ([ampd001.md](ampd001.md)); not this review role |
+| Fallback chat | Copilot Chat in VS Code | Only if Grok is unavailable; not a substitute for Grok discussion or for this PR review |
 
 Independence here is **institutional**, not metaphysical: Copilot did not produce the patch, and it sees the GitHub PR, not the Grok session transcript. It can still be wrong, shallow, or aligned with GitHub/Microsoft defaults. The human remains the integrator.
 
@@ -44,7 +49,7 @@ Re-check GitHub’s Copilot review docs when this procedure is used; the product
 
 ## What this is not
 
-- Not Copilot authoring a PR that Grok then “reviews.” That inverts the independence we want.
+- Not Copilot reviewing a PR it just authored. Human review (Grok may help) applies to the [ampd001.md](ampd001.md) path.
 - Not `/resume-codex` or a third agent (Claude Code, Codex CLI). Those remain uninstalled unless deliberately adopted.
 - Not automated evaluation of SPaDE **as a tool for LLMs**. That is a later, separate problem (see below).
 

@@ -41,4 +41,3 @@ This subsystem may also include facilities supporting a marketplace through whic
 - [CONTRIBUTING](CONTRIBUTING.md)
 - [Review Log](reviews/README.md)
 - [glossary](docs/tlad001.md)
-- [drafts for discussion](drafts/README.md) - links to incomplete documents currently under discussion

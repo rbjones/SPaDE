@@ -8,7 +8,7 @@
 
 Define a repeatable procedure for assigning implementation tasks to Copilot coding agent while preserving full traceability.
 
-This procedure is designed for use with area branches and worktrees as described in [ampd004.md](ampd004.md).
+This is the GitHub-scheduled Copilot path ([README.md](README.md) working practice, [ampd001.md](ampd001.md)). Copilot creates its own branch; it does not check out an area worktree. Area worktrees are for Grok ([ampd004.md](ampd004.md)).
 
 ## Policy
 
@@ -69,7 +69,7 @@ Use this as a starting pattern for each new task description file.
 
 - Working branch (base_ref): `<branch-name>`
 - Pull request base branch: `<branch-name>`
-- Related worktree: `<path or identifier>`
+- Tests: SPaDE container (Copilot has no local workspace)
 
 ## Task Requirements
 

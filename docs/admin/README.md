@@ -6,7 +6,17 @@ It is now clear to me that an important part of that is project management and a
 
 Because of the shifting balance between human and AI contributions, it is preferable to document roles in ways which are agnostic as to whether the role is filled by a human or an AI system.
 
-Agents (including Grok Build) should take in **this directory**, via this README, rather than treating `AGENTS.md` as the project methods manual. `AGENTS.md` is only Grok-specific (and similar) advice. Worktrees, edit scope, commit, and merge to `main` are in [ampd004.md](ampd004.md) and [ampd005.md](ampd005.md). Document placement is in [amms001.md](amms001.md).
+Agents (including Grok Build) should take in **this directory**, via this README, rather than treating `AGENTS.md` as the project methods manual. `AGENTS.md` is only Grok-specific (and similar) advice. Document placement is in [amms001.md](amms001.md).
+
+### Working practice (pro-tem)
+
+Three uses of agents, not two products doing the same job:
+
+1. **Grok Build** is for interactive work and high-level discussion. It always uses a Grok LLM. Retained memory is in `~/.grok/memory/` (keyed on `origin`, shared by clones and worktrees of this repo), not in the git tree. Sessions are per working directory. Outcomes belong in `docs/` (and code); memory is continuity only. Area branches and worktrees: [ampd004.md](ampd004.md).
+2. **Copilot coding agent** is for work scheduled through GitHub (issues, `@copilot`, coding-agent PRs). Its model is often selectable and is **not** assumed to be Grok. It has no local workspace, so tests run in the SPaDE container. Procedure: [ampd001.md](ampd001.md), [ampd002.md](ampd002.md), [ampd008.md](ampd008.md).
+3. **Copilot code review** on a pull request that **Grok authored** is independent review of that patch ([ampd005.md](ampd005.md)). It is not the same role as (2). A Copilot-authored PR is not independently reviewed by Copilot; the human reviews it (Grok may help).
+
+Do not use Copilot Chat in the local tree as a substitute for (1) or for (3).
 
 This documentation falls into the following categories:
 
@@ -31,12 +41,12 @@ This documentation falls into the following categories:
 
 ## Process or procedure descriptions
 
-- ~~[ampd001.md](ampd001.md)~~ Using GitHub Copilot Agent with SPaDE
-- ~~[ampd002.md](ampd002.md)~~ Process for Copilot in completing code and test assignments
+- [ampd001.md](ampd001.md) GitHub-scheduled Copilot agent; tests in the SPaDE container
+- [ampd002.md](ampd002.md) Process for Copilot completing code and test assignments
 - [ampd003.md](ampd003.md) Conversational Documentation Development Procedure
 - [ampd004.md](ampd004.md) Branches, worktrees, and sessions
 - [ampd005.md](ampd005.md) Independent review: Grok authors, Copilot reviews; PRs into `main`; later LLM-evaluation questions
-- ~~[ampd007.md](ampd007.md)~~ Glossary Augmentation Procedure
+- [ampd007.md](ampd007.md) Glossary Augmentation Procedure
 - [ampd008.md](ampd008.md) Copilot Delegation Procedure with Task Documents
 
 ## Plans and strategies
@@ -61,6 +71,7 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
 ## Chat Logs
 
 - [amcl001.md](amcl001.md) Chat Log: Conversational Documentation Development Procedure
+- [amcl002.md](amcl002.md) Grok web discussion links formerly listed under `drafts/`
 
 ## Code and Scripts
 
