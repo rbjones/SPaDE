@@ -1,8 +1,11 @@
 # Deductive Engineering
 
+## Introduction
+
 It is surely a commonplace that the solution of difficult intellectual problems requires focus.
 This is of course, just the opposite of what we see in LLMs, which are trained on massive datasets and are not only costly to train, but also not cheap to apply to simple problems.
 Problems which require deep thinking are explicitly provided for in many models by getting the LLM to think twice (or more) and reflect upon its results, or by combining the talents of multiple LLMs in a "chain of thought" or "reasoning chain" to solve problems which are beyond the capabilities of any single LLM.
+
 Away from the generality of LLMs, AI has lately had success in narrower domains by using more focused methods.
 Deepmind's alpha-zero has shown the benefits of focus most clearly in those domains which constitute "perfect information spaces".
 
