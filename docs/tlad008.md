@@ -1,21 +1,26 @@
 # The Focal Tower
 
 To advance the SPaDE deductive intelligence capability as rapidly as possible it is intended to continuously exploit that capability in its own advancement.
-The concept of "singularity" has been used to refer to the point at which an AI system becomes capable of improving, re-inventing or re-constructing itself, leading to a positive feedback loop of self improvement and hyper-exponential growth in capability.
+The concept of "singularity" has been used to refer to the point at which an AI system becomes capable of improving, re-inventing or re-constructing itself, leading to a positive feedback loop of self improvement and hyper-exponential growth in capability (now called Recursive Self-Improvement, or RSI).
 
 This is usually considered as a single seismic event, but the application of a capability to improve itself can be expected to occur at multiple levels.
 In relation to the philosophical context in which SPaDE has been conceived, the possibility of such a phenomenon appears at the lowest level as the primitive deductive system becomes capable of reasoning about deduction and devising more capable and efficient algorithms for deduction.
 At the upper extreme, as intelligent systems spread across the universe, we anticipate that each generation of self-proliferating intelligent systems will be capable of designing and constructing the next generation, exhibiting extreme capabilities in relation to logic, mathematics, engineering, and system design guided by normative systems.
 
-The singularities in such a progression are not fully susceptible to focal methods, but will in general have focal cores in which formal models of the relevant capabilities are represented, can be elaborated deductively, and thereby contribute to progressing the singular capability in question.
+It should also be noted, that technological advances are rarely the achievement of a single individual or entity, but rather the product of an entire culture, advancing through collective effort and shared knowledge.
+The capabilities exhibited and advanced by a singularity may therefore be an attribute of a system or culture, rather than of any single individual or entity.
+One aspect of SPaDE which contributes to that kind of singularity is its support for a widely distributed shared repository of declarative knowledge.
+
+The singularities in such an advancing progression may not be fully susceptible to focal methods, but will in general have focal cores in which formal models of the relevant capabilities are represented, can be elaborated deductively, and thereby contribute to progressing the singular capability in question.
 
 The progression from purely deductive logical foundations, through to the most advanced self-proliferating intelligent systems, may therefore be seen as a progressive collaboration between focal AI operating within relevent formal models, and broader intelligent capabilities surveying the whole, constructing and evaluating relevant formal models.
 The "relevant formal models" will be of the target environments, of systems designed to develop in those environments, and the transport necessary to get there.
 Whether or not these systems will be "living" is moot.
-The cost of transport will prioritise the development of systems which are as light as possible, and will therefore have to develop and grow in situ to reach the levels of complexity and size necessary to develop the next generation of self-proliferating intelligent systems.
+The cost of transport will prioritise the development of systems which are as light as possible, and will therefore have to develop and grow *in-situ* to reach the levels of complexity and size necessary to develop the next generation of self-proliferating intelligent systems.
 
 For the SPaDE project, this long term cosmic perspective provides motivation and context for an effort primarily addressing the logical foundations, where there are singularities which are completely focal, since they depend only on the structure of the logical systems and support no perception of physical reality, nor any direct effect upon it.
-The upper levels will be addressed in SPaDE only through philosophy.
+
+Beyond that logical core, the normative element of the purpose of SPaDE (seeking the proliferation of *benign* intelligence) provides a more difficult challenge, involving engagement with the evolution of ethical, social, and cultural norms in increasingly complex and autonomous intelligent systems.
 
 At each level in this progression, we describe as a "singular focus" the particular capability which we are seeking to apply to its own advancement, and we can talk of a "focal tower" as the progression through multiple levels of singular focus.
 
@@ -36,6 +41,9 @@ To that end, I identify an ultimate purpose, and a fundamental technology, and s
 The tower progresses through of a number of singular foci, each delivering self advancement of a particular capability, leading on to the next singular focus.
 That these are focal indicates that the knowledge and capabilities are represented in formally represented declarative theories, and therefore constitute perfect information spaces which can be advanced by focal methods.
 That these foci are singular indicates that they are designed to facilitate reflexive self improvement, and ultimately to optimise trans-cosmic proliferation.
+A particular focus is defined by a capability and a context in which that capability can be exercised and advanced.
+The progression through the foci consists either in a broadening of the capability, or in a weakening of the required context.
+Thus, reproduction in the context of the earth's ecosystem is a much weaker capability than proliferation across a galaxy into alien environments.
 
 Though this is spoken of as a single tower, there are many upward routes through singular foci to related ends, that many of these will be progressed, and that the knowledge thus gained will be shared through SPaDE-like diasporan repositories.
 
@@ -44,7 +52,7 @@ These three epistemological layers distinguished primarily *semantically*.
 At all these levels, the knowledge is first given as abstract models.
 At the level of purely logical or mathematical knowledge this is the whole story.
 Empirical knowledge is given by presenting an abstract model of some physical system, and then interpreting certain of the objects in the model are representing physical quantities, enabling deductive reasoning about the abstract model to be interpreted as reasoning about the physical system.
-Normative propositions are something else.
+Normative propositions are something else, but insofar as the norms are rational and subject to deductive reasoning, that rational core may be embedded in a formal theory determining a perfect information space able to contribute to advancing the overall purpose.
 
 From the bottom up:
 
@@ -59,14 +67,10 @@ From the bottom up:
 
     2.1 *Engineering Design*
 
-    The next layer takes us out of the purely logical into the physical work, from engineering software to engineering physical artifacts.
+    The next layer takes us out of the purely logical into the physical world, from engineering software to engineering physical artifacts.
   The context for such engineering is the world as we find it, with existing physical system to support design and manufacturing, and the focus is on the advancement of the physical infrastructure supporting design and manufacture.
-
 3. Normative Knowledge
 
-    The previous layer a capability in the context of what we now have on planet Earth.
-    What happens as we try to establish such a capability on some other planet?
-  Then we have to move to the design of a completely new system which will function in a context which is devoid of most everything we have here on planet earth.
 4. *Interstellar Proliferation*
 
 ## [The First Singular Focus](tlad010.md): Reasoning about Inference
