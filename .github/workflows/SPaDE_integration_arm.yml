@@ -58,4 +58,4 @@ jobs:
           . /proofpower-source/dev_env
           echo "PATH after dev_env: $PATH"
           export PATH="/workspace/common:$PATH"
-          make
+          make || { echo '--- failure logs ---'; find . -name '*.err' -print -exec cat {} \; ; exit 1; }
