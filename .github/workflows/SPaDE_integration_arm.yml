@@ -58,4 +58,4 @@ jobs:
           . /proofpower-source/dev_env
           echo "PATH after dev_env: $PATH"
           export PATH="/workspace/common:$PATH"
-          make || { echo '--- failure logs ---'; find . -name '*.err' -print -exec cat {} \; ; exit 1; }
+          make || { echo '--- failure logs ---'; find . -name '*.err' -o -name 'server.log' -print -exec cat {} \; ; echo '--- /tmp/spade_server_startup.log ---'; cat /tmp/spade_server_startup.log 2>/dev/null || true; exit 1; }
