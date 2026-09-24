@@ -8,15 +8,17 @@ Because of the shifting balance between human and AI contributions, it is prefer
 
 Agents (including Grok Build) should take in **this directory**, via this README, rather than treating `AGENTS.md` as the project methods manual. `AGENTS.md` is only Grok-specific (and similar) advice. Document placement is in [amms001.md](amms001.md).
 
-### Working practice (pro-tem)
+### Working practice
 
-Three uses of agents, not two products doing the same job:
+Development is done by local agents on the DGX Spark. Grok and Copilot in the cloud are used where the most powerful models are likely to be beneficial. Roles and placement: [amms009.md](amms009.md). Order of work: [ampl006.md](ampl006.md). Commissioning and review: [ampd009.md](ampd009.md). Software on the Spark: [amms010.md](amms010.md). Area branches and worktrees: [ampd004.md](ampd004.md).
 
-1. **Grok Build** is for interactive work and high-level discussion. It always uses a Grok LLM. Retained memory is in `~/.grok/memory/` (keyed on `origin`, shared by clones and worktrees of this repo), not in the git tree. Sessions are per working directory. Outcomes belong in `docs/` (and code); memory is continuity only. Area branches and worktrees: [ampd004.md](ampd004.md).
-2. **Copilot coding agent** is for work scheduled through GitHub (issues, `@copilot`, coding-agent PRs). Its model is often selectable and is **not** assumed to be Grok. It has no local workspace, so tests run in the SPaDE container. Procedure: [ampd001.md](ampd001.md), [ampd002.md](ampd002.md), [ampd008.md](ampd008.md).
-3. **Copilot code review** on a pull request that **Grok authored** is independent review of that patch ([ampd005.md](ampd005.md)). It is not the same role as (2). A Copilot-authored PR is not independently reviewed by Copilot; the human reviews it (Grok may help).
+Cloud paths that remain:
 
-Do not use Copilot Chat in the local tree as a substitute for (1) or for (3).
+1. **Grok Build** for liaison and for a task that needs a frontier model. It always uses a Grok LLM. Retained memory is in `~/.grok/memory/` (keyed on `origin`, shared by clones and worktrees of this repo), not in the git tree. Sessions are per working directory. Outcomes belong in `docs/` (and code); memory is continuity only.
+2. **Copilot code review** on a pull request into `main` from an area worktree ([ampd005.md](ampd005.md), [ampd009.md](ampd009.md)). A Copilot-authored PR is not independently reviewed by Copilot; the principal reviews it (Grok may help).
+3. **Copilot coding agent** for a bounded subcontract that the frontier-model test in [ampd009.md](ampd009.md) assigns to Copilot. It has no local workspace, so tests run in the SPaDE container. Procedure: [ampd001.md](ampd001.md), [ampd002.md](ampd002.md), [ampd008.md](ampd008.md).
+
+Do not use Copilot Chat in the local tree as a substitute for (1) or for (2).
 
 This documentation falls into the following categories:
 
@@ -38,6 +40,9 @@ This documentation falls into the following categories:
 - [amms006.md](amms006.md) Glossary Link Maintenance
 - [amms007.md](amms007.md) Glossary Augmentation Procedure (historic, pro-tem)
 - [amms008.md](amms008.md) LLM Wiki, in progress and not authoritative
+- [amms009.md](amms009.md) Agentic development team: roles and where work is written
+- [amms010.md](amms010.md) DGX Spark software baseline
+- [amms011.md](amms011.md) First local role cards: project manager, architect, philosopher
 
 ## Process or procedure descriptions
 
@@ -45,9 +50,10 @@ This documentation falls into the following categories:
 - [ampd002.md](ampd002.md) Process for Copilot completing code and test assignments
 - [ampd003.md](ampd003.md) Conversational Documentation Development Procedure
 - [ampd004.md](ampd004.md) Branches, worktrees, and sessions
-- [ampd005.md](ampd005.md) Independent review: Grok authors, Copilot reviews; PRs into `main`; later LLM-evaluation questions
+- [ampd005.md](ampd005.md) Independent review: Copilot reviews pull requests into `main`; later LLM-evaluation questions
 - [ampd007.md](ampd007.md) Glossary Augmentation Procedure
 - [ampd008.md](ampd008.md) Copilot Delegation Procedure with Task Documents
+- [ampd009.md](ampd009.md) Commissioning work on the Spark: local agents, cloud models, review, GitHub Issues
 
 ## Plans and strategies
 
@@ -56,6 +62,7 @@ This documentation falls into the following categories:
 - [ampl003.md](ampl003.md) Project Management
 - [ampl004.md](ampl004.md) SPaDE Development Strategy
 - [ampl005.md](ampl005.md) Immediate plan: Grok Build transition
+- [ampl006.md](ampl006.md) Development on the DGX Spark: parallel preparation, architectural evaluation, checking HOL
 
 ## Testing and evaluation
 
@@ -67,11 +74,14 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
 - [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
+- [amtd005.md](amtd005.md) Task Description — Execute Glossary Augmentation Process
+- [amtd006.md](amtd006.md) Task: SPaDE specifications corresponding to spc001–spc005
 
 ## Chat Logs
 
 - [amcl001.md](amcl001.md) Chat Log: Conversational Documentation Development Procedure
 - [amcl002.md](amcl002.md) Grok web discussion links formerly listed under `drafts/`
+- [amcl003.md](amcl003.md) Session record: agentic team on the DGX Spark
 
 ## Code and Scripts
 

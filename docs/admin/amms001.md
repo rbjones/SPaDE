@@ -117,7 +117,7 @@ There may be a small number of papers prepared as if for publication in the proc
 
 ### ProofPower .pp Files
 
-Historical material in the retro directory is mostly in .pp files, which are in a ProofPower literate script format normally including both tex source and formal specifications in HOL. These are intended ultimately both for processing by ProofPower and for creating PDF documents using texlive.
+The `retro/` directory is bootstrap, not SPaDE. It holds historical ProofPower literate scripts, mostly `.pp` files, so that ProofPower can be used while SPaDE cannot yet check its own specifications. It does not follow the documentation standards that apply in the other directories. ProofPower itself is transitional and is not a SPaDE deliverable. Formal specifications in HOL written for SPaDE and placed in markdown documents are part of SPaDE.
 
 ### Reference PDF
 
@@ -125,7 +125,9 @@ It is likely that a compendium of project documentation as a PDF reference manua
 
 ### Formal Specifications
 
-These will form the main part of the technical output during the early stages of the project, and will be in ProofPower HOL. They will normally be in literate scripts either as .pp files or as .md files.
+In SPaDE proper, HOL is written in markdown, in fenced `hol` blocks. `common/rules.mkf` strips those blocks to a `.sml` file. A directory that contains such a document has a makefile that asks for the strip. The first of these documents is `docs/tlcd001.md`, processed by `docs/tlci001.mkf`.
+
+A document derived from a ProofPower source acknowledges that source. The architect's first work, specified in [amtd006.md](amtd006.md), is to recast `spc001.pp`–`spc005.pp` into that form. The deductive system stays the one those documents specify. The inference rules are to be executable, so that SPaDE can prove a derived rule sound and then run it. Those derived rules are the earliest reflective self-improvement. ProofPower checks well-formedness. Correctness is a further, more intelligent check. A large part of the specifications under `kr/` is architectural. It will be promoted into `docs/`, or, more likely, used as the basis of new specifications in `docs/` which supersede it. Some of those `kr/` specifications are HOL4. New architectural HOL is ProofPower HOL in markdown.
 
 It is policy to progress all informal documentation into formal models at all levels.
 At the lower levels this is part of the reflexive reasoning required to approach the first singular foci and is therefore of high priority.  At the higher levels it is probably less urgent.
