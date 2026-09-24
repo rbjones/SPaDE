@@ -1,5 +1,7 @@
 # Roles, Responsibilities, Tasks
 
+The current role model is [amms009.md](amms009.md). The notes below are the earlier position.
+
 I have an ambivalent attitude to this area at present, wanting to retain flexibility, but also recognising the need for clarity.
 
 Consequently I am putting down some initial thoughts which will evolve.

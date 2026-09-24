@@ -1,22 +1,22 @@
-# Independent review: Grok authors, Copilot reviews
+# Independent review: area branches, Copilot reviews
 
-This is the working practice for pull requests **authored by Grok Build** (with the human): GitHub Copilot **code review** is the independent reviewer of that diff. It complements [ampd004.md](ampd004.md).
+This is the working practice for pull requests into `main` from an area branch, including work by a local agent or by Grok Build. GitHub Copilot **code review** is included on that pull request. Commissioning is in [ampd009.md](ampd009.md). Branches and worktrees are in [ampd004.md](ampd004.md).
 
 It does **not** cover Copilot as implementer. GitHub-scheduled Copilot work is [ampd001.md](ampd001.md), [ampd002.md](ampd002.md), [ampd008.md](ampd008.md). Do not treat this document as a ban on that path.
 
-Copilot’s review model is often not selectable on the review API and is not assumed to be Grok. Independence is **institutional** (different product, no Grok session transcript), not a guarantee of a different model family.
+Copilot’s review model is often not selectable on the review API and is not assumed to be Grok. Independence is **institutional** (a different product, which did not author the patch), not a guarantee of a different model family.
 
 ## Roles
 
 | Role | Who | Does |
 |---|---|---|
-| Author | Human + Grok Build, in an area worktree | Design and write; keep outcomes in `docs/` (and code when that area is in scope) |
+| Author | The role that did the work, in an area worktree: a local agent, or the human with Grok Build | Design and write; keep outcomes in `docs/` (and code when that area is in scope) |
 | Independent reviewer | GitHub Copilot **code review** on a pull request | Read the PR diff; post review comments without having written the change |
 | Integrator | Human | Merge to `main` only after the PR (and Copilot review) have been considered |
 | Copilot as implementer | Coding agent on a GitHub issue | Separate path ([ampd001.md](ampd001.md)); not this review role |
 | Fallback chat | Copilot Chat in VS Code | Only if Grok is unavailable; not a substitute for Grok discussion or for this PR review |
 
-Independence here is **institutional**, not metaphysical: Copilot did not produce the patch, and it sees the GitHub PR, not the Grok session transcript. It can still be wrong, shallow, or aligned with GitHub/Microsoft defaults. The human remains the integrator.
+Independence here is **institutional**, not metaphysical: Copilot did not produce the patch, and it sees the GitHub PR rather than the author's session. It can still be wrong, shallow, or aligned with GitHub/Microsoft defaults. The human remains the integrator.
 
 ## Updates to `main` go through a pull request
 
