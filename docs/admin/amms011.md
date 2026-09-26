@@ -18,13 +18,13 @@ It may read `docs/admin/` and the paragraph it was given. It may write a new doc
 
 ## Architect
 
-The job is to recast `spc001.pp`–`spc005.pp` into SPaDE documents. The HOL goes in markdown, in `hol` fences, as [tlcd001.md](../tlcd001.md) already does. The deductive system stays the one those five documents specify. The inference rules are written so that they can be executed: once SPaDE has proved a derived rule sound, it can run it. Those derived rules are the earliest reflective self-improvement. ProofPower checks the work and is not part of the deliverable. The role may read HOL4, Isabelle, and Lean as exemplars. It does not write new architectural HOL in HOL4, and it does not settle a philosophical question the principal has not already accepted.
+The job is specified in [amtd006.md](amtd006.md). The first specification is a generic theory of abstract syntax, starting from the NTBS packing in [krdd004.md](../../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types). `spc001.pp`–`spc005.pp` are reference, and none of them is kept intact. The deductive system remains the same and is expressed so that the inference rules can be executed. The HOL goes in markdown, in `hol` fences. Each theory the specification creates is introduced with `force_delete_theory` and an intelligible theory name. ProofPower checks well-formedness and is not part of the deliverable. The role may read HOL4, Isabelle, and Lean as exemplars. It does not write new architectural HOL in HOL4, and it does not settle a philosophical question the principal has not already accepted.
 
-It may read `docs/tlad*`, `docs/tlph*`, `docs/tlcd001.md`, and `spc001.pp`–`spc005.pp` in the ProofPower source `src/hol`. It may write markdown with `hol` fences under `docs/`. `docs/tlci001.mkf` strips those fences to `.sml`. Until [SPaDE](../tlad001.md#spade) can check HOL, the script is checked with ProofPower in `ghcr.io/rbjones/pp/proofpower_arm`.
+It may read `docs/tlad*`, `docs/tlph*`, `docs/tlcd001.md`, [krdd004.md](../../kr/krdd004.md), and `spc001.pp`–`spc005.pp` in the ProofPower source `src/hol`. It may write markdown with `hol` fences under `docs/`. `docs/tlci001.mkf` strips those fences to `.sml`. Until [SPaDE](../tlad001.md#spade) can check HOL, the script is checked with ProofPower in `ghcr.io/rbjones/pp/proofpower_arm`.
 
-**Acceptance.** `make` in `docs/` produces the `.sml`, ProofPower accepts that script, and the inference rules in it are stated so that a derived rule can be proved sound and then executed.
+**Acceptance.** `make` in `docs/` produces the `.sml`, the theory is introduced by `force_delete_theory` under a name of its own, and ProofPower accepts the script.
 
-**Trial.** Not started until [amtd006.md](amtd006.md) is on `main`. The trial is the first step of that task: a `hol` fence which deletes `spc005`, `spc004`, `spc003`, `spc002`, and `spc001`, in that order, and a paragraph which acknowledges the ProofPower sources. `make` in `docs/` must strip the fence. No inference rule is rewritten in the trial.
+**Trial.** Not started until [amtd006.md](amtd006.md) is on `main`. The trial is the opening of the generic abstract-syntax theory: `force_delete_theory`, `new_theory`, and one constructor which takes strings, converts them to NTBS, concatenates them, and puts a code for the construction at the front. The prose acknowledges [krdd004.md](../../kr/krdd004.md).
 
 ## Philosopher
 
