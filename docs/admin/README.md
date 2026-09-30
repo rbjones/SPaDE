@@ -75,7 +75,7 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
 - [amtd005.md](amtd005.md) Task Description — Execute Glossary Augmentation Process
-- [amtd006.md](amtd006.md) Task: SPaDE specifications corresponding to spc001–spc005
+- [amtd006.md](amtd006.md) Task: a generic theory of abstract syntax
 
 ## Chat Logs
 

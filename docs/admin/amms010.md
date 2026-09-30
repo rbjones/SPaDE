@@ -1,6 +1,6 @@
 # DGX Spark software baseline
 
-This document records the observed software baseline and the next planned capabilities for the development Spark described in [amms009.md](amms009.md). A recommendation is not an adopted capability until it is installed and verified here. As planned work is completed, update the plan to record the resulting state. The order of work is in [ampl006.md](ampl006.md).
+This document records the observed software baseline and the next planned capabilities for the development Spark described in [amms009.md](amms009.md). Capabilities are the standard; a recommendation is not an adopted capability until it is installed and verified here. As planned work is completed, update the plan to record the resulting state. The order of work is in [ampl006.md](ampl006.md).
 
 The machine is one NVIDIA GB10 (Grace Blackwell, `sm_121`), `aarch64`, with unified memory of about 121 GiB. Interactive development and a resident local model share that memory. Fine-tuning and focal training are scheduled so that they do not sit on top of a full-size resident model, unless the principal schedules an exception.
 
