@@ -22,6 +22,12 @@ A constructor of the language takes strings as arguments. Each string is convert
 
 The result is a SPaDE specification in markdown, with the HOL in `hol` fences, stripped to `.sml` by `docs/tlci001.mkf`. It is part of SPaDE. The `spc` documents and `retro/` remain reference and bootstrap.
 
+## Task execution
+
+This task is undertaken on branch `am`, in its `SPaDE-am` worktree. A local worker receives that worktree alone, mounted for the task as specified in [ampd010.md](ampd010.md). It may read the sources named in the architect role card and change only the formal target and its directly related build entries.
+
+The worker must run the stated document-generation and ProofPower validation commands before proposing completion. Those commands are to be made reproducible in this worktree before the task is assigned autonomously; the existing document makefile strips `hol` fences but is not yet a ProofPower runner for a new architectural script. The worker does not merge its result.
+
 ## Later, and not this stage
 
 The specification of HOL is built on this abstract syntax. Architectural material in `kr/` is input. The likely outcome is a new specification in `docs/` which supersedes it. Specifications in `kr/` written for HOL4 are not the form of the new architectural HOL.

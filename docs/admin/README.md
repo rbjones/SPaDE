@@ -54,6 +54,7 @@ This documentation falls into the following categories:
 - [ampd007.md](ampd007.md) Glossary Augmentation Procedure
 - [ampd008.md](ampd008.md) Copilot Delegation Procedure with Task Documents
 - [ampd009.md](ampd009.md) Commissioning work on the Spark: local agents, cloud models, review, GitHub Issues
+- [ampd010.md](ampd010.md) Local agent task execution
 
 ## Plans and strategies
 
