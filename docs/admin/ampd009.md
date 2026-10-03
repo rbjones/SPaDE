@@ -24,7 +24,7 @@ Open `http://127.0.0.1:3000` in a browser on the client machine. OpenHands is al
 
 ### Copilot Chat
 
-VS Code Chat can use the Spark model as a custom endpoint. In VS Code, run **Chat: Manage Language Models**, choose **Add Models**, then **Custom Endpoint**. Select **Chat Completions** and configure the endpoint as `http://127.0.0.1:8000/v1/chat/completions`. When prompted for an API key, use `local-llm`; vLLM does not enforce API-key authentication, but the setup expects a value. Set the model ID to `local-llm` and enable tool calling to use the model in agent mode. Then select the added model in Chat's model picker.
+VS Code Chat can use the Spark model as a custom endpoint. In VS Code, run **Chat: Manage Language Models**, choose **Add Models**, then **Custom Endpoint**. Select **Chat Completions** and configure the endpoint as `http://127.0.0.1:8000/v1/chat/completions`. When prompted for an API key, use `local-llm`; vLLM does not enforce API-key authentication, but the setup expects a value. Set the model ID to the service's current ID from `http://127.0.0.1:8000/v1/models`—currently `gpt-oss-120b`—and enable tool calling to use the model in agent mode. Then select the added model in Chat's model picker. After a model switch, update the custom endpoint's model ID to the new `VLLM_SERVED_MODEL_NAME` as described in [amms010.md](amms010.md).
 
 This configures the chat and agent experience, not Copilot inline code completions. Copilot Business or Enterprise administrators may need to enable BYOK for the organization.
 
@@ -35,11 +35,11 @@ Copilot CLI can use the same vLLM endpoint as a custom OpenAI-compatible provide
 ```sh
 export COPILOT_PROVIDER_BASE_URL=http://127.0.0.1:8000/v1
 export COPILOT_PROVIDER_TYPE=openai
-export COPILOT_MODEL=local-llm
+export COPILOT_MODEL=gpt-oss-120b
 copilot
 ```
 
-vLLM does not require an API key, so `COPILOT_PROVIDER_API_KEY` can be left unset. Copilot CLI requires the selected model to support streaming and tool calling. Run `copilot help providers` for provider configuration details.
+vLLM does not require an API key, so `COPILOT_PROVIDER_API_KEY` can be left unset. `gpt-oss-120b` is the currently active service; after a switch, set `COPILOT_MODEL` to the model ID reported by `/v1/models`. Copilot CLI requires the selected model to support streaming and tool calling. Run `copilot help providers` for provider configuration details.
 
 
 ## Cloud models
