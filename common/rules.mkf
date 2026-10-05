@@ -39,6 +39,8 @@
 # according to which languages are included.
 
 # MDWITHSML .md documents with SML in ```sml fences
+
+MDWITHSML=$(TLMDWITHSML) $(KRMDWITHSML)
 SMLFROMMD=$(MDWITHSML:.md=.sml)
 
 # MDWITHHOL .md documents with ProofPower HOL in ```hol fences.
