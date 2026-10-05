@@ -39,7 +39,7 @@ This documentation falls into the following categories:
 - [amms005.md](amms005.md) Guidance for AI Contributions
 - [amms006.md](amms006.md) Glossary Link Maintenance
 - [amms007.md](amms007.md) Glossary Augmentation Procedure (historic, pro-tem)
-- [amms008.md](amms008.md) LLM Wiki, in progress and not authoritative
+- ~~[amms008.md](amms008.md) LLM Wiki, in progress and not authoritative~~
 - [amms009.md](amms009.md) Agentic development team: roles and where work is written
 - [amms010.md](amms010.md) DGX Spark software baseline
 - [amms011.md](amms011.md) First local role cards: project manager, architect, philosopher

@@ -1,8 +1,30 @@
-# Task: a generic theory of abstract syntax
+# Task: SPaDE Formal Specification - Overview and Syntax
 
 ## Purpose
 
-The first specification written for SPaDE is a generic theory of abstract syntax. It is used for the HOL terms in the specification of HOL. Later it is used when onboarding knowledge or data expressed in some other language, such as Lean: the semantics of that notation are rendered in HOL, and the syntax is this generic one.
+The purpose of this and several subsequent tasks is the formal specification of the SPaDE system.
+It begins by following the structure of the formal specifications of ProofPower support for HOL, adapting them as necessary to the particular needs of the SPaDE system.
+
+For that reason, the first five tasks correspond to the five ProofPower documents in the spc001.pp–spc005.pp sequence, which will be recast as a series of specifications specific to SPaDE written in ProofPower HOL (SML) embedded in github markdown.
+
+It is envisaged that the one formal specification document commissioned by this task description will be produced in stages, since these are the first formal specifications to be assigned to autonomous agents in the SPaDE development and it is not yet clear what agents will have the necessary skills, or what needs to be supplied to the agent to facilitate the work.
+It is also likely that the full detail in this task description will also appear in stages as the specification evolves.
+
+## Stages
+
+Initially it is proposed that the work be conducted in the following stages:
+
+- Overview and Background
+- The Theory of T-expressions
+- The Representation of Abstract Syntax in T-expressions
+- The Structure of Types and Terms
+- Logical Contexts
+- The Structure of SPaDE repositories
+
+Each stage will be prescribed in a separate section below, but the commissioning of work need not wait on the completion of all the sections.
+It is likely that the first two sections will be commissioned before the detailed requirements for the later sections are fully specified.
+
+The first stage in the production of this specification is the formulation of a generic theory of abstract syntax. It is used for the HOL terms in the specification of HOL. Later it is used when onboarding knowledge or data expressed in some other language, such as Lean: the semantics of that notation are rendered in HOL, and the syntax is this generic one.
 
 `spc001.pp`–`spc005.pp` are reference for that work. None of them survives intact. The deductive system remains the same. The way it is expressed is more constructive, explicit, and executable (in particular the representation of inference rules as relations is to be replaced by functions, the partial nature is captured by returning "T" whenever the inference would otherwise fail). The inference rules are written so that SPaDE can prove a derived rule sound and then run it. Those derived rules are the earliest reflective self-improvement.
 
