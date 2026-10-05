@@ -97,6 +97,10 @@ The second with the architecture and fundamental core of the deductive intellige
 
 - [tlpl001.md](./tlpl001.md) - Strategy and Plan for Top-Level Philosophy and Architecture Documentation
 
+## Task Descriptions
+
+- [tltd001.md](./tltd001.md) - Task Description: Write A Generic HOL Theory of Abstract Syntax Using T-Expressions
+
 ## Miscellanea
 
 - [tlmc001.md](./tlmc001.md) - My Purpose in initiating SPaDE
