@@ -22,13 +22,13 @@ Do not use Copilot Chat in the local tree as a substitute for (1) or for (2).
 
 This documentation falls into the following categories:
 
+- **[Code and scripts](#code-and-scripts)**
+- **[Chat Logs](#chat-logs)**
 - **[Methods and standards](#methods-and-standards)**
 - **[Process or procedure descriptions](#process-or-procedure-descriptions)**
 - **[Plans and strategies](#plans-and-strategies)**
+- **[Task Descriptions](#task-descriptions)**
 - **[Testing and evaluation](#testing-and-evaluation)**
-- **[Task descriptions](#task-descriptions)**
-- **[Chat logs](#chat-logs)**
-- **[Code and scripts](#code-and-scripts)**
 
 ## Methods and standards
 
@@ -77,7 +77,6 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
 - [amtd005.md](amtd005.md) Task Description — Execute Glossary Augmentation Process
-- [amtd006.md](amtd006.md) Task: a generic theory of abstract syntax
 
 ## Chat Logs
 

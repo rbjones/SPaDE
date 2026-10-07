@@ -6,7 +6,7 @@ This procedure it intended to enable maximal application of local LLMs to SPaDE,
 
 The procedure is under development and is likely to evolve continuously during the early stages of its adoption.
 
-It is not yet in an acceptable state, and will not be good until at least one task has gone through an entire procedure successfully!
+It is not yet in an acceptable state, and will not be good until at least one task has gone through the entire procedure successfully.
 
 The procedure is presented in the following parts:
 
