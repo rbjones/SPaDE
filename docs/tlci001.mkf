@@ -4,23 +4,22 @@
 .PHONY: all clean current kr docs test help
 # Variables used by rules.mkf come before it is included.
 
-# MD files containing formal text
+# MD files containing formal text for ProofPower
 
-MDWITHSML=tlcd001.md
+PAMDWITHPPHOL=tlcd001.md tlcd003.md
 
 # SMLFROMMD defined in rules.mkf
 
 # Files classified by build method
 
-PPSMLSIG = krcd001.sml krcd002.sml krcd010.sml
+PAPPSMLSIG = krcd001.sml krcd002.sml krcd010.sml
 
 PPSMLSTRUCT = krcd011.sml
-PPSMLTEST = krte004.sml
-# krte006.sml
+PPSMLTEST = krte004.sml # krte006.sml
+
 HOL4SML = krad001.sml krcd006.sml
 PYMODULES = krcd008.py krcd009.py krcd012.py
-PYTEST = krte002.py krte003.py
-# krte005.py
+PYTEST = krte002.py krte003.py # krte005.py
 
 MATHEGPPDBNAME = maths_egs
 BASEPPDBNAME = rbjhol

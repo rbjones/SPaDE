@@ -1,4 +1,4 @@
-# The Representation of Knowledge in SPaDE
+# SPaDE formal specification - Overview and AbstractSyntax
 
 This is the first of a series of documents intended to provide formal specifications for the SPaDE system, in particular for the representation of knowledge in SPaDE.
 
@@ -10,24 +10,25 @@ In relation to those primitive theories, the main thrust of the changes is to pl
 Thus, for example, the axioms are intended to deliver sufficient strength to embed the LEAN language.
 The axiom of choice in SPaDE may be stated as the existence of initial strict well-orderings of any collection.
 
-```hol
-open_theory "rbjmisc";
-force_new_theory "basic_spade";
+```sml
+new_SPaDE_theory ("tlcd001", "SPaDEroot", []);
 ```
+
+## Axiom of Choice
 
 Choice is axiomatised as the existence of initial strict well-orderings of any type.
 We do not supply separate definitions of the usual constituent concept for the purposes of the expressing choice.
 This decision is subject to review of course.
 
-```hol
+```sml
 declare_infix (300, "<<");
 ```
 
-```hol
+```
 Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ```
 
-```hol
+```sml
 ⓈHOLCONST
 │ transitive: ('a → 'a → BOOL) → BOOL
 ├──────
@@ -35,17 +36,17 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ■
 ```
 
-```hol
+```sml
 ⓈHOLCONST
 │ linear_order: ('a → 'a → BOOL) → BOOL
 ├──────
 │ ∀ $<<⦁ linear_order $<< ⇔
-    transitive $<< ∧ 
-    ∀x y⦁  x = y ∨ x << y ∨ y << x
+|   transitive $<< ∧ 
+|   ∀x y⦁  x = y ∨ x << y ∨ y << x
 ■
 ```
 
-```hol
+```sml
 ⓈHOLCONST
 │ well_founded: ('a → 'a → BOOL) → BOOL
 ├──────
@@ -55,7 +56,7 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ■
 ```
 
-```hol
+```sml
 ⓈHOLCONST
 │ well_order: ('a → 'a → BOOL) → BOOL
 ├──────
@@ -64,7 +65,7 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ■
 ```
 
-```hol
+```sml
 ⓈHOLCONST
 │ strict: ('a → 'a → BOOL) → BOOL
 ├──────
@@ -72,7 +73,7 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ■
 ```
 
-```hol
+```sml
 ⓈHOLCONST
 │ one_one: ('a → 'b → BOOL) → BOOL
 ├──────
@@ -80,7 +81,7 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ■
 ```
 
-```hol
+```sml
 ⓈHOLCONST
 │ initial: ('a → 'a → BOOL) → BOOL
 ├──────
@@ -88,7 +89,7 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ■
 ```
 
-```hol
+```sml
 ⓈHOLCONST
 │ iswo: ('a → 'a → BOOL) → BOOL
 ├──────

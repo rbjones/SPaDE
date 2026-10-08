@@ -1,9 +1,17 @@
-# Task: SPaDE Formal Specification - Overview and Syntax
+# Task Description: Prepare the SPaDEroot Theory
 
-## Purpose
+## Introduction
 
-The purpose of this and several subsequent tasks is the formal specification of the SPaDE system.
-It begins by following the structure of the formal specifications of ProofPower support for HOL, adapting them as necessary to the particular needs of the SPaDE system.
+The task is to write ProofPower HOL specifications to define the SPaDEroot theory.
+
+The details of why we need this theory, the role it will play and the content of the theory are provided in a first draft of the specification document [The SPaDEroot Theory](tlcd002.md).
+
+This theory is an exception to the general pattern of giving the same name to a theory as the document that specifies it.
+
+The definition of the task is effectively split between the text in the draft specification and the standard procedure for creating a new theory in ProofPower HOL (ampd )
+
+## ATTIK
+
 
 For that reason, the first five tasks correspond to the five ProofPower documents in the spc001.pp–spc005.pp sequence, which will be recast as a series of specifications specific to SPaDE written in ProofPower HOL (SML) embedded in github markdown.
 
@@ -58,7 +66,7 @@ Subsequent task description will address various other ways in which SPaDE will 
 
 ---
 
-Document ID: amtd006
-Author: Grok Build (Grok 4.7)
+Document ID: tltd002
+Author: Grok Build (Grok 4.7) and Roger Jones
 Status: In progress
 Chat log: [amcl003.md](amcl003.md)

@@ -1,4 +1,4 @@
-# Task: SPaDE Formal Specification - Overview and Syntax
+# Task Description: SPaDE Formal Specification - Overview and Abstract Syntax
 
 ## Purpose
 
@@ -12,10 +12,13 @@ It is also likely that the full detail in this task description will also appear
 
 ## Stages
 
-Initially it is proposed that the work be conducted in the following stages:
+There is one prior stage in the formal specifiation of SPaDE: the SPaDE root theory ([tltd002.md](tltd002.md)).
+Because the SPaDE specifications will in due course be moved from the SPaDE github repository to any early SPaDE native repository, and the details of the core logic and theory will vary from those in ProofPower, we need to take some care to ensure that the essential elements of the logical context in which the specifications are developed on ProofPower can be conveniently reproduced in the native environment.
+A key element supplied by the SPaDE root theory will be the theory of T-expressions (short for "tuple expressions" and a minor elaboration of LISP S-expressions).
+
+Initially it is proposed that the work under this task description be conducted in the following stages (after the SPaDE root theory has sufficiently progressed):
 
 - Overview and Background
-- The Theory of T-expressions
 - The Representation of Abstract Syntax in T-expressions
 - The Structure of Types and Terms
 - Logical Contexts
@@ -46,9 +49,9 @@ The result is a SPaDE specification in markdown, with the HOL in `hol` fences, s
 
 ## Task execution
 
-This task is undertaken on branch `am`, in its `SPaDE-am` worktree. A local worker receives that worktree alone, mounted for the task as specified in [ampd010.md](ampd010.md). It may read the sources named in the architect role card and change only the formal target and its directly related build entries.
+This task is undertaken on branch `pa`, in its `SPaDE-pa` worktree. A local worker receives that worktree alone, mounted for the task as specified in [ampd010.md](ampd010.md). It may read the sources named in the architect role card and change only the formal target and its directly related build entries.
 
-The worker must run the stated document-generation and ProofPower validation commands before proposing completion. Those commands are to be made reproducible in this worktree before the task is assigned autonomously; the existing document makefile strips `hol` fences but is not yet a ProofPower runner for a new architectural script. The worker does not merge its result.
+The worker must run the stated document-generation and ProofPower validation commands before proposing completion. Those commands are to be made reproducible in this worktree before the task is assigned autonomously; the existing document makefile strips `sml` fences but is not yet a ProofPower runner for a new architectural script. The worker does not merge its result.
 
 ## Later, and not this stage
 
