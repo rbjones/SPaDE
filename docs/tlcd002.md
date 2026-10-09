@@ -60,8 +60,8 @@ In HOL it could be defined as a left inverse, but we want the functionality of S
 
 ```sml
 @HOLCONST
-│   pack_bytes : LIST STRING -> STRING;
-│   unpack_bytes : LIST STRING -> STRING;
+│   pack_bytes : STRING LIST-> STRING;
+│   unpack_bytes : STRING LIST -> STRING;
 ├──────
 │   True
 ■

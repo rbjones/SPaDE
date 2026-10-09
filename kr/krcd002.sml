@@ -9,10 +9,13 @@ type sequence_number = int
 val encode_bytes : bytes -> NTBS
 val decode_bytes : NTBS -> bytes
 
-val decode_slice : NTBSS -> int -> int * bytes
+val decode_slice : bytes -> int -> int * bytes
 
 val encode_NTBS_list : NTBS list -> NTBSS
 val decode_NTBS_list : NTBSS -> NTBS list
+
+val encode_repo_file : NTBS list -> bytes
+val decode_repo_file : bytes -> NTBS list
 
 val encode_integer : sequence_number -> NTBS
 val decode_integer : NTBS -> sequence_number

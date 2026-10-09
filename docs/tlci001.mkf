@@ -1,25 +1,15 @@
 # SPaDE tl Makefile
-# 
 
 .PHONY: all clean current kr docs test help
 # Variables used by rules.mkf come before it is included.
 
 # MD files containing formal text for ProofPower
 
-PAMDWITHPPHOL=tlcd001.md tlcd003.md
-
-# SMLFROMMD defined in rules.mkf
+PPMDSTRUCT=tlcd001.md tlc002.md tlcd003.md
 
 # Files classified by build method
 
-PAPPSMLSIG = krcd001.sml krcd002.sml krcd010.sml
-
-PPSMLSTRUCT = krcd011.sml
-PPSMLTEST = krte004.sml # krte006.sml
-
-HOL4SML = krad001.sml krcd006.sml
-PYMODULES = krcd008.py krcd009.py krcd012.py
-PYTEST = krte002.py krte003.py # krte005.py
+PPMDSTRUCT = tlcd001.md tlcd002.md tlcd003.md
 
 MATHEGPPDBNAME = maths_egs
 BASEPPDBNAME = rbjhol
@@ -45,9 +35,9 @@ default: test
 
 # Dependencies as necessary to get right build sequence
 
-krcd011.ldd: krcd001.ldd
-krte004.ldd: krcd011.ldd
-krte006.ldd: krcd011.ldd
+tlcd002.ldd: 
+tlcd001.ldd: tlcd002.ldd
+tlcd003.ldd: tlcd002.ldd
 
 # Targets
 
