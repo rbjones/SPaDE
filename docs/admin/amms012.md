@@ -1,7 +1,7 @@
 # Method for Writing ProofPower HOL Specifications
 
 This document outlines methods for writing formal specifications for the SPaDE project using ProofPower HOL.
-It clarifies the intended role for such specifications, identifies the context in which those specification are to be written and seeks to provide the best possible links into the documentation with which agents must be familiar to undertake the specifications successfully.
+It clarifies the intended role for such specifications, identifies the context in which those specifications are to be written and seeks to provide the best possible links into the documentation with which agents must be familiar to undertake the specifications successfully.
 
 It is presented in the following parts:
 
@@ -27,13 +27,13 @@ The relevant context falls under the following headings:
 
 - [Points of Divergence between ProofPower HOL and SPaDE](#points-of-divergence)
 - [Documentation for ProofPower HOL](#documentation-for-proofpower-hol)
-- [The Theory Heirarchy](#the-theory-heirarchy)
+- [The Theory Hierarchy](#the-theory-hierarchy)
 
 ### Points of Divergence between ProofPower HOL and SPaDE
 
 In writing the specifications it is necessary to be aware that the system we are trying to deliver is not the same as ProofPower HOL, even though the logical system is almost identical (as an abstraction).
 
-There are three principle points of divergence.
+There are three principal points of divergence.
 
 The first, concerns the reflexive aspects of SPaDE, which demand a new inference rule which allows functions shown to be logically sound to be applied directly in deriving further conclusions within the system.
 This intended to make no difference to the theorems which are provable, but simply to shorten proofs.
@@ -41,7 +41,7 @@ This intended to make no difference to the theorems which are provable, but simp
 To make the reasoning about the deductive system efficient, the provision for literal constants is modified to provide convenient support for term literals via an encoding of abstract syntax into byte sequences.
 
 The third point of divergence concerns the claim to universality for declarative languge of the HOL specification language.
-The alleged unversality attaches not to the bare HOL logical system, but rather to something which SPaDE calls a "universal foundational institution".
+The alleged universality attaches not to the bare HOL logical system, but rather to something which SPaDE calls a "universal foundational institution".
 This is not the place to explain that concept, but its consequence for the SPaDE logical system is a preference for strong infinity principles, effectively large cardinal axioms.
 So the SPaDE variant of HOL will come with strong infinity axioms.
 
@@ -56,7 +56,7 @@ The most comprehensive resource is the ProofPower repository at github.com/robar
 The build of ProofPower creates the documentation as PDF files but for many purposes it may be more instructive to refer to source files.
 SPaDEs use of ProofPower is on the utf8 branch which differs from the main branch in using utf8 character coding throughout.
 
-The SPaDE development environment contains a close of the utf8 branch of the ProofPower repository, which has been built and therefore contains the executables and the PDF documentation.
+The SPaDE development environment contains a clone of the utf8 branch of the ProofPower repository, which has been built and therefore contains the executables and the PDF documentation.
 
 The documentation is also available online at:
 
@@ -89,7 +89,7 @@ This is important to minimise the complexity of reflexive features of SPaDE.
 The minimisation of such context is achieved by the use of the SPaDEroot theory (defined in [tlcd002.md](tlcd002.md)).
 That theory is a child of the theory "basic_hol", so the context for the SPaDE specifications is the ancestry of basic_hol and the content of SPaDEroot.
 
-It will therfore be helpful to agents contributing to the SPaDE specifications to look carefully at the ancestry of basic_hol and the content of SPaDEroot.
+It will therefore be helpful to agents contributing to the SPaDE specifications to look carefully at the ancestry of basic_hol and the content of SPaDEroot.
 
 The ancestry of basic_hol is documented in the ProofPower HOL reference manual [usr029](https://www.lemma-one.com/ProofPower/doc/usr029.pdf).
 A more compact rendition of the key theories may be found in HTML at :https://www.rbjones.com/rbjpub/pp/pptheories.html
@@ -99,13 +99,13 @@ It may however be instructive for agents seeking to contribute specifications to
 The names of the relevant files are as follows:
 
 
-| Theory name | Source files |
-|--------------|-------------|
-| min | imp006.pp |
-| log, init, misc | dtd023.pp, imp023.pp |
-| pair | dtd023.pp, imp023.pp |
-| list | dtd039.pp, imp039.pp |
-| char | dtd040.pp, imp040.pp |
+| Theory name | Source files 
+|--------------|-------------
+| min | imp006.pp 
+| log, init, misc | dtd023.pp, imp023.pp 
+| pair | dtd023.pp, imp023.pp 
+| list | dtd039.pp, imp039.pp 
+| char | dtd040.pp, imp040.pp 
 
 
 The following formal specifications of ProofPower HOL and the HOL proof system are particularly relevant since some of these specifications will be rewritten for SPaDE, with the intention that there is no substantive change to the deductive system.

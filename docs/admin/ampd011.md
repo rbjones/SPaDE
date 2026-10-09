@@ -1,8 +1,8 @@
-# AMPD011: Task Assignment Procedure for SPaDE
+# AMPD011: Task Assignment Procedure for local LLMs
 
 ## Introduction
 
-This procedure it intended to enable maximal application of local LLMs to SPaDE, by providing a standard way of scheduling tasks which is consistent both with human and agentic completion by copilot or local LLMs.
+This procedure is intended to enable maximal application of local LLMs to SPaDE, by providing a standard way of scheduling tasks which is consistent both with human and agentic completion by Copilot or local LLMs.
 
 The procedure is under development and is likely to evolve continuously during the early stages of its adoption.
 
@@ -21,7 +21,7 @@ The procedure is presented in the following parts:
 
 ## Informal Overview
 
-The basic idea is that tasks will be defined clearly by a specific task definition, to be read in the context of the other SPaDE project standards and procedures, and will be raised as a github issue and appropriately assigned in that issue (not sure how, since we only have one github user account at the moment, probably has to be assigned to the project leader with more specific information in the task description as to what who needs to do it, possibly by citing a role).
+The basic idea is that tasks will be defined clearly by a specific task definition, to be read in the context of the other SPaDE project standards and procedures, and will be raised as a GitHub issue and appropriately assigned in that issue (not sure how, since we only have one github user account at the moment, probably has to be assigned to the project leader with more specific information in the task description as to what who needs to do it, possibly by citing a role).
 
 It is anticipated that some kind of scheduler will then retrieve the issues ready for progression which can be undertaken by local LLMs and will present them for completion.
 
@@ -32,7 +32,7 @@ Specific task descriptions will be placed in the project directory where the fil
 If the task involves producing a new document, then if possible the number of the document should correspond to the number of the task description.
 
 ## Task Definition
-- **Document Creation**: Create a task description document in that part of the SPaDE git repo where the work will be undertaken (usually the directory docs, kr, dk, di or mcp)following `docs/admin/amms001.md` naming conventions (e.g., `krtdxxx.md`) describing the objective of the work, the steps necessary to realise that objective and the manner of checking the work, explicitly referring to key documents as needed.
+- **Document Creation**: Create a task description document in that part of the SPaDE git repo where the work will be undertaken (usually the directory docs, kr, dk, di or mcp) following `docs/admin/amms001.md` naming conventions (e.g., `krtdxxx.md`) describing the objective of the work, the steps necessary to realise that objective and the manner of checking the work, explicitly referring to key documents as needed.
 Example:
   ```markdown
   # Task: Recast HOL TERMS for SPaDE
@@ -54,7 +54,7 @@ Ensure the document includes:
   - Dependencies (e.g., files to modify)
 
 ## Task Assignment
-- **Branch Creation**: scheduler creates a new branch and worktree for this particular taskfrom the relevant area branch (am, kr, dk, di, mcp):
+- **Branch Creation**: scheduler creates a new branch and worktree for this particular task from the relevant area branch (am, kr, dk, di, mcp):
   ```bash
   git checkout -b task-recast-hol-terms
   ```
