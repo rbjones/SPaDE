@@ -2,13 +2,13 @@
 # ProofPower HOL in SPaDE documents is fenced as hol inside markdown.
 # This makefile strips those fences to .sml. Loading into ProofPower is separate.
 
-MDWITHHOL = tlcd001.md
+MDWITHSML = tlcd001.md
 
 include ../common/rules.mkf
 
 .PHONY: all clean
 
-all: $(HOLSMLFROMMD)
+all: $(SMLFROMMD)
 
 clean:
-	rm -f $(HOLSMLFROMMD)
+	rm -f $(SMLFROMMD)

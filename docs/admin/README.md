@@ -22,13 +22,13 @@ Do not use Copilot Chat in the local tree as a substitute for (1) or for (2).
 
 This documentation falls into the following categories:
 
+- **[Code and scripts](#code-and-scripts)**
+- **[Chat Logs](#chat-logs)**
 - **[Methods and standards](#methods-and-standards)**
 - **[Process or procedure descriptions](#process-or-procedure-descriptions)**
 - **[Plans and strategies](#plans-and-strategies)**
+- **[Task Descriptions](#task-descriptions)**
 - **[Testing and evaluation](#testing-and-evaluation)**
-- **[Task descriptions](#task-descriptions)**
-- **[Chat logs](#chat-logs)**
-- **[Code and scripts](#code-and-scripts)**
 
 ## Methods and standards
 
@@ -43,6 +43,7 @@ This documentation falls into the following categories:
 - [amms009.md](amms009.md) Agentic development team: roles and where work is written
 - [amms010.md](amms010.md) DGX Spark software baseline
 - [amms011.md](amms011.md) First local role cards: project manager, architect, philosopher
+- [amms012.md](amms012.md) Method for Writing ProofPower HOL Specifications
 
 ## Process or procedure descriptions
 
@@ -55,7 +56,8 @@ This documentation falls into the following categories:
 - [ampd008.md](ampd008.md) Copilot Delegation Procedure with Task Documents
 - [ampd009.md](ampd009.md) Commissioning work on the Spark: local agents, cloud models, review, GitHub Issues
 - [ampd010.md](ampd010.md) Local agent task execution
-- [ampd011.md](ampd011.md) Task Assignment Procedure for Local LLMs via Cloud Frontier LLMs
+- [ampd011.md](ampd011.md) Task Assignment Procedure for Local LLMs
+- [ampd012.md](ampd012.md) Procedure for Writing Specifications in ProofPower HOL
 
 ## Plans and strategies
 

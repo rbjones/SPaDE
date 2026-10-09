@@ -34,7 +34,15 @@ The current baseline does not need explicit marking in each README line item. Wh
 
 A README.md for a directory should list every document in that directory that still exists. An entry should be removed only when the underlying file is deleted. This preserves a complete index and makes it clear when project documentation is being kept intentionally, not merely forgotten.
 
-When a document is retained for historical interest but is not part of the current working baseline, it should be marked with a strikethrough while keeping the link active, for example: `~~[ampd001.md](ampd001.md)~~`. In Markdown, strikethrough is written as `~~text~~`, and it can be applied to the linked label so that the link remains usable. This is the preferred concise indication that a document remains available for reference without implying current normative status.
+When a document is retained for historical interest but is not part of the current working baseline, it should be marked with a strikethrough while keeping the link active, for example:
+
+  ~~[ampd001.md](ampd001.md)~~
+  
+  In Markdown, strikethrough is written as:
+  
+     `~~[ampd001.md](ampd001.md)~~`
+  
+  and it can be applied to the linked label so that the link remains usable. This is the preferred concise indication that a document remains available for reference without implying current normative status.
 
 ### Avoiding time-sensitive procedural commentary
 
