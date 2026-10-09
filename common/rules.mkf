@@ -27,9 +27,15 @@
 
 # ProofPower
 # PPDBNAME the root name of the ProofPower database to be used.
-# PPSMLSIG SML signature files to be loaded into the ProofPower database
-# PPSMLSTRUCT SML structure files to be loaded into the ProofPower database
-# PPSMLTEST SML unit test files to be run in the ProofPower database
+# PPMDSIG markdown documents containing SML signatures
+# PPMDSTRUCT markdown documents containing SML structures or HOL
+# PPMDTEST markdown files containing SML tests
+
+PPMD = $(PPMDSIG) $(PPMDSTRUCT) $(PPMDTEST)
+
+PPSMLSIG = $(PPMDSIG:.md=.sml)
+PPSMLSTRUCT = $(PPMDSTRUCT.md=.sml)
+PPSMLTEST = $(PPMDTEST:.md=.sml)
 
 # HOL4
 # HOL4SML sml files for hol4.
@@ -40,13 +46,8 @@
 
 # MDWITHSML .md documents with SML in ```sml fences
 
-MDWITHSML=$(TLMDWITHSML) $(KRMDWITHSML)
+MDWITHSML=$(PPMD)
 SMLFROMMD=$(MDWITHSML:.md=.sml)
-
-# MDWITHHOL .md documents with ProofPower HOL in ```hol fences.
-# The fences are stripped to a .sml file, which is what ProofPower loads.
-MDWITHHOL ?=
-HOLSMLFROMMD=$(MDWITHHOL:.md=.sml)
 
 # Default python interpreter (can be overridden by parent makefile)
 
@@ -138,11 +139,6 @@ $(PYSRVRDD): %.rdd: %.py
 ifneq ($(SMLFROMMD),)
 $(SMLFROMMD): %.sml: %.md
 	$(EXTRACTCODE) sml < $< > $@
-endif
-
-ifneq ($(HOLSMLFROMMD),)
-$(HOLSMLFROMMD): %.sml: %.md
-	$(EXTRACTCODE) hol < $< > $@
 endif
 
 # ProofPower rules

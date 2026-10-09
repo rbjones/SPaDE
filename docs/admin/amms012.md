@@ -47,10 +47,14 @@ So the SPaDE variant of HOL will come with strong infinity axioms.
 
 ## Documentation for ProofPower HOL
 
+It is likely that it will be advantageous to provide special extracts of the ProofPower documentation focussing on those aspects which are needed for the specification work required in SPaDE, but this has not yet been done and so a selection of the existing documents is cited here pro-tem.
+It may be that an early task will involve creating such extracts, which can then be referenced in subsequent tasks.
+
 There are multiple sources of documentation for ProofPower HOL, so I will provide references to the full range of available materials, together and also identify a compact subset which may be sufficient for most purposes.
 
 The most comprehensive resource is the ProofPower repository at github.com/robarthn/pp.
 The build of ProofPower creates the documentation as PDF files but for many purposes it may be more instructive to refer to source files.
+SPaDEs use of ProofPower is on the utf8 branch which differs from the main branch in using utf8 character coding throughout.
 
 The SPaDE development environment contains a close of the utf8 branch of the ProofPower repository, which has been built and therefore contains the executables and the PDF documentation.
 
@@ -62,17 +66,22 @@ Only a few of the ProofPower manuals are relevant to SPaDE.
 
 The relevant documents are:
 
-- [ProofPower - Description](https://www.lemma-one.com/ProofPower/doc/usr005.pdf). This manual provides an account of the concrete syntax of ProofPower HOL.  Note that there are two versions of ProoPower HOL available, the first of which uses a special 256-character set, and the second utf8.
-SPaDE specifications are to be written for the utf8 version.
-- [ProofPower HOL Reference Manual](https://www.lemma-one.com/ProofPower/doc/usr029.pdf)
-This is a comprehensive reference both for the theories provided with ProofPower HOL and for the functions available (and other objects) in the SML meta-language for programming proofs and extending the functionality of the tool.
-- [ProofPower - HOL Tutorial](https://www.lemma-one.com/ProofPower/doc/usr004.pdf)
-- [ProofPower - HOL Tutorial](https://www.lemma-one.com/ProofPower/doc/usr004.pdf)
+- [usr001.pdf]($PPDIR/bld/doc/usr001.pdf) - ProofPower - Document preparation
 This described how to prepare ProofPower source material as literate scripts in LaTeX documents.
 This is not in itself directly relevant to SPaDE which does not make use of this machinery, and is not intended to accept or deliver concrete syntax.
-But it may be helpful if referring to PeoofPower source documents and for constructing specifications before SPaDE reaches it target modes of operation, at which stage, though SPaDE uses "SML" embedded in markdown, the SML is that augmented in ProofPower for the presentation of HOL paragraphs, which, until the specifications are transferred into a SPaDE native repo will remain the way in which HOL is used in practice for the development of SPaDE.
+But it may be helpful if referring to PeoofPower source documents and for constructing specifications before SPaDE reaches it target modes of operation, at which stage, though SPaDE uses "SML" embedded in markdown, the SML is a dialect augmented by ProofPower for the presentation of HOL paragraphs.
+Until the specifications are transferred into a SPaDE native repository, this will remain the way in which HOL is used in practice for the development of SPaDE.
 
-Note that the links above go to the lemma-one website and the documents are from the main branch of ProofPower not the utf8 branch, so its better to pick them up from the built utf8 branch clone available in the SPaDE development environment (at $PPDIR/bld/doc).
+The following documents are linked to online copies at lemma-one.com in versions not quite the same as those which are build by the SPaDE development environment from the utf8 branch of the ProofPower repository.
+Developers can access the latter at $PPDIR/bld/doc.
+
+- [ProofPower - Document preparation]( $PPDIR/bld/doc/usr001.pdf) - (usr001.pdf) This manual describes how to prepare ProofPower source material as literate scripts in LaTeX documents.
+This is not how its done in SPaDE, but the paragraph structures whereby HOL is embedded in LaTeX are the same as those which SPaDE uses for embedding HOL in markdown.
+It might also be helpful in reading source documents from ProofPower.
+- [ProofPower - Tutorial Manual](https://www.lemma-one.com/ProofPower/doc/usr004.pdf) - (usr004.pdf) A lightweight tutorial for ProofPower HOL.
+- [ProofPower - Description](https://www.lemma-one.com/ProofPower/doc/usr005.pdf)- (usr005.pdf) This manual provides an account of the concrete syntax of ProofPower HOL. 
+- [ProofPower - HOL Tutorial Notes]($PPDIR/bld/doc/usr013.pdf) - (usr013.pdf) A more substantial tutorial for ProofPower HOL.
+- [ProofPower - HOL Reference Manual](https://www.lemma-one.com/ProofPower/doc/usr029.pdf) - (usr029.pdf) A comprehensive reference both for the theories provided with ProofPower HOL and for the functions available (and other objects) in the SML meta-language for programming proofs and extending the functionality of the tool.
 
 SPaDE uses a minimal part of the ProofPower HOL theory hierarchy in its specifications.
 This is important to minimise the complexity of reflexive features of SPaDE.
@@ -97,4 +106,17 @@ The names of the relevant files are as follows:
 | pair | dtd023.pp, imp023.pp |
 | list | dtd039.pp, imp039.pp |
 | char | dtd040.pp, imp040.pp |
+
+
+The following formal specifications of ProofPower HOL and the HOL proof system are particularly relevant since some of these specifications will be rewritten for SPaDE, with the intention that there is no substantive change to the deductive system.
+
+There is also a philosophical narrative (in SPaDE's [Synthetic Philosophy](../tlad001.md#synthetic-philosophy) concerning the universality of a foundational institution closely related to this logical system the precise formal articulation of which will involve an account of the semantics.
+
+The source files are available in the development environment at $PPDIR/src/hol/
+
+- [spc001.pdf]($PPDIR/bld/doc/spc001.pdf) - HOL Formalised: Language and Overview
+- [spc002.pdf]($PPDIR/bld/doc/spc002.pdf) - HOL Formalised: Semantics
+- [spc003.pdf]($PPDIR/bld/doc/spc003.pdf) - HOL Formalised: Deductive System
+- [spc004.pdf]($PPDIR/bld/doc/spc004.pdf) - HOL Formalised: Proof Development System
+- [spc005.pdf]($PPDIR/bld/doc/spc005.pdf) - HOL Formalised: Formal Design of the Logical Kernel
 

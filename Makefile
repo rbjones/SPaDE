@@ -1,12 +1,12 @@
 # SPaDE Project Makefile
 # Synthetic Philosophy and Deductive Engineering
 
-.PHONY: all build clean current di dk kr test help
+.PHONY: all build clean current pa di dk kr test help
 
 # Default target
-current: kr-test mcp-test
+current: pa-build kr-test mcp-test
 
-all: di dk kr mcp
+all: pa kr dk di mcp
 
 # Component targets with argument passthrough
 di-%:
@@ -21,14 +21,18 @@ kr-%:
 mcp-%:
 	$(MAKE) -C mcp -f mcpci001.mkf $*
 
+pa-%:
+	$(MAKE) -C pa -f tlci001.mkf $*
+
 # Shorthand targets
 di: di-all
 dk: dk-all
 kr: kr-all
 mcp: mcp-all
+pa: pa-all
 
 # Build
-build: di-build dk-build kr-build mcp-build
+build: di-build dk-build kr-build mcp-build pa-build
 
 # Testing
 test: di-test dk-test kr-test mcp-test
@@ -36,8 +40,7 @@ test: di-test dk-test kr-test mcp-test
 %-test: %-build
 
 # Cleanup
-clean: kr-clean mcp-clean
-# di-clean dk-clean
+clean: kr-clean mcp-clean di-clean dk-clean pa-clean
 
 # Help
 help:
@@ -49,15 +52,17 @@ help:
 	@echo "  dk            - Build deductive kernel"
 	@echo "  kr            - Build knowledge repository"
 	@echo "  mcp           - Build MCP subsystem"
+	@echo "  pa            - Build PA subsystem"
 	@echo ""
 	@echo "Component-specific targets:"
 	@echo "  di-<target>   - Run <target> in di directory"
 	@echo "  dk-<target>   - Run <target> in dk directory"
 	@echo "  kr-<target>   - Run <target> in kr directory"
 	@echo "  mcp-<target>  - Run <target> in mcp directory"
+	@echo "  pa-<target>   - Run <target> in pa directory"
 	@echo ""
 	@echo "Common operations:"
-	@echo "  build         - Run all tests"
+	@echo "  build         - Build all components"
 	@echo "  test          - Run all tests"
 	@echo "  clean         - Clean all builds"
 	@echo ""
