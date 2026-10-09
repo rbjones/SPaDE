@@ -5,11 +5,9 @@
 
 # MD files containing formal text for ProofPower
 
-PPMDSTRUCT=tlcd001.md tlc002.md tlcd003.md
+PPMDSTRUCT=tlcd001.md tlcd002.md tlcd003.md
 
 # Files classified by build method
-
-PPMDSTRUCT = tlcd001.md tlcd002.md tlcd003.md
 
 MATHEGPPDBNAME = maths_egs
 BASEPPDBNAME = rbjhol

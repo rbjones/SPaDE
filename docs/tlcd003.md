@@ -17,6 +17,7 @@ The theory is a child of SPaDEroot and is named tlcd003.
 
 ```sml
 new_SPaDE_theory("tlcd003", "SPaDEroot", []);
+```
 
 ## Axiom of Choice
 

@@ -5,7 +5,7 @@ The SPaDE root theory provides the foundational elements necessary for the forma
 This theory forms a boundary between those parts of the SPaDE system specification which will be transferred materially unchanged into the core SPaDE native repository after first being developed and verified within the ProofPower environment.
 It also represents a boundary beneath which may be found details of the implementation of features of space (such as the knowledge repository) which are not architectural or standardised and are not exposed on the MCP interface and are likely to be varied in diverse implementations of SPaDE repositories.
 T-expressions appear not only in this specification, but also in the python interfaces between SPaDE subsystems and (represented in JSON) in the MCP protocol which is the primary means of delivering SPaDE capabilities to the LLMs which SPaDE is designed to serve.
-They are therefore architectural, whereas the details of how the T-expressions consitituting a SPaDE repository are stored and manipulated may vary between different implementations, and it is intended that existing data structures such as SQL databases can be incorporated into an diasporic SPaDE repository using a suitable implementation of the knowledge repository interface.
+They are therefore architectural, whereas the details of how the T-expressions constituting a SPaDE repository are stored and manipulated may vary between different implementations, and it is intended that existing data structures such as SQL databases can be incorporated into an diasporic SPaDE repository using a suitable implementation of the knowledge repository interface.
 
 This document is presented in the following parts:
 - [Some SML Procedures](#some-sml-procedures) - to simplify the presentation of the SPaDE formal specifications.
@@ -39,7 +39,7 @@ end;
 ## Some HOL Constants
 
 ```sml
-new_spade_theory ("SPaDEroot", "basic_hol", []);
+new_SPaDE_theory ("SPaDEroot", "basic_hol", []);
 ```
 ## A Byte Sequence Packing Method
 
@@ -61,7 +61,7 @@ In HOL it could be defined as a left inverse, but we want the functionality of S
 ```sml
 @HOLCONST
 │   pack_bytes : STRING LIST-> STRING;
-│   unpack_bytes : STRING LIST -> STRING;
+│   unpack_bytes : STRING -> STRING LIST;
 ├──────
 │   True
 ■

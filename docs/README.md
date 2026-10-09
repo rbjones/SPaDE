@@ -102,9 +102,7 @@ The second with the architecture and fundamental core of the deductive intellige
 ## Task Descriptions
 
 - [tltd001.md](./tltd001.md) - Task Description: SPaDE Formal Specification - Overview and Syntax
-- [tltd002.md](./tltd002.md) - Task Description: Prepare the SPaDEroot Theory
-- [tltd002.md](./tltd002.md) - Task Description: Prepare the SPaDEroot Theory
-    
+- [tltd002.md](./tltd002.md) - Task Description: Prepare the SPaDEroot Theory    
 ## Miscellanea
 
 - [tlmc001.md](./tlmc001.md) - My Purpose in initiating SPaDE
