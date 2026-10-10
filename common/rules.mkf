@@ -36,7 +36,7 @@ PPSMLTEST=$(PPMDTEST:.md=.sml)
 PPSML=$(PPSMLLOAD) $(PPSMLTEST)
 
 PPLOADLDD=$(PPSMLLOAD:.sml=.ldd)
-PPTESTTDD=$(PPSMLTEST:.sml=.ldd)
+PPTESTLDD=$(PPSMLTEST:.sml=.ldd)
 PPLDD=$(PPLOADLDD) $(PPTESTLDD)
 
 # HOL4
@@ -49,7 +49,7 @@ HOL4SMLTEST=$(HOL4MDTEST:.md=.sml)
 HOL4SML=$(HOL4SMLLOAD) $(HOL4SMLTEST)
 
 HOL4LOADLDD=$(HOL4SMLLOAD:.sml=.ldd)
-HOL4TESTTDD=$(HOL4SMLTEST:.sml=.ldd)
+HOL4TESTLDD=$(HOL4SMLTEST:.sml=.ldd)
 HOL4LDD=$(HOL4LOADLDD) $(HOL4TESTLDD)
 
 # HOL4SML sml files for hol4.
@@ -69,7 +69,7 @@ SMLFROMMD=$(PPSML) $(HOL4SML)
 # Python
 
 PYTHON ?= python3
-EXTRACTCODE = extract_code.py
+EXTRACTCODE ?= $(dir $(lastword $(MAKEFILE_LIST)))extract_code.py
 
 # The following variables used in the rules are derived from the input variables defined in the parent makefile.
 
@@ -143,8 +143,11 @@ $(PYSRVRDD): %.rdd: %.py
 
 # First we provide a rule for stripping sml from a markdown file
 
+ifneq ($(SMLFROMMD),)
 $(SMLFROMMD): %.sml: %.md
 	$(EXTRACTCODE) sml < $< > $@
+endif
+
 
 # ProofPower rules
 
