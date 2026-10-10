@@ -15,14 +15,6 @@
 # Input Variables
 # The following variables should be set in the parent makefile which includes these rules.
 
-# python:
-# PYRUNOPTIONS options to be set when running python scripts
-# PYTESTOPTIONS options to be set when running python test scripts
-# PYCHECK Python source files to be checked
-# PYTEST Python test scripts to be run.
-# PYRUN Python scripts to be run.
-# PYSRV Python mcp server scripts to be loaded.
-
 # Standard ML:
 
 # ProofPower
@@ -68,9 +60,18 @@ SMLFROMMD=$(PPSML) $(HOL4SML)
 
 # Python
 
+# PYRUNOPTIONS options to be set when running python scripts
+# PYTESTOPTIONS options to be set when running python test scripts
+# PYCHECK Python source files to be checked
+# PYTEST Python test scripts to be run.
+# PYRUN Python scripts to be run.
+# PYSRV Python mcp server scripts to be loaded.
+
 PYTHON ?= python3
 EXTRACTCODE ?= $(dir $(lastword $(MAKEFILE_LIST)))extract_code.py
 
+# The following variables may be set in the parent makefile:
+# PYCHECK PYTEST PYRUN PYSRV
 # The following variables used in the rules are derived from the input variables defined in the parent makefile.
 
 PYCHECKCDD=$(PYCHECK:.py=.cdd)
@@ -78,20 +79,10 @@ PYTESTTDD=$(PYTEST:.py=.tdd)
 PYRUNRDD=$(PYRUN:.py=.rdd)
 PYSRVRDD=$(PYSRV:.py=.rdd)
 
-PYCDD=$(PTCHECKCDD)
-PYTDD=$(PYTESTTDD)
-PYRDD=$(PYRUNRDD) $(PYSRVRDD)
-
-PYDD=$(PYCDD) $(PYTDD) $(PYRDD)
-
-# ProofPower
-
-# HOL4
-
-HOL4LDD=$(HOL4SML:.sml=.ldd)
+PYDD=$(PYCHECKCDD) $(PYTESTTDD) $(PYRUNRDD) $(PYSRVRDD)
 
 CDD=$(PYCHECKCDD)
-LDD=$(PYLDD) $(PPLDD) $(H4LDD)
+LDD=$(PPLDD) $(H4LDD)
 TDD=$(PYTDD) $(PPTDD)
 RDD=$(PYRDD) $(PYSRVRDD) $(RDD)
 
