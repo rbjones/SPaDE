@@ -22,7 +22,7 @@ mcp-%:
 	$(MAKE) -C mcp -f mcpci001.mkf $*
 
 pa-%:
-	$(MAKE) -C pa -f tlci001.mkf $*
+	$(MAKE) -C docs -f tlci001.mkf $*
 
 # Shorthand targets
 di: di-all
