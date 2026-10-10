@@ -69,7 +69,7 @@ PYTHON ?= python3
 EXTRACTCODE ?= $(dir $(lastword $(MAKEFILE_LIST)))extract_code.py
 
 # The following variables may be set in the parent makefile:
-# PYCHECK PYTEST PYRUN PYSRV
+# PYRUNOPTIONS PYTESTOPTIONS PYCHECK PYTEST PYRUN PYSRV
 # The following variables used in the rules are derived from the input variables defined in the parent makefile.
 
 PYCHECKCDD=$(PYCHECK:.py=.cdd)
