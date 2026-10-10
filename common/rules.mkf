@@ -50,8 +50,6 @@ HOL4LDD=$(HOL4LOADLDD) $(HOL4TESTLDD)
 # In that case the markdown file should be mentioned in one or more of the following variables,
 # according to which languages are included.
 
-# MDWITHSML .md documents with SML
-
 SMLFROMMD=$(PPSML) $(HOL4SML)
 
 # Default python interpreter (can be overridden by parent makefile)
@@ -86,9 +84,9 @@ PYRDD=$(PYRUNRDD) $(PYSRVRDD)
 PYDD=$(PYCDD) $(PYTDD) $(PYRDD)
 
 CDD=$(PYCHECKCDD)
-LDD=$(PPLDD) $(HOL4LDD)
-TDD=$(PYTDD) $(PPTDD)
-RDD=$(PYRDD) $(PYSRVRDD) $(RDD)
+LDD=$(PPLDD) $(PYDD) $(HOL4LDD)
+TDD=$(PYTDD)
+RDD=$(PYRDD) $(PYSRVRDD)
 
 DD=$(CDD) $(LDD) $(TDD) $(RDD)
 
