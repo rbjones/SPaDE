@@ -87,7 +87,7 @@ The second with the architecture and fundamental core of the deductive intellige
 
 ## Formal Specifications
 
-- [tlcd001.md](./tlcd001.md) - The Representation of Knowledge in SPaDE
+- [tlcd001.md](./tlcd001.md) - SPaDE formal specification - Overview and Abstract Syntax
 - [tlcd002.md](./tlcd002.md) - The SPaDE Root Theory
 - [tlcd003.md](./tlcd003.md) - Choice and Strong Infinity
 
@@ -101,7 +101,7 @@ The second with the architecture and fundamental core of the deductive intellige
 
 ## Task Descriptions
 
-- [tltd001.md](./tltd001.md) - Task Description: SPaDE Formal Specification - Overview and Syntax
+- [tltd001.md](./tltd001.md) - Task Description: SPaDE Formal Specification - Overview and Abstract Syntax
 - [tltd002.md](./tltd002.md) - Task Description: Prepare the SPaDEroot Theory    
 ## Miscellanea
 

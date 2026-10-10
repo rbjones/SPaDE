@@ -12,7 +12,7 @@ It is also likely that the full detail in this task description will also appear
 
 ## Stages
 
-There is one prior stage in the formal specifiation of SPaDE: the SPaDE root theory ([tltd002.md](tltd002.md)).
+There is one prior stage in the formal specification of SPaDE: the SPaDE root theory ([tltd002.md](tltd002.md)).
 Because the SPaDE specifications will in due course be moved from the SPaDE github repository to any early SPaDE native repository, and the details of the core logic and theory will vary from those in ProofPower, we need to take some care to ensure that the essential elements of the logical context in which the specifications are developed on ProofPower can be conveniently reproduced in the native environment.
 A key element supplied by the SPaDE root theory will be the theory of T-expressions (short for "tuple expressions" and a minor elaboration of LISP S-expressions).
 
@@ -45,7 +45,7 @@ The generic abstract syntax starts from the packing and unpacking of null-termin
 
 A constructor of the language takes strings as arguments. Each string is converted to an NTBS. Those NTBS are concatenated. A code is added (as an NTBS) at the front to identify the construction and then the NTBS sequence is concatenated to yield a byte (char) sequence (STRING) which is the representation of the constructed phrase (TYPE, TERM or larger structure in the SPaDE repository). That code may be the name of the constructor (e.g. "Mk_app").
 
-The result is a SPaDE specification in markdown, with the HOL in `hol` fences, stripped to `.sml` by `docs/tlci001.mkf`. It is part of SPaDE. The `spc` documents and `retro/` remain reference and bootstrap.
+The result is a SPaDE specification in markdown, with the HOL in `sml` fences, stripped to `.sml` by `docs/tlci001.mkf`. It is part of SPaDE. The `spc` documents and `retro/` remain reference and bootstrap.
 
 ## Task execution
 

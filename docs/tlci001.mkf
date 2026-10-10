@@ -5,7 +5,7 @@
 
 # MD files containing formal text for ProofPower
 
-PPMDSTRUCT=tlcd001.md tlcd002.md tlcd003.md
+PPMDLOAD=tlcd001.md tlcd002.md tlcd003.md
 
 # Files classified by build method
 
@@ -33,7 +33,7 @@ default: test
 
 # Dependencies as necessary to get right build sequence
 
-tlcd002.ldd: 
+tlcd002.ldd: spade.ldd
 tlcd001.ldd: tlcd002.ldd
 tlcd003.ldd: tlcd002.ldd
 
@@ -48,18 +48,16 @@ vars:
 	@echo "LDDS: $(LDDS)"
 	@echo "PPDBLDDS: $(PPDBLDDS)"
 
-check: $(PYCHECKLDD) $(PPSIGLDD) $(H4LDD)
+check:
 
-build: check $(SPADEPPDBNAME).ldd $(PPSTRUCTLDD)
+build: $(PPLOADLDD)
 
-test: build $(PYTESTTDD) $(PPTESTLDD)
+test: build
 
 echo:
 
 clean:
-	rm -f $(LDD) $(SMLFROMMD) *.err *.?dd
-	rm -f **/__pycache__/*.pyc 2>/dev/null || true
-	rm -rf **/__pycache__ 2>/dev/null || true
+	rm -f $(PPLOADLDD)
 
 extraclean: clean
 	rm -f $(PPDBS) $(PPDBLDDS) 

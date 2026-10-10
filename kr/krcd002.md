@@ -38,7 +38,7 @@ sig
 ```
 
 The procedures defined below operate both on arbitrary byte sequences (of known length) and on null terminated byte sequences (NTBS), which are byte sequences terminated by a null byte (byte 0), and on byte vectors which are sequences of NTBS.
-The NTBS form allows bytes sequences to be concatenated (to form NTBSS) without loss of information about their length, and is the form used for storage in the repository.
+The NTBS form allows byte sequences to be concatenated (to form NTBSS) without loss of information about their length, and is the form used for storage in the repository.
 The representation for both of these forms is the same (WORD8Vector.vector), but to make clear which is which, the type of byte sequences is used for the former, and the type of NTBS or NTBSS is used for the latter.
 Procedures taking NTBS parameters will work only with the bytes up to and including the first null terminator, will ignore any bytes following the first null terminator.
 NTBSS are sometimes unpacked as a whole into a sequence of NTBS, and sometimes unpacked one at a time, yielding the first NTBS and the trailing NTBSS or an index into the NTBSS.
