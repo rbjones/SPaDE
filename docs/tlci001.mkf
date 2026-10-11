@@ -62,25 +62,6 @@ clean:
 extraclean: clean
 	rm -f $(PPDBS) $(PPDBLDDS) 
 
-maths_egs.ldd:
-	$(MAKE) -C ../retro/maths_egs -f maths_egs.mkf clean load
-	cp ../retro/maths_egs/maths_egs.polydb $(PPDIR)/bld/db/
-	touch maths_egs.ldd
-
-$(BASEPPDBNAME).ldd: maths_egs.ldd
-	cd $(PPDIR)/src/hol && make -f hol.mkf spc001.sml spc002.sml spc003.sml spc004.sml spc005.sml && \
-	echo "save_and_quit{};" | $(PPDIR)/bld/bin/pp -d maths_egs -f spc001 -f spc002 -f spc003 -f spc004 -f spc005 > $(BASEPPDBNAME).ldd
-	$(MAKE) -C ../retro/np -f rbj.mkf clean bld
-	cp ../retro/np/$(BASEPPDBNAME).polydb $(PPDIR)/bld/db/
-	touch $(BASEPPDBNAME).ldd
-
-$(SPADEPPDBNAME).ldd: $(BASEPPDBNAME).ldd
-	pp_make_database -f -p $(BASEPPDBNAME) $(SPADEPPDBNAME)
-	cp $(SPADEPPDBNAME).polydb $(PPDIR)/bld/db/
-	touch $(SPADEPPDBNAME).ldd
-
-$(SPADEHOL4DBNAME).ldd:
-
 # These rules translate from Markdown to LaTeX and then to PDF.
 # Ensure you have pandoc and pdflatex installed.
 
