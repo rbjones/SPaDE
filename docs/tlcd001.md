@@ -1,4 +1,4 @@
-# The Representation of Knowledge in SPaDE
+# SPaDE formal specification - Overview and Abstract Syntax
 
 This is the first of a series of documents intended to provide formal specifications for the SPaDE system, in particular for the representation of knowledge in SPaDE.
 
@@ -10,88 +10,6 @@ In relation to those primitive theories, the main thrust of the changes is to pl
 Thus, for example, the axioms are intended to deliver sufficient strength to embed the LEAN language.
 The axiom of choice in SPaDE may be stated as the existence of initial strict well-orderings of any collection.
 
-```hol
-open_theory "rbjmisc";
-force_new_theory "basic_spade";
+```sml
+new_SPaDE_theory ("tlcd001", "SPaDEroot", []);
 ```
-
-Choice is axiomatised as the existence of initial strict well-orderings of any type.
-We do not supply separate definitions of the usual constituent concept for the purposes of the expressing choice.
-This decision is subject to review of course.
-
-```hol
-declare_infix (300, "<<");
-```
-
-```hol
-Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
-```
-
-```hol
-ⓈHOLCONST
-│ transitive: ('a → 'a → BOOL) → BOOL
-├──────
-│ ∀ $<<⦁ transitive $<< ⇔ ∀x y z⦁  (x << y ∧ y << z) ⇒ x << z
-■
-```
-
-```hol
-ⓈHOLCONST
-│ linear_order: ('a → 'a → BOOL) → BOOL
-├──────
-│ ∀ $<<⦁ linear_order $<< ⇔
-    transitive $<< ∧ 
-    ∀x y⦁  x = y ∨ x << y ∨ y << x
-■
-```
-
-```hol
-ⓈHOLCONST
-│ well_founded: ('a → 'a → BOOL) → BOOL
-├──────
-│ ∀ $<<⦁ well_founded $<< ⇔
-│       ∀p⦁ (∃x⦁ p x) ⇒ 
-│           (∃y⦁ p y ∧ ∀z⦁ p z ⇒ z = y ∨ y << z)
-■
-```
-
-```hol
-ⓈHOLCONST
-│ well_order: ('a → 'a → BOOL) → BOOL
-├──────
-│ ∀ $<<⦁ well_order $<< ⇔
-│       linear_order $<< ∧ well_founded $<<
-■
-```
-
-```hol
-ⓈHOLCONST
-│ strict: ('a → 'a → BOOL) → BOOL
-├──────
-│ ∀ $<<⦁ strict $<< ⇔ ∀x⦁ ¬(x << x)
-■
-```
-
-```hol
-ⓈHOLCONST
-│ one_one: ('a → 'b → BOOL) → BOOL
-├──────
-│ ∀ f⦁ one_one f ⇔ ∀x y⦁  f x = f y ⇒ x = y
-■
-```
-
-```hol
-ⓈHOLCONST
-│ initial: ('a → 'a → BOOL) → BOOL
-├──────
-│ ∀ $<<⦁ initial $<< ⇔ ¬ ∃f x⦁ one_one f ∧ ∀y⦁ f y << x
-■
-```
-
-```hol
-ⓈHOLCONST
-│ iswo: ('a → 'a → BOOL) → BOOL
-├──────
-│ ∀ $<<⦁ iswo $<< ⇔
-│       initial $<< ∧ strict $<< ∧ well_order $<<
-■

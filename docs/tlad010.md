@@ -10,7 +10,6 @@ Before getting into that I note, that focal reasoning, by itself is not going to
 Focal reasoning depends on a theory defining a definite problem space, and is applied only when a definite problem in that space has been identified.
 The direction has to be set either by a human or a non-focal AI (at this stage likely an LLM).
 
-
 ## Preliminary Notes
 
 I think there are three major elements of "self-improvement" from which the first singularity might be composed.

@@ -1,14 +1,88 @@
-# Top-level formal specifications.
-# ProofPower HOL in SPaDE documents is fenced as hol inside markdown.
-# This makefile strips those fences to .sml. Loading into ProofPower is separate.
+# SPaDE Top-level (tl, docs) formal specifications.
 
-MDWITHSML = tlcd001.md
+# ProofPower HOL formal specifications are presented in sml fences in markdown documents.
+# common/rules.mk strips out the sml and loads into ProofPower, which syntax and type checks the 
+# specifications and creates the required theories.
+
+.PHONY: all clean current kr docs test help
+# Variables used by rules.mkf come before it is included.
+
+# MD files containing formal text for ProofPower
+
+PPMDLOAD=tlcd001.md tlcd002.md tlcd003.md
+
+# Files classified by build method
+
+MATHEGPPDBNAME = maths_egs
+BASEPPDBNAME = rbjhol
+SPADEPPDBNAME = spade
+SPADEHOL4DBNAME = spade
+
+PPDBNAMES = $(MATHEGPPDBNAME) $(BASEPPDBNAME) $(SPADEPPDBNAME)
+PPDBLDDS = $(PPDBNAMES:=.ldd)
+
+MATHEGPPDBPATH = $(PPDIR)/bld/db/maths_egs.polydb
+BASEPPDBPATH = $(PPDIR)/bld/db/rbjhol.polydb
+SPADEPPDBPATH = $(PPDIR)/bld/db/spade.polydb
+
+PPDBS = $(MATHEGPPDBPATH) $(BASEPPDBPATH) $(SPADEPPDBPATH) 
 
 include ../common/rules.mkf
 
-.PHONY: all clean
+LDDS=$(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(HOL4LDD)
 
-all: $(SMLFROMMD)
+# Default target
+
+default: test
+
+# Dependencies as necessary to get right build sequence
+
+tlcd002.ldd: spade.ldd
+tlcd001.ldd: tlcd002.ldd
+tlcd003.ldd: tlcd002.ldd
+
+# Targets
+
+vars:
+	@echo "PPDIR: $(PPDIR)"
+	@echo "PPSIGLDD: $(PPSIGLDD)"
+	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
+	@echo "PPTESTTDD: $(PPTESTTDD)"
+	@echo "PPLDD: $(PPLDD)"
+	@echo "LDDS: $(LDDS)"
+	@echo "PPDBLDDS: $(PPDBLDDS)"
+
+check:
+
+build: $(PPLOADLDD)
+
+test: build
+
+echo:
 
 clean:
-	rm -f $(SMLFROMMD)
+	rm -f $(PPLOADLDD)
+
+extraclean: clean
+	rm -f $(PPDBS) $(PPDBLDDS) 
+
+# These rules translate from Markdown to LaTeX and then to PDF.
+# Ensure you have pandoc and pdflatex installed.
+
+MDFILES=PhilosophicalPreliminaries.md
+MDTEXFILES=$(MDFILES:.md=.tex)
+PDFS=chdkrpaper.pdf
+PDFTEXFILES=$(PDFS:.pdf=.tex)
+
+$(MDTEXFILES):%.tex :%.md
+	pandoc $< -o $@
+
+$(PDFS):%.pdf : %.tex
+	pdflatex $*
+	-bibtex $*
+	pdflatex $*
+	pdflatex $*
+
+chdkrpaper.pdf: chdkrpaper.tex PhilosophicalPreliminaries.tex
+
+all: $(PDFS)
