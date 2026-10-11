@@ -22,7 +22,7 @@ mcp-%:
 	$(MAKE) -C mcp -f mcpci001.mkf $*
 
 pa-%:
-	$(MAKE) -C pa -f tlci001.mkf $*
+	$(MAKE) -C docs -f tlci001.mkf $*
 
 # Shorthand targets
 di: di-all
@@ -35,7 +35,7 @@ pa: pa-all
 build: di-build dk-build kr-build mcp-build pa-build
 
 # Testing
-test: di-test dk-test kr-test mcp-test
+test: pa-test dk-test kr-test di-test mcp-test
 
 %-test: %-build
 
