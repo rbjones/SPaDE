@@ -63,6 +63,7 @@ Further elaboration of the '[synthetic philosophy](tlad001.md#synthetic-philosop
 - [tlph023.md](./tlph023.md) - Evolutionary Threads
 - [tlph024.md](./tlph024.md) - The Evolution of Evolution
 - [tlph025.md](./tlph025.md) - A Waypoint for Deduction
+- [tlph026.md](./tlph026.md) - Synthetic Norms
 
 ## Architecture
 

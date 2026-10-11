@@ -34,7 +34,15 @@ The current baseline does not need explicit marking in each README line item. Wh
 
 A README.md for a directory should list every document in that directory that still exists. An entry should be removed only when the underlying file is deleted. This preserves a complete index and makes it clear when project documentation is being kept intentionally, not merely forgotten.
 
-When a document is retained for historical interest but is not part of the current working baseline, it should be marked with a strikethrough while keeping the link active, for example: `~~[ampd001.md](ampd001.md)~~`. In Markdown, strikethrough is written as `~~text~~`, and it can be applied to the linked label so that the link remains usable. This is the preferred concise indication that a document remains available for reference without implying current normative status.
+When a document is retained for historical interest but is not part of the current working baseline, it should be marked with a strikethrough while keeping the link active, for example:
+
+  ~~[ampd001.md](ampd001.md)~~
+  
+  In Markdown, strikethrough is written as:
+  
+     `~~[ampd001.md](ampd001.md)~~`
+  
+  and it can be applied to the linked label so that the link remains usable. This is the preferred concise indication that a document remains available for reference without implying current normative status.
 
 ### Avoiding time-sensitive procedural commentary
 
@@ -117,7 +125,7 @@ There may be a small number of papers prepared as if for publication in the proc
 
 ### ProofPower .pp Files
 
-Historical material in the retro directory is mostly in .pp files, which are in a ProofPower literate script format normally including both tex source and formal specifications in HOL. These are intended ultimately both for processing by ProofPower and for creating PDF documents using texlive.
+The `retro/` directory is bootstrap, not SPaDE. It holds historical ProofPower literate scripts, mostly `.pp` files, so that ProofPower can be used while SPaDE cannot yet check its own specifications. It does not follow the documentation standards that apply in the other directories. ProofPower itself is transitional and is not a SPaDE deliverable. Formal specifications in HOL written for SPaDE and placed in markdown documents are part of SPaDE.
 
 ### Reference PDF
 
@@ -125,7 +133,11 @@ It is likely that a compendium of project documentation as a PDF reference manua
 
 ### Formal Specifications
 
-These will form the main part of the technical output during the early stages of the project, and will be in ProofPower HOL. They will normally be in literate scripts either as .pp files or as .md files.
+In SPaDE proper, HOL is written in markdown, in fenced `hol` blocks. `common/rules.mkf` strips those blocks to a `.sml` file. A directory that contains such a document has a makefile that asks for the strip. The first of these documents is `docs/tlcd001.md`, processed by `docs/tlci001.mkf`.
+
+A document derived from a ProofPower source, or from another document in the repository, acknowledges that source. A specification that creates a theory begins with `force_delete_theory` of that theory, which does not fail when the theory is absent, and then `new_theory`. The theory name is an intelligible name for the theory. It is not the document name, and it is not the name of an `spc` theory.
+
+The architect's first specification, [amtd006.md](amtd006.md), is a generic theory of abstract syntax. `spc001.pp`–`spc005.pp` are reference. None of them survives intact. The deductive system remains the same, expressed so that it is constructive and executable. The inference rules are to be executable, so that SPaDE can prove a derived rule sound and then run it. Those derived rules are the earliest reflective self-improvement. ProofPower checks well-formedness. Correctness is a further, more intelligent check. A large part of the specifications under `kr/` is architectural. It will be promoted into `docs/`, or, more likely, used as the basis of new specifications in `docs/` which supersede it. Some of those `kr/` specifications are HOL4. New architectural HOL is ProofPower HOL in markdown.
 
 It is policy to progress all informal documentation into formal models at all levels.
 At the lower levels this is part of the reflexive reasoning required to approach the first singular foci and is therefore of high priority.  At the higher levels it is probably less urgent.

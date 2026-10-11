@@ -1,5 +1,7 @@
 # Immediate plan: Grok Build/ Copilot app evaluation
 
+How the team now works on the DGX Spark is in [amms009.md](amms009.md), [ampl006.md](ampl006.md), and [ampd009.md](ampd009.md). The subsystem order below stands until the architect replaces it.
+
 This is the short plan for the period in which SPaDE is evaluating ways of working which facilitate fuller involvement of AI in the development.
 
 The working split is in [README.md](README.md): Grok Build for interactive and high-level work (memory in `~/.grok`); Copilot for GitHub-scheduled agentics, tested in the SPaDE container; Copilot code review of Grok-authored PRs as a third use. Area worktrees remain ([ampd004.md](ampd004.md)). Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md).

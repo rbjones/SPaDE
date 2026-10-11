@@ -1,4 +1,8 @@
-# SPaDE tl Makefile
+# SPaDE Top-level (tl, docs) formal specifications.
+
+# ProofPower HOL formal specifications are presented in sml fences in markdown documents.
+# common/rules.mk strips out the sml and loads into ProofPower, which syntax and type checks the 
+# specifications and creates the required theories.
 
 .PHONY: all clean current kr docs test help
 # Variables used by rules.mkf come before it is included.

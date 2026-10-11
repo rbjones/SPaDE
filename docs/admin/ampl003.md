@@ -1,5 +1,7 @@
 # Project Management
 
+Commissioning of specialist work is in [ampd009.md](ampd009.md): a GitHub Issue is the subcontract, and a pull request into `main` is the review. GitHub Projects may group those issues.
+
 Interaction with the project will be managed through GitHub Projects.
 This is a facility which is still evolving, and I will update this documentation as I learn how to use it effectively.
 
