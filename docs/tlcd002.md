@@ -59,12 +59,27 @@ In the following, pack_bytes must be an injection and unpack_bytes must be a lef
 In HOL it could be defined as a left inverse, but we want the functionality of SPaDE to be defined constructively so that it is potentially executable.
 
 ```sml
-@HOLCONST
-│   pack_bytes : STRING LIST-> STRING;
-│   unpack_bytes : STRING -> STRING LIST;
+ⓈHOLCONST
+│   pack_bytes : STRING LIST → STRING;
+│  unpack_bytes : STRING → STRING LIST
 ├──────
-│   True
+│   T
 ■
 ```
 
 ## The Type of T-expressions
+
+## Useful Characters
+
+Greek Letters
+	Γ Δ Θ Λ Ξ Π Σ Υ Φ Ψ Ω
+	α β γ δ ε ζ η θ ι κ λ μ ν ξ π ρ σ τ υ φ χ ψ ω
+Logic: 	∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
+Set symbols: 𝔹 ℂ 𝔽 ℕ ℙ ℚ ℝ 𝕊 𝕌 ℤ ⊆ ∅ ⊂ ∩ ⋂ ∪ ⋃ ⊖
+Arrows: → ⤖ ⤕ ⇻ ↔ ⤀ ⇸ ↣ ↦ ↠ ⤔
+Formal Text Brackets: ⌜ ⌝ ⓣ ⓜ ⓩ Ⓢ ■ ┌ └ ╒ ├
+Padding symbols	│ ─ ═  Index Brackets ⦏ ⦎
+Bracketing symbols: ⟨ ⟩ ⟦ ⟧ ⦇ ⦈
+Subscription and Superscription: ⋎ ⋏ ↗ ↘ ↕ Underlining: ⨽ ⨼
+Relation, Sequence and Bag Symbols:  ⩥ ▷ ⩤ ◁ ⁀ ↾ ↿ ⊕ ⊎ ⨾ ∘
+Miscellaneous: ⊢ ⦂ ≜ ⊥ ⊖

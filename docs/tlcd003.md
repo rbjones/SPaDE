@@ -43,11 +43,11 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 
 ```sml
 ⓈHOLCONST
-│ linear_order: ('a → 'a → BOOL) → BOOL
+│linear_order: ('a → 'a → BOOL) → BOOL
 ├──────
 │ ∀ $<<⦁ linear_order $<< ⇔
-|   transitive $<< ∧ 
-|   ∀x y⦁  x = y ∨ x << y ∨ y << x
+│  transitive $<< ∧ 
+│   ∀x y⦁  x = y ∨ x << y ∨ y << x
 ■
 ```
 
