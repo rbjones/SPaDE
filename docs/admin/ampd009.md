@@ -30,16 +30,21 @@ This configures the chat and agent experience, not Copilot inline code completio
 
 ### Copilot CLI
 
-Copilot CLI can use the same vLLM endpoint as a custom OpenAI-compatible provider. Keep the SSH tunnel to port `8000` open, then in another terminal on the client machine set:
+Copilot CLI can use the same vLLM endpoint as a custom OpenAI-compatible provider. Keep the SSH tunnel to port `8000` open, then in the client terminal where you will run Copilot CLI set:
 
 ```sh
 export COPILOT_PROVIDER_BASE_URL=http://127.0.0.1:8000/v1
 export COPILOT_PROVIDER_TYPE=openai
-export COPILOT_MODEL=gpt-oss-120b
+export COPILOT_PROVIDER_MODEL_ID=gpt-4.1
+export COPILOT_PROVIDER_WIRE_MODEL=gpt-oss-120b
+export COPILOT_PROVIDER_MAX_PROMPT_TOKENS=122880
+export COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=8192
 copilot
 ```
 
-vLLM does not require an API key, so `COPILOT_PROVIDER_API_KEY` can be left unset. `gpt-oss-120b` is the currently active service; after a switch, set `COPILOT_MODEL` to the model ID reported by `/v1/models`. Copilot CLI requires the selected model to support streaming and tool calling. Run `copilot help providers` for provider configuration details.
+Here, `gpt-4.1` is the recognized model profile Copilot CLI uses for its agent configuration; `gpt-oss-120b` is the actual model ID sent to vLLM. Setting only `COPILOT_MODEL=gpt-oss-120b` made this CLI send a custom-tool schema that the current vLLM rejects. The explicit model-profile/wire-model pair above was tested with both a completion and a shell tool call. Leave `COPILOT_PROVIDER_WIRE_API` unset (its default is Chat Completions); the current vLLM does not accept Copilot CLI's custom tool type through its Responses API either.
+
+The token limits sum to the current vLLM context limit of 131072 tokens. After switching the served model, set `COPILOT_PROVIDER_WIRE_MODEL` to the ID reported by `/v1/models` and adjust the token limits to that model's configured context. vLLM does not require an API key, so `COPILOT_PROVIDER_API_KEY` can be left unset. Run `copilot help providers` for provider configuration details.
 
 
 ## Cloud models
