@@ -37,7 +37,7 @@ default: test
 
 # Dependencies as necessary to get right build sequence
 
-tlcd002.ldd: spade.ldd
+tlcd002.ldd: ../spade.ldd
 tlcd001.ldd: tlcd002.ldd
 tlcd003.ldd: tlcd002.ldd
 
