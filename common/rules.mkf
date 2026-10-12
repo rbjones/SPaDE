@@ -142,13 +142,13 @@ endif
 
 # ProofPower rules
 
-$(PPLOADLDD): %.ldd: %.sml ../$(SPADEPPDBNAME).ldd
+$(PPLOADLDD): %.ldd: %.sml
 	@rm -f $@ $*.err 2>/dev/null
 	@echo "Compile and save ProofPower" $<
 	@echo 'save_and_quit();' | PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err
 	@mv $*.err $@
 	
-$(PPTESTLDD): %.ldd: %.sml ../$(SPADEPPDBNAME).ldd
+$(PPTESTLDD): %.ldd: %.sml
 	@rm -f $@ $*.err 2>/dev/null
 	@echo "Run in ProofPower " $<
 	PPCHARSET=utf8 pp -d $(SPADEPPDBNAME) -f $< >$*.err

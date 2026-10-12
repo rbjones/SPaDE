@@ -27,6 +27,8 @@ SPADEPPDBPATH = $(PPDIR)/bld/db/spade.polydb
 
 PPDBS = $(MATHEGPPDBPATH) $(BASEPPDBPATH) $(SPADEPPDBPATH) 
 
+PPMDLOAD=tlcd001.md tlcd002.md
+
 include ../common/rules.mkf
 
 LDDS=$(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(HOL4LDD)
