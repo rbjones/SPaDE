@@ -60,9 +60,9 @@ vars:
 	@echo "LDDS: $(LDDS)"
 	@echo "PPDBLDDS: $(PPDBLDDS)"
 
-check: $(PYCHECKLDD) $(PPSIGLDD) $(H4LDD)
+check: $(PYCHECKLDD) $(H4LDD)
 
-build: check $(SPADEPPDBNAME).ldd $(PPSTRUCTLDD)
+build: check $(PPSIGLDD) $(PPSTRUCTLDD)
 
 test: build $(PYTESTTDD) $(PPTESTLDD)
 

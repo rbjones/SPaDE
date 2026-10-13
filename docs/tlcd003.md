@@ -80,7 +80,7 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 
 ```sml
 ⓈHOLCONST
-│ one_one: ('a → 'b → BOOL) → BOOL
+│ one_one: ('a → 'b) → BOOL
 ├──────
 │ ∀ f⦁ one_one f ⇔ ∀x y⦁  f x = f y ⇒ x = y
 ■
@@ -90,7 +90,10 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ⓈHOLCONST
 │ initial: ('a → 'a → BOOL) → BOOL
 ├──────
-│ ∀ $<<⦁ initial $<< ⇔ ¬ ∃f x⦁ one_one f ∧ ∀y⦁ f y << x
+│ ∀ $<<⦁ initial $<< ⇔ ¬ ∃f (z:'a)⦁
+│       one_one f
+│   ∧   (∀x y⦁ x << y ⇒ f x << f y)
+│   ∧   (∀x⦁ f x << z)
 ■
 ```
 

@@ -27,8 +27,6 @@ SPADEPPDBPATH = $(PPDIR)/bld/db/spade.polydb
 
 PPDBS = $(MATHEGPPDBPATH) $(BASEPPDBPATH) $(SPADEPPDBPATH) 
 
-PPMDLOAD=tlcd001.md tlcd002.md
-
 include ../common/rules.mkf
 
 LDDS=$(PYCHECKLDD) $(PYTESTLDD) $(PPLDD) $(HOL4LDD)
@@ -39,7 +37,7 @@ default: test
 
 # Dependencies as necessary to get right build sequence
 
-tlcd002.ldd: ../spade.ldd
+tlcd002.ldd:
 tlcd001.ldd: tlcd002.ldd
 tlcd003.ldd: tlcd002.ldd
 
@@ -58,12 +56,12 @@ check:
 
 build: $(PPLOADLDD)
 
-test: build
+test: build $(PPTESTLDD)
 
 echo:
 
 clean:
-	rm -f $(PPLOADLDD)
+	rm -f $(PPLOADLDD) $(PPSML) *.err
 
 extraclean: clean
 	rm -f $(PPDBS) $(PPDBLDDS) 

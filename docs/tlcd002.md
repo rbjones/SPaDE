@@ -71,6 +71,7 @@ In HOL it could be defined as a left inverse, but we want the functionality of S
 
 ## Useful Characters
 
+```
 Greek Letters
 	Γ Δ Θ Λ Ξ Π Σ Υ Φ Ψ Ω
 	α β γ δ ε ζ η θ ι κ λ μ ν ξ π ρ σ τ υ φ χ ψ ω
@@ -83,3 +84,4 @@ Bracketing symbols: ⟨ ⟩ ⟦ ⟧ ⦇ ⦈
 Subscription and Superscription: ⋎ ⋏ ↗ ↘ ↕ Underlining: ⨽ ⨼
 Relation, Sequence and Bag Symbols:  ⩥ ▷ ⩤ ◁ ⁀ ↾ ↿ ⊕ ⊎ ⨾ ∘
 Miscellaneous: ⊢ ⦂ ≜ ⊥ ⊖
+```
