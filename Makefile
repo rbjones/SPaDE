@@ -9,20 +9,20 @@ current: pa-build kr-test mcp-test
 all: pa kr dk di mcp
 
 # Component targets with argument passthrough
-di-%:
-	$(MAKE) -C di $*
-
-dk-%:
-	$(MAKE) -C dk $*
+pa-%:
+	$(MAKE) -C docs -f tlci001.mkf $*
 
 kr-%:
 	$(MAKE) -C kr -f krci001.mkf $*
 
+dk-%:
+	$(MAKE) -C dk $*
+
+di-%:
+#	$(MAKE) -C di $*
+
 mcp-%:
 	$(MAKE) -C mcp -f mcpci001.mkf $*
-
-pa-%:
-	$(MAKE) -C docs -f tlci001.mkf $*
 
 # Shorthand targets
 di: di-all
@@ -40,7 +40,7 @@ test: pa-test dk-test kr-test di-test mcp-test
 %-test: %-build
 
 # Cleanup
-clean: kr-clean mcp-clean di-clean dk-clean pa-clean
+clean: pa-clean kr-clean dk-clean di-clean mcp-clean
 
 # Help
 help:
