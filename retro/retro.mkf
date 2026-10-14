@@ -31,25 +31,26 @@ clean:
 
 # The maths_egs makefile creates a database called maths_egs.polydb
 
-../maths_egs.ldd:
+maths_egs.ldd:
 	$(MAKE) -C maths_egs -f maths_egs.mkf clean load
 	cp maths_egs/maths_egs.polydb $(PPDIR)/bld/db/
 	touch ../maths_egs.ldd
 
 # The PP HOL specs are then loaded to the maths_egs database
 
-$(BASEPPDBNAME).ldd: ../maths_egs.ldd
+$(BASEPPDBNAME).ldd: maths_egs.ldd
 	cd $(PPDIR)/src/hol && make -f hol.mkf spc001.sml spc002.sml spc003.sml spc004.sml spc005.sml && \
 	echo "save_and_quit{};" | $(PPDIR)/bld/bin/pp -d maths_egs -f spc001 -f spc002 -f spc003 -f spc004 -f spc005 > $(BASEPPDBNAME).ldd
 # The np/rbj.mkf makefile builds the rbjhol.poldb database on maths_egs.polydb.
 # We don't really need this, probably will get removed!
 	$(MAKE) -C np -f rbj.mkf clean bld
 	cp np/$(BASEPPDBNAME).polydb $(PPDIR)/bld/db/
-	touch ../$(BASEPPDBNAME).ldd
+	touch $(BASEPPDBNAME).ldd
 
 # Then we make the spade.polydb database using rbjhol as parent.
 
 $(SPADEPPDBNAME).ldd: $(BASEPPDBNAME).ldd
 	pp_make_database -f -p $(BASEPPDBNAME) $(SPADEPPDBNAME)
 	cp $(SPADEPPDBNAME).polydb $(PPDIR)/bld/db/
-	touch ../$(SPADEPPDBNAME).ldd
+	touch $(SPADEPPDBNAME).ldd ../$(SPADEPPDBNAME).ldd
+	

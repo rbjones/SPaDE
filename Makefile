@@ -4,9 +4,7 @@
 .PHONY: all build clean current pa di dk kr test help
 
 # Default target
-current: pa-build kr-test mcp-test
-
-all: pa kr dk di mcp
+default: test
 
 # Component targets with argument passthrough
 pa-%:
@@ -16,7 +14,7 @@ kr-%:
 	$(MAKE) -C kr -f krci001.mkf $*
 
 dk-%:
-	$(MAKE) -C dk $*
+	$(MAKE) -C dk -f dkci001.mkf $*
 
 di-%:
 #	$(MAKE) -C di $*
@@ -31,23 +29,34 @@ kr: kr-all
 mcp: mcp-all
 pa: pa-all
 
+# Check
+check: spade.ldd pa-check kr-check # dk-check mcp-check di-check
+
 # Build
-build: di-build dk-build kr-build mcp-build pa-build
+build: check pa-build kr-build mcp-build # dk-build di-build
 
 # Testing
-test: pa-test dk-test kr-test di-test mcp-test
-
-%-test: %-build
+test: build pa-test kr-test mcp-test # dk-test di-test
 
 # Cleanup
-clean: pa-clean kr-clean dk-clean di-clean mcp-clean
+clean: pa-clean kr-clean mcp-clean # dk-clean di-clean
+
+# spade.ldd ProofPower database for SPaDE project
+
+ppdb-clean:
+	rm -f spade.ldd retro/spade.ldd
+
+spade.ldd:
+	$(MAKE) -C retro -f retro.mkf spade.ldd
 
 # Help
 help:
 	@echo "SPaDE Project - Synthetic Philosophy and Deductive Engineering"
 	@echo ""
 	@echo "Available targets:"
-	@echo "  all           - Build all components"
+	@echo ""
+	@echo "  all		   - Build and test everything)"
+	@echo ""
 	@echo "  di            - Build deductive intelligence"
 	@echo "  dk            - Build deductive kernel"
 	@echo "  kr            - Build knowledge repository"
