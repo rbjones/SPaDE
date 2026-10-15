@@ -1,6 +1,10 @@
 # SPaDE Project Makefile
 # Synthetic Philosophy and Deductive Engineering
 
+# This makefile no longer builds the spade database unless explicitly requested.
+# When used for testing in a container,
+# it expects the spade container to have the necessary database prebuilt.
+
 .PHONY: all build clean current pa di dk kr test help
 
 # Default target
@@ -30,7 +34,7 @@ mcp: mcp-all
 pa: pa-all
 
 # Check
-check: spade.ldd pa-check kr-check # dk-check mcp-check di-check
+check: pa-check kr-check # dk-check mcp-check di-check
 
 # Build
 build: check pa-build kr-build mcp-build # dk-build di-build
