@@ -76,14 +76,8 @@ jobs:
           # Ensure login shells also get /workspace/common on PATH
           RUN printf '%s\n' 'export PATH="/workspace/common:${PATH}"' > /etc/profile.d/spade-path.sh
 
-          # Build maths_egs and install to ProofPower DB
-          RUN cd /workspace/retro/maths_egs && \
-              export PPDIR=/proofpower-source && \
-              . /proofpower-source/dev_env && \
-              make -f maths_egs.mkf pdf && \
-              cp maths_egs.polydb $PPDIR/bld/db/
-
-          # Further build steps (rbjhol, spade) to be added later
+          # Build spade ProofPower DB
+          RUN cd /workspace && make spade.ldd
 
           CMD ["/bin/bash"]
           EOF
