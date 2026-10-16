@@ -2,8 +2,7 @@
   "name": "SPaDE Development (Prebuilt, ARM)",
   "image": "ghcr.io/rbjones/spade_arm:latest",
   "containerEnv": {
-    "PPDIR": "/proofpower-source",
-    "PATH": "/workspace/common:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    "PPDIR": "/proofpower-source"
   },
   "customizations": {
     "vscode": {
