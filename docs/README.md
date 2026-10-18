@@ -7,7 +7,7 @@ The material is presented in the following categories:
 - [Philosophy](#philosophy) - SPaDE's "synthetic philosophy"
 - [Architecture](#architecture) - top level design and its rationale
 - [Formal Specifications](#formal-specifications)
-- [Chat Logs](#chat-logs) - logs of conversations with AI systems contributing to the project, which may be of interest to readers and contributors.
+- [Chat Logs](#chat-logs)
 - [Plans and Strategy](#plans-and-strategy)
 - [Admin Directory](admin/README.md) - plans, processes, methods, standards, task descriptions and guidelines for contributors.
 - [Miscellanea](#miscellanea)
@@ -33,7 +33,7 @@ Philosophy and architecture are intertwined and therefore begin together with:
 
 The [seminal insights](tlph009.md) upon which the [SPaDE](tlad001.md#spade) architecture is based include:
 
-1. That there are universal representations for [declarative knowledge](tlad001.md#declarative-knowledge), the simplest of which is the higher order logic derived from Alonzo Church's Simple Theory of Types (which is adopted by SPaDE).
+1. That there are universal representations for [declarative knowledge](tlad001.md#declarative-knowledge), the simplest of which is the polymorphic higher order logic derived from Alonzo Church's Simple Theory of Types (which is adopted by SPaDE).
 
 2. That all deductive reasoning takes place in *[perfect information spaces](tlad001.md#perfect-information-space)*, which are domains in which intelligence can most effectively be delivered by *[focal](tlad001.md#focal)* methods rather than by large language models.
 
@@ -104,6 +104,7 @@ The second with the architecture and fundamental core of the deductive intellige
 
 - [tltd001.md](./tltd001.md) - Task Description: SPaDE Formal Specification - Overview and Abstract Syntax
 - [tltd002.md](./tltd002.md) - Task Description: Prepare the SPaDEroot Theory    
+
 ## Miscellanea
 
 - [tlmc001.md](./tlmc001.md) - My Purpose in initiating SPaDE

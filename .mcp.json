@@ -1,0 +1,14 @@
+{
+	"mcpServers": {
+		"SPaDE-server": {
+			"type": "stdio",
+			"command": "python3",
+			"args": [
+				"mcp/mcpcd001.py"
+			],
+			"env": {
+				"PYTHONPATH": "."
+			}
+		}
+	}
+}

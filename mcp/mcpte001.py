@@ -123,6 +123,63 @@ def test_integration():
         if json.loads(read_json) != json.loads(expected):
             raise Exception(f"Read mismatch! Expected {expected}, got {read_json}")
 
+        print("Basic read/write steps passed.")
+
+        # 6. Round-trip text through the server, one S-expression (list of
+        # words) per line, then compare content and size.
+        req_ids = iter(range(10, 10**9))
+
+        def flatten(cons):
+            # Nested [car, cdr] pairs ending in null -> flat list of words
+            out = []
+            while cons is not None:
+                out.append(cons[0])
+                cons = cons[1]
+            return out
+
+        def call_tool(name, arguments):
+            send_request("tools/call", {"name": name, "arguments": arguments}, next(req_ids))
+            return read_response()['result']['content'][0]['text']
+
+        def round_trip(lines, repo_file):
+            words_by_line = [line.split() for line in lines]
+            call_tool("create_repository", {"filepath": repo_file})
+            seq_nums = []
+            for words in words_by_line:
+                content = call_tool("write_sexpression",
+                                    {"filepath": repo_file, "sexp_json": json.dumps(words)})
+                match = re.search(r"Sequence Number: (\d+)", content)
+                if not match:
+                    raise Exception(f"Write failed: {content}")
+                seq_nums.append(int(match.group(1)))
+            for i, (seq, words) in enumerate(zip(seq_nums, words_by_line)):
+                text = call_tool("read_sexpression", {"filepath": repo_file, "seq_num": seq})
+                if flatten(json.loads(text)) != words:
+                    raise Exception(f"Line {i + 1} mismatch: expected {words}, got {text}")
+            return os.path.getsize(repo_file)
+
+        text_path = os.path.join(os.path.dirname(__file__), "..", "docs", "admin", "README.md")
+        with open(text_path, encoding="utf-8") as f:
+            lines = f.read().splitlines()
+        text_size = sum(len(line.encode("utf-8")) + 1 for line in lines)
+        repo_size = round_trip(lines, os.path.join(temp_dir, "words.spade"))
+        print(f"Round-trip OK: {len(lines)} lines, "
+              f"{sum(len(l.split()) for l in lines)} words")
+        # Each distinct atom/cons is stored once, but ordinary prose has few
+        # repeated cons cells, so the repo is typically larger than the text.
+        print(f"File size: {text_size} bytes, repo size: {repo_size} bytes "
+              f"(ratio {repo_size / text_size:.2f})")
+
+        # Repeated content is shared, so the repo must be smaller than the text.
+        copies = 5
+        rep_lines = lines * copies
+        rep_text_size = text_size * copies
+        rep_repo_size = round_trip(rep_lines, os.path.join(temp_dir, "repeated.spade"))
+        print(f"Repeated x{copies}: file size {rep_text_size} bytes, "
+              f"repo size {rep_repo_size} bytes")
+        if rep_repo_size >= rep_text_size:
+            raise Exception("Repository is not smaller than the repeated source text!")
+
         print("SUCCESS: All integration steps passed.")
 
     except Exception as e:

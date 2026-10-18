@@ -1,16 +1,16 @@
 # Administrative Documentation
 
-The [SPaDE](../tlad001.md#spade) project is intended, en route to its more ambitious goals, to transform engineering design and construction, starting with software development.
+The [SPaDE](../tlad001.md#spade) project is intended, en route to its more ambitious goals, to support deductive engineering design and construction, starting with software development.
 
-It is now clear to me that an important part of that is project management and administration, which will need to continuously evolve as the capabilities of AI systems evolve, and their role becomes more substantial.
+It is now clear to me that an important part of that is project management and administration, which will need to continuously evolve as the capabilities of AI systems evolve, and their role, both in the SPaDE system and its development, becomes more substantial.
 
-Because of the shifting balance between human and AI contributions, it is preferable to document roles in ways which are agnostic as to whether the role is filled by a human or an AI system.
+Because of the shifting balance between human and AI contributions, it is preferable to document roles in ways which are agnostic as to whether the role is filled by a human or an AI system and are explicit in all matters of importance.
 
 Agents (including Grok Build) should take in **this directory**, via this README, rather than treating `AGENTS.md` as the project methods manual. `AGENTS.md` is only Grok-specific (and similar) advice. Document placement is in [amms001.md](amms001.md).
 
 ### Working practice
 
-Development is done by local agents on the DGX Spark. Grok and Copilot in the cloud are used where the most powerful models are likely to be beneficial. Roles and placement: [amms009.md](amms009.md). Order of work: [ampl006.md](ampl006.md). Commissioning and review: [ampd009.md](ampd009.md). Software on the Spark: [amms010.md](amms010.md). Area branches and worktrees: [ampd004.md](ampd004.md).
+Development is to bedone by local agents on the DGX Spark as far as is practical. Grok and Copilot in the cloud are used where the most powerful models are likely to be necessary or beneficial. Roles and placement: [amms009.md](amms009.md). Order of work: [ampl006.md](ampl006.md). Commissioning and review: [ampd009.md](ampd009.md). Software on the Spark: [amms010.md](amms010.md). Area branches and worktrees: [ampd004.md](ampd004.md).
 
 Cloud paths that remain:
 

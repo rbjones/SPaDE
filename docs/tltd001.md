@@ -59,9 +59,8 @@ The specification of HOL is built on this abstract syntax. Architectural materia
 
 Subsequent task description will address various other ways in which SPaDE will differ from ProofPower, in advancing to a  full specification of the SPaDE repository, and the primitive HOL inference rules.
 
----
 
-Document ID: amtd006
-Author: Grok Build (Grok 4.7)
-Status: In progress
-Chat log: [amcl003.md](amcl003.md)
+For that reason, the first five tasks correspond to the five ProofPower documents in the spc001.pp–spc005.pp sequence, which will be recast as a series of specifications specific to SPaDE written in ProofPower HOL (SML) embedded in github markdown.
+
+It is envisaged that the one formal specification document commissioned by this task description will be produced in stages, since these are the first formal specifications to be assigned to autonomous agents in the SPaDE development and it is not yet clear what agents will have the necessary skills, or what needs to be supplied to the agent to facilitate the work.
+It is also likely that the full detail in this task description will also appear in stages as the specification evolves.

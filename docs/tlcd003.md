@@ -80,18 +80,10 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 
 ```sml
 ⓈHOLCONST
-│ one_one: ('a → 'b) → BOOL
-├──────
-│ ∀ f⦁ one_one f ⇔ ∀x y⦁  f x = f y ⇒ x = y
-■
-```
-
-```sml
-ⓈHOLCONST
 │ initial: ('a → 'a → BOOL) → BOOL
 ├──────
 │ ∀ $<<⦁ initial $<< ⇔ ¬ ∃f (z:'a)⦁
-│       one_one f
+│       OneOne f
 │   ∧   (∀x y⦁ x << y ⇒ f x << f y)
 │   ∧   (∀x⦁ f x << z)
 ■
