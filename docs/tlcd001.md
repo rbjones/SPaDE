@@ -13,3 +13,4 @@ The axiom of choice in SPaDE may be stated as the existence of initial strict we
 ```sml
 new_SPaDE_theory ("tlcd001", "SPaDEroot", []);
 ```
+
