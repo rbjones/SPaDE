@@ -1,56 +1,61 @@
-# Branches, worktrees, and sessions
+# Task branches, worktrees, and sessions
 
-## Introduction
+How Grok and Copilot are used is in the working-practice section of [README.md](README.md). This document is branches, worktrees, and sessions.
 
-How Grok and Copilot are used is in the working-practice section of [README.md](README.md). This document is only branches, worktrees, and Grok sessions.
+A task that will change the repository has one branch, one worktree, and the sessions that use that worktree. The branch is cut from `main`. The worktree is removed, and the branch is deleted, when the task's pull request is finished. Copilot's coding agent has the same branch lifetime and has no worktree on this machine ([ampd001.md](ampd001.md)).
 
-Substantial areas of **Grok** work should be conducted on a new branch with a corresponding worktree and session, so that work in progress in one area does not interfere with work in another area.
-Work in one area will not affect work in another area until it has been merged into `main` (usually via a pull request), and then back into the other area’s worktree.
+## The main checkout
 
-Each Grok area has:
+`~/git/SPaDE` stays on `main`. `main` is pulled there. Task worktrees are added and removed from there. Commits for a task are made in the task worktree.
 
-- a **git branch** named for the area;
-- a **sibling git worktree**, not a second clone, e.g. `/Users/rbj/git/SPaDE-am` beside `/Users/rbj/git/SPaDE`;
-- **Grok Build sessions whose cwd is that worktree**.
+## Opening a task
 
-`main` is the integration branch. Do not check out another branch in a worktree that already has a live Grok session. Create or switch worktrees instead (`git worktree add`).
+The branch and the worktree share one name. When the task has a document, the name is that document's id (`tltd001`). Otherwise the task states a short hyphenated name.
 
-Grok retained memory is in `~/.grok/memory/` (keyed on `origin`). Clones and worktrees of this repo **share** that store. Grok **sessions** (full transcripts) are under `~/.grok/sessions/` keyed on cwd, so each worktree has its own resume list. An empty `.grok/memory` under a clone is not the store and is not in git.
+From the main checkout:
 
-Copilot coding agent does **not** use these worktrees; it creates its own branch from GitHub ([ampd001.md](ampd001.md)).
+```sh
+git worktree add -b tltd001 ~/git/SPaDE-tltd001 main
+```
+
+Open the session with its working directory set to `~/git/SPaDE-tltd001`. `git worktree add -b` names the branch and places the worktree beside the main checkout.
+
+The task states the files that may be changed. Where a kind of document belongs is in [amms001.md](amms001.md) and [amms009.md](amms009.md). `AGENTS.md` is the same text on every branch.
+
+The worktree lasts for the whole task, including review. Several sessions may use it. The branch of a worktree stays as it is while a session has that directory as its working directory.
+
+If `main` moves during the task, merge `main` into the task branch before the pull request is finished.
 
 Outcomes that belong in the document hierarchy go into the hierarchy, not into `~/.grok/memory`.
 
-## Standing areas (provisional)
+Grok retained memory is in `~/.grok/memory/` (keyed on `origin`). Worktrees of this repo share that store. Grok sessions are under `~/.grok/sessions/`, keyed on the working directory, so each worktree has its own resume list. An empty `.grok/memory` under a checkout is not the store and is not in git.
 
-Open only what is needed.
-Do not create every worktree at once.
+## Closing a task
 
-| Area | Branch | Worktree (proposed) | Owns |
-| --- | --- | --- | --- |
-| Philosophy and Architecture | `pa` | `…/SPaDE-pa` | system-wide `docs/tlph*` |
-| Administration | `am` | `…/SPaDE-am` | Administrative materials only: `docs/admin/`, `AGENTS.md`, `reviews/`. **Not** `docs/tlph*`, `docs/tlad*`, `docs/tlpl*`, or other system-wide philosophy/architecture. |
-| Knowledge repository | `kr` | `…/SPaDE-kr` | `kr/` |
-| MCP | `mcp` | `…/SPaDE-mcp` | `mcp/` |
-| Deductive kernel | `dk` | .../SPaDE-dk | `dk/` |
-| Deductive intelligence | `di` | `…/SPaDE-di` | `di/` |
+The pull request into `main` is the review ([ampd005.md](ampd005.md)). After it is merged, and after every session in the task directory has ended, run the following in `~/git/SPaDE`. The task directory is clean before it is removed.
 
-Admin plans and methods (`ampl*` and the rest of `docs/admin/`) are owned on `am`. Top-level documentation strategy in `docs/tlpl001.md` is **not** an `am` file.
+```sh
+git pull
+git worktree remove ~/git/SPaDE-tltd001
+git branch -d tltd001
+git push origin --delete tltd001
+```
 
-## What a session may edit
+Run the last command when the remote branch is still present.
 
-`AGENTS.md` on `main` remains conservative. On an area branch, that file is relaxed **for that area** so the work can actually be written. Do not use an `am` session to rewrite `kr/` or `mcp/` except by explicit request.
+A task closed without merging is removed in the same way. Delete its local branch with `git branch -D` when the branch has not been merged.
 
-On this `am` branch, Grok may edit `docs/admin/`, `AGENTS.md`, and `reviews/`. Other trees only if asked.
+A worker does not merge, and does not remove the worktree or the branch. The host does that from the main checkout ([ampd010.md](ampd010.md)).
 
-## Starting and ending sessions
+## Copilot
 
-1. Open Grok with cwd set to the worktree (not to `main` unless integrating).
-2. If memory is enabled, `/flush` before leaving a session that decided anything that is not yet in the docs.
-3. Merge to `main` when a coherent unit is ready; do not accumulate unrelated work on `am`. Preferred path: a pull request into `main` with GitHub Copilot as an independent reviewer — [ampd005.md](ampd005.md).
+Copilot's coding agent creates its own branch and opens the pull request against `main`. It has no worktree on this machine. That branch is deleted when the pull request is merged.
 
-For Copilot coding-agent delegation workflow and templates (task document, issue body, and delegation prompt), see [ampd008.md](ampd008.md).
+Delegation workflow and templates: [ampd008.md](ampd008.md).
 
-## Auth and spend
+---
 
-Grok Build may authenticate with OAuth (X Premium) or an API key. A stored OAuth session in `~/.grok/auth.json` wins over `XAI_API_KEY` until `grok logout`. Check `/session-info` (`Auth method`) if spend is in doubt.
+Document ID: ampd004
+Author: Grok Build (Grok 4.7)
+Status: In progress
+Chat log: [amcl003.md](amcl003.md)

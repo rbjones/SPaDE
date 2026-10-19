@@ -54,21 +54,17 @@ Ensure the document includes:
   - Dependencies (e.g., files to modify)
 
 ## Task Assignment
-- **Branch Creation**: scheduler creates a new branch and worktree for this particular task from the relevant area branch (am, kr, dk, di, mcp):
+- **Branch and worktree**: the scheduler creates them for this task as in [ampd004.md](ampd004.md), from the main checkout:
   ```bash
-  git checkout -b task-recast-hol-terms
+  git worktree add -b task-recast-hol-terms ~/git/SPaDE-task-recast-hol-terms main
   ```
-- **Task Launch**: Use the `task` tool with the document as input:
+- **Task Launch**: Use the `task` tool with the document as input. The prompt path is the task document in that worktree:
   ```bash
   task \
     --name recast-hol-terms \
     --agent-type general-purpose \
     --mode background \
-    --prompt /home/rbj/git/SPaDE-am/docs/admin/task-recast-hol-terms.md
-  ```
-- **Worktree Setup**: The local LLM creates a worktree for isolated changes:
-  ```bash
-  git worktree add ../SPaDE-am-task-recast-hol-terms task-recast-hol-terms
+    --prompt ~/git/SPaDE-task-recast-hol-terms/docs/admin/task-recast-hol-terms.md
   ```
 
 ## Task Execution

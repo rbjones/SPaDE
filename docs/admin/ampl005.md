@@ -4,17 +4,17 @@ How the team now works on the DGX Spark is in [amms009.md](amms009.md), [ampl006
 
 This is the short plan for the period in which SPaDE is evaluating ways of working which facilitate fuller involvement of AI in the development.
 
-The working split is in [README.md](README.md): Grok Build for interactive and high-level work (memory in `~/.grok`); Copilot for GitHub-scheduled agentics, tested in the SPaDE container; Copilot code review of Grok-authored PRs as a third use. Area worktrees remain ([ampd004.md](ampd004.md)). Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md).
+The working split is in [README.md](README.md): Grok Build for interactive and high-level work (memory in `~/.grok`); Copilot for GitHub-scheduled agentics, tested in the SPaDE container; Copilot code review of Grok-authored PRs as a third use. Each task has its own branch and worktree ([ampd004.md](ampd004.md)). Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md).
 
-## Now (`am`)
+## Administration
 
-1. Document methods: worktrees, branch ownership, what Grok may edit, memory vs `docs/`.
-2. Align `AGENTS.md` with those methods (conservative on `main`; relaxed per area branch).
+1. Methods for branches, worktrees, and sessions are in [ampd004.md](ampd004.md). The task states the files that may be changed. Memory stays in `~/.grok`; outcomes go in `docs/`.
+2. `AGENTS.md` is the same text on every branch.
 3. `drafts/` removed. Living documents it listed are in `docs/`. Grok web share URLs are in [amcl002.md](amcl002.md).
-4. Keep the `ampl*` plans in `docs/admin/` consistent with top-level strategy; do not edit `docs/tlpl001.md` from `am`.
-5. Land coherent `am` units on `main` by pull request, with Copilot as independent reviewer ([ampd005.md](ampd005.md)). Do not treat Copilot Chat as a substitute for that PR review.
+4. Keep the `ampl*` plans in `docs/admin/` consistent with top-level strategy. `docs/tlpl001.md` remains the top-level documentation strategy.
+5. Land each task on `main` by pull request, with Copilot as independent reviewer ([ampd005.md](ampd005.md)). Do not treat Copilot Chat as a substitute for that PR review.
 
-## Next (`kr`)
+## Next (knowledge repository)
 
 KR-specific architecture, design, and prototype work lives in `kr/` and is **not blocked** on completing system-wide `docs/` architecture ([amms001.md](amms001.md)).
 
@@ -22,18 +22,18 @@ KR-specific architecture, design, and prototype work lives in `kr/` and is **not
 2. Keep `docs/tlad012.md` as the **cross-subsystem** catalogue of KR structures and interfaces (because other subsystems must see them), reconciled with `kr/krad001.md` — not as a substitute for KR-local design.
 3. KR-local philosophy (`krph*`) stays with `kr`, not with synthetic-philosophy.
 
-## Then (`mcp`)
+## Then (MCP)
 
 1. v0 is a read-only projection of KR operations, specified before further coding.
-2. Review `mcp-gpt-5.1-Codex-Max` (CLI/env/tests) in the MCP worktree; merge, cherry-pick, or drop.
+2. Review `mcp-gpt-5.1-Codex-Max` (CLI/env/tests) on a task branch; merge, cherry-pick, or drop.
 
 ## Parallel, not blocking
 
-- Synthetic philosophy (`docs/tlph*`) as a standing area when wanted.
-- Glossary as a method, or a short pass, not a fifth long-lived parallel branch.
+- Synthetic philosophy (`docs/tlph*`) when wanted, on a task branch of its own.
+- Glossary as a method, or as a task whose branch is removed when its pull request is merged.
 - Revisions to glossary maintenance procedures are deferred unless urgent, and should be resumed after KR progress restarts.
 - `dk` and `di` later, as in the existing onion (`ampl001`).
 
-## Done enough to leave `am` as the bottleneck
+## Done enough to leave administration as the bottleneck
 
-A new Grok session, started in a worktree, can read [README.md](README.md) (working practice), [ampd004.md](ampd004.md) and `AGENTS.md` and know which files it may change, and this file for what to do next.
+A new Grok session, started in a task worktree, can read [README.md](README.md) (working practice), [ampd004.md](ampd004.md), and `AGENTS.md`. The task states which files it may change. This file says what to do next.

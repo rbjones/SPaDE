@@ -49,9 +49,9 @@ The agent should identify itself including the underlying model name (e.g., "Git
 
 The agent performs the following setup tasks:
 
-1. **Create/Checkout Branch**:
-   - Create a new feature branch for the task (e.g., `feature/native-repo-io`)
-   - Ensure all subsequent work is performed in this branch
+1. **Create the task worktree**:
+   - Create the task branch and worktree as in [ampd004.md](ampd004.md) (for example `~/git/SPaDE-tlph011` on branch `tlph011`)
+   - Do the rest of this setup in that worktree
 
 2. **Determine document number**:
    - Check target directory's README.md

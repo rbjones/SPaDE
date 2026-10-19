@@ -52,7 +52,7 @@ To assist in undertaking this procedure, several supporting scripts are provided
    - Keep the document limited to the proposed term names; omit tables, statistics, or inline commentary.
 
 4. **Open a draft pull request**
-   - Create a feature branch containing only the YAML candidate list (and any optional supporting notes).
+   - Create a task branch and worktree, as in [ampd004.md](ampd004.md), containing only the YAML candidate list (and any optional supporting notes).
    - Open a draft PR titled “Glossary candidates YYYY-MM-DD” and request maintainer review.
    No glossary edits are made at this stage.
 

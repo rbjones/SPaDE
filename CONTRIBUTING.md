@@ -17,7 +17,7 @@ Working practice is indexed from that directory. The following are a useful star
 - [Collaboration Guidelines](docs/admin/amms004.md)
 - [Guidance for AI Contributions](docs/admin/amms005.md)
 - [Working practice (Grok vs Copilot)](docs/admin/README.md#working-practice-pro-tem)
-- [Branches, worktrees, and sessions](docs/admin/ampd004.md)
+- [Task branches, worktrees, and sessions](docs/admin/ampd004.md)
 - [GitHub-scheduled Copilot; container tests](docs/admin/ampd001.md)
 - [Independent review of Grok-authored PRs](docs/admin/ampd005.md)
 - [Instructions for Copilot](./.github/copilot-instructions.md)

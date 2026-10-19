@@ -49,7 +49,7 @@ The result is a SPaDE specification in markdown, with the HOL in `sml` fences, s
 
 ## Task execution
 
-This task is undertaken on branch `pa`, in its `SPaDE-pa` worktree. A local worker receives that worktree alone, mounted for the task as specified in [ampd010.md](ampd010.md). It may read the sources named in the architect role card and change only the formal target and its directly related build entries.
+This task is undertaken on its own branch and worktree, as in [ampd004.md](admin/ampd004.md). A local worker receives that worktree alone, mounted for the task as specified in [ampd010.md](admin/ampd010.md). It may read the sources named in the architect role card and change only the formal target and its directly related build entries.
 
 The worker must run the stated document-generation and ProofPower validation commands before proposing completion. Those commands are to be made reproducible in this worktree before the task is assigned autonomously; the existing document makefile strips `sml` fences but is not yet a ProofPower runner for a new architectural script. The worker does not merge its result.
 
