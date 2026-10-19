@@ -14,6 +14,14 @@ PYSRV=mcpcd001.py
 # Python test scripts to be run
 PYTEST= mcpte001.py
 
+# Optional server settings for `make serve`; otherwise the server uses its
+# defaults or the SPADE_MCP_* environment variables.
+MCP_TRANSPORT ?=
+MCP_HOST ?=
+MCP_PORT ?=
+MCP_MOUNT_PATH ?=
+MCP_SSE_PATH ?=
+
 include ../common/rules.mkf
 
 # Default targets
@@ -23,7 +31,13 @@ default: test
 
 check: $(PYCHECKCDD)
 
-serve: mcpcd001.rdd
+serve:
+	@PYTHONPATH=.. $(PYTHON) -u mcpcd001.py \
+		$(if $(MCP_TRANSPORT),--transport "$(MCP_TRANSPORT)") \
+		$(if $(MCP_HOST),--host "$(MCP_HOST)") \
+		$(if $(MCP_PORT),--port "$(MCP_PORT)") \
+		$(if $(MCP_MOUNT_PATH),--mount-path "$(MCP_MOUNT_PATH)") \
+		$(if $(MCP_SSE_PATH),--sse-path "$(MCP_SSE_PATH)")
 
 test: $(PYTESTTDD)
 

@@ -57,18 +57,18 @@ class MinimalMCPServerABC(abc.ABC):
 class MCPIntegrationTestABC(abc.ABC):
     """Contract for the subprocess-based integration test harness.
 
-    The real script launches ``mcpcd001.py`` in a subprocess, speaks the
-    FastMCP JSON-RPC protocol over its STDIN/STDOUT streams, and validates
-    that repository creation, write, and read tools behave correctly.
+    The real script launches ``mcpcd001.py`` in a subprocess, exercises its
+    stdio and SSE transports, and validates that repository creation, write,
+    read, and round-trip behavior work correctly.
     """
 
     @abc.abstractmethod
     def run_full_cycle(self) -> None:
-        """Execute the full sequence: initialize, list tools, create repo,
-        write an S-expression, read it back, and tear down.
+        """Exercise supported transports, initialize, list tools, create a
+        repository, write and read S-expressions, and tear down.
 
-        Implementations should document the server handshake and cleanup
-        semantics so the steps are reproducible when the harness is extended.
+        Implementations should document transport setup and cleanup semantics
+        so the steps are reproducible when the harness is extended.
         """
 
     @abc.abstractmethod

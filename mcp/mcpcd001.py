@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 import sys
@@ -54,8 +55,44 @@ try:
         logging.error(f"Unexpected error during import: {e}")
         raise
 
-    # Initialize FastMCP server
-    server = FastMCP("SPaDE-server")
+    def parse_args():
+        parser = argparse.ArgumentParser(description="SPaDE MCP server")
+        parser.add_argument(
+            "--transport",
+            choices=["stdio", "sse", "streamable-http"],
+            default=os.getenv("SPADE_MCP_TRANSPORT", "stdio"),
+            help="MCP transport (default: stdio)",
+        )
+        parser.add_argument(
+            "--host",
+            default=os.getenv("SPADE_MCP_HOST", "127.0.0.1"),
+            help="Bind host for HTTP-based transports",
+        )
+        parser.add_argument(
+            "--port",
+            type=int,
+            default=os.getenv("SPADE_MCP_PORT", "8000"),
+            help="Bind port for HTTP transports",
+        )
+        parser.add_argument(
+            "--mount-path",
+            default=os.getenv("SPADE_MCP_MOUNT_PATH", "/"),
+            help="Optional mount path prefix for the SSE app",
+        )
+        parser.add_argument(
+            "--sse-path",
+            default=os.getenv("SPADE_MCP_SSE_PATH", "/sse"),
+            help="SSE endpoint path",
+        )
+        return parser.parse_args()
+
+    server = FastMCP(
+        "SPaDE-server",
+        host=os.getenv("SPADE_MCP_HOST", "127.0.0.1"),
+        port=int(os.getenv("SPADE_MCP_PORT", "8000")),
+        mount_path=os.getenv("SPADE_MCP_MOUNT_PATH", "/"),
+        sse_path=os.getenv("SPADE_MCP_SSE_PATH", "/sse"),
+    )
 
     @server.tool()
     async def create_repository(filepath: str, version: int = 1) -> str:
@@ -155,8 +192,20 @@ try:
             return f"Error reading S-expression: {str(e)}"
 
     if __name__ == "__main__":
-        # This allows running the server directly for testing
-        server.run()
+        args = parse_args()
+        server.settings.host = args.host
+        server.settings.port = args.port
+        server.settings.mount_path = args.mount_path
+        server.settings.sse_path = args.sse_path
+        logging.info(
+            "Launching MCP server transport=%s host=%s port=%s mount=%s sse_path=%s",
+            args.transport,
+            args.host,
+            args.port,
+            args.mount_path,
+            args.sse_path,
+        )
+        server.run(transport=args.transport, mount_path=args.mount_path)
 
 except Exception as e:
     logging.critical(f"Fatal error: {e}")
