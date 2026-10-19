@@ -8,7 +8,7 @@
 
 Define a repeatable procedure for assigning implementation tasks to Copilot coding agent while preserving full traceability.
 
-This is the GitHub-scheduled Copilot path ([README.md](README.md) working practice, [ampd001.md](ampd001.md)). Copilot creates its own branch; it does not check out an area worktree. Area worktrees are for Grok ([ampd004.md](ampd004.md)).
+This is the GitHub-scheduled Copilot path ([README.md](README.md) working practice, [ampd001.md](ampd001.md)). Copilot creates its own branch and opens the pull request against `main`. That branch is deleted when the pull request is merged ([ampd004.md](ampd004.md)). Copilot has no worktree on this machine. Task worktrees are for work done here.
 
 ## Policy
 
@@ -21,6 +21,8 @@ For non-trivial tasks, use all three artefacts:
 For tiny mechanical edits, the issue may be omitted, but the pull request body must still contain a complete task record.
 
 ## Branching and PR Target Rules
+
+The pull request base is `main`.
 
 1. The intended base branch must exist on the remote repository.
 2. Copilot assignment must explicitly set the base branch parameter (for example `base_ref`).
@@ -67,8 +69,9 @@ Use this as a starting pattern for each new task description file.
 
 ## Branch and Integration Target
 
-- Working branch (base_ref): `<branch-name>`
-- Pull request base branch: `<branch-name>`
+- base_ref: `main`
+- Pull request base: `main`
+- Copilot creates the working branch. It is deleted when the pull request is merged ([ampd004.md](ampd004.md)).
 - Tests: SPaDE container (Copilot has no local workspace)
 
 ## Task Requirements
@@ -123,8 +126,8 @@ Use this issue template when delegating to Copilot.
 
 ## Branching
 
-- base_ref: `<branch-name>`
-- PR base: `<branch-name>`
+- base_ref: `main`
+- PR base: `main`
 
 ## Acceptance Criteria
 
@@ -145,13 +148,13 @@ Use this in Copilot Chat (or equivalent delegation surface).
 Create a Copilot coding-agent task for repo <owner>/<repo>.
 
 Title: <short title>
-Base branch (base_ref): <branch-name>
+Base branch (base_ref): main
 
 Implement strictly according to:
 - Issue: <issue-link>
 - Task description: <amtd-link>
 
-Create a PR targeting <branch-name> and include a Task Record section with:
+Create a PR targeting main and include a Task Record section with:
 1) Objective
 2) Scope and Out of Scope
 3) Acceptance Criteria status

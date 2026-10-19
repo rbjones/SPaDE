@@ -96,3 +96,8 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 │ ∀ $<<⦁ iswo $<< ⇔
 │       initial $<< ∧ strict $<< ∧ well_order $<<
 ■
+```
+
+```sml
+val choice_axiom = new_axiom(["choice_axiom"], ⌜∀α⦁ ∃R:α → α → BOOL⦁ iswo R⌝); 
+```

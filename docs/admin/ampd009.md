@@ -1,10 +1,10 @@
 # Commissioning work on the Spark
 
-Roles are in [amms009.md](amms009.md). Area branches and worktrees are in [ampd004.md](ampd004.md).
+Roles are in [amms009.md](amms009.md). Task branches and worktrees are in [ampd004.md](ampd004.md).
 
 ## Default
 
-A development task is done by a local agent on this DGX Spark, in the worktree and on the branch for that area. One area is in play in a worktree. The agent is told the role, the outcome, and the files or formal target it may change.
+A development task is done by a local agent on this DGX Spark, in the worktree and on the branch for that task. One task is in play in a worktree. The agent is told the role, the outcome, and the files or formal target it may change.
 
 ## Access to LLMs on the Spark
 
@@ -46,7 +46,6 @@ Here, `gpt-4.1` is the recognized model profile Copilot CLI uses for its agent c
 
 The token limits sum to the current vLLM context limit of 131072 tokens. After switching the served model, set `COPILOT_PROVIDER_WIRE_MODEL` to the ID reported by `/v1/models` and adjust the token limits to that model's configured context. vLLM does not require an API key, so `COPILOT_PROVIDER_API_KEY` can be left unset. Run `copilot help providers` for provider configuration details.
 
-
 ## Cloud models
 
 Grok and Copilot in the cloud are used when a frontier model is likely to do the task better than the local models then available. The project manager applies that test to the task.
@@ -61,7 +60,7 @@ The test is reapplied as local models, including models fine-tuned for [SPaDE](.
 
 ## Review into `main`
 
-Work that is to land on `main` is progressed on the area branch in its worktree and submitted as a pull request. Copilot code review is included on that pull request. The principal accepts the merge.
+Work that is to land on `main` is progressed on the task branch in its worktree and submitted as a pull request. Copilot code review is included on that pull request. The principal accepts the merge.
 
 Detail of the review step is in [ampd005.md](ampd005.md). A pull request authored by the Copilot coding agent is reviewed by the principal. Copilot does not independently review a change it authored.
 

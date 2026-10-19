@@ -22,6 +22,7 @@ This document describes how to assign autonomous code-and-test tasks to GitHub C
 4. Copilot opens a PR
 5. GitHub Actions tests the changes in the SPaDE container
 6. Review and merge if tests pass, otherwise diagnose, fix and go to 5.
+7. Delete the branch ([ampd004.md](ampd004.md)).
 
 ## Scope of this document
 

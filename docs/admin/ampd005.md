@@ -1,6 +1,6 @@
-# Independent review: area branches, Copilot reviews
+# Independent review of pull requests into `main`
 
-This is the working practice for pull requests into `main` from an area branch, including work by a local agent or by Grok Build. GitHub Copilot **code review** is included on that pull request. Commissioning is in [ampd009.md](ampd009.md). Branches and worktrees are in [ampd004.md](ampd004.md).
+This is the working practice for pull requests into `main` from a task branch, including work by a local agent or by Grok Build. GitHub Copilot **code review** is included on that pull request. Commissioning is in [ampd009.md](ampd009.md). Branches and worktrees are in [ampd004.md](ampd004.md).
 
 It does **not** cover Copilot as implementer. GitHub-scheduled Copilot work is [ampd001.md](ampd001.md), [ampd002.md](ampd002.md), [ampd008.md](ampd008.md). Do not treat this document as a ban on that path.
 
@@ -10,7 +10,7 @@ Copilot’s review model is often not selectable on the review API and is not as
 
 | Role | Who | Does |
 |---|---|---|
-| Author | The role that did the work, in an area worktree: a local agent, or the human with Grok Build | Design and write; keep outcomes in `docs/` (and code when that area is in scope) |
+| Author | The role that did the work, in the task worktree: a local agent, or the human with Grok Build | Design and write; keep outcomes in `docs/` (and code when the task includes them) |
 | Independent reviewer | GitHub Copilot **code review** on a pull request | Read the PR diff; post review comments without having written the change |
 | Integrator | Human | Merge to `main` only after the PR (and Copilot review) have been considered |
 | Copilot as implementer | Coding agent on a GitHub issue | Separate path ([ampd001.md](ampd001.md)); not this review role |
@@ -20,9 +20,9 @@ Independence here is **institutional**, not metaphysical: Copilot did not produc
 
 ## Updates to `main` go through a pull request
 
-Do not merge an area branch into `main` from the worktree as a silent fast-forward when Copilot review is expected.
+Do not merge a task branch into `main` from the worktree as a silent fast-forward when Copilot review is expected.
 
-1. Finish a **coherent unit** on the area branch (`am`, later `kr`, `mcp`, …).
+1. Finish the task on its branch.
 2. Push the branch and open a PR **into `main`**.
 3. Request **Copilot as a reviewer** (GitHub UI: Reviewers → Copilot; CLI: `gh pr edit N --add-reviewer copilot`; MCP: `request_copilot_review`).
 4. Read Copilot’s comments. Accept, reject, or park them in the PR or in `reviews/` as appropriate. Grok may help *respond* to the review; it must not pretend the review was independent if it then rewrites the patch to match Copilot uncritically without the human noticing.

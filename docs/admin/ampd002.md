@@ -2,11 +2,11 @@
 
 ## Status
 
-Current steps for Copilot completing a GitHub-scheduled code or test assignment. Copilot creates its own branch and must test in the SPaDE container ([ampd001.md](ampd001.md)). Task documents and issue templates: [ampd008.md](ampd008.md).
+Current steps for Copilot completing a GitHub-scheduled code or test assignment. Copilot creates its own branch from `main` and must test in the SPaDE container ([ampd001.md](ampd001.md)). That branch is deleted when the pull request is merged ([ampd004.md](ampd004.md)). Task documents and issue templates: [ampd008.md](ampd008.md).
 
 When you are assigned a code or test task, follow these steps:
 
-1. **Create a new branch** from the main branch of the repository.
+1. **Create a new branch** from `main`. The branch is deleted when the pull request is merged ([ampd004.md](ampd004.md)).
 
 2. **Understand the Requirements**: Carefully read the assignment details to fully understand what is expected.
   If anything is unclear, reach out to the assigner for clarification. These should include detailed design documents, and description of the module test method.
