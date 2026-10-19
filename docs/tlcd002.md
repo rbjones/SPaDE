@@ -39,6 +39,11 @@ fun new_SPaDE_theory (theory_name, parent, other_parents) =
 end;
 ```
 
+```sml
+new_SPaDE_theory ("SPaDEroot", "hol", []);
+set_pc "hol";
+```
+
 ### Pre-proving Consistency Theorem
 
 For the sake of getting ProofPower theory listings nice, it is desirable when a consistency theorem is needed for a constant definition to prove it before introducing the definition so that it can be used by the automatic consistency prover.
@@ -81,10 +86,6 @@ current_ad_cs_∃_conv();
 
 ## Some HOL Constants
 
-```sml
-new_SPaDE_theory ("SPaDEroot", "hol", []);
-set_pc "hol";
-```
 ## A Byte Sequence Packing Method
 
 To introduce the type of T-expressions (We'd better use the name T-ex for brevity) we must identify a representation for T-expressions over which the required operations are definable.
