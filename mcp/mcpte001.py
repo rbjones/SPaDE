@@ -1,9 +1,21 @@
-import subprocess
-import sys
 import os
 import json
+import re
+import socket
 import shutil
+import subprocess
+import sys
 import tempfile
+import time
+
+import anyio
+from mcp.client.session import ClientSession
+from mcp.client.sse import sse_client
+
+
+SSE_HOST = os.getenv("SPADE_MCP_TEST_HOST", "127.0.0.1")
+SSE_PORT = int(os.getenv("SPADE_MCP_TEST_PORT", "8765"))
+SERVER_SCRIPT = os.path.join(os.path.dirname(__file__), "mcpcd001.py")
 
 
 def test_integration():
@@ -16,7 +28,7 @@ def test_integration():
 
     # Path to server script
     # Adjusted for location: mcp/mcpte001.py -> mcp/mcpcd001.py
-    server_script = os.path.join(os.path.dirname(__file__), "mcpcd001.py")
+    server_script = SERVER_SCRIPT
 
     # We need to run the server as a subprocess.
     # FastMCP uses stdio by default for communication.
@@ -101,7 +113,6 @@ def test_integration():
         print(f"<- Write S-Exp: {content}")
 
         # Extract seq_num from response string "Successfully wrote ... Sequence Number: X"
-        import re
         match = re.search(r"Sequence Number: (\d+)", content)
         if not match:
             raise Exception("Could not parse sequence number from response")
@@ -164,7 +175,7 @@ def test_integration():
         text_size = sum(len(line.encode("utf-8")) + 1 for line in lines)
         repo_size = round_trip(lines, os.path.join(temp_dir, "words.spade"))
         print(f"Round-trip OK: {len(lines)} lines, "
-              f"{sum(len(l.split()) for l in lines)} words")
+              f"{sum(len(line.split()) for line in lines)} words")
         # Each distinct atom/cons is stored once, but ordinary prose has few
         # repeated cons cells, so the repo is typically larger than the text.
         print(f"File size: {text_size} bytes, repo size: {repo_size} bytes "
@@ -188,6 +199,111 @@ def test_integration():
     finally:
         process.terminate()
         shutil.rmtree(temp_dir)
+
+
+def _start_sse_server(use_cli_options):
+    env = os.environ.copy()
+    workspace_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    env["PYTHONPATH"] = workspace_root + os.pathsep + env.get("PYTHONPATH", "")
+    env["SPADE_MCP_HOST"] = SSE_HOST
+    command = [sys.executable, SERVER_SCRIPT]
+    if use_cli_options:
+        env["SPADE_MCP_TRANSPORT"] = "stdio"
+        env["SPADE_MCP_PORT"] = "1"
+        command.extend(
+            [
+                "--transport",
+                "sse",
+                "--host",
+                SSE_HOST,
+                "--port",
+                str(SSE_PORT),
+            ]
+        )
+    else:
+        env["SPADE_MCP_TRANSPORT"] = "sse"
+        env["SPADE_MCP_PORT"] = str(SSE_PORT)
+    return subprocess.Popen(
+        command,
+        cwd=os.path.dirname(SERVER_SCRIPT),
+        env=env,
+        stdout=subprocess.DEVNULL,
+        stderr=sys.stderr,
+        text=True,
+    )
+
+
+def _wait_for_server(process):
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            raise RuntimeError(f"SSE server exited with status {process.returncode}")
+        try:
+            with socket.create_connection((SSE_HOST, SSE_PORT), timeout=0.2):
+                return
+        except OSError:
+            time.sleep(0.1)
+    raise TimeoutError(f"SSE server did not start on {SSE_HOST}:{SSE_PORT}")
+
+
+async def _exercise_sse(repo_path):
+    url = f"http://{SSE_HOST}:{SSE_PORT}/sse"
+    async with sse_client(url, timeout=5, sse_read_timeout=60) as (read_stream, write_stream):
+        async with ClientSession(read_stream, write_stream) as session:
+            with anyio.fail_after(10):
+                await session.initialize()
+            with anyio.fail_after(10):
+                tools_result = await session.list_tools()
+            tool_names = [tool.name for tool in tools_result.tools]
+            if "create_repository" not in tool_names:
+                raise AssertionError("create_repository tool missing from SSE server")
+
+            with anyio.fail_after(10):
+                await session.call_tool("create_repository", {"filepath": repo_path})
+            if not os.path.exists(repo_path):
+                raise AssertionError("SSE server did not create the repository")
+
+            with anyio.fail_after(10):
+                write_result = await session.call_tool(
+                    "write_sexpression",
+                    {"filepath": repo_path, "sexp_json": '["Hello", "World"]'},
+                )
+            write_text = next(item.text for item in write_result.content if item.type == "text")
+            match = re.search(r"Sequence Number: (\d+)", write_text)
+            if not match:
+                raise AssertionError(f"SSE write failed: {write_text}")
+
+            with anyio.fail_after(10):
+                read_result = await session.call_tool(
+                    "read_sexpression",
+                    {"filepath": repo_path, "seq_num": int(match.group(1))},
+                )
+            read_text = next(item.text for item in read_result.content if item.type == "text")
+            expected = ["Hello", ["World", None]]
+            if json.loads(read_text) != expected:
+                raise AssertionError(f"SSE read mismatch: expected {expected}, got {read_text}")
+
+
+def _run_sse_transport_test(use_cli_options):
+    temp_dir = tempfile.mkdtemp()
+    repo_path = os.path.join(temp_dir, "sse_integration_test.spade")
+    server_process = _start_sse_server(use_cli_options)
+    try:
+        _wait_for_server(server_process)
+        anyio.run(_exercise_sse, repo_path)
+    finally:
+        server_process.terminate()
+        try:
+            server_process.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            server_process.kill()
+            server_process.wait(timeout=5)
+        shutil.rmtree(temp_dir)
+
+
+def test_sse_transport():
+    _run_sse_transport_test(use_cli_options=False)
+    _run_sse_transport_test(use_cli_options=True)
 
 
 if __name__ == "__main__":
