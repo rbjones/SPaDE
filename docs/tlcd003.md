@@ -99,5 +99,5 @@ Logic: ∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 ```
 
 ```sml
-val choice_axiom = new_axiom(["choice_axiom"], ⌜∀α⦁ ∃R:α → α → BOOL⦁ iswo R⌝); 
+val choice_axiom = new_axiom(["choice_axiom"], ⌜∃R:'a → 'a → BOOL⦁ iswo R⌝); 
 ```
