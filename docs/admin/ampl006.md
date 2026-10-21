@@ -19,7 +19,7 @@ The roles work at the same time. A dependency is a constraint on what a role may
 
 ## Architectural evaluation
 
-These tasks can be run before a model is chosen as the architect. The write and repair tasks are the hold-out set for the tuning comparison in [amms010.md](amms010.md).
+These tasks can be run before a model is chosen as the architect. The write and repair tasks are the hold-out set for the tuning comparison in [ampl007.md](ampl007.md).
 
 1. **Read.** From the opening of `spc001.pp`, state the HOL language fragment it defines. Score by agreement with that document.
 2. **Place.** In the section "Abstract Models of the Knowledge Repository" of [tlad012.md](../tlad012.md), mark which names are architectural interfaces under the rule in [amms009.md](amms009.md).

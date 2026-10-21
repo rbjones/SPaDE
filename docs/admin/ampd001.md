@@ -6,7 +6,7 @@
 
 ## Status
 
-Current procedure for **GitHub-scheduled** Copilot work (issues, coding agent, PRs). Interactive discussion and local editing are Grok Build ([README.md](README.md) working practice, [ampd004.md](ampd004.md)). Independent review of *Grok-authored* PRs is [ampd005.md](ampd005.md). Task templates: [ampd008.md](ampd008.md).
+Current procedure for **GitHub-scheduled** Copilot work (issues, coding agent, PRs). Independent review of pull requests into `main` is [ampd005.md](ampd005.md). Task templates: [ampd008.md](ampd008.md). Branches and worktrees are in [ampd004.md](ampd004.md).
 
 Copilot’s model is often selectable and is not assumed to be Grok.
 
@@ -26,7 +26,7 @@ This document describes how to assign autonomous code-and-test tasks to GitHub C
 
 ## Scope of this document
 
-This is **autonomous / GitHub** Copilot only: generate code, open a PR, CI tests in the SPaDE container, iterate from logs. It is not interactive Copilot Chat in a local or codespace tree. Interactive work is Grok Build.
+This is **autonomous / GitHub** Copilot only: generate code, open a PR, CI tests in the SPaDE container, iterate from logs. It is not interactive Copilot Chat in a local or codespace tree.
 
 When Copilot authors the PR, Copilot is not the independent reviewer of that PR ([ampd005.md](ampd005.md)).
 

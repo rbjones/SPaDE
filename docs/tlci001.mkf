@@ -46,6 +46,7 @@ tlcd003.ldd: tlcd002.ldd
 vars:
 	@echo "PPDIR: $(PPDIR)"
 	@echo "PPSIGLDD: $(PPSIGLDD)"
+	@echo "PPSML: $(PPSML)"
 	@echo "PPSTRUCTLDD: $(PPSTRUCTLDD)"
 	@echo "PPTESTTDD: $(PPTESTTDD)"
 	@echo "PPLDD: $(PPLDD)"

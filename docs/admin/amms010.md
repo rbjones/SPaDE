@@ -17,6 +17,7 @@ Host `spark-95fb`, Ubuntu 24.04.5 LTS, kernel `7.0.0-1019-nvidia`. GPU driver 58
 | Additional vLLM checkpoints | The Qwen3.6 and GPT-OSS checkpoints are installed locally and have passed model discovery and a basic completion test. |
 | OpenHands Agent Canvas | Installed in Docker, bound to `127.0.0.1:3000`, connected to vLLM, and smoke-tested with file and shell tools in an isolated workspace. |
 | NVIDIA AI Workbench | Present under `/opt`. Not the workplace. Agents work in git worktrees. |
+| Grok Build 1.0.62 | Present, stable channel, commit `1474f9cbdd91`. `~/.local/bin/grok` links to `~/.grok/bin/grok`, which links to `~/.grok/downloads/grok-linux-aarch64`. `~/.grok/auth.json` is present. |
 | GitHub CLI, Poly/ML, ProofPower, pandoc, TeX | Not part of the verified LLM stack; see the repository development requirements below. |
 
 ## Container for early development
@@ -145,9 +146,7 @@ docker compose --profile tune build tune
 docker compose --profile tune run --rm tune
 ```
 
-A fine-tune remains an experiment against the hold-out tasks in [ampl006.md](ampl006.md) (write and repair), not part of standing up the server. The scorer is ProofPower in `ghcr.io/rbjones/pp/proofpower_arm`; a script succeeds when that image accepts it. Compare one smaller base model with a LoRA of the same base, using the ProofPower `spc` series and repository HOL scripts for training while excluding hold-out tasks. LoRA or QLoRA is the single-GPU default for 70B-class models; full-parameter training is not.
-
-The tuning profile has not yet been built or evaluated. Before selecting another trainer or updating the pinned vLLM image, verify GPU support on `sm_121` and run a completion request. Official PyTorch wheels may warn on that architecture.
+The options for a run, and the preliminary recommendation for a specification model and an MCP model, are in [ampl007.md](ampl007.md). The profile has not been built. A run is commissioned only after a trial of an existing model has shown a gap. Before selecting a trainer or updating the pinned vLLM image, verify GPU support on `sm_121` and run a completion request. Official PyTorch wheels may warn on that architecture.
 
 ## Later model kinds
 
@@ -158,7 +157,7 @@ Two further kinds of model come after the first roles. They use the same server.
 | Specification model | Writes formal specifications of SPaDE and its subsystems while the first prototypes are being developed. At this stage those specifications are checked in the ProofPower container. The architectural trial is the first use of this kind. |
 | MCP model | Talks to SPaDE through the MCP interface, in abstract syntax as JSON, and carries the theory hierarchy forward inside SPaDE repositories. SPaDE does not take concrete syntax. |
 
-The tested OpenHands installation is suitable for initial local trials. Later role-specific harnesses can be evaluated when the specification and MCP model roles are ready to be staffed.
+The tested OpenHands installation is suitable for initial local trials. The preliminary recommendation for tuning a specification model and an MCP model is in [ampl007.md](ampl007.md).
 
 ## Deferred
 

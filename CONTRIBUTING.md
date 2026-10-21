@@ -10,13 +10,12 @@ SPaDE is primarily philosophical and architectural in nature, and I therefore wo
 Nevertheless, in the event that others wished to contribute to SPaDE itself, it is recommended that in the first instance they clone the GitHub SPaDE repo and submit contributions through pull requests.
 In that case, they should acquaint themselves with the standards, procedures, methods and skills documented in the [docs/admin](./docs/admin/README.md) directory.
 
-Working practice is indexed from that directory. The following are a useful start:
+The following are a useful start:
 
 - [Roles, Responsibilities, Tasks](docs/admin/amms002.md)
 - [Workflows](docs/admin/amms003.md)
 - [Collaboration Guidelines](docs/admin/amms004.md)
 - [Guidance for AI Contributions](docs/admin/amms005.md)
-- [Working practice (Grok vs Copilot)](docs/admin/README.md#working-practice-pro-tem)
 - [Task branches, worktrees, and sessions](docs/admin/ampd004.md)
 - [GitHub-scheduled Copilot; container tests](docs/admin/ampd001.md)
 - [Independent review of Grok-authored PRs](docs/admin/ampd005.md)

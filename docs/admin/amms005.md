@@ -54,4 +54,4 @@ You should presume that large tasks should not be undertaken without full review
 I will refer you to this and other guidelines whenever resuming work on this project.
 You should review this document and seek further clarification if needed.
 
-For which agent does the work, see [amms009.md](amms009.md) and [ampd009.md](ampd009.md), and the working-practice section of [README.md](README.md). For Grok Build sessions, also follow [ampd004.md](ampd004.md) (one task per branch and worktree; leave the branch unchanged under a live session).
+For which agent does the work, see [amms009.md](amms009.md) and [ampd009.md](ampd009.md). For Grok Build sessions, also follow [ampd004.md](ampd004.md) (one task per branch and worktree; leave the branch unchanged under a live session).

@@ -47,8 +47,9 @@ set_pc "hol";
 ### Pre-proving Consistency Theorem
 
 For the sake of getting ProofPower theory listings nice, it is desirable when a consistency theorem is needed for a constant definition to prove it before introducing the definition so that it can be used by the automatic consistency prover.
+This is only necessary when the form of the specification defies the talents of the automatic consistency prover.
 
-First we provide a place and a procedure to save the consistency theorem:
+First we provide a place and a procedure to save the consistency theorem so that it can be retrieved and used by the consistency prover:
 
 ```sml
 val saved_cs_∃_thm = ref t_thm;
@@ -57,7 +58,8 @@ fun save_cs_∃_thm thm = (saved_cs_∃_thm := thm; thm);
 ```
 
 Then we need a special partial proof context with a consistency prover which knows to look for the consistency proof in this special place.
-This is the consistency prover:
+
+This is the consistency prover which refers to the saved consistency theorem (conversion):
 
 ```sml
 fun savedthm_cs_∃_conv x =
@@ -66,7 +68,7 @@ fun savedthm_cs_∃_conv x =
 	else (* eq_ *) refl_conv x;
 ```
 
-Store the above in a proof context:
+Store the above in a proof context.
 
 ```sml
 val _ = force_new_pc ⦏"'prove_∃_⇒_conv"⦎;
@@ -82,23 +84,24 @@ val _ = set_pr_tac basic_prove_tac "'savedthm_cs_∃_proof";
 val _ = commit_pc "'savedthm_cs_∃_proof";
 ```
 
-current_ad_cs_∃_conv();
-
 ## Some HOL Constants
 
 ## A Byte Sequence Packing Method
 
 To introduce the type of T-expressions (We'd better use the name T-ex for brevity) we must identify a representation for T-expressions over which the required operations are definable.
 
-T-expressions are a free algebra generated from the empty set by an operator which takes a finite sequence (LIST) of bytes (CHARs) (which is a STRING) and a finite sequence of T-expressions.
-Byte sequences will suffice as a representation if we can find an injection lists of byte sequences into byte sequences (since all the T-expressions supplied to the constructor are themsleves represented as byte sequences.
+I'm thinking here in terms of byte sequences.
+In ProofPower HOL the type CHAR represents a single byte (UNICODE characters are represented using utf8).
+The type STRING is an abbreviation for CHAR LIST.
 
-The required injection is obtained by converting each byte sequence in the list into a null terminatedd byte sequence, using an escape character to handle any embedded nulls.
-We might as well use the character X`01` as escape character.
+T-expressions are a free algebra generated from the empty set by an operator which takes a finite sequence (LIST) of bytes (CHARs) (which is a STRING) and a finite (possibly empty) sequence of T-expressions.
+Byte sequences will suffice as a representation if we can find an injection from lists of byte sequences into byte sequences (since all the T-expressions supplied to the constructor are themselves represented as byte sequences.)
+
+The required injection is obtained by converting each byte sequence in the list into a null terminatedd byte sequence (NTBS), using an escape character to handle any embedded nulls.
+We use the character X`01` as escape character.
 Null is of course the byte X`00`.
-
-In ProofPower HOL the type char represents a single byte (UNICODE characters are represented using utf8).
-The type STRING is an abbreviation for LIST char.
+The escape character is also used to escape itself, if it appears in the STRING being packed before another escape or null character (but not otherwise).
+On unpacking therefore, any escape character preceding another escape or null character is discarded, and the following character is copied to the output.
 
 ### Byte Sequence Packing Functions
 
@@ -108,7 +111,7 @@ In HOL it could be defined as a left inverse, but we want the functionality of S
 The algorithm to be used for packing is described in 
 [../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types](../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types).
 This is not "architectural" but is specific to the "SPaDE" native repositories and need not be used in any other concrete representation of SPaDE knowledge bases.
-The architecture mandates only the T-ex structure and the representation of knowledge above that level.
+The architecture mandates only the T_ex structure and the representation of knowledge above that level.
 
 In the terminology of that document, pack byes should concatenate the null-terminated byte sequence representations of each byte sequence in the list (but the whole should not then be converted into null terminated form, though in the SPaDE native repositories it would be stored null terminated).
 unpack_bytes is then its inverse.

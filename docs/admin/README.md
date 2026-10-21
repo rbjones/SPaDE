@@ -1,25 +1,5 @@
 # Administrative Documentation
 
-The [SPaDE](../tlad001.md#spade) project is intended, en route to its more ambitious goals, to support deductive engineering design and construction, starting with software development.
-
-It is now clear to me that an important part of that is project management and administration, which will need to continuously evolve as the capabilities of AI systems evolve, and their role, both in the SPaDE system and its development, becomes more substantial.
-
-Because of the shifting balance between human and AI contributions, it is preferable to document roles in ways which are agnostic as to whether the role is filled by a human or an AI system and are explicit in all matters of importance.
-
-Agents (including Grok Build) should take in **this directory**, via this README, rather than treating `AGENTS.md` as the project methods manual. `AGENTS.md` is only Grok-specific (and similar) advice. Document placement is in [amms001.md](amms001.md).
-
-### Working practice
-
-Development is to be done by local agents on the DGX Spark as far as is practical. Grok and Copilot in the cloud are used where the most powerful models are likely to be necessary or beneficial. Roles and placement: [amms009.md](amms009.md). Order of work: [ampl006.md](ampl006.md). Commissioning and review: [ampd009.md](ampd009.md). Software on the Spark: [amms010.md](amms010.md). Task branches and worktrees: [ampd004.md](ampd004.md).
-
-Cloud paths that remain:
-
-1. **Grok Build** for liaison and for a task that needs a frontier model. It always uses a Grok LLM. Retained memory is in `~/.grok/memory/` (keyed on `origin`, shared by clones and worktrees of this repo), not in the git tree. Sessions are per working directory. Outcomes belong in `docs/` (and code); memory is continuity only. Grok Build may authenticate with OAuth (X Premium) or an API key. A stored OAuth session in `~/.grok/auth.json` wins over `XAI_API_KEY` until `grok logout`. Check `/session-info` (`Auth method`) if spend is in doubt.
-2. **Copilot code review** on a pull request into `main` from a task branch ([ampd005.md](ampd005.md), [ampd009.md](ampd009.md)). A Copilot-authored PR is not independently reviewed by Copilot; the principal reviews it (Grok may help).
-3. **Copilot coding agent** for a bounded subcontract that the frontier-model test in [ampd009.md](ampd009.md) assigns to Copilot. It has no local workspace, so tests run in the SPaDE container. Procedure: [ampd001.md](ampd001.md), [ampd002.md](ampd002.md), [ampd008.md](ampd008.md).
-
-Do not use Copilot Chat in the local tree as a substitute for (1) or for (2).
-
 This documentation falls into the following categories:
 
 - **[Code and scripts](#code-and-scripts)**
@@ -49,7 +29,7 @@ This documentation falls into the following categories:
 
 - [ampd001.md](ampd001.md) GitHub-scheduled Copilot agent; tests in the SPaDE container
 - [ampd002.md](ampd002.md) Process for Copilot completing code and test assignments
-- [ampd003.md](ampd003.md) Conversational Documentation Development Procedure
+- ~~[ampd003.md](ampd003.md)~~ Conversational Documentation Development Procedure
 - [ampd004.md](ampd004.md) Task branches, worktrees, and sessions
 - [ampd005.md](ampd005.md) Independent review of pull requests into `main`; later LLM-evaluation questions
 - [ampd007.md](ampd007.md) Glossary Augmentation Procedure
@@ -67,6 +47,7 @@ This documentation falls into the following categories:
 - [ampl004.md](ampl004.md) SPaDE Development Strategy
 - [ampl005.md](ampl005.md) Immediate plan: Grok Build transition
 - [ampl006.md](ampl006.md) Development on the DGX Spark: parallel preparation, architectural evaluation, checking HOL
+- [ampl007.md](ampl007.md) Fine-tuning for specifications and the MCP interface
 
 ## Testing and evaluation
 

@@ -8,7 +8,7 @@
 
 Define a repeatable procedure for assigning implementation tasks to Copilot coding agent while preserving full traceability.
 
-This is the GitHub-scheduled Copilot path ([README.md](README.md) working practice, [ampd001.md](ampd001.md)). Copilot creates its own branch and opens the pull request against `main`. That branch is deleted when the pull request is merged ([ampd004.md](ampd004.md)). Copilot has no worktree on this machine. Task worktrees are for work done here.
+This is the GitHub-scheduled Copilot path ([ampd001.md](ampd001.md)). Copilot creates its own branch and opens the pull request against `main`. That branch is deleted when the pull request is merged ([ampd004.md](ampd004.md)). Copilot has no worktree on this machine. Task worktrees are for work done here.
 
 ## Policy
 

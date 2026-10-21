@@ -110,7 +110,7 @@ The names of the relevant files are as follows:
 
 The following formal specifications of ProofPower HOL and the HOL proof system are particularly relevant since some of these specifications will be rewritten for SPaDE, with the intention that there is no substantive change to the deductive system.
 
-There is also a philosophical narrative (in SPaDE's [Synthetic Philosophy](../tlad001.md#synthetic-philosophy) concerning the universality of a foundational institution closely related to this logical system the precise formal articulation of which will involve an account of the semantics.
+There is also a philosophical narrative (in SPaDE's [Synthetic Philosophy](../tlad001.md#synthetic-philosophy)) concerning the universality of a foundational institution, closely related to this logical system, the precise formal articulation of which will involve an account of the semantics.
 
 The source files are available in the development environment at $PPDIR/src/hol/
 
@@ -120,3 +120,4 @@ The source files are available in the development environment at $PPDIR/src/hol/
 - [spc004.pdf]($PPDIR/bld/doc/spc004.pdf) - HOL Formalised: Proof Development System
 - [spc005.pdf]($PPDIR/bld/doc/spc005.pdf) - HOL Formalised: Formal Design of the Logical Kernel
 
+The theories created by these files are also available in the spade.polydb ProofPower database.
