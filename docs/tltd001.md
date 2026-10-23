@@ -12,9 +12,8 @@ It is also likely that the full detail in this task description will also appear
 
 ## Stages
 
-There is one prior stage in the formal specification of SPaDE: the SPaDE root theory ([tltd002.md](tltd002.md)).
+Two theories come before this one. The SPaDE root theory ([tltd002.md](tltd002.md)) supplies the prelude and the consistency mechanism. The theory of T-expressions ([tltd004.md](tltd004.md)) supplies the free algebra on which abstract syntax is built.
 Because the SPaDE specifications will in due course be moved from the SPaDE github repository to any early SPaDE native repository, and the details of the core logic and theory will vary from those in ProofPower, we need to take some care to ensure that the essential elements of the logical context in which the specifications are developed on ProofPower can be conveniently reproduced in the native environment.
-A key element supplied by the SPaDE root theory will be the theory of T-expressions (short for "tuple expressions" and a minor elaboration of LISP S-expressions).
 
 Initially it is proposed that the work under this task description be conducted in the following stages (after the SPaDE root theory has sufficiently progressed):
 
@@ -33,9 +32,9 @@ The first stage in the production of this specification is the formulation of a 
 
 ## What a specification does when it creates a theory
 
-Every formal specification in HOL begins the theory it is creating with `force_delete_theory`. That operation does not fail when the theory is absent. `new_theory` then succeeds whether or not a previous check left the theory in the database. With the dependencies maintained, a change to one specification causes the makefile to re-check that specification and the specifications that depend on it.
+Every formal specification in HOL opens the theory it is creating with `new_SPaDE_theory`, defined in [tlcd002.md](tlcd002.md). The call names the theory, its parent, and any further parents. The procedure removes any previous version of the theory before creating it, so a repeated check succeeds whether or not the theory is already present. With the dependencies maintained, a change to one specification causes the makefile to re-check that specification and the specifications that depend on it.
 
-The new theory does not take the name of an `spc` theory, and it does not take the name of the document. The name is an intelligible name for the theory.
+The theory name is brief and suggestive of its nature or role. Correspondence with the document name is not required. The name is not that of an `spc` theory. Naming and the theory listings are in [ampd012.md](admin/ampd012.md).
 
 A document derived from a ProofPower source, or from [krdd004.md](../../kr/krdd004.md), acknowledges that source. ProofPower checks well-formedness. Correctness is a further, more intelligent check.
 

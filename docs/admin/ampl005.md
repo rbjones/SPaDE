@@ -4,7 +4,7 @@ How the team now works on the DGX Spark is in [amms009.md](amms009.md), [ampl006
 
 This is the short plan for the period in which SPaDE is evaluating ways of working which facilitate fuller involvement of AI in the development.
 
-The working split is in [README.md](README.md): Grok Build for interactive and high-level work (memory in `~/.grok`); Copilot for GitHub-scheduled agentics, tested in the SPaDE container; Copilot code review of Grok-authored PRs as a third use. Each task has its own branch and worktree ([ampd004.md](ampd004.md)). Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md).
+Each task has its own branch and worktree ([ampd004.md](ampd004.md)). Longer strategy remains in [ampl001.md](ampl001.md), [ampl002.md](ampl002.md), and [ampl004.md](ampl004.md).
 
 ## Administration
 
@@ -36,4 +36,4 @@ KR-specific architecture, design, and prototype work lives in `kr/` and is **not
 
 ## Done enough to leave administration as the bottleneck
 
-A new Grok session, started in a task worktree, can read [README.md](README.md) (working practice), [ampd004.md](ampd004.md), and `AGENTS.md`. The task states which files it may change. This file says what to do next.
+A new Grok session, started in a task worktree, can read [README.md](README.md), [ampd004.md](ampd004.md), and `AGENTS.md`. The task states which files it may change. This file says what to do next.

@@ -76,9 +76,9 @@ The coding of byte sequences into null terminated form is as follows:
 
 The following escape convention will be used to permit the inclusion of null bytes in null terminated byte sequences.
 Binary 1 will be used as an escape character to permit a zero byte to be included.
-It also serves to escape itself, so that any occurrence of the byte 1 in a byte sequence is represented in a null terminated byte sequence by the two byte sequence 1 1.
-When preceding a byte 0, binary 1 indicates that the 0 is to be included in the byte sequence rather than terminating it.
-When preceding a byte other than 0 or 1, binary 1 does not function as an escape, and is simply part of the byte sequence.
+It also serves to escape itself, so that any occurrence of the byte 1 which precedes another 1 or a zero in a byte sequence is represented in a null terminated byte sequence by the two byte sequence 1 1.
+When preceding a byte 0 in an NTBS, binary 1 indicates that the 0 is to be included in the unpacked byte sequence rather than terminating it.
+When preceding a byte other than 0 or 1, binary 1 does not function as an escape, and becomes part of the byte sequence when unpacked.
 When appearing at the end of a byte sequence being encoded, binary 1 must be escaped in the resulting NTBS since it would otherwise escape the null terminator.
 Decoding a null terminated byte sequence into a byte sequence therefore involves reading bytes until a byte 0 is reached, and interpreting any byte 1 as an escape character.
 If the byte following a byte 1 is a byte 0, then a byte 0 is included in the byte sequence.

@@ -1,7 +1,5 @@
 # Task branches, worktrees, and sessions
 
-How Grok and Copilot are used is in the working-practice section of [README.md](README.md). This document is branches, worktrees, and sessions.
-
 A task that will change the repository has one branch, one worktree, and the sessions that use that worktree. The branch is cut from `main`. The worktree is removed, and the branch is deleted, when the task's pull request is finished. Copilot's coding agent has the same branch lifetime and has no worktree on this machine ([ampd001.md](ampd001.md)).
 
 ## The main checkout

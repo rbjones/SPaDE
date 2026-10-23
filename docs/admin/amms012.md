@@ -6,8 +6,10 @@ It clarifies the intended role for such specifications, identifies the context i
 It is presented in the following parts:
 
 - [The Role of ProofPower HOL in the SPaDE development](#the-role-of-proofpower-hol-in-the-spade-development)
+- [Writing a specification](#writing-a-specification)
 - [Context for Writing ProofPower HOL Specifications](#context-for-writing-proofpower-hol-specifications)
 - [Links to Relevant Documentation](#links-to-relevant-documentation)
+- [Supplementary Notes](#supplementary-notes)
 
 ## The Role of ProofPower HOL in the SPaDE development
 
@@ -18,6 +20,22 @@ The reflexive nature of the project requires that the specifications will in due
 
 The specifications are of course needed before that functionality is in place, and to ensure the integrity and coherence of the specifications we need something to process them.
 ProofPower HOL has been chosen to fulfill that role, which is part of a complex bootstrap operation necessary to get SPaDE off the ground.
+
+## Writing a specification
+
+A SPaDE specification is a markdown document. The formal text is in `sml` fences. [tlci001.mkf](../tlci001.mkf) strips those fences with [rules.mkf](../../common/rules.mkf) and loads the script with ProofPower. ProofPower checks that the script is well-formed. It is not part of the deliverable. Whether the specification says what was wanted is a further check. Until SPaDE can check its own HOL, this load is the check. The image `ghcr.io/rbjones/pp/proofpower_arm` is available where ProofPower is not installed on the host.
+
+A theory is opened with `new_SPaDE_theory`, defined in [tlcd002.md](../tlcd002.md):
+
+```sml
+new_SPaDE_theory ("theory_name", "parent", []);
+```
+
+The procedure opens the parent, removes any previous version of the theory, and creates it. Further parents are the third argument. The name is brief and suggestive of the theory's role. Naming and the theory listings are in [ampd012.md](ampd012.md).
+
+`spc001.pp`–`spc005.pp` in the ProofPower source `src/hol` are reference for the language and the deductive system. None of them is kept intact. The deductive system remains that of those documents, written so that an inference rule can be executed. A rule shown to be sound can then be run. HOL4, Isabelle, and Lean may be read as exemplars. New architectural HOL is this ProofPower HOL in markdown.
+
+The first specification is a generic theory of abstract syntax. It starts from the null-terminated byte-sequence packing in [krdd004.md](../../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types). The task is [amtd006.md](amtd006.md).
 
 ## Context for Writing ProofPower HOL Specifications
 
@@ -86,15 +104,14 @@ It might also be helpful in reading source documents from ProofPower.
 SPaDE uses a minimal part of the ProofPower HOL theory hierarchy in its specifications.
 This is important to minimise the complexity of reflexive features of SPaDE.
 
-The minimisation of such context is achieved by the use of the SPaDEroot theory (defined in [tlcd002.md](tlcd002.md)).
-That theory is a child of the theory "basic_hol", so the context for the SPaDE specifications is the ancestry of basic_hol and the content of SPaDEroot.
+SPaDE specifications are children of `SPaDEroot` ([tlcd002.md](../tlcd002.md)), or of a theory which descends from it. `SPaDEroot` is opened on `rbjmisc`, from `retro/np`. The present context is the ancestry of `rbjmisc` together with `SPaDEroot`. Transition to minimal context is eventually intended, but is not a short term priority.  That reduction is deferred in [tlcd002.md](../tlcd002.md).
 
-It will therefore be helpful to agents contributing to the SPaDE specifications to look carefully at the ancestry of basic_hol and the content of SPaDEroot.
+It will therefore be helpful to agents contributing to the SPaDE specifications to be aware of what is available in `rbjmisc`,  `SPaDEroot`, the ancestry of `basic_hol`.
 
 The ancestry of basic_hol is documented in the ProofPower HOL reference manual [usr029](https://www.lemma-one.com/ProofPower/doc/usr029.pdf).
-A more compact rendition of the key theories may be found in HTML at :https://www.rbjones.com/rbjpub/pp/pptheories.html
+A more compact presentation of the ancestors of basic_hol may be found in HTML at :https://www.rbjones.com/rbjpub/pp/pptheories.html
 
-It may however be instructive for agents seeking to contribute specifications to refer to the source file which create the theories. These source files are located in the `src` directory of the ProofPower repository.
+It may however be instructive for agents seeking to contribute specifications to refer to the source file which create the theories. These source files are located in the `src` directory of the ProofPower repository and the directory SPaDE/repo/np.
 
 The names of the relevant files are as follows:
 
@@ -105,12 +122,13 @@ The names of the relevant files are as follows:
 | log, init, misc | dtd023.pp, imp023.pp 
 | pair | dtd023.pp, imp023.pp 
 | list | dtd039.pp, imp039.pp 
-| char | dtd040.pp, imp040.pp 
+| char | dtd040.pp, imp040.pp
+| rbjmisc | t006.pp, t010.pp
 
 
 The following formal specifications of ProofPower HOL and the HOL proof system are particularly relevant since some of these specifications will be rewritten for SPaDE, with the intention that there is no substantive change to the deductive system.
 
-There is also a philosophical narrative (in SPaDE's [Synthetic Philosophy](../tlad001.md#synthetic-philosophy) concerning the universality of a foundational institution closely related to this logical system the precise formal articulation of which will involve an account of the semantics.
+There is also a philosophical narrative (in SPaDE's [Synthetic Philosophy](../tlad001.md#synthetic-philosophy)) concerning the universality of a foundational institution, closely related to this logical system, the precise formal articulation of which will involve an account of the semantics.
 
 The source files are available in the development environment at $PPDIR/src/hol/
 
@@ -120,3 +138,56 @@ The source files are available in the development environment at $PPDIR/src/hol/
 - [spc004.pdf]($PPDIR/bld/doc/spc004.pdf) - HOL Formalised: Proof Development System
 - [spc005.pdf]($PPDIR/bld/doc/spc005.pdf) - HOL Formalised: Formal Design of the Logical Kernel
 
+The theories created by these files are also available in the spade.polydb ProofPower database.
+
+## Supplementary Notes
+
+There are some eccentricities in the character set used by ProofPower which may not be as easily identified by the documentation as is desirable.
+
+### Variable Binding
+
+Since it is based on a pure lambda calculus, all variable binding in ProofPower HOL is done by applying a function to a lambda abstraction, but in the concrete syntax, the lambda is replaced by the name of the relevant function.
+In the most common example, universal quantification, the function is called ∀ which is followed by the variables being bound and the character `⦁` not `.`.
+For instance, the expression ⌜∀x⦁ P(x)⌝ is syntactic sugar for applying the ∀ function to the lambda abstraction ⌜λx⦁ P(x)⌝.
+Note that when supplying a HOL term in an SML script "term quotes" (`⌜⌝`), sometimes known as "quine corners" must be used to delimit the term, not conventional quotation marks.
+
+### Specification Paragraphs
+
+Another point to note is that when constants are defined in specification paragraphs, e.g. that introduced by `ⓈHOLCONST`, the vertical lines on the left should be formed using the character "│" rather than a conventional vertical bar "|".
+
+### Other non-ascii Symbols
+
+In a HOL specification (the version we are using) arbitrary UNICODE characters may be used (though some configuration may be required).
+Commonly used non-ascii symbols include:
+
+```
+Greek Letters
+	Γ Δ Θ Λ Ξ Π Σ Υ Φ Ψ Ω
+	α β γ δ ε ζ η θ ι κ λ μ ν ξ π ρ σ τ υ φ χ ψ ω
+Logic: 	∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
+Set symbols: 𝔹 ℂ 𝔽 ℕ ℙ ℚ ℝ 𝕊 𝕌 ℤ ⊆ ∅ ⊂ ∩ ⋂ ∪ ⋃ ⊖
+Arrows: → ⤖ ⤕ ⇻ ↔ ⤀ ⇸ ↣ ↦ ↠ ⤔
+Formal Text Brackets: ⌜ ⌝ ⓣ ⓜ ⓩ Ⓢ ■ ┌ └ ╒ ├
+Padding symbols	│ ─ ═  Index Brackets ⦏ ⦎
+Bracketing symbols: ⟨ ⟩ ⟦ ⟧ ⦇ ⦈
+Subscription and Superscription: ⋎ ⋏ ↗ ↘ ↕ Underlining: ⨽ ⨼
+Relation, Sequence and Bag Symbols:  ⩥ ▷ ⩤ ◁ ⁀ ↾ ↿ ⊕ ⊎ ⨾ ∘
+Miscellaneous: ⊢ ⦂ ≜ ⊥ ⊖
+```
+### Consistency Proofs
+
+In writing HOL specifications for ProofPower constant definitions (which include all types of term), are introduced using a ⓈHOLCONST specification paragraph.
+These allow a freedom of expression similar to the paragraphs in the specification language Z, which does not require specifications to be conservative.
+But ProofPower HOL does require definitions to be conservative, non-conservative extensions must be introduced by explicit axioms.
+
+In enforcing this constraint ProofPower will attemp to prove automatically that an extensions is conservative, by demonstrating that there already is a function available with the required characteristics.
+Thus, if asked to intoduce a constant C such that P(C) ProofPower will attempt to prove that ⌜∃x⦁ P(x)⌝.
+
+If it cannot do so, then the specification is made with a caveat which makes consistency provable, but will have to be discarged before the constant can be shown to have the required property.
+This works fine, but makes theory listings more obscure.
+SPaDEroot provides a mechanism to undertake a consistency proof which is beyond the automatic prover before the specification is introduced, yielding a conservative extension with a clearer theory listing.
+It is nevertheless generally preferable to present the specification in a form which can be proven automatically, without requiring the additional consistency proof mechanism.
+This is particularly important, for example, when the definition is recursive, because manual proofs of consistency are a lot harder than casting the definition in a form that can be automatically verified.
+Examples of such definitions can be found in the theory LIST.
+
+There is also a proof requirement to be discharged before introducing a new type constructor, which is done by identifying set of objects which represent the new type (and will be in bijection with the new type) and which must be shown to be non-empty since HOL types are required to be non-empty.

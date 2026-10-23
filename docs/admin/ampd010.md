@@ -26,7 +26,7 @@ The mount is established and checked by the host-side task runner before the wor
 
 ## Validation and review
 
-The worker runs the task's validation commands before proposing completion. For a HOL specification, this includes generating the SML from its markdown `hol` fences and checking it with ProofPower. For code derived from a specification, it includes the stated syntax, type, and alpha tests.
+The worker runs the task's validation commands before proposing completion. For a HOL specification, this includes generating the SML from its markdown `sml` fences, as in [amms012.md](amms012.md), and checking it with ProofPower. For code derived from a specification, it includes the stated syntax, type, and alpha tests.
 
 A worker that cannot obtain the required passing result stops, records the command output and changed files, and does not propose a pull request. Passing validation is necessary but not sufficient: the resulting change on the task branch is reviewed by the principal and through the normal pull-request process before integration into `main`. A worker never merges into `main`.
 

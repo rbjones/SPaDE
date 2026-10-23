@@ -11,7 +11,7 @@ The idea is that instead of asserting choice is its most elementary form, we ass
 Of course, this does introduce greater risk of soundness compromising cock-ups, since if I get the definition wrong the choice axiom might then be false.
 
 The third area we might go into here is reflection, which involves the ability of the system to reason about its own statements and proofs. This is a more advanced topic and will be explored in subsequent documents.
-This does ultimately depend on a full formulation of the syntax and deductive system of SPaDE HOL but a generic treatment of reflection principles is probably possible building only on the theory of T-expressions which is in SPaDEroot.
+This does ultimately depend on a full formulation of the syntax and deductive system of SPaDE HOL but a generic treatment of reflection principles is probably possible building only on the theory of T-expressions, which is the theory `T_ex` in [tlcd004.md](tlcd004.md).
 
 The theory is a child of SPaDEroot and is named tlcd003.
 
