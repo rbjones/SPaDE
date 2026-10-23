@@ -86,22 +86,20 @@ in LaTeX Would be rendered:
 
 ```
     ```sml
-    @HOLCONST
-    |   empty_list: 'a list'
+    ⓈHOLCONST
+    │   empty_list: 'a list'
     ```
 ```
 in markdown.
 
-## Document and Theory Naming Conventions
+## Theory names and listings
 
-A correspondence between theory structure and document naming should be maintained as far as possible by a one-to-one mapping between theory names and document file names, hence, each markdown document should define a single theory which has the same name as the document.
+A theory name is brief and suggestive of the nature or role of the theory. Correspondence with the name of the document is not required. One document may create more than one theory.
 
-The task description must therefore stipulate the name of the theory (complying with the document naming standards in [amms001.md](./amms001.md))), and the names of the parent theories.
+The task description states each theory name and the names of its parent theories.
 
-To enable repeated checking of a specification while correcting errors, the specification should begin with:
+A theory is opened with `new_SPaDE_theory`, defined in [tlcd002.md](../tlcd002.md). The call names the theory, its parent, and any further parents. The procedure removes any previous version of the theory before creating it, so a repeated check succeeds whether or not the theory is already present.
 
-    force_delete_theory("theory_name");
-    
-so that the creation of the new theory does not fail.
+The makefile in the document's directory records which document creates which theory. Each theory listing depends on the load of the document that creates that theory. The arrangement is the one in [retro/np/rbj.mkf](../../retro/np/rbj.mkf), where the listing of a theory depends on the `.ldd` of its document. A listing is produced for every theory. The use of the listings is not settled. The preference is to render each listing as a markdown document for the project web site.
 
-The author of the specification should also edit the makefile in the relevant directory to include the new theory in the build process, ensuring that it is correctly compiled and linked with its parent theories.
+The author of the specification adds the document to that makefile, so that the document is loaded and its theory listings are produced.

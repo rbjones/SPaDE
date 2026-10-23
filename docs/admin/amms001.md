@@ -133,13 +133,13 @@ It is likely that a compendium of project documentation as a PDF reference manua
 
 ### Formal Specifications
 
-In SPaDE proper, HOL is written in markdown, in fenced `hol` blocks. `common/rules.mkf` strips those blocks to a `.sml` file. A directory that contains such a document has a makefile that asks for the strip. The first of these documents is `docs/tlcd001.md`, processed by `docs/tlci001.mkf`.
+In SPaDE proper, during the bootstrap process, §HOL is written in markdown. The method is [amms012.md](amms012.md). `docs/tlci001.mkf` strips the formal text and loads it with ProofPower.
+Eventually, the specifications, and the entire project, will migrate into SPaDE repositories (not the github spade repo).
 
-A document derived from a ProofPower source, or from another document in the repository, acknowledges that source. A specification that creates a theory begins with `force_delete_theory` of that theory, which does not fail when the theory is absent, and then `new_theory`. The theory name is an intelligible name for the theory. It is not the document name, and it is not the name of an `spc` theory.
-
-The architect's first specification, [amtd006.md](amtd006.md), is a generic theory of abstract syntax. `spc001.pp`–`spc005.pp` are reference. None of them survives intact. The deductive system remains the same, expressed so that it is constructive and executable. The inference rules are to be executable, so that SPaDE can prove a derived rule sound and then run it. Those derived rules are the earliest reflective self-improvement. ProofPower checks well-formedness. Correctness is a further, more intelligent check. A large part of the specifications under `kr/` is architectural. It will be promoted into `docs/`, or, more likely, used as the basis of new specifications in `docs/` which supersede it. Some of those `kr/` specifications are HOL4. New architectural HOL is ProofPower HOL in markdown.
+A document derived from a ProofPower source, or from another document in the repository, acknowledges that source. A specification opens a theory with `new_SPaDE_theory`, defined in [tlcd002.md](../tlcd002.md). A theory name is brief and suggestive of the nature or role of the theory. Correspondence with the document name is not required. The makefile records which document creates which theory by making the theory listing depend on that document's load. The procedure is in [ampd012.md](ampd012.md).
 
 It is policy to progress all informal documentation into formal models at all levels.
+They will then migrate into SPaDE native repositories.
 At the lower levels this is part of the reflexive reasoning required to approach the first singular foci and is therefore of high priority.  At the higher levels it is probably less urgent.
 
 ### Code Documentation

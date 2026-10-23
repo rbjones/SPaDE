@@ -6,6 +6,7 @@ It clarifies the intended role for such specifications, identifies the context i
 It is presented in the following parts:
 
 - [The Role of ProofPower HOL in the SPaDE development](#the-role-of-proofpower-hol-in-the-spade-development)
+- [Writing a specification](#writing-a-specification)
 - [Context for Writing ProofPower HOL Specifications](#context-for-writing-proofpower-hol-specifications)
 - [Links to Relevant Documentation](#links-to-relevant-documentation)
 - [Supplementary Notes](#supplementary-notes)
@@ -19,6 +20,22 @@ The reflexive nature of the project requires that the specifications will in due
 
 The specifications are of course needed before that functionality is in place, and to ensure the integrity and coherence of the specifications we need something to process them.
 ProofPower HOL has been chosen to fulfill that role, which is part of a complex bootstrap operation necessary to get SPaDE off the ground.
+
+## Writing a specification
+
+A SPaDE specification is a markdown document. The formal text is in `sml` fences. [tlci001.mkf](../tlci001.mkf) strips those fences with [rules.mkf](../../common/rules.mkf) and loads the script with ProofPower. ProofPower checks that the script is well-formed. It is not part of the deliverable. Whether the specification says what was wanted is a further check. Until SPaDE can check its own HOL, this load is the check. The image `ghcr.io/rbjones/pp/proofpower_arm` is available where ProofPower is not installed on the host.
+
+A theory is opened with `new_SPaDE_theory`, defined in [tlcd002.md](../tlcd002.md):
+
+```sml
+new_SPaDE_theory ("theory_name", "parent", []);
+```
+
+The procedure opens the parent, removes any previous version of the theory, and creates it. Further parents are the third argument. The name is brief and suggestive of the theory's role. Naming and the theory listings are in [ampd012.md](ampd012.md).
+
+`spc001.pp`–`spc005.pp` in the ProofPower source `src/hol` are reference for the language and the deductive system. None of them is kept intact. The deductive system remains that of those documents, written so that an inference rule can be executed. A rule shown to be sound can then be run. HOL4, Isabelle, and Lean may be read as exemplars. New architectural HOL is this ProofPower HOL in markdown.
+
+The first specification is a generic theory of abstract syntax. It starts from the null-terminated byte-sequence packing in [krdd004.md](../../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types). The task is [amtd006.md](amtd006.md).
 
 ## Context for Writing ProofPower HOL Specifications
 
@@ -87,15 +104,14 @@ It might also be helpful in reading source documents from ProofPower.
 SPaDE uses a minimal part of the ProofPower HOL theory hierarchy in its specifications.
 This is important to minimise the complexity of reflexive features of SPaDE.
 
-The minimisation of such context is achieved by the use of the SPaDEroot theory (defined in [tlcd002.md](tlcd002.md)).
-That theory is a child of the theory "basic_hol", so the context for the SPaDE specifications is the ancestry of basic_hol and the content of SPaDEroot.
+SPaDE specifications are children of `SPaDEroot` ([tlcd002.md](../tlcd002.md)), or of a theory which descends from it. `SPaDEroot` is opened on `rbjmisc`, from `retro/np`. The present context is the ancestry of `rbjmisc` together with `SPaDEroot`. Transition to minimal context is eventually intended, but is not a short term priority.  That reduction is deferred in [tlcd002.md](../tlcd002.md).
 
-It will therefore be helpful to agents contributing to the SPaDE specifications to look carefully at the ancestry of basic_hol and the content of SPaDEroot.
+It will therefore be helpful to agents contributing to the SPaDE specifications to be aware of what is available in `rbjmisc`,  `SPaDEroot`, the ancestry of `basic_hol`.
 
 The ancestry of basic_hol is documented in the ProofPower HOL reference manual [usr029](https://www.lemma-one.com/ProofPower/doc/usr029.pdf).
-A more compact rendition of the key theories may be found in HTML at :https://www.rbjones.com/rbjpub/pp/pptheories.html
+A more compact presentation of the ancestors of basic_hol may be found in HTML at :https://www.rbjones.com/rbjpub/pp/pptheories.html
 
-It may however be instructive for agents seeking to contribute specifications to refer to the source file which create the theories. These source files are located in the `src` directory of the ProofPower repository.
+It may however be instructive for agents seeking to contribute specifications to refer to the source file which create the theories. These source files are located in the `src` directory of the ProofPower repository and the directory SPaDE/repo/np.
 
 The names of the relevant files are as follows:
 
@@ -106,7 +122,8 @@ The names of the relevant files are as follows:
 | log, init, misc | dtd023.pp, imp023.pp 
 | pair | dtd023.pp, imp023.pp 
 | list | dtd039.pp, imp039.pp 
-| char | dtd040.pp, imp040.pp 
+| char | dtd040.pp, imp040.pp
+| rbjmisc | t006.pp, t010.pp
 
 
 The following formal specifications of ProofPower HOL and the HOL proof system are particularly relevant since some of these specifications will be rewritten for SPaDE, with the intention that there is no substantive change to the deductive system.

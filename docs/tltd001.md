@@ -32,9 +32,9 @@ The first stage in the production of this specification is the formulation of a 
 
 ## What a specification does when it creates a theory
 
-Every formal specification in HOL begins the theory it is creating with `force_delete_theory`. That operation does not fail when the theory is absent. `new_theory` then succeeds whether or not a previous check left the theory in the database. With the dependencies maintained, a change to one specification causes the makefile to re-check that specification and the specifications that depend on it.
+Every formal specification in HOL opens the theory it is creating with `new_SPaDE_theory`, defined in [tlcd002.md](tlcd002.md). The call names the theory, its parent, and any further parents. The procedure removes any previous version of the theory before creating it, so a repeated check succeeds whether or not the theory is already present. With the dependencies maintained, a change to one specification causes the makefile to re-check that specification and the specifications that depend on it.
 
-The new theory does not take the name of an `spc` theory, and it does not take the name of the document. The name is an intelligible name for the theory.
+The theory name is brief and suggestive of its nature or role. Correspondence with the document name is not required. The name is not that of an `spc` theory. Naming and the theory listings are in [ampd012.md](admin/ampd012.md).
 
 A document derived from a ProofPower source, or from [krdd004.md](../../kr/krdd004.md), acknowledges that source. ProofPower checks well-formedness. Correctness is a further, more intelligent check.
 
