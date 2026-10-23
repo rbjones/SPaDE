@@ -12,9 +12,8 @@ It is also likely that the full detail in this task description will also appear
 
 ## Stages
 
-There is one prior stage in the formal specification of SPaDE: the SPaDE root theory ([tltd002.md](tltd002.md)).
+Two theories come before this one. The SPaDE root theory ([tltd002.md](tltd002.md)) supplies the prelude and the consistency mechanism. The theory of T-expressions ([tltd004.md](tltd004.md)) supplies the free algebra on which abstract syntax is built.
 Because the SPaDE specifications will in due course be moved from the SPaDE github repository to any early SPaDE native repository, and the details of the core logic and theory will vary from those in ProofPower, we need to take some care to ensure that the essential elements of the logical context in which the specifications are developed on ProofPower can be conveniently reproduced in the native environment.
-A key element supplied by the SPaDE root theory will be the theory of T-expressions (short for "tuple expressions" and a minor elaboration of LISP S-expressions).
 
 Initially it is proposed that the work under this task description be conducted in the following stages (after the SPaDE root theory has sufficiently progressed):
 

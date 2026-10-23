@@ -9,7 +9,7 @@
 
 # MD files containing formal text for ProofPower
 
-PPMDLOAD=tlcd001.md tlcd002.md tlcd003.md
+PPMDLOAD=tlcd001.md tlcd002.md tlcd003.md tlcd004.md
 
 # Files classified by build method
 
@@ -40,6 +40,7 @@ default: test
 tlcd002.ldd:
 tlcd001.ldd: tlcd002.ldd
 tlcd003.ldd: tlcd002.ldd
+tlcd004.ldd: tlcd002.ldd
 
 # Targets
 

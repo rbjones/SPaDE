@@ -8,6 +8,7 @@ It is presented in the following parts:
 - [The Role of ProofPower HOL in the SPaDE development](#the-role-of-proofpower-hol-in-the-spade-development)
 - [Context for Writing ProofPower HOL Specifications](#context-for-writing-proofpower-hol-specifications)
 - [Links to Relevant Documentation](#links-to-relevant-documentation)
+- [Supplementary Notes](#supplementary-notes)
 
 ## The Role of ProofPower HOL in the SPaDE development
 
@@ -121,3 +122,55 @@ The source files are available in the development environment at $PPDIR/src/hol/
 - [spc005.pdf]($PPDIR/bld/doc/spc005.pdf) - HOL Formalised: Formal Design of the Logical Kernel
 
 The theories created by these files are also available in the spade.polydb ProofPower database.
+
+## Supplementary Notes
+
+There are some eccentricities in the character set used by ProofPower which may not be as easily identified by the documentation as is desirable.
+
+### Variable Binding
+
+Since it is based on a pure lambda calculus, all variable binding in ProofPower HOL is done by applying a function to a lambda abstraction, but in the concrete syntax, the lambda is replaced by the name of the relevant function.
+In the most common example, universal quantification, the function is called ∀ which is followed by the variables being bound and the character `⦁` not `.`.
+For instance, the expression ⌜∀x⦁ P(x)⌝ is syntactic sugar for applying the ∀ function to the lambda abstraction ⌜λx⦁ P(x)⌝.
+Note that when supplying a HOL term in an SML script "term quotes" (`⌜⌝`), sometimes known as "quine corners" must be used to delimit the term, not conventional quotation marks.
+
+### Specification Paragraphs
+
+Another point to note is that when constants are defined in specification paragraphs, e.g. that introduced by `ⓈHOLCONST`, the vertical lines on the left should be formed using the character "│" rather than a conventional vertical bar "|".
+
+### Other non-ascii Symbols
+
+In a HOL specification (the version we are using) arbitrary UNICODE characters may be used (though some configuration may be required).
+Commonly used non-ascii symbols include:
+
+```
+Greek Letters
+	Γ Δ Θ Λ Ξ Π Σ Υ Φ Ψ Ω
+	α β γ δ ε ζ η θ ι κ λ μ ν ξ π ρ σ τ υ φ χ ψ ω
+Logic: 	∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
+Set symbols: 𝔹 ℂ 𝔽 ℕ ℙ ℚ ℝ 𝕊 𝕌 ℤ ⊆ ∅ ⊂ ∩ ⋂ ∪ ⋃ ⊖
+Arrows: → ⤖ ⤕ ⇻ ↔ ⤀ ⇸ ↣ ↦ ↠ ⤔
+Formal Text Brackets: ⌜ ⌝ ⓣ ⓜ ⓩ Ⓢ ■ ┌ └ ╒ ├
+Padding symbols	│ ─ ═  Index Brackets ⦏ ⦎
+Bracketing symbols: ⟨ ⟩ ⟦ ⟧ ⦇ ⦈
+Subscription and Superscription: ⋎ ⋏ ↗ ↘ ↕ Underlining: ⨽ ⨼
+Relation, Sequence and Bag Symbols:  ⩥ ▷ ⩤ ◁ ⁀ ↾ ↿ ⊕ ⊎ ⨾ ∘
+Miscellaneous: ⊢ ⦂ ≜ ⊥ ⊖
+```
+### Consistency Proofs
+
+In writing HOL specifications for ProofPower constant definitions (which include all types of term), are introduced using a ⓈHOLCONST specification paragraph.
+These allow a freedom of expression similar to the paragraphs in the specification language Z, which does not require specifications to be conservative.
+But ProofPower HOL does require definitions to be conservative, non-conservative extensions must be introduced by explicit axioms.
+
+In enforcing this constraint ProofPower will attemp to prove automatically that an extensions is conservative, by demonstrating that there already is a function available with the required characteristics.
+Thus, if asked to intoduce a constant C such that P(C) ProofPower will attempt to prove that ⌜∃x⦁ P(x)⌝.
+
+If it cannot do so, then the specification is made with a caveat which makes consistency provable, but will have to be discarged before the constant can be shown to have the required property.
+This works fine, but makes theory listings more obscure.
+SPaDEroot provides a mechanism to undertake a consistency proof which is beyond the automatic prover before the specification is introduced, yielding a conservative extension with a clearer theory listing.
+It is nevertheless generally preferable to present the specification in a form which can be proven automatically, without requiring the additional consistency proof mechanism.
+This is particularly important, for example, when the definition is recursive, because manual proofs of consistency are a lot harder than casting the definition in a form that can be automatically verified.
+Examples of such definitions can be found in the theory LIST.
+
+There is also a proof requirement to be discharged before introducing a new type constructor, which is done by identifying set of objects which represent the new type (and will be in bijection with the new type) and which must be shown to be non-empty since HOL types are required to be non-empty.
