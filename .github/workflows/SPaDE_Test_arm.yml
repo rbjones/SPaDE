@@ -1,4 +1,4 @@
-name: SPaDE Integration Test (ARM)
+name: SPaDE Test (ARM)
 
 on:
   workflow_dispatch:
