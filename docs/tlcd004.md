@@ -145,8 +145,8 @@ The types of the constructor and destructor over the representation type might b
 
 ```sml
 ⓈHOLCONST
-│mk_T_ex_rep : BS × BS LIST → BS;
-│    dest_T_ex_rep : BS → BS × BS LIST
+│   mk_T_ex_rep : BS × BS LIST → BS;
+│   dest_T_ex_rep : BS → BS × BS LIST
 ├──────
 │   T
 ■
@@ -182,6 +182,7 @@ The types of the constructor and destructor are to be as follows:
 ├──────
 │   T
 ■
+declare_alias ("T", ⌜mk_T_ex⌝);
 ```
 
 The type T_ex is the closure of the empty set under the constructor mk_T_ex (the first parameter being a byte sequence, and hence not required to be in the set, and the second a finite list of elements from the set).

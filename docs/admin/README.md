@@ -24,6 +24,7 @@ This documentation falls into the following categories:
 - [amms010.md](amms010.md) DGX Spark software baseline
 - [amms011.md](amms011.md) First local role cards: project manager, architect, philosopher
 - [amms012.md](amms012.md) Method for Writing ProofPower HOL Specifications
+- [amms013.md](amms013.md) Proposal: Structured Project Data for SPaDE Repositories
 
 ## Process or procedure descriptions
 
@@ -60,6 +61,7 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd004.md](amtd004.md) Task Description for Implementation of Glossary Automation Scripts
 - [amtd005.md](amtd005.md) Task Description — Execute Glossary Augmentation Process
+- [amtd006.md](amtd006.md) - Task Description for an interactive ProofPower session (`pp-step`)
 
 ## Chat Logs
 
@@ -84,3 +86,4 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
   - Filters by frequency and importance
   - Outputs candidate terms with usage contexts
   - Supports glossary augmentation workflow
+- [amcd004.py](amcd004.py) - Python interface to an interactive theorem prover (e.g., ProofPower) (coded by Gemini 3 Pro)

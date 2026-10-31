@@ -48,7 +48,7 @@ clean: pa-clean kr-clean mcp-clean # dk-clean di-clean
 # spade.ldd ProofPower database for SPaDE project
 
 ppdb-clean:
-	rm -f spade.ldd rbjhol.ldd spade.polydb $PPDIR/bld/db/rbjhol.polydb
+	rm -f spade.ldd rbjhol.ldd spade.polydb $(PPDIR)/bld/db/rbjhol.polydb
 
 rbjhol.ldd:
 	$(MAKE) -C retro -f retro.mkf rbjhol.ldd

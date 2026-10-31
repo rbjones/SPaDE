@@ -10,7 +10,7 @@ The roles work at the same time. A dependency is a constraint on what a role may
 
 | Role | Can proceed now | Depends on another role for |
 | --- | --- | --- |
-| Architect | Write the generic theory of abstract syntax in [amtd006.md](amtd006.md). `spc001`–`spc005` are reference only. Evaluate candidate models only after that task description is on `main`. | A new philosophical distinction, only once a specification depends on a concept the principal has not accepted. |
+| Architect | Write the generic theory of abstract syntax in [tltd001.md](../tltd001.md). `spc001`–`spc005` are reference only. Evaluate candidate models only after that task description is on `main`. | A new philosophical distinction, only once a specification depends on a concept the principal has not accepted. |
 | Philosopher | Distinctions in `docs/tlph*`, including the trial in [amms011.md](amms011.md). | Nothing, to draft. The principal accepts or rejects. |
 | Project manager | Role cards, the software baseline, occupancy, and the text of specialist issues. | An agreed paragraph for each document. |
 | Subsystem design, implementation, and test | Separate architectural interfaces from detailed design in the existing subsystem documents, and list what would be promoted to `tlad`. | The HOL specification of an interface, before building to it. |

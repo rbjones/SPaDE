@@ -1,10 +1,41 @@
 # Task branches, worktrees, and sessions
 
+## Introduction
+
+SPaDE development is oriented towards agentic work and is managed through a heirarchic task structure executred in a combination of git branches, worktrees, and sessions, which together facilitate structured and coordinated agentic work.
+There are a variety of different kinds of agents which can be applied to tasks, including human agents, cloud hosted frontier LLMs in suitable frameworks such as grok, and github copilot agents, open weight LLM, some specially tuned on local servers, and the alpha-zero style reinforcement learning agents trained locally by specialised local LLMs.
+
+To enable maximal exploitation of local resource, a heirarchic task structure is employed, with high level task structures in each area of development which anticipate future needs and enable preparatory research to be conducted when resources permit.
+The long term horizon combined with identification of critical paths to realise capability provides a basis for prioritising tasks and allocating resources effectively, ensuring that the development effort is both strategic and efficient.
+
+This document describes the mechanics of setting up, managing, and concluding tasks within the SPaDE development framework, including the use of git branches, worktrees, and sessions to coordinate agentic work effectively.
+
+- [Task Descriptions](#task-descriptions)
+- [Task Setup](#task-setup)
+- [Task Completion](#the-main-checkout)
+
+
+
+## Task Descriptions
+
+## Task Setup
+
+The setup for undertaking a task varies according to what kind of agent is performing the task.
+Autonomous copilot agents are likely to undertake the task in a spade container on github servers.
+Human agents may also prefer to work in the spade container.
+In both cases, the container environment comes up ready to go (for development or build).
+
+If tasks are undertaken by grok build or grok bot, or are initiated from agentic copilot chat or copilot CLI, then there is some uncertainty about how the agent will be working.
+If the agent in those cases is operating in the same environment as the interactive session, then special steps, such as creating a task dedicated worktree, are necessary.
+If a separate server or a separate login shell is used without using the SPaDE container, then the setup is more elaborate, since ProofPower will need to be installed and built first, and the spade database will need to be set up after building rbjhol.polydb in the retro directory.
+
+Alongside the uncertainty about how the various agents are hosted, we expect continuous development of both grok and github products which may necessitate continuous adjustments to the workflow, and we will be seeking to run LLMs or focal AI on the DGX spark.
+
 A task that will change the repository has one branch, one worktree, and the sessions that use that worktree. The branch is cut from `main`. The worktree is removed, and the branch is deleted, when the task's pull request is finished. Copilot's coding agent has the same branch lifetime and has no worktree on this machine ([ampd001.md](ampd001.md)).
 
 ## The main checkout
 
-`~/git/SPaDE` stays on `main`. `main` is pulled there. Task worktrees are added and removed from there. Commits for a task are made in the task worktree.
+`~/git/SPaDE` stays on `main`. `main` is pulled there. Task worktrees are added and removed from there or from parent tasks. Commits for a task are made in the task worktree.
 
 ## Opening a task
 
@@ -20,7 +51,9 @@ Open the session with its working directory set to `~/git/SPaDE-tltd001`. `git w
 
 The task states the files that may be changed. Where a kind of document belongs is in [amms001.md](amms001.md) and [amms009.md](amms009.md). `AGENTS.md` is the same text on every branch.
 
-The worktree lasts for the whole task, including review. Several sessions may use it. The branch of a worktree stays as it is while a session has that directory as its working directory.
+The worktree lasts for the whole task, including review. This will normally involve multiple stages, which are set out in the main task document. Several sessions may use it. The branch of a worktree stays as it is while a session has that directory as its working directory.
+
+ProofPower work for the task uses a version of `spade.polydb`, in the worktree root. It is a child of `rbjhol.polydb` in $PPDIR/bld/db. `spade.polydb` remains the database for interactive development and for the build. `*.polydb` is gitignored. Removing the worktree removes the task database. The session that opens it is [amtd007.md](amtd007.md).
 
 If `main` moves during the task, merge `main` into the task branch before the pull request is finished.
 

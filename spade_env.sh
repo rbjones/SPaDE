@@ -1,4 +1,4 @@
-# Source this file: . ./spade-env.sh
+# Source this file: . ./spade_env.sh
 SPADEHOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 export SPADEHOME
 
