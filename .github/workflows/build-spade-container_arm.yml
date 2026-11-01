@@ -77,7 +77,7 @@ jobs:
           RUN printf '%s\n' 'export PATH="/workspace/common:${PATH}"' > /etc/profile.d/spade-path.sh
 
           # Build spade ProofPower DB
-          RUN cd /workspace && make spade.ldd
+          RUN cd /workspace && make rbjhol.ldd
 
           CMD ["/bin/bash"]
           EOF
