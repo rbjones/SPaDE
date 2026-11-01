@@ -1,4 +1,4 @@
-# Admin Meta-Task Description
+# Admin Meta-Task-Description
 
 ## Introduction
 
@@ -16,18 +16,21 @@ The rest of this document is structued as follows:
 - Meta-Tasks
 - Administrative Tasks
 
-
 ## Meta-Tasks
 
 These meta-tasks correlate with directories in the SPaDE repository, and represent areas of responsibility which will replace the role distinctions previously documented (a comprehensive review of admin documentation is needed to bring it all in line with recent practices and the evolving structure of the project).
 
 The current set of subsystem meta-task documents includes the following:
 
-- [tltd000](../tltd000.md): Philosophy and Architecture meta-task
-- [krtd000](../../kr/krtd000.md): Knowledge representation subsystem meta-task
-- [dktd000](../../dk/dktd000.md): Deductive Kernel subsystem meta-task
-- [ditd000](../../di/ditd000.md): Deductive Intelligence subsystem meta-task
-
+- amtd000: Admin meta-task-description (this documents)
+- [tltd000](../tltd000.md): Philosophy and Architecture meta-task-description
+- [krtd000](../../kr/krtd000.md): Knowledge Representation meta-task-description
+- [dktd000](../../dk/dktd000.md): Deductive Kernel meta-task-description
+- [ditd000](../../di/ditd000.md): Deductive Intelligence meta-task-description
+- [mcptd000](../../mcp/mcptd000.md): MCP meta-task-description
+- [intd000](../../int/intd000.md): Onboarding meta-task-description
+- [outtd000](../../out/outtd000.md): Outreach meta-task-description
+§
 ## Principle Areas for Administrative Advancement
 
 There are at present three main areas where progress is expected in the administrative domain:

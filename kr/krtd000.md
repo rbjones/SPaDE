@@ -1,4 +1,4 @@
-# Knowledge Representation Subsystem Meta-Task
+# Knowledge Representation Meta-Task-Description
 
 ## Introduction
 

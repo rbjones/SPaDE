@@ -15,3 +15,4 @@ This directory collects review notes and audit trails that document the evolutio
 - [20251023-1535-copilot-link-audit.md](20251023-1535-copilot-link-audit.md) — Complete link integrity audit report
 - [20260820-1818-grok-docs-adequacy-inspection.md](20260820-1818-grok-docs-adequacy-inspection.md) — Adequacy of `docs/` for resuming KR and MCP work
 - [20261031-2010-copilot-broken-links.md](20261031-2010-copilot-broken-links.md) — Broken-link audit after documentation reorganisation
+- [20261101-1135-copilot-documentation-coherence.md](20261101-1135-copilot-documentation-coherence.md) — Coherence review after task-policy changes

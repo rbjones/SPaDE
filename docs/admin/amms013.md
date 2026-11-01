@@ -1,5 +1,15 @@
 # Proposal: Structured Project Data for SPaDE Repositories
 
+## Introduction
+
+- [Purpose](#purpose)
+- [Proposed Scope](#proposed-scope)
+- [Possible HOL Integration](#possible-hol-integration)
+- [YAML Profile](#yaml-profile)
+- [Validation](#validation)
+- [Mapping to T-expressions](#mapping-to-t-expressions)
+- [Migration and Evaluation](#migration-and-evaluation)
+  
 ## Purpose
 
 This proposal is to make structured parts of SPaDE project documentation, especially task descriptions and their relationships, suitable for transfer into a SPaDE-native repository.
@@ -8,19 +18,19 @@ The proposed approach is to author structured data in a restricted YAML profile,
 
 The proposal supports the objective in [amms001.md](amms001.md) of making project descriptions available as declarative knowledge in SPaDE repositories. T-expressions are specified in [tlcd004.md](../tlcd004.md).
 
-## Proposed scope
+## Proposed Scope
 
 Begin with structured records for tasks: identifiers, titles, status, inputs, outputs, constraints, and dependencies. Keep explanatory prose in Markdown unless and until a separate representation is justified. A structured record may accompany a task description without changing the existing document hierarchy or workflow.
 
 The same data model could later be used for other project records, such as requirements and decisions. Those uses would need their own schemas and conventions.
 
-## Possible HOL integration
+## Possible HOL Integration
 
 A future way to work with these records in HOL would be to provide a generic parser and pretty-printer, parameterized by a record's schema. Given the schema, the parser would map YAML records to `T_ex` terms, and the pretty-printer would render such terms as YAML of the corresponding shape.
 
 This is a possible direction, not part of the present proposal's implementation scope. For now, authoring and validating the YAML records is sufficient; the example T-expression renditions below illustrate the intended relationship without requiring a HOL parser or printer.
 
-## YAML profile
+## YAML Profile
 
 Use YAML 1.2 with its JSON schema for resolving plain scalars, restricted to values that can be represented as JSON data:
 
@@ -133,7 +143,7 @@ The following JSON Schema (Draft 2020-12) requires these fields and constrains t
 }
 ```
 
-## Generic ProofPower HOL rendition
+## Generic ProofPower HOL Rendition
 
 One generic encoding of the parsed YAML data model is a term of type `T_ex`, using the alias `T` for `mk_T_ex` declared in [tlcd004.md](../tlcd004.md). Here each mapping entry is an `entry` with a `string` key and a value; each sequence is a `sequence`. A string value is represented by a `string` node whose child is a leaf labelled by the string's UTF-8 bytes. Mapping entries are ordered by key as specified above.
 
@@ -177,7 +187,7 @@ T ("mapping", [
 ])
 ```
 
-## T-expressional rendition of the YAML example
+## T-expressional Rendition of the YAML Example
 
 The same task record can instead be expressed directly as abstract syntax: the root constructor is `task`; each field name is a constructor; and its child or children encode the field value. For string-valued fields, a single child holds the string. For sequence-valued fields, the children hold the items in order; an empty sequence therefore has no children. The constructor names shown here are illustrative, and their byte encodings are the UTF-8 encodings of the displayed names.
 
@@ -206,7 +216,7 @@ The same task record can instead be expressed directly as abstract syntax: the r
 ])
 ```
 
-## Migration and evaluation
+## Migration and Evaluation
 
 Before adopting this approach project-wide:
 

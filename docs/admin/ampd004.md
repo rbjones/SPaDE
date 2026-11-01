@@ -3,20 +3,32 @@
 ## Introduction
 
 SPaDE development is oriented towards agentic work and is managed through a heirarchic task structure executred in a combination of git branches, worktrees, and sessions, which together facilitate structured and coordinated agentic work.
-There are a variety of different kinds of agents which can be applied to tasks, including human agents, cloud hosted frontier LLMs in suitable frameworks such as grok, and github copilot agents, open weight LLM, some specially tuned on local servers, and the alpha-zero style reinforcement learning agents trained locally by specialised local LLMs.
+There are a variety of different kinds of agents which can be applied to tasks, including human agents, cloud hosted frontier LLMs in suitable frameworks such as grok, and github copilot agents, open weight LLMs, some specially tuned on local servers, and the alpha-zero style reinforcement learning agents trained locally by specialised local LLMs.
+Ultimately SPaDE development will substantially or wholly transfer into SPaDE repositories and revised procedures will be required, but now and throughout any transitional period the procedures defined here will apply to any work which involves changes to the SPaDE github repository.
 
-To enable maximal exploitation of local resource, a heirarchic task structure is employed, with high level task structures in each area of development which anticipate future needs and enable preparatory research to be conducted when resources permit.
-The long term horizon combined with identification of critical paths to realise capability provides a basis for prioritising tasks and allocating resources effectively, ensuring that the development effort is both strategic and efficient.
 
 This document describes the mechanics of setting up, managing, and concluding tasks within the SPaDE development framework, including the use of git branches, worktrees, and sessions to coordinate agentic work effectively.
 
+- [Meta-Task-Descriptions](#meta-task-descriptions)
 - [Task Descriptions](#task-descriptions)
 - [Task Setup](#task-setup)
 - [Task Completion](#the-main-checkout)
 
+## Meta Task-Descriptions
 
+Meta-task descriptions have been introduced to facilitate the application of agentic AI to commissioning work in an area of SPaDE development. There is one meta-task-description for each subsystem, which is held in the subsystem directory of the repository in a "td" document series as number zero.
+Its purpose is to identify the tasks which need to be undertaken, sometimes in advance of availability of a full task description.
+This permits the writing of task descriptions by agents.
+
+Meta task-descriptions are not subject to the same degree of formality as individual task descriptions.
 
 ## Task Descriptions
+
+We are experimenting with a formal structure for task descriptions in which yml is used to present the cannonical kinds of information needed to accomplish a task.
+A sample is shown in [Proposal: Structured Project Data for SPaDE Repositories](amms013.md).
+This formal structure should be presented at the head of the task description with further less formal explanations and context provided below it, however at this stage the exact format and required fields are still under experimentation, so the adoption is not expected to be uniform across all tasks.
+
+Tasks will usually be documented and executed in stages, with the same task description covering all the stages.
 
 ## Task Setup
 
@@ -35,7 +47,8 @@ A task that will change the repository has one branch, one worktree, and the ses
 
 ## The main checkout
 
-`~/git/SPaDE` stays on `main`. `main` is pulled there. Task worktrees are added and removed from there or from parent tasks. Commits for a task are made in the task worktree.
+`~/git/SPaDE` stays on `main`.
+Only in exceptional circumstances should changes be made directly in the main checkout. All task-specific work should be conducted in dedicated worktrees.
 
 ## Opening a task
 

@@ -56,6 +56,7 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
 
 ## Task Descriptions
 
+- [amtd000.md](amtd000.md) Admin Meta-Task-Description
 - [amtd001.md](amtd001.md) Task Description for Review of Hyperlinks in Project Documentation
 - [amtd002.md](amtd002.md) Task Description for Linking Project Documentation to the [SPaDE](../tlad001.md#spade) Glossary
 - [amtd003.md](amtd003.md) Task Description for Augmentation of the [SPaDE](../tlad001.md#spade) Glossary
