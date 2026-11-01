@@ -53,7 +53,7 @@ The task states the files that may be changed. Where a kind of document belongs 
 
 The worktree lasts for the whole task, including review. This will normally involve multiple stages, which are set out in the main task document. Several sessions may use it. The branch of a worktree stays as it is while a session has that directory as its working directory.
 
-ProofPower work for the task uses a version of `spade.polydb`, in the worktree root. It is a child of `rbjhol.polydb` in $PPDIR/bld/db. `spade.polydb` remains the database for interactive development and for the build. `*.polydb` is gitignored. Removing the worktree removes the task database. The session that opens it is [amtd007.md](amtd007.md).
+ProofPower work for the task uses a version of `spade.polydb`, in the worktree root. It is a child of `rbjhol.polydb` in $PPDIR/bld/db. `spade.polydb` remains the database for interactive development and for the build. `*.polydb` is gitignored. Removing the worktree removes the task database.
 
 If `main` moves during the task, merge `main` into the task branch before the pull request is finished.
 
@@ -63,6 +63,8 @@ Grok retained memory is in `~/.grok/memory/` (keyed on `origin`). Worktrees of t
 
 ## Closing a task
 
+A task is closed when a pull request into its parent branch has been merged.
+If the parent has moved during the task, merge the latest changes from the parent into the task branch before completing the pull request.
 The pull request into `main` is the review ([ampd005.md](ampd005.md)). After it is merged, and after every session in the task directory has ended, run the following in `~/git/SPaDE`. The task directory is clean before it is removed.
 
 ```sh

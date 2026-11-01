@@ -52,9 +52,9 @@ Formal materials where appropriate may be presented in markdown as literate scri
 
 The SPaDE documentation mostly falls into the following categories:
 
-1. Philosophical and Architectural materials in the [docs](../docs/README.md) directory.
-2. Administrative documentation including standards and procedures in the [docs/admin](../docs/admin/README.md) directory.
-3. Subsystem-specific implementation and design materials in their respective top-level directories (e.g., knowledge repository ([kr](../kr/README.md)), mcp server ([mcp](../mcp/README.md)), deductive kernel ([dk](../dk/README.md)), deductive intelligence ([di](../di/README.md)).
+1. Philosophical and Architectural materials in the [docs](../README.md) directory.
+2. Administrative documentation including standards and procedures in the [docs/admin](README.md) directory.
+3. Subsystem-specific implementation and design materials in their respective top-level directories (e.g., knowledge repository ([kr](../../kr/README.md)), mcp server ([mcp](../../mcp/README.md)), deductive kernel ([dk](../../dk/README.md)), deductive intelligence ([di](../../di/README.md)).
 
 ## File Naming Conventions
 
@@ -99,7 +99,7 @@ Subsystem codes:
 - **kr** kr - knowledge repository
 - **mcp** mcp - MCP server and A2A protocol
 - **rv** reviews - review reports e.g. from copilot
-  - **Exception**: Review files in the reviews directory use temporal naming: `YYYYMMDD-HHMM-author-topic.md`, see [reviews](./#reviews).
+  - **Exception**: Review files in the reviews directory use temporal naming: `YYYYMMDD-HHMM-author-topic.md`, see [reviews](../../reviews/README.md).
 - **tl** tl - top level, system wide.  This includes files in the docs directory but not those in the admin subdirectory. The documentation at this level should all be in the docs directory rather than the top level directory, and mainly consists of high level system wide philosophy and architecture documents.
 
 Document kinds:

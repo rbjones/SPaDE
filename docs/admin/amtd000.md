@@ -23,10 +23,10 @@ These meta-tasks correlate with directories in the SPaDE repository, and represe
 
 The current set of subsystem meta-task documents includes the following:
 
-- [tltd000](#../tltd000.md): Philosophy and Architecture meta-task
-- [krtd000](#../../kr/krtd000.md): Knowledge representation subsystem meta-task
-- [dktd000](#../../dk/dktd000.md): Deductive Kernel subsystem meta-task
-- [ditd000](#../../di/ditd000.md): Deductive Intelligence subsystem meta-task
+- [tltd000](../tltd000.md): Philosophy and Architecture meta-task
+- [krtd000](../../kr/krtd000.md): Knowledge representation subsystem meta-task
+- [dktd000](../../dk/dktd000.md): Deductive Kernel subsystem meta-task
+- [ditd000](../../di/ditd000.md): Deductive Intelligence subsystem meta-task
 
 ## Principle Areas for Administrative Advancement
 
