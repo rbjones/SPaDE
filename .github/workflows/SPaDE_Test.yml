@@ -20,4 +20,6 @@ jobs:
       
       - name: Run SPaDE tests
         shell: bash
-        run: make test
+        run: |
+          . ./spade_env.sh
+          make test
