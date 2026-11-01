@@ -53,6 +53,10 @@ The process of deriving logical conclusions from premises known or assumed to be
 An approach to engineering design and construction in which the formal modelling of requirements is progressed concurrently with automated deductively verified design and implementation.
 Design methods are implemented as derived inference rules which prove compliance of designs with system specifications from premises about the characteristics of components and subsystems, thus progressively refining specifications into designs and implementations.
 
+### Deductive Intelligence
+
+The application of focal methods supported by alpha-zero type heuristics to deductive reasoning or problem solving in any domain.
+
 ### Diasporic
 
 Concerning the entire cosmic reach of the progeny of a single origin of intelligence, such as Planet Earth.
@@ -103,6 +107,10 @@ A conceptual framework for understanding how abstract deductive reasoning contri
 ### Focal
 
 Giving particular attention to parts of a whole.
+
+#### Focal Engineering
+
+The application of focal intelligence to engineering problems, by deductive problem solving in relevant formal models.
 
 #### Focal Intelligence or Focal AI
 

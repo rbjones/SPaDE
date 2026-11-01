@@ -34,7 +34,7 @@ mcp: mcp-all
 pa: pa-all
 
 # Check
-check: pa-check kr-check # dk-check mcp-check di-check
+check: spade.ldd pa-check kr-check # dk-check mcp-check di-check
 
 # Build
 build: check pa-build kr-build mcp-build # dk-build di-build
@@ -48,11 +48,15 @@ clean: pa-clean kr-clean mcp-clean # dk-clean di-clean
 # spade.ldd ProofPower database for SPaDE project
 
 ppdb-clean:
-	rm -f spade.ldd retro/spade.ldd
+	rm -f spade.ldd rbjhol.ldd spade.polydb $(PPDIR)/bld/db/rbjhol.polydb
 
-spade.ldd:
-	$(MAKE) -C retro -f retro.mkf spade.ldd
+rbjhol.ldd:
+	$(MAKE) -C retro -f retro.mkf rbjhol.ldd
+	touch rbjhol.ldd
 
+spade.ldd: rbjhol.ldd
+	pp_make_database -f -p rbjhol spade
+	touch spade.ldd
 # Help
 help:
 	@echo "SPaDE Project - Synthetic Philosophy and Deductive Engineering"

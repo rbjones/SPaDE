@@ -11,3 +11,7 @@ It will also develop protocols for collaboration between intelligent [focal inte
 
 At this stage the ideas are embryonic, and my familiarity with the technology non-existent.
 So I will be trialling and prototyping, which begins with trying propositional theorem proving using alphazero-general in the [agprop](agprop/README.md) directory.
+
+## THe Documents in this Directory
+
+- [Task Definitions](ditd000.md)

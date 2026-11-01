@@ -1,7 +1,46 @@
 # Project Structure and Documentation Policy
 
+## Introduction
+
+This is the top-level documentation for the administrative aspects of the SPaDE project.
+It falls into the following parts:
+
+- [Project Organisation](#project-organisation)
+- [Documentation](#documentation)
+- [Administrative Aspects](#administrative-aspects)
+- [Administrative Policies and Procedures](#administrative-policies-and-procedures)
+
+The SPaDE project begins as a github repository, which will eventually contain code implementing support for the representation of declarative knowledge in SPaDE repositories, for deductive reasoning in the context of that knowledge, and for solving both abstract and real world problems by deductive methods which give high levels of assurance moderated only by the fidelity of the scientific laws which underpin the abstract models.
+The project is intended to achieve efficiency in these applications by *reflection*, continuing once established to improve its own processes and structures through self-analysis and adaptation.
+
+The intended role of reflection requires that the descriptions of the system which we use during its development become part of the declarative knowledge represented within SPaDE repositories.
+
+SPaDE is intended to provide these services not directly to people, but to intelligent systems such as LLMs that interact with it using the MCP protocol and because the languages at present used in the development, which will include a great deal of English, HOL presented in a form suitable for human comprehension, and programming languages such as python also designed for the convenience of homo sapiens.
+If the development were conducted by non-human intelligent systems, there is little reason to believe that these languages would play the same central role, or that the considerations of human convenience would be as significant.
+It is already recognised by many, that as coding becomes entirely mediated by intelligent systems, the role of human-oriented languages and considerations of human convenience will be confined to those rare occasions when humans seek detailed technical information which would otherwise be inaccessible to them.
+
+In order to effect the development of SPaDE (which is at present, and likely to remain, a single person project), extensive use of AI will be necessary and in order for large amounts of agentic work to fit together into a whole which meets the project's objectives, careful coordination and adherence to well-defined protocols will be required.
+
+In doing this, it is desirable that we continuously consider how the project documentation could be made fully formal and incorporated into SPaDE repositories, to enable the project to continue after the existing git repository is wholly migrated into the SPaDE repositories, bearing in mind that the role of human-oriented documentation will diminish as the project becomes increasingly mediated by intelligent systems.
+In devising and evolving the project structure and the manner in which that structure is documented, we must continuously consider how those structures might be formalised and maximise the extent to which their presentation is conducive to it.
+)
+
+
+## Project Organisation
+
 The project is organised into subsystems each with its own top-level directory.
+Some project activities, e.g. *outreach* are not oriented to the production of SPaDE subsystems but will neverthess get a directory for their work and associated document series.
 A top-level docs directory provides materials not specific to any single subsystem, which includes the important philosophical side to the project and materials relating to the overall architecture and design of the system as a whole.
+
+In order to make clear the distinction between architectural matters and implementation detail, the division between the material in docs and that in the subsystem directories should be that architectural and philosophical content resides in docs, while implementation-specific content resides in the respective subsystem directories.
+That leaves unclear what the distinction *is*, and the answer to that is, that certain some interfaces are intended to be open to systems other than SPaDE, even when they provide functionality similar to components of SPaDE.
+Thus, and perhaps most crucially, the abstract structure of SPaDE repositories is architectural, but the way in which those structures are committed to permanent storage is not.
+SPaDE provides its own native representation for those abstract structures, and may also provide access to alternative stored forms, or provide SPaDE views over other kinds of knowledge or data storage, but it is open to any other provider to provide alternative stored forms or access to additional types of storage.
+This kind of distinction also applied to the concrete syntax associated with the formal specifications in SPaDE repositories.
+Concrete syntax not intended to be withing the scope of SPaDE, which is intended to deliver its services to LLMs or other intelligent systems using the MCP protocol.
+Any support for concrete syntax within SPaDE will be transitional.
+It is expected that metadata governing the presentation of specifications will be stored in spade repositories, but this is the responsibility of the agents using the SPaDE system, not of SPaDE itself.
+
 The docs directory also has an admin subdirectory for materials of a non-technical nature, including project management and collaboration policies and procedures, and guidance for potential contributors.
 
 ## Documentation
@@ -13,9 +52,9 @@ Formal materials where appropriate may be presented in markdown as literate scri
 
 The SPaDE documentation mostly falls into the following categories:
 
-1. Philosophical and Architectural materials in the [docs](../docs/README.md) directory.
-2. Administrative documentation including standards and procedures in the [docs/admin](../docs/admin/README.md) directory.
-3. Subsystem-specific implementation and design materials in their respective top-level directories (e.g., knowledge repository ([kr](../kr/README.md)), mcp server ([mcp](../mcp/README.md)), deductive kernel ([dk](../dk/README.md)), deductive intelligence ([di](../di/README.md)).
+1. Philosophical and Architectural materials in the [docs](../README.md) directory.
+2. Administrative documentation including standards and procedures in the [docs/admin](README.md) directory.
+3. Subsystem-specific implementation and design materials in their respective top-level directories (e.g., knowledge repository ([kr](../../kr/README.md)), mcp server ([mcp](../../mcp/README.md)), deductive kernel ([dk](../../dk/README.md)), deductive intelligence ([di](../../di/README.md)).
 
 ## File Naming Conventions
 
@@ -60,7 +99,7 @@ Subsystem codes:
 - **kr** kr - knowledge repository
 - **mcp** mcp - MCP server and A2A protocol
 - **rv** reviews - review reports e.g. from copilot
-  - **Exception**: Review files in the reviews directory use temporal naming: `YYYYMMDD-HHMM-author-topic.md`, see [reviews](./#reviews).
+  - **Exception**: Review files in the reviews directory use temporal naming: `YYYYMMDD-HHMM-author-topic.md`, see [reviews](../../reviews/README.md).
 - **tl** tl - top level, system wide.  This includes files in the docs directory but not those in the admin subdirectory. The documentation at this level should all be in the docs directory rather than the top level directory, and mainly consists of high level system wide philosophy and architecture documents.
 
 Document kinds:

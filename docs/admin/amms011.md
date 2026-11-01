@@ -18,13 +18,13 @@ It may read `docs/admin/` and the paragraph it was given. It may write a new doc
 
 ## Architect
 
-The job is to bespecified in [amtd006.md](amtd006.md). The method for the specification is [amms012.md](amms012.md). The role does not settle a philosophical question the principal has not already accepted.
+The job is to be specified in [tltd001.md](../tltd001.md). The method for the specification is [amms012.md](amms012.md). The role does not settle a philosophical question the principal has not already accepted.
 
 It may read the documents named in [amms012.md](amms012.md), together with `docs/tlcd*`, `docs/tlad*`, and `docs/tlph*`. It may write the specification under `docs/`.
 
 **Acceptance.** The specification follows [amms012.md](amms012.md), `make` in `docs/` loads it, and ProofPower accepts the script.
 
-**Trial.** Not started until [amtd006.md](amtd006.md) is on `main`. The trial is the opening of the generic abstract-syntax theory with `new_SPaDE_theory`, and one constructor which takes strings, converts them to NTBS, concatenates them, and puts a code for the construction at the front. The prose acknowledges [krdd004.md](../../kr/krdd004.md).
+**Trial.** Not started until [tltd001.md](../tltd001.md) is on `main`. The trial is the opening of the generic abstract-syntax theory with `new_SPaDE_theory`, and one constructor which takes strings, converts them to NTBS, concatenates them, and puts a code for the construction at the front. The prose acknowledges [krdd004.md](../../kr/krdd004.md).
 
 ## Philosopher
 

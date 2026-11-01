@@ -35,7 +35,7 @@ clean:
 maths_egs.ldd:
 	$(MAKE) -C maths_egs -f maths_egs.mkf clean load
 	cp maths_egs/maths_egs.polydb $(PPDIR)/bld/db/
-	touch ../maths_egs.ldd
+	touch maths_egs.ldd
 
 # The PP HOL specs are then loaded to the maths_egs database
 
@@ -43,12 +43,16 @@ $(BASEPPDBNAME).ldd: maths_egs.ldd
 	cd $(PPDIR)/src/hol && make -f hol.mkf spc001.sml spc002.sml spc003.sml spc004.sml spc005.sml && \
 	echo "save_and_quit{};" | $(PPDIR)/bld/bin/pp -d maths_egs -f spc001 -f spc002 -f spc003 -f spc004 -f spc005 > $(BASEPPDBNAME).ldd
 # The np/rbj.mkf makefile builds the rbjhol.poldb database on maths_egs.polydb.
-# We don't really need this, probably will get removed!
+# Some of the theories here (e.g. rbjmisc) will be used for early versions of the SPaDE specifications.
 	$(MAKE) -C np -f rbj.mkf clean bld
 	cp np/$(BASEPPDBNAME).polydb $(PPDIR)/bld/db/
 	touch $(BASEPPDBNAME).ldd
 
 # Then we make the spade.polydb database using rbjhol as parent.
+# This freezes rbjhol. Task databases are further children of rbjhol,
+# created in the task worktree (docs/admin/ampd004.md). They are not
+# built here, and spade is not their parent.
+# This remains pro-tem but is not expected to be used since spade.polydb is now to be placed in each worktree when the worktree is created.
 
 $(SPADEPPDBNAME).ldd: $(BASEPPDBNAME).ldd
 	pp_make_database -f -p $(BASEPPDBNAME) $(SPADEPPDBNAME)

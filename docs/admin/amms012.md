@@ -5,25 +5,63 @@ It clarifies the intended role for such specifications, identifies the context i
 
 It is presented in the following parts:
 
-- [The Role of ProofPower HOL in the SPaDE development](#the-role-of-proofpower-hol-in-the-spade-development)
-- [Writing a specification](#writing-a-specification)
+- [The Role of ProofPower HOL in the SPaDE Development](#the-role-of-proofpower-hol-in-the-spade-development)
+- [Writing a Specification](#writing-a-specification)
 - [Context for Writing ProofPower HOL Specifications](#context-for-writing-proofpower-hol-specifications)
 - [Links to Relevant Documentation](#links-to-relevant-documentation)
 - [Supplementary Notes](#supplementary-notes)
 
-## The Role of ProofPower HOL in the SPaDE development
+## The Role of ProofPower HOL in the SPaDE Development
 
 SPaDE is intended to be a reflexive project, rooted in essentially the same logical system as ProofPower HOL.
-It is intended to support "deductive engineering" using reflexive methods as a service for LLMs using the MCP protocol.
+It is intended to support "deductive engineering", using reflexive methods, as a service for LLMs using the MCP protocol.
 
-The reflexive nature of the project requires that the specifications will in due course be held in SPaDE knowledge repositories, and that once sufficient capability is established further specifications and the deductive application of them will be managed within the SPaDE framework.
+That service has two main components.
+The first is the management of knowledge repositories suitable for storing and organizing *declarative knowledge*.
+The second is support for logical inference in the context of bodies of declarative knowledge, in the form of *focal deductive intelligence*.
 
-The specifications are of course needed before that functionality is in place, and to ensure the integrity and coherence of the specifications we need something to process them.
+The reflexive nature of the project involves the optimisation of deduction by reasoning about the system.
+It includes the verification of derived rules of inference, which may then be executed directly within the system.
+This is a form of self-improvement which is to be baked into SPaDE from the outset.
+The formal work which is done using ProofPower prior to the establishment of SPaDE capabilities, will, as soon as is practical be migrated into SPaDE native knowledge repositories, as the SPaDE system takes over those responsibilities initially satisfied by ProofPower and github.
+
+The HOL specifications are needed before that functionality is in place, and to ensure the integrity and coherence of the specifications we need something to process them.
 ProofPower HOL has been chosen to fulfill that role, which is part of a complex bootstrap operation necessary to get SPaDE off the ground.
 
-## Writing a specification
+## HOL Specification Task Descriptions
 
-A SPaDE specification is a markdown document. The formal text is in `sml` fences. [tlci001.mkf](../tlci001.mkf) strips those fences with [rules.mkf](../../common/rules.mkf) and loads the script with ProofPower. ProofPower checks that the script is well-formed. It is not part of the deliverable. Whether the specification says what was wanted is a further check. Until SPaDE can check its own HOL, this load is the check. The image `ghcr.io/rbjones/pp/proofpower_arm` is available where ProofPower is not installed on the host.
+A single task description will normally suffice for the entire development of a HOL theory, though this will usually be undertaken in multiple stages.
+
+Those stages will be reflected in successive sections of the specification document itself, and the task description will be progressivelyupdated to identify the section to be addressed by each successive stage in accomplishing the task.
+So most of the detailed description of the work will be provided by early stages in the task and will be held in the specification document itself rather than the task description.
+
+The execution of each section of a theory may also be broken into parts.
+They would be:
+
+1. An informal description of the part of the theory to be developed in that section of the document.
+2. A formal skeleton of that part of the theory, expressed in HOL. A formal skeleton identifies:
+	- The types to be introduced, introduced by "new_type" without specification other than their names and arities.
+	- The constants to be introduced, introduced by a HOLCONST paragraph giving the names and types with T in the body.
+	- Theorems to be proven, introduced by "new_conjecture".
+		These may be:
+		- the non-emptyness theorem for the representation set for a new type constructor
+		- important theorems which the theory must ultimately prove.
+	- New axioms to be introduced, introduced by "new_axiom".
+		This will be exceptional and only when explicitly called for in the task description.
+	3. The completion of the specification of new type constructors or constants, together with any necessary non-emptyness or consistency proofs.
+
+## Writing a HOL Specification
+
+A SPaDE specification is a markdown document. The SPaDE make files strip the formal text from the markdown and prepare it for processing by ProofPower. ProofPower checks that the script is well-formed.
+
+The HOL specification is embedded in the sml using HOL paragraphs and some sml procedure calls.
+Theorems are proven using sml scripts, usually achieving a goal oriented proof approach by the use of the ProofPower goal package.
+The development of such proofs is usually an interactive process, and provision is therefore made for agents to interact with ProofPower when an assigment requires theorems to be proven, and also when introducing new type definitions or for establishing the consistency of some constant specifications.
+
+In general, error free processing of a complete specification document will be a strong indication of its syntactic and logical correctness, and a code review will not be necessary until this is accomplished.
+
+
+
 
 A theory is opened with `new_SPaDE_theory`, defined in [tlcd002.md](../tlcd002.md):
 
@@ -35,7 +73,9 @@ The procedure opens the parent, removes any previous version of the theory, and 
 
 `spc001.pp`–`spc005.pp` in the ProofPower source `src/hol` are reference for the language and the deductive system. None of them is kept intact. The deductive system remains that of those documents, written so that an inference rule can be executed. A rule shown to be sound can then be run. HOL4, Isabelle, and Lean may be read as exemplars. New architectural HOL is this ProofPower HOL in markdown.
 
-The first specification is a generic theory of abstract syntax. It starts from the null-terminated byte-sequence packing in [krdd004.md](../../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types). The task is [amtd006.md](amtd006.md).
+The first specification is the theory of T-expressions, in terms of which all architectural specifications are expressed, and which underpins both the specific metatheory of HOL and its representation in SPaDE repositories, as well as providing a more general basis for the representation of abstract syntax and other data structures.
+
+[This is implemented in the SPaDE native repository using byte-sequences which are packed in building complex structures by conversion to and from null-terminated byte-sequences as described in the section on packing in [krdd004.md](../../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types).]
 
 ## Context for Writing ProofPower HOL Specifications
 

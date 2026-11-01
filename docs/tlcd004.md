@@ -25,7 +25,7 @@ The specification is to be undertaken in the following stages:
 2. [Packing and Unpacking](#packing-and-unpacking) of byte sequences.
 3. [Representing T-expressions](#representing-t-expressions) as byte sequences, by defining the constructor and destructor over byte sequences, and obtaining the set of representatives as closure of the empty set under the constructor.
 4. [The Type T_ex](#the-type-t_ex) Abstracting from the byte sequence representation to an isomorphic structure over the new type T_ex.
-5. [Induction over T-expressions](#induction-over-t-expressions) Proving that the constructor (mk_T_ex) is OneOne, that the destructor (dest_T_ex) is a left inverse of the constructor and that the type T_ex satisfies the induction principle.
+5. [Induction and Recursion over T-expressions](#induction-and-recursion-over-t-expressions) Proving that the constructor (mk_T_ex) is OneOne, that the destructor (dest_T_ex) is a left inverse of the constructor and that the type T_ex satisfies the induction principle.
 
 ```sml
 new_SPaDE_theory ("T_ex", "SPaDEroot", []);
@@ -145,8 +145,8 @@ The types of the constructor and destructor over the representation type might b
 
 ```sml
 ⓈHOLCONST
-│mk_T_ex_rep : BS × BS LIST → BS;
-│    dest_T_ex_rep : BS → BS × BS LIST
+│   mk_T_ex_rep : BS × BS LIST → BS;
+│   dest_T_ex_rep : BS → BS × BS LIST
 ├──────
 │   T
 ■
@@ -182,6 +182,7 @@ The types of the constructor and destructor are to be as follows:
 ├──────
 │   T
 ■
+declare_alias ("T", ⌜mk_T_ex⌝);
 ```
 
 The type T_ex is the closure of the empty set under the constructor mk_T_ex (the first parameter being a byte sequence, and hence not required to be in the set, and the second a finite list of elements from the set).

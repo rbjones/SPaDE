@@ -59,7 +59,6 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd010.sml](krcd010.sml) - SML signatures detailing the Native Repository encoding/I/O/S-expression contracts
 - [krcd011.sml](krcd011.sml) - SML structures implementing the Native Repository encoding/I/O/S-expression contracts
 - [krcd012.py](krcd012.py) - Python wrapper that delegates the Native Repository I/O ABCs to the SML implementation in krcd011.sml via a persistent ProofPower session
-- [krcd013.py](krcd013.py) - Python interface to an interactive theorem prover (e.g., ProofPower) (coded by Gemini 3 Pro)
 
 ## Testing and Evaluation
 
@@ -76,7 +75,8 @@ This section includes documents that describe the testing and evaluation process
 
 This section includes task descriptions for implementing knowledge repository components.
 
-- [krtd001.md](krtd001.md) - Task Description for Python ABC for SPaDE Native Repository I/O
+- [krtd000.md](krtd000.md) - Knowledge Representation Meta-Task-Description
+-- [krtd001.md](krtd001.md) - Task Description for Python ABC for SPaDE Native Repository I/O
 - [krtd002.md](krtd002.md) - Task Description for Code ad Test Low Level Native Repository I/O in SML.
 - [krtd003.md](krtd003.md) - Task Description for SML Signatures for SPaDE Native Repository I/O
 

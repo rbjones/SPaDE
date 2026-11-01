@@ -36,11 +36,11 @@ Every formal specification in HOL opens the theory it is creating with `new_SPaD
 
 The theory name is brief and suggestive of its nature or role. Correspondence with the document name is not required. The name is not that of an `spc` theory. Naming and the theory listings are in [ampd012.md](admin/ampd012.md).
 
-A document derived from a ProofPower source, or from [krdd004.md](../../kr/krdd004.md), acknowledges that source. ProofPower checks well-formedness. Correctness is a further, more intelligent check.
+A document derived from a ProofPower source, or from [krdd004.md](../kr/krdd004.md), acknowledges that source. ProofPower checks well-formedness. Correctness is a further, more intelligent check.
 
 ## First stage
 
-The generic abstract syntax starts from the packing and unpacking of null-terminated byte sequences in [Encoding and Decoding NTBS and Related Data Types](../../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types). That account replaces the coding method in `spc001` in a way that is less sensitive to features of the language.
+The generic abstract syntax starts from the packing and unpacking of null-terminated byte sequences in [Encoding and Decoding NTBS and Related Data Types](../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types). That account replaces the coding method in `spc001` in a way that is less sensitive to features of the language.
 
 A constructor of the language takes strings as arguments. Each string is converted to an NTBS. Those NTBS are concatenated. A code is added (as an NTBS) at the front to identify the construction and then the NTBS sequence is concatenated to yield a byte (char) sequence (STRING) which is the representation of the constructed phrase (TYPE, TERM or larger structure in the SPaDE repository). That code may be the name of the constructor (e.g. "Mk_app").
 
