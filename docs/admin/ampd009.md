@@ -1,6 +1,6 @@
 # Commissioning work on the Spark
 
-Roles are in [amms009.md](amms009.md). Task branches and worktrees are in [ampd004.md](ampd004.md).
+Task branches and worktrees are in [ampd004.md](ampd004.md).
 
 ## Default
 

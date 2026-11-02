@@ -16,7 +16,7 @@ The rest of this document is structued as follows:
 - Meta-Tasks
 - Administrative Tasks
 
-## Meta-Tasks
+## Meta Tasks-Descriptions
 
 These meta-tasks correlate with directories in the SPaDE repository, and represent areas of responsibility which will replace the role distinctions previously documented (a comprehensive review of admin documentation is needed to bring it all in line with recent practices and the evolving structure of the project).
 
@@ -59,7 +59,12 @@ SPaDE itself is not expected ever to have non-trivial natural language capabilit
 
 This area concerns the software environment required for the local development and operation of SPaDE.
 The aministrative domain is responsible not merely for documenting the software stack, but also for researching the requirements and for configuring and tuning the software.
-In particular it is responsible for chosing open weight LLMs suitable for local use, and for tuning suitable models for tasks important to the development and operation of SPaDE.
+In particular it is responsible for chosing open weight LLMs suitable for local use, for tuning suitable models for tasks important to the development and operation of SPaDE, and for those establishing the wherewithal for training the alph-zero type models intended to support deductive intelligence.
+
+Alongside those strategic areas, there are likely to be many short term initiatives essential to progressing the bootstrap which transfers ongoing SPaDE development into SPaDE native repositories.
+
+An immediate priority for the bootstrap process is software to enable agents to write specifications and construct proofs using ProofPower HOL, which serve the dual purpose of designing the SPaDE software and later, transferred into SPaDE native repositories for ongoing reflexive self improvement.
+
 
 
 ## Near Term Priorities for Administrative Work

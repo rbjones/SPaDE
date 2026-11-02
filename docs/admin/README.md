@@ -1,6 +1,9 @@
 # Administrative Documentation
 
-This documentation falls into the following categories:
+There is at the moment considerable overlap and conflict among these documents as my tentative steps in seeking working methods in a rapidly changing environment are recorded.
+I therefore hope for this to be greatly simplified, and many of these documents to be retired, but do not expect this to happen quickly because establishing working methods takes time!
+
+Meanwhile the documentation falls into the following categories:
 
 - **[Code and scripts](#code-and-scripts)**
 - **[Chat Logs](#chat-logs)**
@@ -13,16 +16,16 @@ This documentation falls into the following categories:
 ## Methods and standards
 
 - [amms001.md](amms001.md) Project Structure and Documentation Policy (including: subsystem-specific architecture/design/implementation in the subsystem directory; `docs/` only for whole-system or cross-subsystem material)
-- [amms002.md](amms002.md) Roles, Responsibilities, Tasks
+- ~~[amms002.md](amms002.md)~~ Roles, Responsibilities, Tasks
 - [amms003.md](amms003.md) Workflows
 - [amms004.md](amms004.md) Collaborative Guidelines
 - [amms005.md](amms005.md) Guidance for AI Contributions
 - [amms006.md](amms006.md) Glossary Link Maintenance
 - [amms007.md](amms007.md) Glossary Augmentation Procedure (historic, pro-tem)
-- ~~[amms008.md](amms008.md) LLM Wiki, in progress and not authoritative~~
-- [amms009.md](amms009.md) Agentic development team: roles and where work is written
+- ~~[amms008.md](amms008.md)~~ LLM Wiki, in progress and not authoritative
+- ~~[amms009.md](amms009.md)~~ Agentic development team: roles and where work is written
 - [amms010.md](amms010.md) DGX Spark software baseline
-- [amms011.md](amms011.md) First local role cards: project manager, architect, philosopher
+- ~~[amms011.md](amms011.md)~~ First local role cards: project manager, architect, philosopher
 - [amms012.md](amms012.md) Method for Writing ProofPower HOL Specifications
 - [amms013.md](amms013.md) Proposal: Structured Project Data for SPaDE Repositories
 
@@ -66,7 +69,7 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
 
 ## Chat Logs
 
-- [amcl001.md](amcl001.md) Chat Log: Conversational Documentation Development Procedure
+- ~~[amcl001.md](amcl001.md)~~ Chat Log: Conversational Documentation Development Procedure
 - [amcl002.md](amcl002.md) Grok web discussion links formerly listed under `drafts/`
 - [amcl003.md](amcl003.md) Session record: agentic team on the DGX Spark
 
