@@ -75,6 +75,13 @@ jobs:
         
           # Build spade ProofPower DB
           RUN cd /workspace && make rbjhol.ldd
+
+          # Get Spade environment variables set up
+          RUN if [ -f /workspace/spade.env ]; then \
+                set -a; \
+                . /workspace/spade.env; \
+                set +a; \
+              fi
           
           CMD ["/bin/bash"]
           EOF
