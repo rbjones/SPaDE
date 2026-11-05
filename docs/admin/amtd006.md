@@ -16,24 +16,24 @@ A separate task will investigate an MCP server that presents the same interface 
 
 ## Branch and files
 
-The branch and worktree are `amtd007`, cut from `main` as in [ampd004.md](ampd004.md).
+The branch and worktree are `amtd006`, cut from `main` as in [ampd004.md](ampd004.md).
 
 Files that may be changed:
 
-- `amcd005.py` — the session and the `pp-step` command
+- `common/pp-step.py` — the session and the `pp-step` command
 - `amte001.py` — the test
 - `README.md` — index the new files
-- `amcd004.py` — remove this sketch once `amcd005.py` is the indexed implementation
+- `amcd004.py` — remove this sketch once `common/pp-step.py` is the indexed implementation
 
 No other files.
 
 ## Command
 
-`pp-step` is `python3 kr/krcd014.py`, run from the repository root with `PYTHONPATH` set so that `kr` imports. The first invocation starts the session. Each later invocation uses that same process.
+`pp-step` is `python3 common/pp-step.py`, run from the repository root with `PYTHONPATH` set so that `common` imports. The first invocation starts the session. Each later invocation uses that same process.
 
 ```sh
-python3 kr/krcd014.py '1 + 1;'
-python3 kr/krcd014.py stop
+python3 common/pp-runsteps.py '1 + 1;'
+python3 common/pp-runsteps.py stop
 ```
 
 A phrase may be given on standard input instead of as an argument, so that a phrase of more than one line is one submission. One invocation submits one phrase. The command does not split the text on semicolons.
@@ -50,15 +50,11 @@ If `pp` or `pp_make_database` is not on `PATH`, the command exits with a non-zer
 
 ## One database per task
 
-`spade.polydb` stays the database for interactive development and for the build. A `pp-step` session does not open it.
+`spade.polydb` stays the database for interactive development and for the build.
+It is a child of the `rbjhol` database, created with `pp_make_database -p rbjhol spade` in the repository root of any branch undertaking work with ProofPower HOL.
+It is necessary to source spade_env.sh in the root to put the repository root on PPDATABASEPATH before attempting to use spade.polydb.
 
 [retro/retro.mkf](../../retro/retro.mkf) makes `spade` with `pp_make_database -p rbjhol spade`. That first child freezes the theory hierarchy in `rbjhol`. `rbjhol` is not used again by the SPaDE build. Each task database is a further child of `rbjhol`, so creating one reads `rbjhol` and does not save it, and it does not freeze or write `spade.polydb`.
-
-The database stem is the task id. [ampd004.md](ampd004.md) gives the branch and the worktree that id. The file is `<id>.polydb` in the worktree root, and `pp` is given that file as `-d`. `--database STEM` overrides the stem, which the test uses. When the file is absent, the first `pp-step` in that worktree creates it from the worktree root:
-
-```sh
-pp_make_database -p rbjhol tltd001
-```
 
 `rbjhol` is found through `PPDIR`, as the docs makefile finds it. To start the task again from `rbjhol`, recreate the child with `pp_make_database -f -p rbjhol <id>`.
 
