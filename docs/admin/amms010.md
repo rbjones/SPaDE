@@ -10,7 +10,8 @@ Host `spark-95fb`, Ubuntu 24.04.5 LTS, kernel `7.0.0-1019-nvidia`. GPU driver 58
 
 | Component | State |
 | --- | --- |
-| Git, Python 3.12, Make, CUDA toolkit | Present |
+| Git, Python 3.12, Make, CUDA toolkit | Present. The interactive `python3` is `~/.local/spade-venv/bin/python3`. |
+| Host PyTorch | 2.14.1+cu130 in `~/.local/az-venv`, created from `/usr/bin/python3`. A GPU matmul, a convolution, and a one-iteration tic-tac-toe run from `~/git/alphazero-general` completed on the GB10. Details are under [Host PyTorch](#host-pytorch). |
 | Docker 29.6.2 and NVIDIA Container Toolkit 1.20.0 | Present. GPU access has been verified in CUDA and vLLM containers. |
 | Ollama 0.34.4 | Installed as a user service. Its current ARM64 distribution uses CPU inference on the GB10. |
 | vLLM 0.30.0 | GPU inference verified in the ARM64 container with `Qwen/Qwen3-32B-AWQ`, NVIDIA `Qwen3.6-35B-A3B-NVFP4`, and OpenAI `gpt-oss-120b`. The local OpenAI-compatible API currently serves GPT-OSS. |
@@ -146,7 +147,7 @@ docker compose --profile tune build tune
 docker compose --profile tune run --rm tune
 ```
 
-The options for a run, and the preliminary recommendation for a specification model and an MCP model, are in [ampl007.md](ampl007.md). The profile has not been built. A run is commissioned only after a trial of an existing model has shown a gap. Before selecting a trainer or updating the pinned vLLM image, verify GPU support on `sm_121` and run a completion request. Official PyTorch wheels may warn on that architecture.
+The options for a run, and the preliminary recommendation for a specification model and an MCP model, are in [ampl007.md](ampl007.md). The profile has not been built. A run is commissioned only after a trial of an existing model has shown a gap. Before selecting a trainer or updating the pinned vLLM image, verify GPU support on `sm_121` and run a completion request. The host wheel recorded in [Host PyTorch](#host-pytorch) has run GPU compute on this GB10, and its published architectures stop at `sm_120`. That does not clear a change to the pinned vLLM image.
 
 ## Later model kinds
 
@@ -159,9 +160,36 @@ Two further kinds of model come after the first roles. They use the same server.
 
 The tested OpenHands installation is suitable for initial local trials. The preliminary recommendation for tuning a specification model and an MCP model is in [ampl007.md](ampl007.md).
 
+## Host PyTorch
+
+`~/git/alphazero-general` trains on the host, outside the vLLM container and outside the SPaDE virtual environment. Invoke `~/.local/az-venv/bin/python`. That environment was created from `/usr/bin/python3` (3.12.3). PyTorch came from the CUDA 13.0 wheel index, `https://download.pytorch.org/whl/cu130`.
+
+| Package | Version |
+| --- | --- |
+| torch | 2.14.1+cu130 |
+| numpy | 2.5.4 |
+| Cython | 3.3.1 |
+| tensorboardX | 2.6.5 |
+| tqdm | 4.70.1 |
+
+`tensorboard` and `PySide6`, both named in that repository's `requirements.txt`, are not installed. The GUI is not part of this baseline.
+
+The wheel's compiled architectures are `sm_80`, `sm_90`, `sm_100`, `sm_110`, and `sm_120`. This GPU is `sm_121`. On this machine a 256×256 matmul and a convolution finished on the device, and the training step below used the GPU.
+
+`python3.12-dev` is not installed as a system package. The headers from Ubuntu `python3.12-dev` and `libpython3.12-dev` 3.12.3-1ubuntu0.17 are unpacked at `~/.local/python3.12-dev`. A Cython build sets:
+
+```sh
+export C_INCLUDE_PATH="$HOME/.local/python3.12-dev/include:$HOME/.local/python3.12-dev/include/python3.12"
+export CFLAGS="-I$HOME/.local/python3.12-dev/include -I$HOME/.local/python3.12-dev/include/python3.12"
+```
+
+pyximport caches built extensions under `~/.pyxbld`. With those flags, Connect4 and the trainer imported. One tic-tac-toe iteration completed self-play, a GPU training step, and a four-game match against the repository's raw Monte Carlo tree-search baseline, and wrote iteration checkpoints. Those checkpoints are not part of this baseline. The run checks the machine.
+
+Do not install these packages into `~/.local/spade-venv`.
+
 ## Deferred
 
-Focal training stays uninstalled until layered [perfect information spaces](../tlad001.md#perfect-information-space) are ready to run continuously. A single-Spark pretraining stack is out of scope. Node is not required by the repository as it stands.
+Focal training stays uninstalled until layered [perfect information spaces](../tlad001.md#perfect-information-space) are ready to run continuously. The host environment in [Host PyTorch](#host-pytorch) runs the existing AlphaZero-general games only. A single-Spark pretraining stack is out of scope. Node is not required by the repository as it stands.
 
 ## Configuration and maintenance
 
