@@ -63,10 +63,38 @@ The algorithms for and unpacking algorithms for null-terminated byte sequences h
 
 ```sml
 ⓈHOLCONST
-│   mk_NTBS : BS → BS;
-│   dest_NTBS : BS → BS × BS
+│   mk_NTBS_a : BS → BOOL → BS
 ├──────
-│   T
+│∀x l b⦁  
+│   mk_NTBS_a [] b = 
+│           (if b
+│           then Cons (AbsChar 1) (Cons (AbsChar 1) (Cons (AbsChar 0) []))
+│           else Cons (AbsChar 0) [])
+│∧  mk_NTBS_a (Cons x l) b = 
+│           if b
+│           then if RepChar x = 0 ∨ RepChar x = 1
+│                then Cons (AbsChar 1) (Cons (AbsChar 1)(Cons (AbsChar 1)(Cons x (mk_NTBS_a l F))))
+                 else Cons (AbsChar 1) (Cons x (mk_NTBS_a l F))
+│           else if RepChar x = 0
+│               then Cons (AbsChar 1) (Cons (AbsChar 0) (mk_NTBS_a l F))
+│               else if RepChar x = 1 
+│                    then mk_NTBS_a l T
+│                    else Cons x (mk_NTBS_a l F)
+■    
+```
+
+```sml
+ⓈHOLCONST
+│   mk_NTBS : BS → BS
+├──────
+│   ∀bs:BS⦁ mk_NTBS bs = mk_NTBS_a bs F
+■
+```
+
+```
+ⓈHOLCONST
+│   dest_NTBSS_a : BOOL → BS LIST → BS → BS → BS LIST
+├──────
 ■
 ```
 
@@ -100,31 +128,40 @@ The following function takes a list of byte sequences and packs them into an NTB
 
 ```sml
 ⓈHOLCONST
-│   mk_NTBSS : BS LIST → BS
+│   Flatten : 'a LIST LIST → 'a LIST
 ├──────
-│       mk_NTBSS [] = []
-│ ∧ ∀(s:BS) (ss:BS LIST)⦁
-│       mk_NTBSS (Cons s ss) = (mk_NTBS s) @ (mk_NTBSS ss)
+│           Flatten [] = []
+│ ∧ ∀e l⦁   Flatten (Cons e l) = e @ (Flatten l)
 ■
-```
-
-The following definition is not proven consistent automatically and a consistency proof will be necessary before it can be used in proofs.
-
-```sml
-new_conjecture(["dest_NTBS_consistent"],
-    ⌜∃(dest_NTBSS:BS→(BS LIST))⦁
-    ∀(bs:BS)⦁ dest_NTBSS bs =
-       let (fstbs, rest) = dest_NTBS bs
-       in  Cons fstbs (dest_NTBSS rest)⌝);
 ```
 
 ```sml
 ⓈHOLCONST
+│   mk_NTBSS : BS LIST → BS
+├──────
+│       mk_NTBSS = Flatten o (Map mk_NTBS)
+■
+```
+
+```sml
+new_conjecture (["OneOne_mk_NTBSS_thm"],
+    ⌜OneOne mk_NTBSS⌝);
+```
+
+```
+set_goal([], ⌜OneOne mk_NTBSS⌝);
+a (rewrite_tac(map get_spec [⌜OneOne⌝, ⌜mk_NTBSS⌝, ⌜mk_NTBS_a⌝, ⌜mk_NTBS⌝]));
+a (REPEAT ∀_tac);
+a (list_induction_tac ⌜x1⌝);
+(* *** Goal "1" *** *)
+a (rewrite_tac[get_spec ⌜mk_NTBS_a⌝]);
+```
+
+```
+ⓈHOLCONST
 │   dest_NTBSS : BS → BS LIST
 ├──────
-│   ∀bs:BS⦁ dest_NTBSS bs =
-│       let (fstbs, rest) = dest_NTBS bs
-│       in  Cons fstbs (dest_NTBSS rest)
+│       T
 ■
 ```
 
@@ -220,10 +257,13 @@ new_conjecture (["T_ex_induction_thm"], ⌜
             ⇒ P (mk_T_ex (s, xs)))
         ⇒ ∀ t⦁ P t⌝);
 ```
+
+```
 new_conjecture = (["T_ex_prim_rec_thm"], ⌜
-    ⊢ ∀ f1 f2⦁ ∃⋎1 f⦁ ∀bs bss⦁
+    ⊢ ∀ s n c⦁ ∃⋎1 f⦁ f  ∀bss bs⦁
         f (mk_T_ex bs bss) = f1 bs (map f1 
     ∧   f (mk_T_ex bs bss) = f2 bs (map f2 bss))
+```
 
 ## The Representation of the Free Algebra
 
@@ -256,4 +296,19 @@ get_unproved_conjectures "-";
 ├──────
 │   T
 ■
+```
+
+```
+Greek Letters
+	Γ Δ Θ Λ Ξ Π Σ Υ Φ Ψ Ω
+	α β γ δ ε ζ η θ ι κ λ μ ν ξ π ρ σ τ υ φ χ ψ ω
+Logic: 	∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
+Set symbols: 𝔹 ℂ 𝔽 ℕ ℙ ℚ ℝ 𝕊 𝕌 ℤ ⊆ ∅ ⊂ ∩ ⋂ ∪ ⋃ ⊖
+Arrows: → ⤖ ⤕ ⇻ ↔ ⤀ ⇸ ↣ ↦ ↠ ⤔
+Formal Text Brackets: ⌜ ⌝ ⓣ ⓜ ⓩ Ⓢ ■ ┌ └ ╒ ├
+Padding symbols	│ ─ ═  Index Brackets ⦏ ⦎
+Bracketing symbols: ⟨ ⟩ ⟦ ⟧ ⦇ ⦈
+Subscription and Superscription: ⋎ ⋏ ↗ ↘ ↕ Underlining: ⨽ ⨼
+Relation, Sequence and Bag Symbols:  ⩥ ▷ ⩤ ◁ ⁀ ↾ ↿ ⊕ ⊎ ⨾ ∘
+Miscellaneous: ⊢ ⦂ ≜ ⊥ ⊖
 ```
