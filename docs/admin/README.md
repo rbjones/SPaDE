@@ -52,6 +52,7 @@ Meanwhile the documentation falls into the following categories:
 - [ampl005.md](ampl005.md) Immediate plan: Grok Build transition
 - [ampl006.md](ampl006.md) Development on the DGX Spark: parallel preparation, architectural evaluation, checking HOL
 - [ampl007.md](ampl007.md) Fine-tuning for specifications and the MCP interface
+- [ampl008.md](ampl008.md) Continuous ProofPower HOL LLM training research plan
 
 ## Testing and evaluation
 
