@@ -89,6 +89,31 @@ val _ = commit_pc "'savedthm_cs_∃_proof";
 
 ## Some HOL Constants
 
+## Theorems
+
+### OneOne
+
+```sml
+new_conjecture (["OneOne_left_inverse_thm"],
+    ⌜∀ f:'a → 'b⦁ OneOne f ⇒ ∃g:'b → 'a⦁ ∀x:'a⦁ g o f = λx⦁ x⌝);
+```
+
+```sml
+set_goal([], ⌜∀ f:'a → 'b⦁ OneOne f ⇒ ∃g:'b → 'a⦁ ∀x:'a⦁ g o f = λx⦁ x⌝);
+a (strip_tac THEN rewrite_tac[get_spec ⌜OneOne⌝]);
+a (REPEAT strip_tac);
+a (∃_tac ⌜λx:'b⦁ ε y:'a⦁ f y = x⌝);
+a (REPEAT strip_tac);
+a (rewrite_tac[ext_thm, get_spec⌜$o:('b→'a)→('a→'b)→('a→'a)⌝]
+    THEN strip_tac);
+a (LEMMA_T ⌜∃y⦁ f y = f x⌝ asm_tac);
+a (∃_tac ⌜x⌝ THEN rewrite_tac[]);
+a (asm_fc_tac [simple_∃_ε_conv ⌜∃y⦁ f y = f x⌝]);
+a (asm_tac (rewrite_rule [asm_rule ⌜∃ y⦁ f y = f x⌝] (simple_∃_ε_conv ⌜∃y⦁ f y = f x⌝)));
+a (all_asm_fc_tac[]);
+val OneOne_left_inverse_thm = save_pop_thm "OneOne_left_inverse_thm";
+```
+
 ## Useful Symbols
 
 These are included here for convenience when humans are writing HOL specifications and don't know a better way than cut and paste to get them in their specifications (me at present!).
@@ -107,4 +132,6 @@ Bracketing symbols: ⟨ ⟩ ⟦ ⟧ ⦇ ⦈
 Subscription and Superscription: ⋎ ⋏ ↗ ↘ ↕ Underlining: ⨽ ⨼
 Relation, Sequence and Bag Symbols:  ⩥ ▷ ⩤ ◁ ⁀ ↾ ↿ ⊕ ⊎ ⨾ ∘
 Miscellaneous: ⊢ ⦂ ≜ ⊥ ⊖
+
+set_flag ("pp_show_HOL_types", false);
 ```
