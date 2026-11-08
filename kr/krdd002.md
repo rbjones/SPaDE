@@ -83,19 +83,19 @@ That atom will consist of two null terminated byte strings of which the first is
 
 These are:
 
-1. Type
-  1.1 Type variable: Name x Arity
-  1.2 Type construction: Name x Type list
-2. Term
-  2.1 Variable: Name x Type
-  2.2 Constant: Name x Type
-  2.3 Application: Term x Term
-  2.4 Abstraction: Name x Type x Term
-3. Parents: Theory list
-4. Signature: (sname x num)list x (sname x Type)list
-5. Extension: Signature x Term
-6. Theory: Parents x Extension list x SignedHash
-7. Folder: (sname x (Theory | Folder))list
+- Type
+  - Type variable: Name x Arity
+  - Type construction: Name x Type list
+- Term
+  - Variable: Name x Type
+  - Constant: Name x Type
+  - Application: Term x Term
+  - Abstraction: Name x Type x Term
+- Parents: Theory list
+- Signature: (sname x num)list x (sname x Type)list
+- Extension: Signature x Term
+- Theory: Parents x Extension list x SignedHash
+- Folder: (sname x (Theory | Folder))list
 
 In the above each construction is either an atom or a list, but lists are mostly short finite lists of components and are shown as if tuples using the "x" operator.
 This is purely a typographical convenience.
