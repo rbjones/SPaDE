@@ -37,6 +37,7 @@ This subsystem may also include facilities supporting a marketplace through whic
 
 ## Supporting Material
 
+- [Onboarding](in/README.md) - methods and plans for bringing declarative knowledge into SPaDE
 - [Project Structure](docs/tlad003.md)
 - [CONTRIBUTING](CONTRIBUTING.md)
 - [Review Log](reviews/README.md)

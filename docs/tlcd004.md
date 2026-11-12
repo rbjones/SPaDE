@@ -31,6 +31,39 @@ The specification is to be undertaken in the following stages:
 new_SPaDE_theory ("T_ex", "SPaDEroot", []);
 ```
 
+## Miscellanea
+
+These probably all belong elsewhere, but remain here pro-tem.
+
+### List Processing
+
+The following function takes a list of byte sequences and packs them into an NTBSS.
+
+```sml
+ⓈHOLCONST
+│   Flatten : 'a LIST LIST → 'a LIST
+├──────
+│           Flatten [] = []
+│ ∧ ∀e l⦁   Flatten (Cons e l) = e @ (Flatten l)
+■
+```
+
+The following function is intended to make recursive processing of lists more transparent by separating out the recursion involved in processing the list from the functionality being applied to each element.
+It takes a state machine and turns it into a pipe.
+
+```sml
+ⓈHOLCONST
+│   Iterate1 : ('i OPT × 's → 's × 'o LIST) → ('i LIST × 's) → ('s × 'o LIST)
+├──────
+│   ∀ (sm:'i OPT × 's → 's × 'o LIST) (ins:'s) (fi: 'i) (il: 'i LIST) ⦁
+│       Iterate1 sm ([], ins) = sm (Undefined, ins)
+│ ∧     Iterate1 sm ((Cons fi il), ins) =
+│            let (ns, nol) = sm (Value fi, ins)
+│            in  let (fs, to) = Iterate1 sm (il, ns)
+│                in  (fs, nol @ to)
+■
+```
+
 ## Type Aliases
 
 SPaDE (and the version of ProofPower we are working with) are not tied to single byte representations of characters.
@@ -47,7 +80,7 @@ Since the sequences might contain zero bytes themselves, an escape byte (1) is u
 
 When a string is converted to be suitable for concatenation in that way, with a null terminator added and escape characters inserted as needed, we call it a null-terminated byte string and use the acronym NTBS (though this will not be a HOL type).
 When several such NTBS are concatenated together we may use the acronym NTBSS for the result.
-An NTBSS is not a NTBS, but the packing algorithm can be applied to convert it into an NTBS.
+An NTBSS is not an NTBS, but the packing algorithm can be applied to convert it into an NTBS.
 NTBS and NTBSS are kinds of byte sequences which are not coextensive with the type BS, but the collection obtained by starting from the empty set and repeating a construction which yields an NTBSS will be used as representation for the type T_ex (short for T-expression) which this document defines. 
 
 Here are the type aliases for B and BS:
@@ -61,42 +94,6 @@ declare_type_abbrev ("BS", [], ⌜:CHAR LIST⌝);
 
 The algorithms for and unpacking algorithms for null-terminated byte sequences have the following types.
 
-```sml
-ⓈHOLCONST
-│   mk_NTBS_a : BS → BOOL → BS
-├──────
-│∀x l b⦁  
-│   mk_NTBS_a [] b = 
-│           (if b
-│           then Cons (AbsChar 1) (Cons (AbsChar 1) (Cons (AbsChar 0) []))
-│           else Cons (AbsChar 0) [])
-│∧  mk_NTBS_a (Cons x l) b = 
-│           if b
-│           then if RepChar x = 0 ∨ RepChar x = 1
-│                then Cons (AbsChar 1) (Cons (AbsChar 1)(Cons (AbsChar 1)(Cons x (mk_NTBS_a l F))))
-                 else Cons (AbsChar 1) (Cons x (mk_NTBS_a l F))
-│           else if RepChar x = 0
-│               then Cons (AbsChar 1) (Cons (AbsChar 0) (mk_NTBS_a l F))
-│               else if RepChar x = 1 
-│                    then mk_NTBS_a l T
-│                    else Cons x (mk_NTBS_a l F)
-■    
-```
-
-```sml
-ⓈHOLCONST
-│   mk_NTBS : BS → BS
-├──────
-│   ∀bs:BS⦁ mk_NTBS bs = mk_NTBS_a bs F
-■
-```
-
-```
-ⓈHOLCONST
-│   dest_NTBSS_a : BOOL → BS LIST → BS → BS → BS LIST
-├──────
-■
-```
 
 The algorithms for packing and unpacking are as follows.
 
@@ -119,21 +116,64 @@ The same cases, written as the bytes of the encoded content and then the termina
 | `a 0 b 1 c` | `a` `1 0` `b` `1` `c` `0` |
 
 An NTBSS is the concatenation of zero or more NTBS.
+```
+ⓈHOLCONST
+│   mk_NTBS_a : BS → BOOL → BS
+├──────
+│∀x l⦁  
+│   mk_NTBS_a [] = 
+│           (λb:BOOL⦁ if b
+│           then Cons (AbsChar 1) (Cons (AbsChar 1) (Cons (AbsChar 0) []))
+│           else Cons (AbsChar 0) [])
+│∧  mk_NTBS_a (Cons x l) = 
+│           (λb:BOOL⦁ if b
+│           then if RepChar x = 0 ∨ RepChar x = 1
+│                then Cons (AbsChar 1) (Cons (AbsChar 1)(Cons (AbsChar 1)(Cons x (mk_NTBS_a l F))))
+│                else Cons (AbsChar 1)(Cons x (mk_NTBS_a l F))
+│           else (if RepChar x = 0
+│               then Cons (AbsChar 1) (Cons (AbsChar 0) (mk_NTBS_a l F))
+│               else if RepChar x = 1 
+│                    then mk_NTBS_a l T
+│                    else Cons x (mk_NTBS_a l F)))
+■    
+```
+
+```sml
+ⓈHOLCONST
+│   mk_NTBS_step : B OPT × BOOL → BOOL × BS
+├──────
+│   ∀(bopt:B OPT) (esc:BOOL) ⦁
+│        mk_NTBS_step (bopt, esc) =
+│           if esc
+│           then    if ValueOf bopt = AbsChar 0 ∨ ValueOf bopt = AbsChar 1
+│                   then (F, [ValueOf bopt])
+│                   else (F, Cons (AbsChar 1) (Cons (ValueOf bopt) Nil))
+│           else    if bopt = Value(AbsChar 1)
+│                   then (T, [])
+│                   else (F, [ValueOf bopt])
+■
+```
+
+```sml
+ⓈHOLCONST
+│   mk_NTBS : BS → BS
+├──────
+│   ∀bs⦁ mk_NTBS bs = Snd(Iterate1 mk_NTBS_step (bs, F))
+■
+```
+
+```
+ⓈHOLCONST
+│   mk_NTBS : BS → BS
+├──────
+│   ∀bs:BS⦁ mk_NTBS bs = mk_NTBS_a bs F
+■
+```
 
 The following functions pack a list of byte sequences into a single byte sequence by first converting each to null terminated form and then concatenating them.
 This is what we are calling an NTBSS.
 It is not an NTBS.
 
-The following function takes a list of byte sequences and packs them into an NTBSS.
-
-```sml
-ⓈHOLCONST
-│   Flatten : 'a LIST LIST → 'a LIST
-├──────
-│           Flatten [] = []
-│ ∧ ∀e l⦁   Flatten (Cons e l) = e @ (Flatten l)
-■
-```
 
 ```sml
 ⓈHOLCONST
@@ -143,18 +183,65 @@ The following function takes a list of byte sequences and packs them into an NTB
 ■
 ```
 
+```
+set_goal([], ⌜∀(bs:BS) (t:BOOL)⦁ ¬ mk_NTBS_a bs t = []⌝);
+a (REPEAT strip_tac
+    THEN cases_tac ⌜t:BOOL⌝ THEN strip_asm_tac (∀_elim ⌜bs:BS⌝ list_cases_thm)
+    THEN_TRY asm_rewrite_tac(map get_spec [⌜mk_NTBS_a⌝]));
+(* *** Goal "1" *** *)
+a (cases_tac ⌜RepChar x = 0⌝ THEN asm_rewrite_tac(map get_spec []));
+a (CASES_T ⌜RepChar x = 1⌝ rewrite_thm_tac);
+(* *** Goal "2" *** *)
+a (cases_tac ⌜RepChar x = 0⌝ THEN asm_rewrite_tac(map get_spec []));
+a (CASES_T ⌜RepChar x = 1⌝ rewrite_thm_tac);
+a (strip_asm_tac (∀_elim ⌜list2⌝ list_cases_thm) THEN asm_rewrite_tac(map get_spec [⌜mk_NTBS_a⌝]));
+a (CASES_T ⌜RepChar x' = 0 ∨ RepChar x' = 1⌝ rewrite_thm_tac);
+val mk_NTBS_a_not_empty_thm = save_pop_thm "mk_NTBS_a_not_empty_thm";
+
+set_goal([], ⌜∀(bs:BS)⦁ ¬ mk_NTBS bs = []⌝);
+a (rewrite_tac [get_spec ⌜mk_NTBS⌝, mk_NTBS_a_not_empty_thm]);
+val NTBS_not_empty_thm = save_pop_thm "NTBS_not_empty_thm";
+```
+
 ```sml
 new_conjecture (["OneOne_mk_NTBSS_thm"],
     ⌜OneOne mk_NTBSS⌝);
 ```
 
 ```
+stop;
 set_goal([], ⌜OneOne mk_NTBSS⌝);
-a (rewrite_tac(map get_spec [⌜OneOne⌝, ⌜mk_NTBSS⌝, ⌜mk_NTBS_a⌝, ⌜mk_NTBS⌝]));
+a (rewrite_tac(map get_spec [⌜OneOne⌝, ⌜mk_NTBSS⌝, ⌜mk_NTBS_a⌝, ⌜mk_NTBS⌝, ⌜Flatten⌝]));
 a (REPEAT ∀_tac);
+a (lemma_tac ⌜⌝)
 a (list_induction_tac ⌜x1⌝);
 (* *** Goal "1" *** *)
-a (rewrite_tac[get_spec ⌜mk_NTBS_a⌝]);
+a (rewrite_tac(map get_spec [⌜Map⌝, ⌜mk_NTBS⌝, ⌜mk_NTBS_a⌝, ⌜Flatten⌝]));
+a (lemma_tac ⌜Map ⌝);
+get_spec ⌜Map⌝;
+```
+
+```
+ⓈHOLCONST
+│   dest_NTBSS_a : BOOL → BS → BS LIST × BOOL
+├──────
+│ ∀(b:BOOL) (l:BS) (c:CHAR)⦁ 
+│   dest_NTBSS_a b [] = ([], F)
+│∧  dest_NTBSS_a T (Cons c l) =
+│        (let (bsl, b2) = dest_NTBSS_a F l
+│        in  let pl = Cons c (Head bsl)
+│            in if c = AbsChar 0 ∨ c = AbsChar 1
+│                then (Cons pl (Tail bsl), b2)
+│                else (Cons (Cons (AbsChar 1) pl) (Tail bsl), b2))
+│∧  dest_NTBSS_a F (Cons c l) =
+│        if c = AbsChar 1
+│        then dest_NTBSS_a T l
+│        else if c = AbsChar 0
+│            then    let (bsl, b2) = dest_NTBSS_a F l
+│                    in  (Cons [] bsl, b2)
+│            else    let (bsl, b2) = dest_NTBSS_a F l
+│                    in  (Cons (Cons c (Head bsl)) (Tail bsl), b2)
+■
 ```
 
 ```
@@ -262,7 +349,7 @@ new_conjecture (["T_ex_induction_thm"], ⌜
 new_conjecture = (["T_ex_prim_rec_thm"], ⌜
     ⊢ ∀ s n c⦁ ∃⋎1 f⦁ f  ∀bss bs⦁
         f (mk_T_ex bs bss) = f1 bs (map f1 
-    ∧   f (mk_T_ex bs bss) = f2 bs (map f2 bss))
+    ∧   f (mk_T_ex bs bss) = f2 bs (map f2 bss))⌝);
 ```
 
 ## The Representation of the Free Algebra
@@ -302,7 +389,7 @@ get_unproved_conjectures "-";
 Greek Letters
 	Γ Δ Θ Λ Ξ Π Σ Υ Φ Ψ Ω
 	α β γ δ ε ζ η θ ι κ λ μ ν ξ π ρ σ τ υ φ χ ψ ω
-Logic: 	∧ ∨ ¬ ∀ ∃ ⦁ × ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
+Logic: 	∧ ∨ ¬ ∀ ∃ ⦁ ╳ ≤ ≠ ≥ ∈ ∉ ⇔ ⇒
 Set symbols: 𝔹 ℂ 𝔽 ℕ ℙ ℚ ℝ 𝕊 𝕌 ℤ ⊆ ∅ ⊂ ∩ ⋂ ∪ ⋃ ⊖
 Arrows: → ⤖ ⤕ ⇻ ↔ ⤀ ⇸ ↣ ↦ ↠ ⤔
 Formal Text Brackets: ⌜ ⌝ ⓣ ⓜ ⓩ Ⓢ ■ ┌ └ ╒ ├
