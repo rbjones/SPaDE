@@ -116,27 +116,6 @@ The same cases, written as the bytes of the encoded content and then the termina
 | `a 0 b 1 c` | `a` `1 0` `b` `1` `c` `0` |
 
 An NTBSS is the concatenation of zero or more NTBS.
-```
-ⓈHOLCONST
-│   mk_NTBS_a : BS → BOOL → BS
-├──────
-│∀x l⦁  
-│   mk_NTBS_a [] = 
-│           (λb:BOOL⦁ if b
-│           then Cons (AbsChar 1) (Cons (AbsChar 1) (Cons (AbsChar 0) []))
-│           else Cons (AbsChar 0) [])
-│∧  mk_NTBS_a (Cons x l) = 
-│           (λb:BOOL⦁ if b
-│           then if RepChar x = 0 ∨ RepChar x = 1
-│                then Cons (AbsChar 1) (Cons (AbsChar 1)(Cons (AbsChar 1)(Cons x (mk_NTBS_a l F))))
-│                else Cons (AbsChar 1)(Cons x (mk_NTBS_a l F))
-│           else (if RepChar x = 0
-│               then Cons (AbsChar 1) (Cons (AbsChar 0) (mk_NTBS_a l F))
-│               else if RepChar x = 1 
-│                    then mk_NTBS_a l T
-│                    else Cons x (mk_NTBS_a l F)))
-■    
-```
 
 ```sml
 ⓈHOLCONST
@@ -162,18 +141,9 @@ An NTBSS is the concatenation of zero or more NTBS.
 ■
 ```
 
-```
-ⓈHOLCONST
-│   mk_NTBS : BS → BS
-├──────
-│   ∀bs:BS⦁ mk_NTBS bs = mk_NTBS_a bs F
-■
-```
-
 The following functions pack a list of byte sequences into a single byte sequence by first converting each to null terminated form and then concatenating them.
 This is what we are calling an NTBSS.
 It is not an NTBS.
-
 
 ```sml
 ⓈHOLCONST
@@ -209,6 +179,7 @@ new_conjecture (["OneOne_mk_NTBSS_thm"],
 ```
 
 ```
+
 stop;
 set_goal([], ⌜OneOne mk_NTBSS⌝);
 a (rewrite_tac(map get_spec [⌜OneOne⌝, ⌜mk_NTBSS⌝, ⌜mk_NTBS_a⌝, ⌜mk_NTBS⌝, ⌜Flatten⌝]));
@@ -252,6 +223,37 @@ get_spec ⌜Map⌝;
 ■
 ```
 
+```sml
+ⓈHOLCONST
+│   dest_NTBSS_step : B OPT × (BOOL × BS) → (BOOL × BS) × BS LIST
+├──────
+│   ∀(bopt:B OPT) (esc:BOOL) (pbs:BS)⦁
+│   dest_NTBSS_step (bopt, (esc, pbs)) =
+│   if bopt = Undefined
+│   then ((esc, pbs), [])
+│   else if esc
+│   then    if ValueOf bopt = AbsChar 0 ∨ ValueOf bopt = AbsChar 1
+│           then ((esc, pbs @ [ValueOf bopt]), [])
+│           else ((esc, pbs @ [AbsChar 1; ValueOf bopt]), [])
+│   else if ValueOf bopt = AbsChar 0
+│   then ((F, []), [pbs])
+│   else if ValueOf bopt = AbsChar 1
+│   then ((T, pbs), [])
+│   else ((F, pbs), [])
+■
+```
+
+In the following unpack specification, which is intended to ba applied to a concatenation of NTBS, the first component in the result is any residue which appears after the last NTBS in the byte sequence.
+The resudue is partly decoded and if it ends with an escape character that character will not be in the residual byte sequence, but will cause the accompanying BOOL to be T.
+
+```sml
+ⓈHOLCONST
+│   dest_NTBSS : BS → (BOOL × BS) × BS LIST
+├──────
+│   ∀bs:BS⦁ dest_NTBSS bs = Iterate1 dest_NTBSS_step (bs, (F, []))
+■
+```
+
 ## Representing T-expressions
 
 T-expressions will be represented (before type abstraction) as byte strings, but only those byte strings which can be reached by repeated application of the T-expression constructor.
@@ -272,8 +274,16 @@ The types of the constructor and destructor over the representation type might b
 │   mk_T_ex_rep : BS × BS LIST → BS;
 │   dest_T_ex_rep : BS → BS × BS LIST
 ├──────
-│   T
+│   ∀(bs:BS) (bl:BS LIST)⦁
+│       mk_T_ex_rep (bs, bl) = mk_NTBSS (Cons bs bl)
+│∧      dest_T_ex_rep bs = let (_, bss) = dest_NTBSS (bs) in (Hd bss, Tl bss)
 ■
+```
+
+```
+set_goal([], ⌜∃s⦁ s ∈ ⋂{S | ∀e el⦁ e ∈ S ∧ (∀bl⦁ {b | b in bl} ⊆ S ⇒ mk_T_ex_rep (e, bl) ∈ S)}⌝);
+a (∃_tac ⌜mk_T_ex_rep ([],[])⌝
+    THEN rewrite_tac[]);
 ```
 
 However, this is just a minor adjustment to the signature of mk_NTBSS and dest_NTBSS.
