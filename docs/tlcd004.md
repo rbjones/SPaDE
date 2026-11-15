@@ -8,7 +8,7 @@ It responds to the requirement raised by task description [tltd004.md](tltd004.m
 The task will be complete when the details are fully captured in formal text (HOL in sml) which is processed by ProofPower in the SPaDE build sequence and creates the required T_ex theory, upon which the entire SPaDE architecture rests.
 
 Some proofs are necessary for the introduction of the new type, its associated operations.
-Their basic properties, including an induction principle for T-expressions are to be proven.
+Their basic properties, including an induction principle for T-expressions and a recursion principle for recursively defining functions over T-expressions, are to be proven.
 
 T-expressions are a free algebra or inductive datatype.
 In order to introduce the type we must choose a representation set and define operators over that set which together provide a structure isomorphic to the desired type T_ex and its primitive operations.
@@ -18,7 +18,7 @@ The T_ex type itself is *architectural*, but the manner of concrete representati
 For example, all forms of data storage can be interpreted as SPaDE repositories, given a kr variant designed for that storage idiom.
 Though rooted in just one primitive foundational representation, SPaDE is intended to be multilingual by semantic embedding, so that many different concrete syntaxes may be used in presenting the expressions. 
 
-The representation type we choose is that of byte sequences, (which we will denote by the type abbreviation  BS, an abbreviation for the HOL type CHAR LIST), and the set of representatives will be the closure of the empty set of byte sequences under a single T-expressions constructor.
+The representation type we choose is that of byte sequences, (which we will denote by the type abbreviation  BS, an abbreviation for the HOL type CHAR LIST, which is really byte LIST), and the set of representatives will be the closure of the empty set of byte sequences under a single T-expressions constructor.
 
 The specification is to be undertaken in the following stages:
 1. [Type Aliases](#type-aliases) aligning ProofPower types with SPaDE vocabulary.
@@ -49,7 +49,7 @@ The following function takes a list of byte sequences and packs them into an NTB
 ```
 
 The following function is intended to make recursive processing of lists more transparent by separating out the recursion involved in processing the list from the functionality being applied to each element.
-It takes a state machine and turns it into a pipe.
+It takes a state machine and turns it into a function over lists.
 
 ```sml
 ⓈHOLCONST
@@ -92,9 +92,7 @@ declare_type_abbrev ("BS", [], ⌜:CHAR LIST⌝);
 
 ## Packing and Unpacking
 
-The algorithms for and unpacking algorithms for null-terminated byte sequences have the following types.
-
-
+We refer to the process of converting BS to null-terminated byte strings (NTBS) and concatenated null-terminated byte strings (NTBSS) as packing, and the reverse process as unpacking.
 The algorithms for packing and unpacking are as follows.
 
 On packing, every byte `0` is written as the two bytes `1 0`. A byte `1` that precedes `0`, precedes `1`, or is the last byte of the input, is written as the two bytes `1 1`. A byte `1` that precedes any other byte is copied unchanged. Every other byte is copied. The byte `0` is then written at the end.
@@ -116,6 +114,8 @@ The same cases, written as the bytes of the encoded content and then the termina
 | `a 0 b 1 c` | `a` `1 0` `b` `1` `c` `0` |
 
 An NTBSS is the concatenation of zero or more NTBS.
+
+To formally define the conversion from BS to NTBS, we introduce the function `mk_NTBS_step` which handles one byte at a time, and `mk_NTBS` which iterates this step over the entire byte sequence.
 
 ```sml
 ⓈHOLCONST
@@ -141,9 +141,9 @@ An NTBSS is the concatenation of zero or more NTBS.
 ■
 ```
 
-The following functions pack a list of byte sequences into a single byte sequence by first converting each to null terminated form and then concatenating them.
+The following function packs a list of byte sequences into a single byte sequence by first converting each to null terminated form and then concatenating them.
 This is what we are calling an NTBSS.
-It is not an NTBS.
+It is not an NTBS (unless the list contains exactly one byte sequence).
 
 ```sml
 ⓈHOLCONST
@@ -153,21 +153,12 @@ It is not an NTBS.
 ■
 ```
 
+```sml
+new_conjecture (["mk_NTBS_not_empty_thm"],
+    ⌜∀(bs:BS)⦁ ¬ mk_NTBS bs = []⌝);
 ```
-set_goal([], ⌜∀(bs:BS) (t:BOOL)⦁ ¬ mk_NTBS_a bs t = []⌝);
-a (REPEAT strip_tac
-    THEN cases_tac ⌜t:BOOL⌝ THEN strip_asm_tac (∀_elim ⌜bs:BS⌝ list_cases_thm)
-    THEN_TRY asm_rewrite_tac(map get_spec [⌜mk_NTBS_a⌝]));
-(* *** Goal "1" *** *)
-a (cases_tac ⌜RepChar x = 0⌝ THEN asm_rewrite_tac(map get_spec []));
-a (CASES_T ⌜RepChar x = 1⌝ rewrite_thm_tac);
-(* *** Goal "2" *** *)
-a (cases_tac ⌜RepChar x = 0⌝ THEN asm_rewrite_tac(map get_spec []));
-a (CASES_T ⌜RepChar x = 1⌝ rewrite_thm_tac);
-a (strip_asm_tac (∀_elim ⌜list2⌝ list_cases_thm) THEN asm_rewrite_tac(map get_spec [⌜mk_NTBS_a⌝]));
-a (CASES_T ⌜RepChar x' = 0 ∨ RepChar x' = 1⌝ rewrite_thm_tac);
-val mk_NTBS_a_not_empty_thm = save_pop_thm "mk_NTBS_a_not_empty_thm";
 
+```
 set_goal([], ⌜∀(bs:BS)⦁ ¬ mk_NTBS bs = []⌝);
 a (rewrite_tac [get_spec ⌜mk_NTBS⌝, mk_NTBS_a_not_empty_thm]);
 val NTBS_not_empty_thm = save_pop_thm "NTBS_not_empty_thm";
@@ -179,10 +170,9 @@ new_conjecture (["OneOne_mk_NTBSS_thm"],
 ```
 
 ```
-
 stop;
 set_goal([], ⌜OneOne mk_NTBSS⌝);
-a (rewrite_tac(map get_spec [⌜OneOne⌝, ⌜mk_NTBSS⌝, ⌜mk_NTBS_a⌝, ⌜mk_NTBS⌝, ⌜Flatten⌝]));
+a (rewrite_tac(map get_spec [⌜OneOne⌝, ⌜mk_NTBSS⌝, ⌜mk_NTBS⌝, ⌜Flatten⌝]));
 a (REPEAT ∀_tac);
 a (lemma_tac ⌜⌝)
 a (list_induction_tac ⌜x1⌝);
@@ -192,36 +182,7 @@ a (lemma_tac ⌜Map ⌝);
 get_spec ⌜Map⌝;
 ```
 
-```
-ⓈHOLCONST
-│   dest_NTBSS_a : BOOL → BS → BS LIST × BOOL
-├──────
-│ ∀(b:BOOL) (l:BS) (c:CHAR)⦁ 
-│   dest_NTBSS_a b [] = ([], F)
-│∧  dest_NTBSS_a T (Cons c l) =
-│        (let (bsl, b2) = dest_NTBSS_a F l
-│        in  let pl = Cons c (Head bsl)
-│            in if c = AbsChar 0 ∨ c = AbsChar 1
-│                then (Cons pl (Tail bsl), b2)
-│                else (Cons (Cons (AbsChar 1) pl) (Tail bsl), b2))
-│∧  dest_NTBSS_a F (Cons c l) =
-│        if c = AbsChar 1
-│        then dest_NTBSS_a T l
-│        else if c = AbsChar 0
-│            then    let (bsl, b2) = dest_NTBSS_a F l
-│                    in  (Cons [] bsl, b2)
-│            else    let (bsl, b2) = dest_NTBSS_a F l
-│                    in  (Cons (Cons c (Head bsl)) (Tail bsl), b2)
-■
-```
-
-```
-ⓈHOLCONST
-│   dest_NTBSS : BS → BS LIST
-├──────
-│       T
-■
-```
+Unpacking an NTBSS can be done using the `dest_NTBSS` function, which iteratively applies `dest_NTBSS_step` to extract each NTBS and any residual bytes.
 
 ```sml
 ⓈHOLCONST
@@ -243,8 +204,8 @@ get_spec ⌜Map⌝;
 ■
 ```
 
-In the following unpack specification, which is intended to ba applied to a concatenation of NTBS, the first component in the result is any residue which appears after the last NTBS in the byte sequence.
-The resudue is partly decoded and if it ends with an escape character that character will not be in the residual byte sequence, but will cause the accompanying BOOL to be T.
+In the following unpack specification, which is intended to be applied to a concatenation of NTBS, the first component in the result is any residue which appears after the last NTBS in the byte sequence.
+The residue is partly decoded and if it ends with an escape character that character will not be in the residual byte sequence, but will cause the accompanying BOOL to be T.
 
 ```sml
 ⓈHOLCONST
@@ -256,18 +217,18 @@ The resudue is partly decoded and if it ends with an escape character that chara
 
 ## Representing T-expressions
 
-T-expressions will be represented (before type abstraction) as byte strings, but only those byte strings which can be reached by repeated application of the T-expression constructor.
+T-expressions will be represented (before type abstraction) as byte strings, but only those byte strings which can be reached by repeated application of the T-expression constructor starting from the empty list of T-expressions.
 That they are reachable in this way is essential to the principle of induction without which proving general properties about T-expressions would not be possible.
 The construction always yields an NTBSS, and therefore any byte sequence which does not end in an unescaped null cannot be the representation of a T-expression.
 
 A T-expression may be thought of as a constructor in an abstract syntax, or more generally as an element in an inductively defined set or free algebra.
-The construction takes a single byte sequence which might be the name of the constructor in the abstract syntax, and a finite list of T-expressions which would then be represent the constituents of the constructed expression.
+The construction takes a single byte sequence which might be the name of the constructor in the abstract syntax, and a finite list of T-expressions which would then represent the constituents of the constructed expression.
 The former is simply a byte sequence and the latter is a finite sequence of byte sequences representing T-expressions.
 The constructor adds the first argument to the front of the sequence (head of the list), and then converts the whole into an NTBSS.
 
-Only the first argument is an arbitrary byte sequence; the second must be a finite list of TEXRs.
+Only the first argument is an arbitrary byte sequence; the second must be a finite list of T_ex representations.
 
-The types of the constructor and destructor over the representation type might be written as, showing the distinction between the first parameter which is an arbitrary byte sequence and the second which is a finite list of T_ex representations (which are byte sequences, but only those which are reachable by repeated application of the T-expression constructor).
+The types of the constructor and destructor over the representation type might be written as ⓣBS × BS LIST⌝, showing the distinction between the first parameter which is an arbitrary byte sequence and the second which is a finite list of T_ex representations (which are byte sequences, but only those which are reachable by repeated application of the T-expression constructor).
 
 ```sml
 ⓈHOLCONST
@@ -280,18 +241,55 @@ The types of the constructor and destructor over the representation type might b
 ■
 ```
 
-```
-set_goal([], ⌜∃s⦁ s ∈ ⋂{S | ∀e el⦁ e ∈ S ∧ (∀bl⦁ {b | b in bl} ⊆ S ⇒ mk_T_ex_rep (e, bl) ∈ S)}⌝);
-a (∃_tac ⌜mk_T_ex_rep ([],[])⌝
-    THEN rewrite_tac[]);
-```
 
-However, this is just a minor adjustment to the signature of mk_NTBSS and dest_NTBSS.
+The second argument is required to be a finite list of T_ex representations. This requirement is captured by the definition of `is_T_ex_rep`, which checks membership in the intersection of all sets closed under the `mk_T_ex_rep` constructor.
+
+We need to prove that a T_ex representation exists, that the set of T_ex representations is non-empty, in order to justify the introduction of the type T_ex.
+
 The extra constraints on the arguments can be stipulated when forming the closure operation which defines the set of T_ex representations.
-So there is no need to define those functions.
+
+```sml
+ⓈHOLCONST
+│   is_T_ex_rep : BS → BOOL
+├──────
+│   ∀(bs:BS)⦁
+│       is_T_ex_rep bs = bs ∈
+│        ⋂{S | ∀e el⦁
+│                    List2Set el ⊆ S
+│                ⇒   mk_T_ex_rep (e, el) ∈ S}
+■
+```
 
 The closure condition is then that a set of byte sequences is mk-T-ex-rep-closed if, whenever it contains all the elements of a finite list of T_ex representations, it also contains the result of applying mk_T_ex_rep to an arbitrary byte sequence and that list, which is to say applying mk_NTBSS to the concatenation of the byte sequence and the list of T_ex representations.
 (All T_ex representations are NTBSS, not NTBS, the mk_T_ex_rep constructor converts each element of the list into NTBS in order to pack them into an NTBSS.)
+
+```sml
+set_goal([], ⌜∃s⦁ (λx⦁ x ∈ ⋂{S | ∀e el⦁
+│                    List2Set el ⊆ S
+│                ⇒   mk_T_ex_rep (e, el) ∈ S}) s⌝);
+a (∃_tac ⌜mk_T_ex_rep ([],[])⌝
+    THEN rewrite_tac (map get_spec [⌜mk_T_ex_rep⌝, ⌜$⋂⌝, ⌜$⊆⌝, ⌜$∈⋎L⌝, ⌜List2Set⌝])
+    THEN REPEAT strip_tac);
+a (list_spec_nth_asm_tac 1 [⌜[]:BS⌝,⌜[]:BS LIST⌝]);
+val T_ex_rep_non_empty_thm = pop_thm();
+```
+
+```sml
+set_goal([], ⌜∃s⦁ is_T_ex_rep s⌝);
+a (rewrite_tac [get_spec ⌜is_T_ex_rep⌝]);
+a (∃_tac ⌜mk_T_ex_rep ([],[])⌝
+    THEN rewrite_tac (map get_spec [⌜mk_T_ex_rep⌝, ⌜$⋂⌝, ⌜$⊆⌝, ⌜$∈⋎L⌝, ⌜List2Set⌝])
+    THEN REPEAT strip_tac);
+a (list_spec_nth_asm_tac 1 [⌜[]:BS⌝,⌜[]:BS LIST⌝]);
+val T_ex_rep_non_empty_thm = pop_thm();
+```
+
+```sml
+new_conjecture (["T_ex_rep_prim_rec_thm"], ⌜
+    ∀ f1 f2⦁ ∃⋎1 f⦁ ∀ bs bs2 bss1 bss2⦁
+        f (mk_T_ex_rep (bs, [])) = f1 bs
+    ∧   f (mk_T_ex_rep (bs, Cons bs2 bss2)) = f2 bs (map f (Cons bs2 bss2))⌝);
+```
 
 The closure of the empty set under the mk_T_ex_rep constructor yields the set of all T_ex representations.
 This set is used to introduce the type T_ex.
@@ -304,17 +302,39 @@ This is straightforward as any byte sequence together with an empty list of T_ex
 Once the type is introduced the constructor and destructor over the representation type can be lifted to the new type, providing the functions mk_T_ex and dest_T_ex.
 
 ```sml
-new_type ("T_ex", 0);
+val T_ex_type_defn = new_type_defn (["T_ex_type_defn"], "T_ex", [],  T_ex_rep_non_empty_thm);
 ```
 
 The types of the constructor and destructor are to be as follows:
+
+```sml
+val T_ex_type_defn_lemma = save_thm ("T_ex_type_defn_lemma",
+    rewrite_rule [T_ex_type_defn] (inst_type_rule [(ⓣT_ex⌝, ⓣ'a⌝)] (∀_elim ⌜is_T_ex_rep⌝ type_defn_lemma4)));
+```
+
+```sml
+ⓈHOLCONST
+│   rep_T_ex : T_ex → BS;
+│   abs_T_ex : BS → T_ex
+├──────
+│   (∀ a⦁ abs_T_ex (rep_T_ex a) = a)
+│         ∧ (∀ r⦁ is_T_ex_rep r ⇔ rep_T_ex (abs_T_ex r) = r)
+│         ∧ OneOne rep_T_ex
+│         ∧ (∀ a⦁ is_T_ex_rep (rep_T_ex a))
+■
+```
+
+The following definition is a place-holder for the actual definition of the constructor and destructor over the new type T_ex.
+This is sufficient to allow the new Type T_ex to be introduced and and used in subsequent definitions, but will need to be replaced with a fuller definitions before proofs are attempted.
+
+For concision in the presentation of T-expressions the alias `T` is introduced for the constructor `mk_T_ex`, this is effectively overloading the name already used for the BOOLean truth value, but since the latter is not a function, ambiguity is unlikely to arise.
 
 ```sml
 ⓈHOLCONST
 │   mk_T_ex : BS × T_ex LIST → T_ex;
 │   dest_T_ex : T_ex → BS × T_ex LIST
 ├──────
-│   T
+│   ∀sxs⦁ dest_T_ex (mk_T_ex sxs) = sxs
 ■
 declare_alias ("T", ⌜mk_T_ex⌝);
 ```
@@ -327,39 +347,25 @@ The set of all byte sequences is thus closed, and therefore ensures that the clo
 The new type can therefore be introduced as the intersection of the closed sets, together with the proof of non-emptiness.
 The previously defined constructor and destructor over the representatives can then be lifted to the new type, and the required properties proved using the results on the representation type.
 
-This time we prove a more regular statement of the left inverse:
-
-```sml
-new_conjecture (["dest_T_ex_left_inverse"],
-    ⌜∀ sxs:BS × T_ex LIST⦁ dest_T_ex (mk_T_ex sxs) = sxs ⌝);
-```
-
 ## Induction and Recursion over T-expressions
 
 The type T_ex is to be the free algebra generated by the constructor mk_T_ex from the empty set of T-expressions.
 It is therefore required to satisfy the following induction principle, which must be proven:
 
-ⓈHOLCONST
-│   ForAllL: 'a LIST → ('a → BOOL) → BOOL
-├──────
-│   ∀p⦁ ForAllL [] p = T
-│   ∧   ForAllL (x::xs) p = (p x ∧ ForAllL p xs)
-■
-
 ```sml
 new_conjecture (["T_ex_induction_thm"], ⌜
     ∀P:T_ex → BOOL⦁
         (∀(s:STRING) (xs:T_ex LIST)⦁
-            (∀x:T_ex⦁ ForAllL xs P)
-            ⇒ P (mk_T_ex (s, xs)))
+            (∀x:T_ex⦁ ∀⋎L (map P xs)
+            ⇒ P (mk_T_ex (s, xs))))
         ⇒ ∀ t⦁ P t⌝);
 ```
 
-```
-new_conjecture = (["T_ex_prim_rec_thm"], ⌜
-    ⊢ ∀ s n c⦁ ∃⋎1 f⦁ f  ∀bss bs⦁
-        f (mk_T_ex bs bss) = f1 bs (map f1 
-    ∧   f (mk_T_ex bs bss) = f2 bs (map f2 bss))⌝);
+```sml
+new_conjecture (["T_ex_prim_rec_thm"], ⌜
+    ∀ f1 f2⦁ ∃⋎1 f⦁ ∀ bs tx txs bss⦁
+        f (mk_T_ex (bs, [])) = f1 bs
+    ∧   f (mk_T_ex (bs, Cons tx txs)) = f2 bs (map f (Cons tx txs))⌝);
 ```
 
 ## The Representation of the Free Algebra
