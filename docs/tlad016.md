@@ -1,6 +1,21 @@
-# Generic Abstract Syntax
+# ASN1 Generic Abstract Syntax
 
-The title is provisional. This document is to give the generic account of an abstract syntax: the syntactic categories of a notation and the rules by which phrases of those categories are formed. It begins with the notation in which that account is written, described in itself.
+## Introduction
+
+This document concerns a line of development which I now consider misguided, involving onboarding using deep semantic embeddings of formal languages into the SPaDE framework.
+I failed to note when considering this approach to onboarding formal languages into SPaDE that this would fail to integrate sufficiently into the broader SPaDE repository because deep embeddings create distinct and isolated namespaces.
+To avoid this, embeddings, if used for these purposes, will be shallow, and views of alien sources of declarative knowledge will appear in a similar manner.
+I am now expecting that onboarding will be a much more intelligent process in which the substantive content is re-rendered in ways which fully integrate with other parts of the SPaDE diasporic repository, and will be subject to continuous optimisation to avoid structural decay of the repository.
+
+The remainder of this document remains pro-tem but is sidelined and may in due course be revised or removed entirely.
+
+All syntax in SPaDE is represented using an abstract datatype of T-expressions.
+HOL terms in use are represented as T-expressions within this framework, and literal constants of type T_ex are exactly the same data structures, so that the same structure may be either *used* or *mentioned*, and it is not necessary when reasoning about the syntax of HOL to transcribe the HOL term into a distinct representation as it would be in most HOL implementations.
+This capability can be used not only for representing HOL terms, but also for representing the syntax of other languages within the SPaDE framework, which together with other features of SPaDE permits other formal languages to be supported on a par with HOL, even though technically by semantic embedding into HOL.
+
+Generic facilities for the representation of abstract syntax will facilitate support for reflexion and for onboarding knowledge in various formal languages into the SPaDE framework.
+These need not exclusively use a single notation for describing the abstract syntax and semantics of the diverse formal languages that may be represented within SPaDE.
+This document considers one possible notation for describing abstract syntax, namely ASN.1 and progresses the support for abstract syntax and semantics beginning with syntax descriptions in that notation.
 
 The notation is Abstract Syntax Notation One (ASN.1), specified by ISO/IEC 8824-1:2021, the text of which is identical with ITU-T X.680 (02/2021). That standard defines a notation for data types, for values of those types, and for constraints on types. The encoding rules are a separate standard, ISO/IEC 8825, and form no part of the notation described here.
 

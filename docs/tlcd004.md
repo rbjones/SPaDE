@@ -29,6 +29,7 @@ The specification is to be undertaken in the following stages:
 
 ```sml
 new_SPaDE_theory ("T_ex", "SPaDEroot", []);
+set_pc "SPaDEroot";
 ```
 
 ## Miscellanea
@@ -125,10 +126,10 @@ To formally define the conversion from BS to NTBS, we introduce the function `mk
 │        mk_NTBS_step (bopt, esc) =
 │           if esc
 │           then    if ValueOf bopt = AbsChar 0 ∨ ValueOf bopt = AbsChar 1
-│                   then (F, [ValueOf bopt])
-│                   else (F, Cons (AbsChar 1) (Cons (ValueOf bopt) Nil))
+│                   then (F, [AbsChar 1; AbsChar 1; ValueOf bopt])
+│                   else (F, [ValueOf bopt])
 │           else    if bopt = Value(AbsChar 1)
-│                   then (T, [])
+│                   then (T, [AbsChar 1])
 │                   else (F, [ValueOf bopt])
 ■
 ```
@@ -154,14 +155,21 @@ It is not an NTBS (unless the list contains exactly one byte sequence).
 ```
 
 ```sml
+declare_alias ("B", ⌜mk_NTBS⌝);
+```
+
+```sml
 new_conjecture (["mk_NTBS_not_empty_thm"],
     ⌜∀(bs:BS)⦁ ¬ mk_NTBS bs = []⌝);
 ```
 
-```
+```sml
 set_goal([], ⌜∀(bs:BS)⦁ ¬ mk_NTBS bs = []⌝);
-a (rewrite_tac [get_spec ⌜mk_NTBS⌝, mk_NTBS_a_not_empty_thm]);
-val NTBS_not_empty_thm = save_pop_thm "NTBS_not_empty_thm";
+a (rewrite_tac [get_spec ⌜mk_NTBS⌝] THEN strip_tac);
+a (strip_asm_tac (∀_elim ⌜bs⌝ list_cases_thm)
+    THEN (asm_rewrite_tac ((map get_spec [⌜Iterate1⌝, ⌜mk_NTBS_step⌝])@[let_def])));
+a (cases_tac ⌜x = AbsChar 1⌝ THEN asm_rewrite_tac[get_spec ⌜$@:BS LIST → BS LIST → BS LIST⌝]);
+val mk_NTBS_not_empty_thm = save_pop_thm "mk_NTBS_not_empty_thm";
 ```
 
 ```sml
@@ -215,6 +223,19 @@ The residue is partly decoded and if it ends with an escape character that chara
 ■
 ```
 
+```sml
+new_conjecture(["dest_mk_NTBSS_lemma"], ⌜∀bss:BS LIST⦁ dest_NTBSS (mk_NTBSS bss) = ((F, []) , bss)⌝);
+```
+
+```
+set_goal([], ⌜∀bss:BS LIST⦁ dest_NTBSS (mk_NTBSS bss) = ((F, []) , bss)⌝);
+a (strip_tac THEN rewrite_tac (map get_spec [⌜dest_NTBSS⌝, ⌜mk_NTBSS⌝, ⌜Iterate1⌝,⌜Flatten⌝]));
+a (strip_asm_tac (∀_elim ⌜bss:BS LIST⌝ list_cases_thm)
+    THEN TRY (asm_rewrite_tac (map get_spec [⌜dest_NTBSS⌝, ⌜dest_NTBSS_step⌝, ⌜mk_NTBSS⌝, ⌜Iterate1⌝,⌜Flatten⌝])));
+stop;
+
+```
+
 ## Representing T-expressions
 
 T-expressions will be represented (before type abstraction) as byte strings, but only those byte strings which can be reached by repeated application of the T-expression constructor starting from the empty list of T-expressions.
@@ -264,24 +285,28 @@ The closure condition is then that a set of byte sequences is mk-T-ex-rep-closed
 (All T_ex representations are NTBSS, not NTBS, the mk_T_ex_rep constructor converts each element of the list into NTBS in order to pack them into an NTBSS.)
 
 ```sml
-set_goal([], ⌜∃s⦁ (λx⦁ x ∈ ⋂{S | ∀e el⦁
-│                    List2Set el ⊆ S
-│                ⇒   mk_T_ex_rep (e, el) ∈ S}) s⌝);
+set_goal([], ⌜∃s⦁ is_T_ex_rep s⌝);
+a (rewrite_tac [get_spec ⌜is_T_ex_rep⌝]);
 a (∃_tac ⌜mk_T_ex_rep ([],[])⌝
-    THEN rewrite_tac (map get_spec [⌜mk_T_ex_rep⌝, ⌜$⋂⌝, ⌜$⊆⌝, ⌜$∈⋎L⌝, ⌜List2Set⌝])
+    THEN rewrite_tac (map get_spec [⌜$⋂⌝, ⌜$⊆⌝, ⌜$∈⋎L⌝, ⌜List2Set⌝])
     THEN REPEAT strip_tac);
 a (list_spec_nth_asm_tac 1 [⌜[]:BS⌝,⌜[]:BS LIST⌝]);
 val T_ex_rep_non_empty_thm = pop_thm();
 ```
 
 ```sml
-set_goal([], ⌜∃s⦁ is_T_ex_rep s⌝);
-a (rewrite_tac [get_spec ⌜is_T_ex_rep⌝]);
-a (∃_tac ⌜mk_T_ex_rep ([],[])⌝
-    THEN rewrite_tac (map get_spec [⌜mk_T_ex_rep⌝, ⌜$⋂⌝, ⌜$⊆⌝, ⌜$∈⋎L⌝, ⌜List2Set⌝])
-    THEN REPEAT strip_tac);
-a (list_spec_nth_asm_tac 1 [⌜[]:BS⌝,⌜[]:BS LIST⌝]);
-val T_ex_rep_non_empty_thm = pop_thm();
+set_goal([],⌜∀P:BS → BOOL⦁
+        (∀(bs:BS) (bsl:BS LIST)⦁
+            (∀e⦁ e ∈⋎L bsl ⇒ P e) ⇒ P (mk_T_ex_rep (bs, bsl)))
+        ⇒ ∀(bs:BS)⦁ is_T_ex_rep bs ⇒ P bs⌝);
+a (rewrite_tac (map get_spec [⌜is_T_ex_rep⌝, ⌜mk_T_ex_rep⌝]) THEN REPEAT strip_tac);
+a (spec_nth_asm_tac 1 ⌜{bs | P bs}⌝);
+a (list_spec_nth_asm_tac 4 [⌜e⌝, ⌜el⌝]);
+a (swap_asm_concl_tac ⌜List2Set el ⊆ {bs|P bs}⌝);
+a (rewrite_tac (map get_spec [⌜$⊆⌝,⌜$∈⋎L⌝,⌜List2Set⌝]));
+a (REPEAT strip_tac);
+a (∃_tac ⌜e'⌝ THEN REPEAT strip_tac);
+val T_ex_rep_induction_thm = save_pop_thm("T_ex_rep_induction_thm");
 ```
 
 ```sml
@@ -289,6 +314,10 @@ new_conjecture (["T_ex_rep_prim_rec_thm"], ⌜
     ∀ f1 f2⦁ ∃⋎1 f⦁ ∀ bs bs2 bss1 bss2⦁
         f (mk_T_ex_rep (bs, [])) = f1 bs
     ∧   f (mk_T_ex_rep (bs, Cons bs2 bss2)) = f2 bs (map f (Cons bs2 bss2))⌝);
+```
+
+```sml
+set_goal([], ⌜∃s⦁ s = ⋂{S | ∀e el⦁ List2Set el ⊆ S ⇒ mk_T_ex_rep (e, el) ∈ S}⌝);
 ```
 
 The closure of the empty set under the mk_T_ex_rep constructor yields the set of all T_ex representations.
@@ -313,6 +342,20 @@ val T_ex_type_defn_lemma = save_thm ("T_ex_type_defn_lemma",
 ```
 
 ```sml
+set_goal([], ⌜
+    ∃(rep_T_ex : T_ex → BS) (abs_T_ex : BS → T_ex)⦁
+    (∀ a⦁ abs_T_ex (rep_T_ex a) = a)
+        ∧ (∀ r⦁ is_T_ex_rep r ⇔ rep_T_ex (abs_T_ex r) = r)
+        ∧ OneOne rep_T_ex
+        ∧ (∀ a⦁ is_T_ex_rep (rep_T_ex a))⌝);
+a (strip_asm_tac T_ex_type_defn_lemma);
+a (∃_tac ⌜rep⌝ THEN ∃_tac ⌜abs⌝ THEN REPEAT strip_tac
+    THEN TRY (asm_rewrite_tac[]));
+a (asm_fc_tac[]);
+save_cs_∃_thm(pop_thm());
+```
+
+```sml
 ⓈHOLCONST
 │   rep_T_ex : T_ex → BS;
 │   abs_T_ex : BS → T_ex
@@ -328,6 +371,20 @@ The following definition is a place-holder for the actual definition of the cons
 This is sufficient to allow the new Type T_ex to be introduced and and used in subsequent definitions, but will need to be replaced with a fuller definitions before proofs are attempted.
 
 For concision in the presentation of T-expressions the alias `T` is introduced for the constructor `mk_T_ex`, this is effectively overloading the name already used for the BOOLean truth value, but since the latter is not a function, ambiguity is unlikely to arise.
+
+```
+stop;
+set_flag("pp_show_HOL_types", true);
+set_goal([], ⌜
+    ∃(mk_T_ex : BS × T_ex LIST → T_ex) (dest_T_ex : T_ex → BS × T_ex LIST)⦁
+    (∀ sxs⦁ dest_T_ex (mk_T_ex sxs) = sxs)⌝);
+a (strip_asm_tac T_ex_type_defn_lemma);
+a (∃_tac ⌜abs⌝ THEN ∃_tac ⌜rep⌝ THEN REPEAT strip_tac
+    THEN TRY (asm_rewrite_tac[]));
+a (asm_fc_tac[]);
+save_cs_∃_thm(pop_thm());
+```
+
 
 ```sml
 ⓈHOLCONST
@@ -359,6 +416,16 @@ new_conjecture (["T_ex_induction_thm"], ⌜
             (∀x:T_ex⦁ ∀⋎L (map P xs)
             ⇒ P (mk_T_ex (s, xs))))
         ⇒ ∀ t⦁ P t⌝);
+```
+
+```sml
+set_goal([],⌜
+    ∀P:T_ex → BOOL⦁
+        (∀(s:BS) (exs:T_ex LIST)⦁
+            (∀x:T_ex⦁ ∀⋎L (map P exs)
+            ⇒ P (mk_T_ex (s, xs))))
+        ⇒ ∀ t⦁ P t⌝);
+
 ```
 
 ```sml

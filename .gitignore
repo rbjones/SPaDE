@@ -27,6 +27,7 @@
 *.polydb
 *.ps
 *.rdd
+*.sid
 *.sig
 *.synctex.gz
 *.tch

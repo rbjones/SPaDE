@@ -45,8 +45,8 @@ This section includes documents that provide a detailed design of the Knowledge 
 
 - [krdd001.md](krdd001.md) - ProofPower HOL interfaces for [SPaDE](../docs/tlad001.md#spade) theory export
 - [krdd002.md](krdd002.md) - [SPaDE](../docs/tlad001.md#spade) Native repository format
-- [krdd003.md](krdd003.md) - Formal specification of the repository structure in HOL4 SML.
-- [krdd004.md](krdd004.md) - Detail descrription of Procedures for [SPaDE](../docs/tlad001.md#spade) Native Repository I/O
+- [krdd003.md](krdd003.md) - Detailed Design for ProofPower HOL Database Export
+- [krdd004.md](krdd004.md) - Detailed description of Procedures for [SPaDE](../docs/tlad001.md#spade) Native Repository I/O
 
 ## Code
 

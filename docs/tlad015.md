@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document brings together as full as possible account of the mechanisms envisaged for SPaDE supporting Recursive Self Improvement by formalised SPaDE HOL metatheory, and the aspects of SPaDE which render the universality of the HOL institution applicable in practice.
+This document brings together as full as possible an account of the mechanisms envisaged for SPaDE supporting Recursive Self Improvement by formalised SPaDE HOL metatheory, and the aspects of SPaDE which render the universality of the HOL foundational institution applicable in practice.
 
 This early version is a lightweight sketch intended to give a structure and indicate which aspects of SPaDE should be incorporated into the account.
 
@@ -11,7 +11,7 @@ The major sections are as follows:
 - [SPaDE and the LCF Paradigm](#spade-and-the-lcf-paradigm) - key departures from the LCF paradigm
 - [SPaDE HOL Metatheory](#spade-hol-metatheory) - the formal specification of SPaDE HOL in itself
 - [Recursive Self Improvement](#recursive-self-improvement) - the verification and application of derived rules
-- [Universality By Embedding](#universality-by-embedding) - how SPaDE can represent other logical systems using deep embeddings in HOL
+- [Universality By Embedding](#universality-by-embedding) - how SPaDE can represent other logical systems using deep embeddings in HOL *[This approach to onboarding is now deprecated]*
 - [Onboarding](#onboarding) - the importation of or access to diverse knowledge sources and formalized theories
 - [Strategic Aim](#strategic-aim)
 
@@ -34,7 +34,7 @@ SPaDE though coming from the LCF tradition, is a fundamental rethinking with the
 
 temporary list:
 
-- multiple authorities in trust hierarchy signing theorems
+- multiple authorities in a trust hierarchy signing theorems
 
 - identical object and meta-language
 
@@ -46,6 +46,9 @@ temporary list:
 
 The specific technical features supporting these are:
 - A trust management system allowing multiple authorities to sign theorems.
+- T-expressions (in which HOL terms are represented) as term literal constants, enabling the same structure to be either *used* or *mentioned* depending on the context.
+- Efficient evaluation of expressions to yield theorems, integrating computation with deduction.
+- Reflexive metatheory enabling functions defined over terms proven to preserve truth to be applied (and efficiently executed)as inference rules.
 
 ## SPaDE HOL Metatheory
 

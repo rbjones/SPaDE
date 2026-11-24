@@ -1,4 +1,24 @@
-# SPaDE Semantics in ProofPower HOL: A Sketch
+# SPaDE Metatheory in ProofPower HOL: A Sketch
+
+## Introduction
+
+There are two distinct but similar applications of metatheory in SPaDE.
+
+The first is the metatheory of the foundational institution at the core of SPaDE.
+This serves two purposes neither of which properly belongs in the onboarding subsystem.
+They are the formal specification of SPaDE as a part of the development of the SPaDE software.
+The metatheory then describes the system which we are implmenting.
+The second is the support of reflexion to advance the efficiency with which SPaDE can address its various applications.
+In that latter, the purpose is to prove the soundness of derived inference rules so that they can be applied directly without breaking down proofs into more primitive steps.
+
+Those purposes are effected via the metatheory of SPaDE itself including that of the HOL foundational institution.
+
+The second major area of metatheory concerns the onboarding of knowledge from diverse sources into SPaDE's logical framework.
+It is this area which properly belongs to the onboarding subsystem.
+The primary metatheoretic avenue for this kind of onboarding is the rendition of the semantics of diverse notations in SPaDE, as mappings from the abstract syntax of the various notations into appropriate semantic domains.
+This enables SPaDE to assert the truth of propositions in those notations, and then to reason about them within its logical framework, aided and abetted by the establishment of appropriate derived rules achieved by metatheoretic reflexion in HOL.
+
+Because the latter domain of metatheory involves potentially numerous distinct languages, it is essential to have a generic and flexible framework for representing their syntax and semantics within SPaDE, and the generic facilities will therefore be placed in this subsystem even though they will also be applied at the architectural level to SPaDE itself.
 
 ## Purpose
 

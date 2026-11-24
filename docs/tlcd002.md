@@ -19,11 +19,15 @@ All parts of this document are subject to further development as the needs of th
 
 ## Some SML Procedures
 
+```sml
+structure SPaDEroot = struct
+```
+
 ### SPaDE Theory Prelude
 
 In this section a single procedure is defined to set up a theory prior to presenting its formal content.
 
-```sml
+```
 fun force_new_theory name =
   let val _ = force_delete_theory name handle _ => ();
   in new_theory name
@@ -38,58 +42,33 @@ fun new_SPaDE_theory (theory_name, parent, other_parents) =
 end;
 ```
 
+
+```sml
+end; (* of structure SPaDEroot *)
+
+open SPaDEroot;
+```
+
+## SPaDEroot Theory
+
 ```sml
 new_SPaDE_theory ("SPaDEroot", "rbjmisc", []);
+force_new_pc "'SPaDEroot";
 set_pc "rbjmisc";
-```
-
-### Pre-proving Consistency Theorem
-
-I had intended to minimise the required context for the SPaDE specifications (and hence the core theories required for bootstrapping to SPaDE repositories), but this will slow down the specification and early prototyping too much, so context minimisation, making the core HOL theories for SPaDE as slim and efficient as possible, will be deferred for the time being.
-This section is now temporarily redundant since the material is included in the rbjmisc theory (in the retro/np directory) which the specifications will build on pro-tem.
-I have left it while removing the "sml" from the formal sections so that they do not get stripped and executed.
-
-For the sake of getting ProofPower theory listings nice, it is desirable when a consistency theorem is needed for a constant definition to prove it before introducing the definition so that it can be used by the automatic consistency prover.
-This is only necessary when the form of the specification defies the talents of the automatic consistency prover.
-
-First we provide a place and a procedure to save the consistency theorem so that it can be retrieved and used by the consistency prover:
-
-```
-val saved_cs_∃_thm = ref t_thm;
-
-fun save_cs_∃_thm thm = (saved_cs_∃_thm := thm; thm);
-```
-
-Then we need a special partial proof context with a consistency prover which knows to look for the consistency proof in this special place.
-
-This is the consistency prover which refers to the saved consistency theorem (conversion):
-
-```
-fun savedthm_cs_∃_conv x =
-	if x =$ (concl(!saved_cs_∃_thm))
-	then (⇔_t_intro (!saved_cs_∃_thm)) handle _ => (* eq_ *) refl_conv x
-	else (* eq_ *) refl_conv x;
-```
-
-Store the above in a proof context.
-
-```
-val _ = force_new_pc ⦏"'prove_∃_⇒_conv"⦎;
-val _ = set_cs_∃_convs [prove_∃_⇒_conv, ONCE_MAP_C (pure_once_rewrite_conv [let_def] THEN_C (MAP_C β_conv))] "'prove_∃_⇒_conv";
-val _ = commit_pc "'prove_∃_⇒_conv";
-```
-
-```
-val _ = force_new_pc "'savedthm_cs_∃_proof";
-val _ = set_cs_∃_convs [prove_∃_⇒_conv, savedthm_cs_∃_conv] "'savedthm_cs_∃_proof";
-val _ = set_pr_conv basic_prove_conv "'savedthm_cs_∃_proof";
-val _ = set_pr_tac basic_prove_tac "'savedthm_cs_∃_proof";
-val _ = commit_pc "'savedthm_cs_∃_proof";
 ```
 
 ## Some HOL Constants
 
 ## Theorems
+
+### Lists
+
+```sml
+set_goal([], ⌜∀f⦁ Map f [] = []⌝);
+a (strip_tac);
+a (rewrite_tac[get_spec ⌜Map⌝]);
+val Map_nil_thm = save_pop_thm "Map_nil_thm";
+```
 
 ### OneOne
 
@@ -112,6 +91,21 @@ a (asm_fc_tac [simple_∃_ε_conv ⌜∃y⦁ f y = f x⌝]);
 a (asm_tac (rewrite_rule [asm_rule ⌜∃ y⦁ f y = f x⌝] (simple_∃_ε_conv ⌜∃y⦁ f y = f x⌝)));
 a (all_asm_fc_tac[]);
 val OneOne_left_inverse_thm = save_pop_thm "OneOne_left_inverse_thm";
+```
+
+## Proof Contexts
+
+```sml
+add_rw_thms [Map_nil_thm] "'SPaDEroot";
+commit_pc "'SPaDEroot";
+force_new_pc "SPaDEroot";
+
+merge_pcs ["rbjmisc", "'SPaDEroot"] "SPaDEroot";
+commit_pc "SPaDEroot";
+
+force_new_pc "SPaDEroot1";
+merge_pcs ["rbjmisc1", "'SPaDEroot"] "SPaDEroot1";
+commit_pc "SPaDEroot1";
 ```
 
 ## Useful Symbols

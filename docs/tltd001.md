@@ -3,14 +3,22 @@
 ## Purpose
 
 The purpose of this and several subsequent tasks is the formal specification of the SPaDE system.
-The required specification begins by following the structure of the formal specifications of ProofPower support for HOL, adapting as necessary to the particular needs of the SPaDE system.
 
-For that reason, the first five tasks correspond to the five ProofPower documents in the spc001.pp–spc005.pp sequence, which will be recast as a series of specifications specific to SPaDE written in ProofPower HOL (SML) embedded in github markdown.
+A first approach to the task is to reformulate as required the formal specifications of ProofPower support for HOL (spc001-5) in the context of SPaDE.
+However, the intended differences between ProofPower and SPaDE environment are substantial, and the *reflection first* philosophy associated with the SPaDE project injects at the earliest point in the architecture and in the development of formal specifications something which is at best nominally present in the ProofPower approach.
+
+For that reason, though we will ultimately cover the ground of the first five ProofPower documents, early work will be primarily on innovations not covered in those documents.
 
 It is envisaged that the one formal specification document commissioned by this task description will be produced in stages, since these are the first formal specifications to be assigned to autonomous agents in the SPaDE development and it is not yet clear what agents will have the necessary skills, or what needs to be supplied to the agent to facilitate the work.
-It is also likely that the full detail in this task description will also appear in stages as the specification evolves.
+It is also likely that the full detail in this "task" will also appear in stages as the specification evolves, and will involve additional more narrowly cast staged task descriptions.
 
-## Stages
+## Principal Stages
+
+Some of the important areas of innovation are discussed in architectural documents which provide background to the formal specification work.
+
+At this point the following documents in progress are particularly relevant:
+
+- [tlad015.md](tlad015.md) SPaDE Universality and Reflexion in Practice
 
 Two theories come before this one. The SPaDE root theory ([tltd002.md](tltd002.md)) supplies the prelude and the consistency mechanism. The theory of T-expressions ([tltd004.md](tltd004.md)) supplies the free algebra on which abstract syntax is built.
 Because the SPaDE specifications will in due course be moved from the SPaDE github repository to any early SPaDE native repository, and the details of the core logic and theory will vary from those in ProofPower, we need to take some care to ensure that the essential elements of the logical context in which the specifications are developed on ProofPower can be conveniently reproduced in the native environment.
