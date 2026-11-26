@@ -1,9 +1,9 @@
 # SPaDE Project Makefile
 # Synthetic Philosophy and Deductive Engineering
 
-# This makefile no longer builds the spade database unless explicitly requested.
-# When used for testing in a container,
-# it expects the spade container to have the necessary database prebuilt.
+# make in a new worktree creates spade.polydb in that worktree (see spade.ldd).
+# The database name is spade in every worktree. This does not replace
+# $(PPDIR)/bld/db/spade.polydb.
 
 .PHONY: all build clean current pa di dk kr test help
 

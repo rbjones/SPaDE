@@ -66,7 +66,7 @@ The task states the files that may be changed. Where a kind of document belongs 
 
 The worktree lasts for the whole task, including review. This will normally involve multiple stages, which are set out in the main task document. Several sessions may use it. The branch of a worktree stays as it is while a session has that directory as its working directory.
 
-ProofPower work for the task uses a version of `spade.polydb`, in the worktree root. It is a child of `rbjhol.polydb` in $PPDIR/bld/db. `spade.polydb` remains the database for interactive development and for the build. `*.polydb` is gitignored. Removing the worktree removes the task database.
+ProofPower work for the task uses `spade.polydb` in the worktree root. Every worktree uses that name. The file is a child of `rbjhol.polydb` in `$PPDIR/bld/db`. Running `make` in a new worktree creates `spade.polydb` there. `spade.polydb` remains the database for interactive development and for the build. `*.polydb` is gitignored. Removing the worktree removes the task database.
 
 If `main` moves during the task, merge `main` into the task branch before the pull request is finished.
 

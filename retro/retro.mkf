@@ -49,10 +49,9 @@ $(BASEPPDBNAME).ldd: maths_egs.ldd
 	touch $(BASEPPDBNAME).ldd
 
 # Then we make the spade.polydb database using rbjhol as parent.
-# This freezes rbjhol. Task databases are further children of rbjhol,
-# created in the task worktree (docs/admin/ampd004.md). They are not
-# built here, and spade is not their parent.
-# This remains pro-tem but is not expected to be used since spade.polydb is now to be placed in each worktree when the worktree is created.
+# This freezes rbjhol. A worktree uses the same name: make there creates
+# that worktree's own spade.polydb as a child of rbjhol (docs/admin/ampd004.md).
+# This target still publishes a bootstrap copy under $(PPDIR)/bld/db.
 
 $(SPADEPPDBNAME).ldd: $(BASEPPDBNAME).ldd
 	pp_make_database -f -p $(BASEPPDBNAME) $(SPADEPPDBNAME)

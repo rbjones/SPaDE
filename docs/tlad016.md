@@ -3,14 +3,20 @@
 ## Introduction
 
 This document concerns a line of development which I now consider misguided, involving onboarding using deep semantic embeddings of formal languages into the SPaDE framework.
-I failed to note when considering this approach to onboarding formal languages into SPaDE that this would fail to integrate sufficiently into the broader SPaDE repository because deep embeddings create distinct and isolated namespaces.
-To avoid this, embeddings, if used for these purposes, will be shallow, and views of alien sources of declarative knowledge will appear in a similar manner.
-I am now expecting that onboarding will be a much more intelligent process in which the substantive content is re-rendered in ways which fully integrate with other parts of the SPaDE diasporic repository, and will be subject to continuous optimisation to avoid structural decay of the repository.
+It remains however of some possible interest in relation to the broader multi-lingual aspects of SPaDE.
 
-The remainder of this document remains pro-tem but is sidelined and may in due course be revised or removed entirely.
+I failed to note when considering this approach (with an embedding of Lean in mind) to onboarding formal languages into SPaDE that this would fail to integrate sufficiently into the broader SPaDE repository because deep embeddings create distinct and isolated namespaces.
+To avoid this, embeddings, if used for these purposes, will be shallow, and views of alien sources of declarative knowledge will appear in a similar manner.
+
+I am now expecting that onboarding of formal knowledge will be a much more intelligent process in which the substantive content is re-rendered in ways which fully integrate with other parts of the SPaDE diasporic repository, and will be subject to continuous optimisation to avoid structural decay of the repository.
+
+However there are other applications for embedding, which are briefly discussed in [Multilingual Aspects of SPaDE](tlad017.md), so the preliminary work in relation to ASN1 remains of some potential interest.
 
 All syntax in SPaDE is represented using an abstract datatype of T-expressions.
-HOL terms in use are represented as T-expressions within this framework, and literal constants of type T_ex are exactly the same data structures, so that the same structure may be either *used* or *mentioned*, and it is not necessary when reasoning about the syntax of HOL to transcribe the HOL term into a distinct representation as it would be in most HOL implementations.
+The concrete form of these T-expressions is implementation detail and may vary from one implementation of SPaDE to another, but the abstract datatype is architectural, and fundmantal to all implementations of SPaDE.
+The T-expression data type was intended to be suitable not only the abstract syntax of HOL, but also for abstract syntax in general, thinking of each T-expression as a constructor in an abstract syntax.
+
+HOL terms in use are represented as T-expressions within this framework, and literal constants of type T_ex (in HOL) are exactly the same data structures, so that the same structure may be either *used* or *mentioned*, and it is not necessary when reasoning about the syntax of HOL to transcribe the HOL term into a distinct representation as it would be in most HOL implementations.
 This capability can be used not only for representing HOL terms, but also for representing the syntax of other languages within the SPaDE framework, which together with other features of SPaDE permits other formal languages to be supported on a par with HOL, even though technically by semantic embedding into HOL.
 
 Generic facilities for the representation of abstract syntax will facilitate support for reflexion and for onboarding knowledge in various formal languages into the SPaDE framework.

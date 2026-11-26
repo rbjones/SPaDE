@@ -6,15 +6,17 @@ This is the first of a series of documents intended to provide formal specificat
 
 It is written in ProofPower HOL to enable its checking and use to be undertaken in advance of support for HOL in SPaDE, with the intention that it will in due course be ported into SPaDE itself and support reasoning by SPaDE about itself at all levels.
 
-The initial versions developed in HOL will be worked in the context of a fairly well-populated ProofPower HOL database, but will use the smallest context available and will be written to avoid any but the most elementary features, so, in addition to it being intended to specify the structure of SPaDE repositories, it will also be intended as a reworking of the HOL primitive theories for SPaDE.
-It is now seen as likely that the desired minimisation of the context will be engineered after initial drafts sufficient to guide implementation of SPaDE itself.
+The initial versions developed in HOL will be worked in the context of a fairly well-populated ProofPower HOL database.
+In order to port this into a SPaDE repository it will be necessary to minimise the context, but for the purpose of guiding the implementation of early versions of the knowledge repository, tha minimisation will not be needed and would only complicate the initial development.
 
 In relation to those primitive theories, the main thrust of the changes is to place front and center reflexive reasoning about SPaDE itself, rather than, say formalising the real numbers.
 Intended strengthening of the axiom of infinity will only be relevant to underpinning the claim to universality of the foundational institution  (see tlph010.md).
 
-The entire structure of SPaDE respository is considered here as *abstract syntax* represented as T-expressions, so that a SPaDE repository and hence every non-trivial part of it is a T-expression.
-Apart from T-expressions, the only other constituents of T-expressions are byte sequences, which serve to identify the syntactic category and yielded by and the particular constructor for that variant of the category.
+The entire structure of SPaDE respository is considered here as *abstract syntax* represented as T-expressions, so that a SPaDE repository, and hence every non-trivial part of it, is a T-expression.
+Apart from T-expressions, the only other constituents of T-expressions are byte sequences, which serve to identify the syntactic category and the particular constructor for that variant of the category.
 This, application of the byte sequence, and also its use as a literal, involve packing multiple byte sequences together to form the complete representation.
+
+The proposed implementation of the knowledge repository will be syntactically generic, and so this document begins by identifying a very simple representation for grammars as T-expressions and then defines the abstract syntactic structure of a SPaDE repository.
 
 The abstract syntax will be given by identifying the syntactic categories for each structure in the SPaDE repository, and the constructors for each category, together with the arity of the constructors, which form a tuple of syntactic categories.
 This information will be coded as a T-expression, so that much of the functionality of SPaDE can be implmented in a concise table driven manner.
@@ -32,7 +34,36 @@ force_new_pc "'tlcd001";
 set_pc "SPaDEroot";
 ```
 
-### The Representation of Abstract Syntax
+### The Representation of Abstract Syntax Grammars
+
+This section presents a grammer for grammers as a T-expression together with a semantics for this notation which determines which T-expressions comply with any grammer expessed in that way.
+
+The grammar for grammars will serve as a meta-level specification, guiding the construction and interpretation of T-expressions that represent the abstract syntax of SPaDE repositories.
+
+These grammars are partial accounts of the structure since two aspects of potential structure are not captured (and in application to SPaDE, are not essential to the integrity of the deductive system).
+These represent points at which we dip into literal substructure of the kind one obtained by quoting a T-expression rather than using it.
+These can be given meaning by applying to them some semantic function, but this would be part of an application of SPaDE rather than part of the HOL logic itself.
+
+Informally the grammars we consider have the following structure.
+
+1. A set of syntactic categories, each representing a distinct kind of syntactic entity.
+2. For each syntactic category, a set of constructors that can be used to build instances of that category.
+3. For each constructor, an arity specifying the number and types of its arguments, which are themselves syntactic categories.
+4. Lists are permitted both in the the arity and in the result category.
+5. "T_ex" is a built in syntactic category representing T-expressions themselves, and which place no additional constraint on the T-expression which appears at that point.
+
+In using T-expressions to capture such a grammar, and in the required structure determined by the grammer, the byte sequence which begins a T-expression representing a phrase consists of one byte for the syntatic category and one for the particular constructor being used.
+In the case of an atomic T-expression, the byte sequence may either have that same form, or it may begin with the code for a literal and its form them depends upon coding conventions not specified here.
+
+```
+grammar = category list
+category = constructor list
+constructor = item list
+item = category_no | list_of syntactic_category
+syntactic_category = "T_ex" | identifier
+```
+
+### T-Expressions as a Representation for Abstract Syntax
 
 The idea that T-expressions are a natural way to represent abstract syntax came to me, I now see, through too exclusive a focus on the ways in which syntactic structures are manipulated in LCF-style proof assistants.
 Nevertheless, that is the business at hand and they will suffice for the abstract syntax of the SPaDE repository.

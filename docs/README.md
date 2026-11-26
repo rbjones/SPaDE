@@ -86,7 +86,8 @@ The second with the architecture and fundamental core of the deductive intellige
 - [tlad013.md](./tlad013.md) - The SPaDE Deductive Kernel
 - [tlad014.md](./tlad014.md) - Cryptography in SPaDE
 - [tlad015.md](./tlad015.md) - SPaDE Universality and Reflexion in Practice
-- [tlad016.md](./tlad016.md) - Generic Abstract Syntax
+- [tlad016.md](./tlad016.md) - ASN1 Generic Abstract Syntax
+- [tlad017.md](./tlad017.md) - Multilingual Aspects of SPaDE
 
 ## Formal Specifications
 
