@@ -165,8 +165,8 @@ We simply enumerate the categories here and assign numeric values to them.
 
 ```sml
 ⓈHOLCONST
-│   ScalarC SnameC RnameC TypeC TermC ExtensionC
-│   TheoryC FolderC (CommitC: ℕ)
+│   ScalarC SnameC RnameC TypeC TermC ExtC
+│   ThryC FoldC CommC: ℕ
 ├────────────
 │   ScalarC = 7
 │∧  SnameC = 8
