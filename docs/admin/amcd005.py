@@ -128,16 +128,61 @@ def write_frame(conn: socket.socket, payload: dict) -> None:
     conn.sendall(len(body).to_bytes(4, "big") + body)
 
 
+def echo_end(buf: bytes, sent: bytes, markers: tuple[bytes, ...]) -> int | None:
+    """Index just after the echo of sent, skipping prompts printed between lines."""
+    index = 0
+    limit = len(buf)
+    for ch in sent:
+        while index < limit:
+            if ch == 0x0A and buf[index] == 0x0D:
+                index += 1
+                continue
+            if buf[index] == ch:
+                index += 1
+                break
+            skipped = False
+            for marker in markers:
+                if marker and buf.startswith(marker, index):
+                    index += len(marker)
+                    skipped = True
+                    break
+            if not skipped:
+                return None
+        else:
+            return None
+    return index
+
+
+def prompt_is_complete(
+    buf: bytes,
+    ready: bytes,
+    cont: bytes,
+    sent: bytes | None,
+    markers: tuple[bytes, ...],
+) -> bool:
+    if sent is None:
+        return buf.endswith(ready) or buf.endswith(cont)
+    end = echo_end(buf, sent, markers)
+    if end is None:
+        return False
+    for prompt in (ready, cont):
+        if buf.endswith(prompt) and len(buf) - len(prompt) >= end:
+            return True
+    return False
+
+
 def read_until_prompt(
     master: int,
     timeout: float,
     buf: bytearray,
     ready: bytes,
     cont: bytes,
+    sent: bytes | None = None,
+    markers: tuple[bytes, ...] = (),
 ) -> None:
     deadline = time.monotonic() + timeout
     while True:
-        if buf.endswith(ready) or buf.endswith(cont):
+        if prompt_is_complete(buf, ready, cont, sent, markers):
             return
         if time.monotonic() > deadline:
             fail_text = buf.decode("utf-8", "replace")[-400:]
@@ -154,7 +199,7 @@ def read_until_prompt(
         buf.extend(chunk)
 
 
-def write_phrase(master: int, text: str, buf: bytearray, timeout: float) -> None:
+def write_phrase(master: int, text: str, buf: bytearray, timeout: float) -> bytes:
     data = text.encode("utf-8")
     if not data.endswith(b"\n"):
         data += b"\n"
@@ -175,6 +220,7 @@ def write_phrase(master: int, text: str, buf: bytearray, timeout: float) -> None
             continue
         wrote = os.write(master, view[:1024])
         view = view[wrote:]
+    return data
 
 
 class Session:
@@ -225,8 +271,26 @@ class Session:
     def submit(self, text: str) -> str:
         assert self.master >= 0
         self.buf.clear()
-        write_phrase(self.master, text, self.buf, PHRASE_TIMEOUT)
-        read_until_prompt(self.master, PHRASE_TIMEOUT, self.buf, self.ready, self.cont)
+        if not text.endswith("\n"):
+            text += "\n"
+        lines = text.split("\n")[:-1]
+        markers = (self.ready, self.cont, DEFAULT_READY, DEFAULT_CONT)
+        sent = b""
+        for index, line in enumerate(lines):
+            sent += write_phrase(self.master, line + "\n", self.buf, PHRASE_TIMEOUT)
+            read_until_prompt(
+                self.master,
+                PHRASE_TIMEOUT,
+                self.buf,
+                self.ready,
+                self.cont,
+                sent,
+                markers,
+            )
+            # The continuation prompt is also printed before a later line is
+            # read. Send the rest before treating that prompt as completion.
+            if index + 1 < len(lines):
+                continue
         return self.buf.decode("utf-8")
 
     def stop(self) -> None:
@@ -319,7 +383,10 @@ def serve(root: Path, lock_fd: int, env: dict[str, str]) -> None:
                             refuse(conn, state["error"])
                             stopped.set()
                             return
-                request = read_frame(conn)
+                try:
+                    request = read_frame(conn)
+                except (ConnectionError, OSError, json.JSONDecodeError, UnicodeError):
+                    return
                 if request.get("cmd") == "stop":
                     state["stopping"] = True
                     stopped.set()
@@ -334,8 +401,16 @@ def serve(root: Path, lock_fd: int, env: dict[str, str]) -> None:
                     refuse(conn, state["error"] or "pp did not start")
                     stopped.set()
                     return
-                text = session.submit(str(request.get("text", "")))
-                write_frame(conn, {"ok": True, "text": text})
+                try:
+                    text = session.submit(str(request.get("text", "")))
+                except Exception as exc:
+                    refuse(conn, str(exc))
+                    stopped.set()
+                    return
+                try:
+                    write_frame(conn, {"ok": True, "text": text})
+                except (ConnectionError, OSError):
+                    return
             except Exception as exc:
                 refuse(conn, str(exc))
                 stopped.set()
@@ -394,20 +469,23 @@ def serve(root: Path, lock_fd: int, env: dict[str, str]) -> None:
 def call_session(root: Path, payload: dict, retry: bool) -> dict | None:
     sock_path = root / SOCK_NAME
     deadline = time.monotonic() + (START_TIMEOUT if retry else 1.0)
-    last = "database is in use"
     while True:
         conn = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         try:
-            conn.connect(str(sock_path))
-            write_frame(conn, payload)
-            return read_frame(conn)
-        except (ConnectionError, FileNotFoundError, OSError) as exc:
-            last = str(exc)
-            if not retry or time.monotonic() > deadline:
-                if retry:
-                    fail(f"session failed to start: {last}")
-                return None
-            time.sleep(0.05)
+            try:
+                conn.connect(str(sock_path))
+            except (ConnectionError, FileNotFoundError, OSError) as exc:
+                if not retry or time.monotonic() > deadline:
+                    if retry:
+                        fail(f"session failed to start: {exc}")
+                    return None
+                time.sleep(0.05)
+                continue
+            try:
+                write_frame(conn, payload)
+                return read_frame(conn)
+            except Exception as exc:
+                fail(f"pp-step failed after the phrase was sent: {exc}")
         finally:
             conn.close()
 

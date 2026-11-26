@@ -127,11 +127,20 @@ def main() -> None:
     holder: subprocess.Popen[str] | None = None
     try:
         first = run(root, "val n = 1;")
-        if "val n = 1" not in first.stdout:
+        if "val n = 1: int" not in first.stdout:
             fail(f"binding was not reported\n{first.stdout}")
         second = run(root, "n + 1;")
-        if "2" not in second.stdout:
+        if "val it = 2: int" not in second.stdout:
             fail(f"n + 1 did not yield 2\n{second.stdout}")
+        multi = run(root, "val p =\n2;")
+        if "val p = 2: int" not in multi.stdout:
+            fail(f"a multi-line phrase stopped at the continuation prompt\n{multi.stdout}")
+        followed = run(root, "p + 1;")
+        if "val it = 3: int" not in followed.stdout:
+            fail(f"the line after a multi-line phrase was lost\n{followed.stdout}")
+        slow = run(root, "val s =\n(OS.Process.sleep (Time.fromReal 0.4); 4);")
+        if "val s = 4: int" not in slow.stdout:
+            fail(f"a slow multi-line phrase returned before evaluation\n{slow.stdout}")
 
         started = time.monotonic()
         partial = run(root, "val k =")
@@ -144,7 +153,7 @@ def main() -> None:
             fail("pp exited at the continuation prompt")
         run(root, "1;")
         value = run(root, "k;")
-        if "1" not in value.stdout:
+        if "val it = 1: int" not in value.stdout:
             fail(f"k did not complete to 1\n{value.stdout}")
 
         started = time.monotonic()
@@ -198,8 +207,8 @@ def main() -> None:
         holder = None
 
         other_result = run(other, "1 + 1;")
-        if "2" not in other_result.stdout:
-            fail(f"a session on another root was refused\n{other_result.stderr}")
+        if "val it = 2: int" not in other_result.stdout:
+            fail(f"a session on another root was refused\n{other_result.stderr}\n{other_result.stdout}")
         if len(pp_pids(other)) != 1 or len(pp_pids(root)) != 1:
             fail("the two roots do not have one pp each")
         run(other, stop=True)
@@ -215,7 +224,7 @@ def main() -> None:
             fail(f"database file is not {root / 'spade.polydb'}")
 
         again = run(root, "1 + 1;")
-        if "2" not in again.stdout:
+        if "val it = 2: int" not in again.stdout:
             fail(f"a new session did not start\n{again.stdout}")
         run(root, stop=True)
 
