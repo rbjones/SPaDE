@@ -13,6 +13,7 @@ import fcntl
 import json
 import os
 import pty
+import secrets
 import select
 import shutil
 import signal
@@ -23,8 +24,10 @@ import threading
 import time
 from pathlib import Path
 
-READY = b":) "
-CONT = b":# "
+# ProofPower's defaults. Program output can contain them, so a session
+# replaces both prompts before it accepts a caller's phrase.
+DEFAULT_READY = b":) "
+DEFAULT_CONT = b":# "
 LOCK_NAME = "spade.pid"
 SOCK_NAME = "spade.sock"
 DB_NAME = "spade.polydb"
@@ -125,10 +128,16 @@ def write_frame(conn: socket.socket, payload: dict) -> None:
     conn.sendall(len(body).to_bytes(4, "big") + body)
 
 
-def read_until_prompt(master: int, timeout: float, buf: bytearray) -> None:
+def read_until_prompt(
+    master: int,
+    timeout: float,
+    buf: bytearray,
+    ready: bytes,
+    cont: bytes,
+) -> None:
     deadline = time.monotonic() + timeout
     while True:
-        if buf.endswith(READY) or buf.endswith(CONT):
+        if buf.endswith(ready) or buf.endswith(cont):
             return
         if time.monotonic() > deadline:
             fail_text = buf.decode("utf-8", "replace")[-400:]
@@ -175,6 +184,9 @@ class Session:
         self.master = -1
         self.proc: subprocess.Popen[bytes] | None = None
         self.buf = bytearray()
+        self.token = secrets.token_hex(8)
+        self.ready = f"@pp-step/{self.token}/ready ".encode()
+        self.cont = f"@pp-step/{self.token}/more ".encode()
 
     def start(self) -> None:
         try:
@@ -197,14 +209,24 @@ class Session:
             raise RuntimeError(f"pp failed to start: {exc}") from exc
         os.close(slave)
         self.master = master
-        read_until_prompt(master, START_TIMEOUT, self.buf)
+        read_until_prompt(master, START_TIMEOUT, self.buf, DEFAULT_READY, DEFAULT_CONT)
+        self.buf.clear()
+        # The marker is built by concatenation so its text is not in the
+        # echoed source, where a short read could look like completion.
+        setup = (
+            "val _ = ("
+            f'set_string_control ("prompt1", "@pp-" ^ "step/{self.token}" ^ "/rea" ^ "dy "); '
+            f'set_string_control ("prompt2", "@pp-" ^ "step/{self.token}" ^ "/mo" ^ "re ")'
+            ");"
+        )
+        self.submit(setup)
         self.buf.clear()
 
     def submit(self, text: str) -> str:
         assert self.master >= 0
         self.buf.clear()
         write_phrase(self.master, text, self.buf, PHRASE_TIMEOUT)
-        read_until_prompt(self.master, PHRASE_TIMEOUT, self.buf)
+        read_until_prompt(self.master, PHRASE_TIMEOUT, self.buf, self.ready, self.cont)
         return self.buf.decode("utf-8")
 
     def stop(self) -> None:
@@ -279,29 +301,24 @@ def serve(root: Path, lock_fd: int, env: dict[str, str]) -> None:
                     refuse(conn, state["error"])
                     stopped.set()
                     return
-                if not ready.is_set():
-                    if state["waiter"]:
-                        refuse(conn, "database is in use")
-                        return
-                    state["waiter"] = True
-                    wait = True
-                elif state["busy"]:
+                if state["busy"] or (not ready.is_set() and state["waiter"]):
                     refuse(conn, "database is in use")
                     return
-                else:
-                    state["busy"] = True
-            if wait:
-                ready.wait()
-                with meta:
-                    if state["closing"]:
-                        refuse(conn, "database is in use")
-                        return
-                    if state["error"]:
-                        refuse(conn, state["error"])
-                        stopped.set()
-                        return
-                    state["busy"] = True
+                state["busy"] = True
+                if not ready.is_set():
+                    state["waiter"] = True
+                    wait = True
             try:
+                if wait:
+                    ready.wait()
+                    with meta:
+                        if state["closing"]:
+                            refuse(conn, "database is in use")
+                            return
+                        if state["error"]:
+                            refuse(conn, state["error"])
+                            stopped.set()
+                            return
                 request = read_frame(conn)
                 if request.get("cmd") == "stop":
                     state["stopping"] = True
@@ -354,13 +371,9 @@ def serve(root: Path, lock_fd: int, env: dict[str, str]) -> None:
                 session.stop()
             except Exception:
                 pass
-        try:
-            os.close(lock_fd)
-        except OSError:
-            pass
-        released.set()
-        if state["stopping"]:
-            replied.wait(timeout=5)
+        # Drop the listening name while the lock is still held. Releasing
+        # the lock first lets a new session bind a socket this process then
+        # unlinks, or lets that session connect to this one as it exits.
         try:
             sock.close()
         except OSError:
@@ -369,6 +382,13 @@ def serve(root: Path, lock_fd: int, env: dict[str, str]) -> None:
             sock_path.unlink()
         except OSError:
             pass
+        try:
+            os.close(lock_fd)
+        except OSError:
+            pass
+        released.set()
+        if state["stopping"]:
+            replied.wait(timeout=5)
 
 
 def call_session(root: Path, payload: dict, retry: bool) -> dict | None:

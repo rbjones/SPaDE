@@ -138,7 +138,7 @@ def main() -> None:
         elapsed = time.monotonic() - started
         if elapsed > 10:
             fail(f"continuation prompt took {elapsed:.1f}s")
-        if ":#" not in partial.stdout:
+        if "/more " not in partial.stdout:
             fail(f"continuation prompt was not returned\n{partial.stdout}")
         if not pp_pids(root):
             fail("pp exited at the continuation prompt")
@@ -146,6 +146,14 @@ def main() -> None:
         value = run(root, "k;")
         if "1" not in value.stdout:
             fail(f"k did not complete to 1\n{value.stdout}")
+
+        started = time.monotonic()
+        printed = run(
+            root,
+            'val _ = (print ":) "; TextIO.flushOut TextIO.stdOut; OS.Process.sleep (Time.fromReal 0.8));',
+        )
+        if time.monotonic() - started < 0.5:
+            fail(f"printed prompt was treated as completion\n{printed.stdout}")
 
         run(root, 'open_theory "hol";')
         run(root, "set_goal([], \u231cT \u2227 T\u231d);")
