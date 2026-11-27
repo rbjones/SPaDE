@@ -19,6 +19,8 @@ class TExpressions:
     Sequence numbers use the existing minimal big-endian integer encoding.
     Sequence 0 is the repository version, not a node. Children must already
     be stored, and every reference must precede its parent.
+    A node whose payload equals the version record cannot be stored because
+    the low-level I/O deduplicates all byte sequences, including the version.
     """
 
     def __init__(self, io: LowLevelIOABC, encoding: Optional[EncodingDecodingABC] = None):
@@ -36,6 +38,8 @@ class TExpressions:
 
         payload = self.encoding.encode_sequence_list([label] + child_bytes)
         existing = self.io.get_sequence_number(payload)
+        if existing == 0:
+            raise ValueError("Node record collides with the repository version")
         if existing is not None and any(child >= existing for child in children):
             raise ValueError("Child reference must precede its parent")
         return self.io.write_byte_sequence(payload)
@@ -43,6 +47,17 @@ class TExpressions:
     def read_node(self, seq_num: int) -> TExpression:
         if type(seq_num) is not int or seq_num <= 0:
             raise ValueError("Node sequence number must be a positive integer")
+        node = self._read_record(seq_num)
+        pending = list(node.children)
+        seen = set()
+        while pending:
+            child = pending.pop()
+            if child not in seen:
+                seen.add(child)
+                pending.extend(self._read_record(child).children)
+        return node
+
+    def _read_record(self, seq_num: int) -> TExpression:
         try:
             payload = self.io.get_byte_sequence(seq_num)
         except IndexError as exc:

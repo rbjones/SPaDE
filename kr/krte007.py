@@ -117,6 +117,25 @@ class TestTExpressions(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.trees.write_node(b"parent", [future])
 
+    def test_malformed_descendants_are_rejected(self):
+        broken = self.io.write_byte_sequence(b"unterminated")
+        branch = self.io.write_byte_sequence(
+            self.encoding.encode_sequence_list([b"branch", self.encoding.encode_integer(broken)])
+        )
+        parent = self.io.write_byte_sequence(
+            self.encoding.encode_sequence_list([b"parent", self.encoding.encode_integer(branch)])
+        )
+        with self.assertRaises(ValueError):
+            self.trees.read_node(parent)
+        with self.assertRaises(ValueError):
+            self.trees.write_node(b"new", [branch])
+
+    def test_version_collision_fails_explicitly(self):
+        self.io.close_repository()
+        self.io.open_new_repository(self.path, version=512)
+        with self.assertRaisesRegex(ValueError, "collides"):
+            self.trees.write_node(b"\x02", [])
+
 
 if __name__ == "__main__":
     unittest.main()

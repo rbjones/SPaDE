@@ -17,8 +17,9 @@ PPSMLSTRUCT = krcd011.sml
 PPSMLTEST = krte004.sml
 # krte006.sml
 HOL4SML = krad001.sml krcd006.sml
-PYMODULES = krcd008.py krcd009.py krcd012.py
-PYTEST = krte002.py krte003.py
+PYMODULES = krcd008.py krcd009.py krcd012.py krcd014.py
+PYCHECK = krcd014.py
+PYTEST = krte002.py krte003.py krte007.py
 # krte005.py
 
 MATHEGPPDBNAME = maths_egs
@@ -60,7 +61,7 @@ vars:
 	@echo "LDDS: $(LDDS)"
 	@echo "PPDBLDDS: $(PPDBLDDS)"
 
-check: $(PYCHECKLDD) $(H4LDD)
+check: $(PYCHECKCDD) $(H4LDD)
 
 build: check $(PPSIGLDD) $(PPSTRUCTLDD)
 
