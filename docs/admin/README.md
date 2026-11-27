@@ -91,4 +91,5 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
   - Filters by frequency and importance
   - Outputs candidate terms with usage contexts
   - Supports glossary augmentation workflow
-- [amcd004.py](amcd004.py) - Python interface to an interactive theorem prover (e.g., ProofPower) (coded by Gemini 3 Pro)
+- [amcd005.py](amcd005.py) - Resident ProofPower session (`pp-step`)
+- [amte001.py](amte001.py) - Test for the resident ProofPower session
