@@ -13,6 +13,31 @@ Meanwhile the documentation falls into the following categories:
 - **[Task Descriptions](#task-descriptions)**
 - **[Testing and evaluation](#testing-and-evaluation)**
 
+## Code and Scripts
+
+- [amcd001.py](amcd001.py) - Script for adding glossary links to documentation
+  - Dynamically loads terms from glossary
+  - Supports incremental operation with `--since` parameter
+  - Generates review reports
+  - Handles file filtering and dry-run mode
+- [amcd002.py](amcd002.py) - Script for extracting terms from glossary
+  - Parses glossary file to extract all terms and anchors
+  - Outputs in multiple formats (python, json, text)
+  - Handles term variations and compound terms
+  - Used by amcd001.py for dynamic term loading
+- [amcd003.py](amcd003.py) - Script for discovering potential glossary terms
+  - Scans documentation for technical terminology
+  - Filters by frequency and importance
+  - Outputs candidate terms with usage contexts
+  - Supports glossary augmentation workflow
+- [amcd005.py](amcd005.py) - Resident ProofPower session (`pp-step`)
+
+## Chat Logs
+
+- ~~[amcl001.md](amcl001.md)~~ Chat Log: Conversational Documentation Development Procedure
+- [amcl002.md](amcl002.md) Grok web discussion links formerly listed under `drafts/`
+- [amcl003.md](amcl003.md) Session record: agentic team on the DGX Spark
+
 ## Methods and standards
 
 - [amms001.md](amms001.md) Project Structure and Documentation Policy (including: subsystem-specific architecture/design/implementation in the subsystem directory; `docs/` only for whole-system or cross-subsystem material)
@@ -54,10 +79,6 @@ Meanwhile the documentation falls into the following categories:
 - [ampl007.md](ampl007.md) Fine-tuning for specifications and the MCP interface
 - [ampl008.md](ampl008.md) Continuous ProofPower HOL LLM training research plan
 
-## Testing and evaluation
-
-Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP clients, frozen prompts, independence from the authoring agent) are listed at the end of [ampd005.md](ampd005.md).
-
 ## Task Descriptions
 
 - [amtd000.md](amtd000.md) Admin Meta-Task-Description
@@ -68,28 +89,8 @@ Not yet a method. Questions about evaluating SPaDE as a tool *for* LLMs (MCP cli
 - [amtd005.md](amtd005.md) Task Description — Execute Glossary Augmentation Process
 - [amtd006.md](amtd006.md) - Task Description for an interactive ProofPower session (`pp-step`)
 
-## Chat Logs
+## Testing and evaluation
 
-- ~~[amcl001.md](amcl001.md)~~ Chat Log: Conversational Documentation Development Procedure
-- [amcl002.md](amcl002.md) Grok web discussion links formerly listed under `drafts/`
-- [amcl003.md](amcl003.md) Session record: agentic team on the DGX Spark
+Questions about evaluating SPaDE as a tool *for* LLMs (MCP clients, frozen prompts, independence from the authoring agent) are listed at the end of [ampd005.md](ampd005.md).
 
-## Code and Scripts
-
-- [amcd001.py](amcd001.py) - Script for adding glossary links to documentation
-  - Dynamically loads terms from glossary
-  - Supports incremental operation with `--since` parameter
-  - Generates review reports
-  - Handles file filtering and dry-run mode
-- [amcd002.py](amcd002.py) - Script for extracting terms from glossary
-  - Parses glossary file to extract all terms and anchors
-  - Outputs in multiple formats (python, json, text)
-  - Handles term variations and compound terms
-  - Used by amcd001.py for dynamic term loading
-- [amcd003.py](amcd003.py) - Script for discovering potential glossary terms
-  - Scans documentation for technical terminology
-  - Filters by frequency and importance
-  - Outputs candidate terms with usage contexts
-  - Supports glossary augmentation workflow
-- [amcd005.py](amcd005.py) - Resident ProofPower session (`pp-step`)
-- [amte001.py](amte001.py) - Test for the resident ProofPower session
+- [amte001.py](amte001.py) - Test for the resident ProofPower session [(amcd005.py)](amcd005.py)

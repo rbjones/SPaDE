@@ -65,6 +65,22 @@ It takes a state machine and turns it into a function over lists.
 ■
 ```
 
+A property of a function defined by `Iterate1` is proved by induction on the input list. The property may mention the state and the result. On the empty list, `Iterate1` applies the state machine to `Undefined`. In the step, the state machine is applied to `Value` of the head, and the inductive hypothesis is the result of `Iterate1` on the tail, started from the state which that application returns.
+
+```sml
+new_conjecture (["Iterate1_induction_thm"], ⌜
+    ∀ (sm:'i OPT × 's → 's × 'o LIST)
+      (P:'i LIST → 's → 's × 'o LIST → BOOL) ⦁
+        (∀ (ins:'s) ⦁ P [] ins (sm (Undefined, ins)))
+      ∧ (∀ (fi:'i) (il:'i LIST) (ins:'s) ⦁
+            let (ns, nol) = sm (Value fi, ins)
+            in  let (fs, to) = Iterate1 sm (il, ns)
+                in  P il ns (fs, to)
+                    ⇒ P (Cons fi il) ins (fs, nol @ to))
+      ⇒ ∀ (il:'i LIST) (ins:'s) ⦁
+            P il ins (Iterate1 sm (il, ins))⌝);
+```
+
 ## Type Aliases
 
 SPaDE (and the version of ProofPower we are working with) are not tied to single byte representations of characters.

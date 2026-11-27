@@ -1,4 +1,4 @@
-# Method for Writing ProofPower HOL Specifications
+# Method for Writing ProofPower HOL Specifications and Proofs
 
 This document outlines methods for writing formal specifications for the SPaDE project using ProofPower HOL.
 It clarifies the intended role for such specifications, identifies the context in which those specifications are to be written and seeks to provide the best possible links into the documentation with which agents must be familiar to undertake the specifications successfully.
@@ -6,7 +6,8 @@ It clarifies the intended role for such specifications, identifies the context i
 It is presented in the following parts:
 
 - [The Role of ProofPower HOL in the SPaDE Development](#the-role-of-proofpower-hol-in-the-spade-development)
-- [Writing a Specification](#writing-a-specification)
+- [Writing a HOL Specification or Proof](#writing-a-hol-specification-or-proof)
+- [Checking Specifications and Proofs](#checking-specifications-and-proofs)
 - [Context for Writing ProofPower HOL Specifications](#context-for-writing-proofpower-hol-specifications)
 - [Links to Relevant Documentation](#links-to-relevant-documentation)
 - [Supplementary Notes](#supplementary-notes)
@@ -50,13 +51,13 @@ They would be:
 		This will be exceptional and only when explicitly called for in the task description.
 	3. The completion of the specification of new type constructors or constants, together with any necessary non-emptyness or consistency proofs.
 
-## Writing a HOL Specification
+## Writing a HOL Specification or Proof
 
 A SPaDE specification is a markdown document. The SPaDE make files strip the formal text from the markdown and prepare it for processing by ProofPower. ProofPower checks that the script is well-formed.
 
 The HOL specification is embedded in the sml using HOL paragraphs and some sml procedure calls.
 Theorems are proven using sml scripts, usually achieving a goal oriented proof approach by the use of the ProofPower goal package.
-The development of such proofs is usually an interactive process, and provision is therefore made for agents to interact with ProofPower when an assigment requires theorems to be proven, and also when introducing new type definitions or for establishing the consistency of some constant specifications.
+The development of such proofs is usually an interactive process, and provision is therefore made for agents to interact with ProofPower when an assignment requires theorems to be proven, and also when introducing new type definitions or for establishing the consistency of some constant specifications.
 
 In general, error free processing of a complete specification document will be a strong indication of its syntactic and logical correctness, and a code review will not be necessary until this is accomplished.
 
@@ -76,6 +77,58 @@ The procedure opens the parent, removes any previous version of the theory, and 
 The first specification is the theory of T-expressions, in terms of which all architectural specifications are expressed, and which underpins both the specific metatheory of HOL and its representation in SPaDE repositories, as well as providing a more general basis for the representation of abstract syntax and other data structures.
 
 [This is implemented in the SPaDE native repository using byte-sequences which are packed in building complex structures by conversion to and from null-terminated byte-sequences as described in the section on packing in [krdd004.md](../../kr/krdd004.md#encoding-and-decoding-ntbs-and-related-data-types).]
+
+## Checking Specifications and Proofs
+
+Checking specifications or proofs involves first updating the relevant makefile to declare the file as a ProofPower HOL source, and then updating it to show the dependency relationships between this and prior specifications.
+Make will then strip the formal content from the markdown and submit it to the ProofPower HOL system for checking.
+
+Before running make in a new worktree, in a command shell in the worktree root, source `spade_env.sh` so that the checkout root is on `PPDATABASEPATH`.
+
+If the file is processed without error then the extended ProofPower polyml database will be saved and the log will be placed in a .ldd file.
+Otherwise the database will not be updated and the log will be available in an .err file.
+
+If an error occurs and is easily diagnosed, the markdown file can be amended and rechecked using make.
+
+A more interactive approach is more productive when developing a proof.
+Run `make` to build and populate a ProofPower spade database up to the point required.
+Then execute `pp -d spade` to initiate an interactive session with ProofPower and paste phrases until the definition or the proof is acceptable, maintaining the working sml script in sml fenced parts of the markdown document in progress.
+
+To resume an existing specification, insert `stop;` in the formal text at the point where work continues.
+Complete a `make` first, so the prerequisites are in the database and the `.sml` has been stripped from the markdown.
+The document being progressed then fails at `stop;`.
+Invoke ProofPower and call `use_file` on that script. Loading stops at `stop;`, and work continues from there.
+It is essential to re-load the script from the top to ensure that all definitions and previous proof steps are correctly established in the current session, after first deleting any previously saved version of the theory.
+
+### Interactive proof with pp-step
+
+An agent uses `pp-step` for the same kind of session. The program is [amcd005.py](amcd005.py), invoked as `python3 docs/admin/amcd005.py` from the checkout. One invocation submits one Standard ML phrase and returns the text printed up to the next prompt. The first invocation starts `pp` on that checkout's `spade.polydb`. Later invocations use the same process, so the open theory, SML bindings, and the goal stack remain. A phrase of more than one line is still one phrase. Pass it on standard input, or as one argument. The command does not split the text on semicolons.
+
+```sh
+python3 docs/admin/amcd005.py 'set_goal([], ⌜T⌝);'
+python3 docs/admin/amcd005.py 'a (rewrite_tac[]);
+'python3 docs/admin/amcd005.py 'val theorem_name = save_pop_thm "theorem_name";'
+python3 docs/admin/amcd005.py stop
+```
+
+`stop` ends the process and does not save the database. Do not submit `save`, `save_and_quit`, or `save_and_exit`. The script in the markdown is the record of the proof. `make` checks that script and, on success, saves the checkout database. Stop the session before `make`. One session holds the checkout. A second `pp-step` on the same root reports that the database is in use and does not start another `pp`.
+
+The session sets `PPCHARSET` to `utf8` when it is unset, and puts the checkout first on `PPDATABASEPATH`. The caller does not source `spade_env.sh`. Load a script with ProofPower's `use_file`. Poly/ML `use` rejects the Unicode quotations. Extract the fences, then load the script:
+
+```sh
+python3 common/extract_code.py sml < docs/tlcd004.md > /tmp/tlcd004.sml
+python3 docs/admin/amcd005.py 'use_file "/tmp/tlcd004.sml";'
+```
+
+Parents must already be in the process. A finished `make` of those documents leaves them in `spade.polydb`. In a fresh child they are absent, and the session loads them with `use_file` in dependency order. `new_SPaDE_theory` removes any previous version of the theory it creates, so loading a document again in the same session starts that theory over.
+
+A `stop;` left in a fence makes `use_file` fail at that phrase and leave the session there. That device works through `pp-step`. The usual way to extend a proof is to load the script, then submit the new phrases one at a time.
+
+A proof step is one phrase. `set_goal` opens the goal. Each `a (tactic);` is its own invocation, and the returned text is the goal stack after that tactic. When the stack is clear, `save_pop_thm` names the theorem. `pop_thm` and `save_cs_∃_thm` are used where the document already uses them. Copy the phrases that succeeded back into the `sml` fence. `new_conjecture` records a statement the document does not yet prove. It stays unproved until a saved theorem discharges it.
+
+Submit a complete phrase. An incomplete phrase returns at the continuation prompt, and the next invocation continues it. A phrase that raises an exception is reported in the returned text, and the session stays up. A phrase that has not reached a prompt within two minutes is abandoned and the session is stopped, so the unsaved state of that process is discarded. Once a phrase has been sent, do not send it again. Repeating it can repeat its effect.
+
+`--root DIR` selects the checkout. There is no `--database` option. The database is always `spade.polydb` in that root, a child of `$PPDIR/bld/db/rbjhol.polydb`. If the file is absent, the first call creates it and does not write `$PPDIR/bld/db/spade.polydb`. A theory saved only in some other database is not in a new child. The facility was specified in [amtd006.md](amtd006.md). The steps for a proof are in [ampd012.md](ampd012.md#developing-a-proof).
 
 ## Context for Writing ProofPower HOL Specifications
 
@@ -103,7 +156,7 @@ The alleged universality attaches not to the bare HOL logical system, but rather
 This is not the place to explain that concept, but its consequence for the SPaDE logical system is a preference for strong infinity principles, effectively large cardinal axioms.
 So the SPaDE variant of HOL will come with strong infinity axioms.
 
-## Documentation for ProofPower HOL
+## Links to Relevant Documentation
 
 It is likely that it will be advantageous to provide special extracts of the ProofPower documentation focussing on those aspects which are needed for the specification work required in SPaDE, but this has not yet been done and so a selection of the existing documents is cited here pro-tem.
 It may be that an early task will involve creating such extracts, which can then be referenced in subsequent tasks.

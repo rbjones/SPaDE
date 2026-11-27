@@ -90,4 +90,4 @@ Structure issues with: Task description, Context (files, ProofPower theories), R
 
 ## Current Limitations
 
-Autonomous agents work at arm's length: they cannot interactively debug ProofPower sessions. For that class of work, specify and explore in Grok Build, then hand a bounded task to Copilot via an issue, or run tests in the SPaDE container yourself.
+A scheduled Copilot run sees the batch log. Exploratory proof, where the goal stack has to survive from one tactic to the next, is done with `pp-step` as in [amms012.md](amms012.md#interactive-proof-with-pp-step). A bounded script that already loads can then be handed to Copilot as an issue, or checked in the SPaDE container.

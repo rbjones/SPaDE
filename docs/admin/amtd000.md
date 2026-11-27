@@ -78,5 +78,5 @@ This mainly concerns the documentation of tasks so that each agent is clear abou
 
 A large part of the early development work involves the development of specifications of SPaDE in ProofPower HOL.
 This includes preparing formal proofs, which are necessary in the introduction of some specifications, and important for validating their correctness and enabling their use in further specifications.
-For that, a means for agents to work interactively with ProofPower will be necessary, since proof development confined to batch processing would be inefficient.
+Agents develop those proofs with `pp-step`, as described in [amms012.md](amms012.md#interactive-proof-with-pp-step). Batch `make` checks the finished script. Proof development confined to that batch run would be inefficient.
 

@@ -14,6 +14,7 @@ The content consists of:
 - [Documentation for ProofPower HOL](amms012.md#documentation-for-proofpower-hol)
 - [ProofPower HOL in Markdown](#proofpower-hol-in-markdown)
 - [Document and Theory Naming Conventions](#document-and-theory-naming-conventions)
+- [Developing a proof](#developing-a-proof)
 
 ## Documentation for ProofPower HOL
 
@@ -103,3 +104,17 @@ A theory is opened with `new_SPaDE_theory`, defined in [tlcd002.md](../tlcd002.m
 The makefile in the document's directory records which document creates which theory. Each theory listing depends on the load of the document that creates that theory. The arrangement is the one in [retro/np/rbj.mkf](../../retro/np/rbj.mkf), where the listing of a theory depends on the `.ldd` of its document. A listing is produced for every theory. The use of the listings is not settled. The preference is to render each listing as a markdown document for the project web site.
 
 The author of the specification adds the document to that makefile, so that the document is loaded and its theory listings are produced.
+
+## Developing a proof
+
+To check that a document loads call `make build` in the appropriate directory (or more specifically the .ldd target on the filename) as described in [amms012.md](amms012.md#checking-specifications-and-proofs). `make` strips the `sml` fences, runs the script, and on success saves the spade ProofPower database.
+
+A proof is developed one sml commnd at a time (usually applying a tactic) using `pp-step` to submit the commands to ProofPower.
+Then the sml (not the output) is copied into the fenced part of the markdown document. In exceptional cases the full proof log may be included in the markdown script alternating `sml` fenced sml commands with blank fenced responses from ProofPower.
+Use of the `pp-step` facility is described in [amms012.md](amms012.md#interactive-proof-with-pp-step).
+
+1. Stop any `pp-step` session on this checkout. From `docs/`, `make` the `.ldd` targets this document depends on, so their theories are in `spade.polydb`. A root target that rebuilds `rbjhol` is not that step.
+2. Start from those theories with `pp-step`. Load this document with `use_file` on the extracted script, or submit phrases up to the goal.
+3. Submit `set_goal`, then one `a (tactic);` per invocation. Read the goal stack in the returned text.
+4. When the goal is achieved, save the theorem in the form the document uses (`save_pop_thm`, `pop_thm`, or `save_cs_∃_thm`).
+5. Write those phrases into the `sml` fence. `stop` the session. From `docs/`, `make` the document's `.ldd` target. The load is clean when the log has no error.
