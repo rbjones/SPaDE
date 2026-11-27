@@ -126,9 +126,9 @@ def main() -> None:
     other = Path(tempfile.mkdtemp(prefix="amte001-other-"))
     holder: subprocess.Popen[str] | None = None
     try:
-        first = run(root, "val n = 1;")
+        first = run(root, "val n = 1;\n\n")
         if "val n = 1: int" not in first.stdout:
-            fail(f"binding was not reported\n{first.stdout}")
+            fail(f"a trailing blank line dropped the binding\n{first.stdout}")
         second = run(root, "n + 1;")
         if "val it = 2: int" not in second.stdout:
             fail(f"n + 1 did not yield 2\n{second.stdout}")

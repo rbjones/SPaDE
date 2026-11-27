@@ -129,7 +129,7 @@ def write_frame(conn: socket.socket, payload: dict) -> None:
 
 
 def echo_end(buf: bytes, sent: bytes, markers: tuple[bytes, ...]) -> int | None:
-    """Index just after the echo of sent, skipping prompts printed between lines."""
+    """Index just after the echo of one sent line, skipping prompt markers."""
     index = 0
     limit = len(buf)
     for ch in sent:
@@ -270,14 +270,16 @@ class Session:
 
     def submit(self, text: str) -> str:
         assert self.master >= 0
-        self.buf.clear()
         if not text.endswith("\n"):
             text += "\n"
         lines = text.split("\n")[:-1]
         markers = (self.ready, self.cont, DEFAULT_READY, DEFAULT_CONT)
-        sent = b""
-        for index, line in enumerate(lines):
-            sent += write_phrase(self.master, line + "\n", self.buf, PHRASE_TIMEOUT)
+        # A printed value sits between one line's echo and the next line's
+        # echo. Match each line in its own buffer, then join them.
+        parts: list[bytes] = []
+        for line in lines:
+            self.buf.clear()
+            sent = write_phrase(self.master, line + "\n", self.buf, PHRASE_TIMEOUT)
             read_until_prompt(
                 self.master,
                 PHRASE_TIMEOUT,
@@ -287,11 +289,10 @@ class Session:
                 sent,
                 markers,
             )
-            # The continuation prompt is also printed before a later line is
-            # read. Send the rest before treating that prompt as completion.
-            if index + 1 < len(lines):
-                continue
-        return self.buf.decode("utf-8")
+            parts.append(bytes(self.buf))
+        transcript = b"".join(parts)
+        self.buf[:] = transcript
+        return transcript.decode("utf-8")
 
     def stop(self) -> None:
         proc = self.proc
