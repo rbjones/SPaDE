@@ -6,13 +6,13 @@
 # Some options
 PYRUNOPTIONS=-u
 # Python source files 
-PYCHECK = mcpcd001.py mcpcd002.py mcpte001.py
+PYCHECK = mcpcd001.py mcpcd002.py mcpcd005.py mcpte001.py mcpte003.py
 # Python scripts to be run in foreground
 PYRUN = 
 # Python mcp server scripts 
 PYSRV=mcpcd001.py
 # Python test scripts to be run
-PYTEST= mcpte001.py
+PYTEST= mcpte001.py mcpte003.py
 
 # Optional server settings for `make serve`; otherwise the server uses its
 # defaults or the SPADE_MCP_* environment variables.
@@ -21,6 +21,7 @@ MCP_HOST ?=
 MCP_PORT ?=
 MCP_MOUNT_PATH ?=
 MCP_SSE_PATH ?=
+MCP_SERVER ?= mcpcd001.py
 
 include ../common/rules.mkf
 
@@ -32,7 +33,7 @@ default: test
 check: $(PYCHECKCDD)
 
 serve:
-	@PYTHONPATH=.. $(PYTHON) -u mcpcd001.py \
+	@PYTHONPATH=.. $(PYTHON) -u $(MCP_SERVER) \
 		$(if $(MCP_TRANSPORT),--transport "$(MCP_TRANSPORT)") \
 		$(if $(MCP_HOST),--host "$(MCP_HOST)") \
 		$(if $(MCP_PORT),--port "$(MCP_PORT)") \
@@ -40,6 +41,8 @@ serve:
 		$(if $(MCP_SSE_PATH),--sse-path "$(MCP_SSE_PATH)")
 
 test: $(PYTESTTDD)
+
+mcpte003.tdd: mcpcd005.py ../kr/krcd014.py ../kr/krcd009.py
 
 clean:
 	rm -f *.?dd *.err

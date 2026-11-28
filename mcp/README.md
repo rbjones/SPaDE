@@ -18,6 +18,7 @@ The content of this directory falls under the following headings:
 - [mcpcd002.py](mcpcd002.py) - Minimal/Debug MCP server
 - [mcpcd003.sh](mcpcd003.sh) - Debug wrapper script for running the server
 - [mcpcd004.py](mcpcd004.py) - Abstract Base Class documentation for these MCP helpers
+- [mcpcd005.py](mcpcd005.py) - T-expression repository MCP server prototype
 
 ## Continuous Integration
 
@@ -28,3 +29,4 @@ The content of this directory falls under the following headings:
 - [mcpte001.py](mcpte001.py) - Integration tests for the MCP server
 
 - [mcpte002.md](mcpte002.md) - How to start the MCP server for Copilot and run a smoke test
+- [mcpte003.py](mcpte003.py) - Integration tests for the T-expression server
