@@ -128,7 +128,7 @@ class EncodingDecoding(EncodingDecodingABC):
                 current_seq.append(data[i])
             elif b == 0:
                 # Terminator
-                sequences.append(self.decode_bytes(current_seq))
+                sequences.append(self.decode_bytes(bytes(current_seq)))
                 current_seq = bytearray()
             else:
                 current_seq.append(b)

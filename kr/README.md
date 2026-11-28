@@ -60,6 +60,7 @@ This section includes documents that provide detailed formal specifications or c
 - [krcd011.sml](krcd011.sml) - SML structures implementing the Native Repository encoding/I/O/S-expression contracts
 - [krcd012.py](krcd012.py) - Python wrapper that delegates the Native Repository I/O ABCs to the SML implementation in krcd011.sml via a persistent ProofPower session
 - ~~[krcd013.py](krcd013.py)~~ - Python interface to an interactive theorem prover (obsolete; the session is `docs/admin/amcd005.py`)
+- [krcd014.py](krcd014.py) - Python T-expression layer using reference-based Native Repository storage
 
 ## Testing and Evaluation
 
@@ -71,13 +72,14 @@ This section includes documents that describe the testing and evaluation process
 - [krte004.sml](krte004.sml) - SML unit smoke tests for krcd011 Native Repository implementation
 - [krte005.py](krte005.py) - Integration tests for krcd011 Native Repository implementation
 - [krte006.sml](krte006.sml) - Extended SML tests covering krcd011 Native Repository I/O and S-expressions
+- [krte007.py](krte007.py) - Unit tests for the Python T-expression layer
 
 ## Task Descriptions
 
 This section includes task descriptions for implementing knowledge repository components.
 
 - [krtd000.md](krtd000.md) - Knowledge Representation Meta-Task-Description
--- [krtd001.md](krtd001.md) - Task Description for Python ABC for SPaDE Native Repository I/O
+- [krtd001.md](krtd001.md) - Task Description for Python ABC for SPaDE Native Repository I/O
 - [krtd002.md](krtd002.md) - Task Description for Code ad Test Low Level Native Repository I/O in SML.
 - [krtd003.md](krtd003.md) - Task Description for SML Signatures for SPaDE Native Repository I/O
 - [krtd004.md](krtd004.md) - Task Description: Python T-expression Layer for the Native Repository
