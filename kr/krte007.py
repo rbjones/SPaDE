@@ -3,6 +3,7 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from kr.krcd009 import EncodingDecoding, LowLevelIO
 from kr.krcd014 import TExpression, TExpressions
@@ -65,6 +66,20 @@ class TestTExpressions(unittest.TestCase):
         self.assertEqual(after, before + self.encoding.encode_bytes(amendment_record))
         self.io.open_existing_repository_read(self.path)
         self.assertEqual(self.trees.read_node(amendment), TExpression(b"amendment", [branch, leaf]))
+
+    def test_write_validates_shared_subtrees_once(self):
+        leaf = self.trees.write_node(b"leaf", [])
+        shared = self.trees.write_node(b"shared", [leaf])
+        first = self.trees.write_node(b"first", [shared])
+        second = self.trees.write_node(b"second", [shared])
+
+        with patch.object(self.trees, "_read_record", wraps=self.trees._read_record) as read_record:
+            parent = self.trees.write_node(b"parent", [first, second, first])
+
+        validated = [call.args[0] for call in read_record.call_args_list]
+        self.assertEqual(set(validated), {first, second, shared, leaf})
+        self.assertEqual(len(validated), len(set(validated)))
+        self.assertEqual(self.trees.read_node(parent).children, [first, second, first])
 
     def test_reference_encodings_cross_byte_boundary(self):
         nodes = [self.trees.write_node(str(i).encode(), []) for i in range(256)]

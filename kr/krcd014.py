@@ -33,8 +33,10 @@ class TExpressions:
 
         child_bytes = []
         for child in children:
-            self.read_node(child)
+            if type(child) is not int or child <= 0:
+                raise ValueError("Node sequence number must be a positive integer")
             child_bytes.append(self.encoding.encode_integer(child))
+        self._validate_nodes(children)
 
         payload = self.encoding.encode_sequence_list([label] + child_bytes)
         existing = self.io.get_sequence_number(payload)
@@ -48,14 +50,17 @@ class TExpressions:
         if type(seq_num) is not int or seq_num <= 0:
             raise ValueError("Node sequence number must be a positive integer")
         node = self._read_record(seq_num)
-        pending = list(node.children)
+        self._validate_nodes(node.children)
+        return node
+
+    def _validate_nodes(self, roots: List[int]) -> None:
+        pending = list(roots)
         seen = set()
         while pending:
-            child = pending.pop()
-            if child not in seen:
-                seen.add(child)
-                pending.extend(self._read_record(child).children)
-        return node
+            seq_num = pending.pop()
+            if seq_num not in seen:
+                seen.add(seq_num)
+                pending.extend(self._read_record(seq_num).children)
 
     def _read_record(self, seq_num: int) -> TExpression:
         try:
